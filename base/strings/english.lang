@@ -1,0 +1,15 @@
+{
+  "#str_04343"		"Loading.."
+  "#str_04344"		"Event Initialization.."
+  "#str_04345"		"Executing Startup Commands.."
+  "#str_04346"		"Sound Initialization.."
+  "#str_04347"		"Network Initialization.."
+  "#str_04348"		"Render System Initialization.." 
+  "#str_04349"		"User Interface Initialization.."
+  "#str_04350"		"Loading Game.."
+  "#str_04351"		"Menu Initialization.."
+  
+  "#str_07186"		"Unknown"
+   // FIXME: the next string should be changed according to game, I guess
+  "#str_07212"		"dhewm3"
+}

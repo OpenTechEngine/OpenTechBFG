@@ -1,0 +1,643 @@
+// recreated (in a clean-room way) definitions of the func_* entities of Doom3 and RoE
+// (C) 2012 Daniel Gibson and Yamagi Burmeister, licensed under WTFPL v2
+
+entityDef func_group {
+	"editor_usage"	"Groups brushes, for convenience. They are converted to normal brushes when compiling the map"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+	"editor_color"	"0 0 0"
+}
+
+
+entityDef func_activator {
+	"spawnclass"	"idActivator"
+	"editor_usage"	"Invisible entity that activates triggers when touching them."
+	"editor_usage1"	"If it's bound to a 'mover', the mover activates triggers on its way."
+	"editor_usage2"	"When targeted by a trigger, the 'activator' becomes active/inactive."
+	"editor_usage3"	"After touching the first trigger, the activator disables itself (this can be changed with the stay_on flag)"
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+	"editor_color"	"0 0.5 0.8"	
+
+	"editor_bool start_off"	"if set, Activator is inactive at spawn"
+	"editor_bool stay_on"	"if set, Activator isn't disable after touching first trigger"
+
+	"start_off"	"0"
+	"stay_on"	"0"
+}
+
+entityDef func_animate {
+	"spawnclass"	"idAnimated"
+	"editor_usage"	"object that changes animation when triggered"
+
+	"editor_maxs"	"16 16 32"
+	"editor_mins"	"-16 -16 0"
+	"editor_color"	"1 0.5 0.3"
+
+	"editor_var start_anim"	"animation that is played after spawn. repeated until this entity is triggered"
+	"editor_int num_anims"	"number of animations to play. when the entity is triggered, the next animation is played. use 'anim1', 'anim2', ... to define multiple animations. after last animation the targets are triggered"
+	"editor_var anim"	"name of animation to play. use 'anim1', 'anim2', .. if 'num_anims' > 0"
+	"editor_bool auto_advance"	"if 'num_anims' is set, the next animation is played without further triggering"
+
+	"editor_int blend_in"	"how long (in ms) to blend from 'start_anim' to triggered 'anim'"
+	"editor_int cycle"	"how often an animation is played after being triggered. -1 means forever"
+	"editor_bool hide"	"if set, entity is invisible until triggered. doesn't work if 'start_anim' is set."
+	"editor_var loop_last_anim"	"if 'num_anims' is set, the last animation is repeated. next trigger will make it invisible"
+	"editor_bool remove"	"if set, entity is removed after 'anim'"
+	"editor_var sound_bone"		"bone to emit sounds"
+	"editor_var target"		"entities with this name will be triggered after 'anim'. you can provide multiple targets with 'target1', 'target2', ..."
+	"editor_float wait"	"how long (in sec) to wait until the animation is triggered automatically. -1 waits until triggered"
+
+	"blend_in"	"0"
+	"cycle"		"1"
+	"pose_frame"	"1"
+	"sound_bone"	"origin"
+	"wait"	"-1"
+}
+
+entityDef func_bobbing {
+	"spawnclass"	"idBobber"
+	"editor_usage"	"generic bobbing (moving up and down) entity, bobbing on Z axis by default"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+	"editor_color"	"0 0.5 0.8"
+
+	// FIXME: does func_bobbing really support sounds? c++ code suggests otherwise..
+	"editor_snd snd_close"	"sound on close"
+	"editor_snd snd_open"	"sound on open"
+	"editor_snd snd_opened"	"wtf"
+
+	"editor_float height"	"height of bob"
+	"editor_float speed"	"duration of a sound (in seconds)"
+	"editor_float phase"	"starting position in bobbing cycle, between 0.0 and 1.0"
+	"editor_float damage"	"amount of damage for entities blocking the bobber"
+
+	"editor_bool x_axis"	"if set, bob on X-axis"
+	"editor_bool y_axis"	"if set, bob on Y-axis"
+	
+	"damage"	"2"
+	"height"	"32.0"
+	"phase"	"0.0"
+
+	"speed"	"4.0"
+	"x_axis"	"0"
+	"y_axis"	"0"
+}
+
+entityDef func_cameraTarget {
+	"spawnclass"	"idMover"
+	"inherit"	"func_mover"
+	"editor_usage"	"controls camera movements"
+	// FIXME: better usage description
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+	"editor_color"	"0 0.5 0.8"
+}
+
+entityDef func_cameraview {
+	"spawnclass"	"idCameraView"
+	"editor_usage"	"Simple camera view. " // TODO: wendet eine Kreismatrix, einen Angel und einen Target am 'target_null' an. (Hä?)
+
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+	"editor_color"	"0 0.5 0.8"
+	"editor_rotatable"	"1"
+	"editor_showangle"	"1"
+
+	"editor_bool ignore_enemies"	"if set, all monsters with an enemy that are not set to 'cinematic' will be ignored (not shown)"
+	"editor_var cameraTarget"	"target entity which's view will be rendered. if not set this entity's position will be used"
+	"editor_float fov"	"field of view, by default 90°"
+	"editor_bool trigger"	"if set, triggering this func_cameraview sets the view to the cameratarget, triggering it again resets the view to normal"
+}
+
+entityDef func_camera_anim {
+	"spawnclass"	"idCameraAnim"
+	"editor_usage"	"animation-controlled camera"
+	"editor_maxs"	"16 16 32"
+	"editor_mins"	"-16 -16 0"
+	"editor_color"	"0 .5 .8"
+
+	"editor_bool ignore_enemies"	"if not set and camera is active, all active monsters that are not marked as 'cinematic' are removed"
+	"editor_float fov"	"camera's FOV"
+	"editor_model model"	"the model"
+
+	"editor_var joint"	"joint the camera is attached to"
+	"editor_int cycle"	"How often the animation is played before targets are triggered (-1 for endlessly)"
+
+	"fov"	"90"
+}
+
+entityDef func_clipmodel {
+	"spawnfunc"	"func_clipmodel" // from scripts/doom_util.script
+	"editor_usage"	"holds a clip model, that can be used by other entities"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+	"editor_color"	"0 0.5 0.8"
+
+}
+
+entityDef func_damage {
+	"spawnclass"	"idTarget_Damage"
+	"editor_usage"	"inflicts damage to targeted entities, when triggered"
+
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+	"editor_color"	"0 0.5 0.8"
+
+	"editor_var def_damage"		"damage def (see damages.def) to be used"
+	"editor_var target"	"Entity to damage when this entity is triggered. Can damage multiple entities with target1, target2, .."
+
+	"def_damage"	"damage_generic"
+} 
+
+entityDef func_damagable {
+	"spawnclass"	"idDamagable"
+	"editor_usage"	"Destroyale object that triggers targets and changes its 'shaderparm' and model when damagesd."
+	"editor_usage1"	"When damaged, 'shaderparm 3' is set to current time and 'shaderparm 7' is set to a random value between 1 and 'numstates';"
+	"editor_usage2"	"but if 'forcestate' is set, that state will be used instead."
+	"editor_usage3"	"Use common/collision texture to make this invisible, but make sure to remove it with func_remove when it's blocking a passage"
+
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+	"editor_color"	"0 0.5 0.8"
+
+	"editor_int numstates"	"Mumber of shader states. 'shaderparam 7' will be set to a value between 1 and 'numstates'."
+	"editor_bool cycle" 	"If set, cycle through shaders when damaged. When 'numstates' is reached it's reset to 0."
+	"editor_model broken"	"If set, switch to this model when destroyed"
+
+	"editor_int count"	"How often entity may be triggered; -1 means unlimited"
+	"editor_float forcestate"	"If not 0, this shaderstate is enforced when damaged"
+	"editor_int health" 	"How much damage to take until this entity is destroyed"
+	
+	"editor_var target"	"Entity to trigger when this entity is damaged. Can trigger multiple entities with target1, target2, .."
+	"editor_float wait"	"seconds between triggering"
+
+	"count"	"1"
+	"cycle"	"0"
+	"forcestate"	"0"
+	"health"	"5"
+	"numstates"	"1"
+	"wait"	"0.1"
+}
+
+entityDef func_door {
+	"spawnclass"	"idDoor"
+	"editor_usage"	"a normal door"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+	"editor_color"	"0 0.5 0.8"
+	"editor_mover"	"1"
+
+	"editor_bool crusher"	"If blocked, the door does not open again (like modern elevator doors) but crushes whatever is in between (like in an old subway waggon)"
+	"editor_bool gui_noninteractive" "If set, attached GUIs won't be interactive"
+	"editor_bool no_touch"	"The door will not open, if the player touches it (or shoots it in MP). It only opens when triggered."
+	"editor_int locked"	"Used with 'no_touch'. If set to 1, after triggering this door, it will behave like a dor with 'no_touch' *not* set (i.e. opens on touch). If set to 2, triggering the door the first time unlocks it, and afterwards it needs to be triggered again to open it."
+	"editor_bool start_open"	"The door is open after spawn and is closed when triggered, i.e. it's behavior is inversed. NOTE: only makes sense for doors that do not open on touch or when shot (i.e. with 'health' set)"
+	"editor_bool toggle"	"If set, the door only opens/closes when triggered"
+	"editor_float wait"	"Time to wait (in seconds) before door clothes again. -1 means 'never close'"
+
+	"editor_snd snd_locked"	"sound when player tries to open locked door"
+	"editor_snd snd_open"	"sound on open"
+	"editor_snd snd_close"	"sound on close"
+	"editor_snd snd_opened"	"sound looped while open"
+
+	"editor_float movedir"	"In which direction to open (move): -1 up, -2 down, other values are treated as angles in degrees on XY-plane"
+	"editor_float angle"	"If movedir *is* set: Rotates the door on spawn by given value (in degrees) on XY-plane; else behaves like movedir."
+	"editor_var buddy"		"name of a 'buddy-entity'. Its shaderparm 7 (SHADERPARM_MODE) will be set to 1 when door is unlocked. Can be used to change shaders when door is unlocked"
+	"editor_float damage"	"damage inflicted on entities blocking the door"
+	"editor_int health"		"door is opened if this amount of damage is inflicted (e.g. by shooting it)"
+	"editor_float lip"		"lip remaining when opened"
+
+	"editor_float speed"	"speed of movement"
+	"editor_float time"		"How long opening/closing door should take (in seconds). Overwrites 'speed'. Helpful for doors consisting of multiple pieces of different size, that should be synchronized anyway."
+	"editor_float triggersize"	"Size of the automatically created trigger to open the door on touch"
+
+	"editor_var triggerBlocked"	"Name of entity that will be triggered when door is blocked. Multiple entities can be triggered with 'triggerBlocked1', 'triggerBlocked2', ..."
+	"editor_var triggerClosed"	"Name of entity that will be triggered when door is closed. Multiple entities can be triggered with 'triggerClosed1', 'triggerClosed2', ..."
+	"editor_var triggerOpened"	"Name of entity that will be triggered when door is opened. Multiple entities can be triggered with 'triggerOpened1', 'triggerOpened2', ..."
+
+	"angle"	"0"
+	"crusher"	"0"
+	"damage"	"2"
+	"health"	"0"
+	"lip"	"8"
+	"no_touch"	"0"
+	"snd_close"	"default_door_close"
+	"snd_open"	"default_door_open"
+	"snd_opened"	""
+	"snd_locked"	"default_door_locked"
+	"snd_unlocked"	"default_door_unlocked" 
+	"speed"	"100"
+	"start_open"	"0"
+	"triggersize"	"60"
+	"wait"	"3"
+}
+
+entityDef func_elevator {
+	"spawnclass"	"idElevator"
+	"editor_usage"	"An elevator that moves to configured floors and opens doors based on floors."
+	"editor_usage1"	"Can be controoled with the default elevator GUI."
+	"editor_usage2"	"counting floors starts at 1. Use floorPos_2, floorDoor_2 for second floor etc"
+
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+	"editor_color"	"0 0.5 0.8"
+
+	// TODO: triggerFloor and trigger?
+
+	"editor_float accel_time"	"acceleration time (seconds)"
+	"editor_float decel_time"	"deceleration time (seconds)"
+	"editor_int floor"		"floor number the elevator is at after spawn (counting starts with 1)"
+	"editor_var floorPos_1" 	"origin (position) of 1. floor, e.g. '0 0 0'. Use floorPos_2, floorPos_3, ... for further floors"
+	"editor_var floorDoor_1"	"name of outer doors in first floor. Use floorDoor_2, floorDoor_3, ... for further floors"
+	"editor_var innerdoor"	"name of inner doors, will move with the elevator"
+	"editor_float move_speed"	"Elevator's speed in units/second. Use EITHER this OR move_time"
+	"editor_float move_time"	"Time (in seconds) to move from one floor to the next. Use EITHER this OR move_speed"
+	"editor_int pauseOnFloor"	"in this floor the elevator stops and pauses before opening the doors"
+	"editor_float pauseTime"	"duration of stop (in seconds) if pauseOnFloor is set"
+	"editor_snd snd_accel"	"sound when elevator movement starts"
+	"editor_snd snd_decel"	"sound when elevator movement stops"
+	"editor_snd snd_move"	"sound while moving"
+	"editor_var statusgui"	"GUI entity to show floor infos. Its state-string 'floor' will be set to the current floor (e.g. '1') or '' while moving. Use statusgui2, statusgui3, .. to trigger multiple guis at once"
+
+	"snd_accel"	"sound/ed/elevator/elev_start.wav"
+	"snd_decel"	"sound/ed/elevator/elev_end.wav"
+	"snd_move"	"elevator_moving_loop"
+}
+
+entityDef func_emitter {
+	"spawnclass"	"idFuncEmitter"
+	"inherit"	"func_static"
+	"editor_usage"	"Like func_static, this entity just sits there and does nothing, but this one has a fixed size and can be arbitrarily rotated thanks to editor_rotatable"
+	"editor_usage1"	"Can be used to justify particles. This entity can be triggered to show/hide it"
+
+	"editor_maxs"	"12 12 12"
+	"editor_mins"	"-12 -12 -12"
+	"editor_color"	"0 0.5 0.8"
+	"editor_rotatable"	"1"
+
+	"editor_var cycleTrigger"	"if set, particle won't be hidden when triggered, but it's sequence is restarted"
+	"editor_var start_off"	"if set, particle is hidden on spawn"
+
+	"solid" 	"0"
+	"noclipmodel"	"1"
+
+}
+
+entityDef func_explosion {
+	"spawnclass"	"idExplodable"
+	"editor_usage"	"invisible object that goes boom when triggered"
+
+	"editor_maxs"	"16 16 16"
+	"editor_mins"	"-16 -16 -16"
+	"editor_color"	"0 0.5 0.3"
+
+	"editor_snd snd_explode"	"sound of explosion, silence if not set/empty"
+	
+	"editor_var def_damage"		"name of 'damage def' to be used"
+	"editor_var model"		"particle effect to be used for explosion"
+
+	"def_damage"	"damage_explosion"
+	"model"		"grenadeExplosion.prt"
+	"snd_explode"	"rocket_impact"
+
+}
+
+entityDef func_forcefield {
+	"spawnclass"	"idForceField"
+	"editor_usage"	"a force field."
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+	"editor_color"	"1 0.5 0.3"
+
+	"editor_bool applyForce"	"if set, apply a force"
+	"editor_bool applyImpulse"	"if set, apply impulse"
+	"editor_bool applyVelocity" "if set, apply velocity"
+	"editor_bool monsterOnly"	"forcefield only exists for monsters"
+	"editor_bool playerOnly"	"forcefield only exists for players"
+	"editor_bool start_on"	"usually a forcefield is turned off after spawn. if set, it's turned on after spawn"
+
+	"editor_float explosion"	"intensity of explosive force. if set, the field has a repellent force from its origin"
+	"editor_float implosion"	"intensity of implosive force. if set, the field has a force pulling to its origin"
+	"editor_float randomTorque"	"intensity of random torque that is added to entities touching the forcefield"
+	// TODO: on first look it seems like multiple targets are allowed?
+	"editor_var  target"	"Target entity. If set, the forcefield is distributed (FIXME: ??) evenly in the direction of the target, the intensity of the force is equal to the distance to the target"
+	"editor_var uniform"	"3D force vector (x, y, z). If set, the force field is uniform, the force equals the vectors length"
+	"editor_float  wait"	"If set, the forcefield returns to its former state after this many seconds"
+
+	"randomTorque"	"0"
+	"start_on"	"0"
+}
+
+entityDef func_fx {
+	"spawnclass"	"idEntityFx"
+	"editor_usage"	"spawns a special effect (.fx) when triggered"
+
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+	"editor_color"	"0 0.5 0.8"
+
+	"editor_rotatable"	"1"
+	"editor_showangle"	"1"
+
+	"editor_var fx"		".fx to be spawned"
+	"editor_float restart"	"how often should the entity trigger itself? useful for fx/sparks.fx"
+	"editor_bool triggered"	"start effect when triggered"
+	"editor_bool start"	"start effect on spawn"
+}
+
+entityDef func_itemremove {
+	"spawnclass"	"idItemRemover"
+	"editor_usage"	"deletes an item from the players inventory"
+
+	"editor_maxs"	"4 4 4"
+	"editor_mins"	"-4 -4 -4"
+	"editor_color"	"0 0.5 0.8"
+
+	"editor_var remove"		"name of item that should be removed, e.g. 'objective' or 'key_red'"
+} 
+
+entityDef func_mover {
+	"spawnclass"	"idMover"
+	"editor_usage"	"Movers are objects that can be controlled with scripts"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+	"editor_color"	"0 0.5 0.8"
+
+	"editor_snd snd_accel"	"sound-shader to play on acceleration. Played on channel SND_CHANNEL_BODY2"
+	"editor_snd snd_move"	"sound-shader to play when movement starts. Played on channel SND_CHANNEL_BODY"
+	"editor_snd snd_decel"	"sound-shader to play on deceleration. Played on channel SND_CHANNEL_BODY2"
+
+	"editor_float accel_time"	"time (in sec, as float) until full acceleration"
+	"editor_float decel_time"	"time (in sec, as float) deceleration until full stop"
+	"editor_float damage"	"amount of damage for entities blocking the mover"
+
+	"editor_var guiTarget"	"GUIs associated with this entity"
+	// FIXME: editor_gui?
+	"editor_int health"	"if not 0, amount of damage before targets are triggered"
+	"editor_float move_speed"	"Speed in units/sec. Mutually exclusive with 'move_time'"
+	"editor_float move_time"	"Duration (in sec) of moving sequence. Mutually exclusive with 'move_speed'"
+	"editor_bool nopush"	"If set (not 0) blocking objects are not pushed"
+	"editor_bool solidForTeam"	"if set, the entity is solid for entities it is bound to or that are bound to it"
+	"editor_bool solid"	"if set, the entity is solid for other entities, otherwise it isn't"
+}
+
+entityDef func_mover_amodel {
+	"inherit"	"func_mover"
+	"editor_usage"	"A func_mover with a model (?! seems no different to func_mover at all..)"
+	"editor_mins"	"?"
+	"editor_maxs"	"?"
+}
+
+entityDef func_pendulum {
+	"spawnclass"	"idPendulum"
+	"editor_usage"	"If the model doesn't rotate, pendulums just swing back and forth. By specifying an 'angel' a rotation to another direction can be achieved."
+	"editor_usage1"	"The pendulums speed will be calculated based on the strides length and the gravity"
+	// FIXME: where does stride come from?
+
+	"editor_mins"	"?"
+	"editor_maxs"	"?"	
+	"editor_color"	"0 0.5 0.8"
+	
+
+	// FIXME: does func_pendulum really support sounds? c++ code suggests otherwise..
+	"editor_snd snd_close"	"sound on close"
+	"editor_snd snd_open"	"sound on open"
+	"editor_snd snd_opened"	"wtf"
+
+	"editor_float damage"	"amount of damage for entities blocking the pendulum"	
+	"editor_float freq"	"if set, frequency of pendulum (otherwise it's calculated by physics engine)"
+	"editor_bool nopush"	"If set blocking objects are not pushed"
+	"editor_float phase"	"starting position in oscillating cycle, between 0.0 and 1.0"
+	"editor_var speed"	"how much the pendulum oscillates, in degrees"
+
+
+	"damage"	"2"
+	"phase"	"0"
+	"nopush"	"0"
+
+	"speed"	"30"
+}
+
+entityDef func_plat {
+	"spawnclass"	"idPlat"
+	"editor_usage"	"platform like in Quake"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+	"editor_color"	"0 0.5 0.8"
+	// FIXME: wtf does this mean and should it be applied to other movers as well?
+	"editor_mover"	"1"
+
+	"editor_snd snd_open"	"sound on open"
+	"editor_snd snd_opened"	"sound when opened?"
+	"editor_snd snd_close"	"sound on close"
+
+	"editor_bool no_touch"	"If set, the platform isn't activated from a player touching it, but only from triggers"	
+	"editor_var lip"	"overlap above rest position"
+	"editor_var height"	"Maximal height of movement. By default, it's the models height."
+	"editor_var speed"	"platform's speed"
+	"editor_var damage"	"damage dealt to entities blocking the platform"
+
+	"no_touch"	"0"
+	"lip"	"8"
+	"speed"	"200"
+	"damage"	"2"
+}
+
+entityDef func_remove {
+	"spawnclass"	"idTarget_Remove"
+	"editor_usage"	"removes all targeted entities, when triggered"
+	
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+	"editor_color"	"0 0.5 0.8"
+	
+	"editor_var target"		"entity with this name will be removed. use 'target1', 'target2', ... to delete multiple entities"
+}
+
+entityDef func_rotating {
+	"spawnclass"	"idRotater"
+	"editor_usage"	"Generic rotating entity, rotates around Z-axis by default. Targeting it toggles rotation (starts/stops it)"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+	"editor_color"	"0 0.5 0.8"
+
+	"editor_float damage"	"amount of damage for entities blocking the rotater"
+	"editor_float speed"	"rotation speed"	
+	"editor_bool start_on"	"if set, rotates after being spawned, else it must be targeted first"
+	"editor_bool x_axis"	"if set rotates around X-axis"
+	"editor_bool y_axis"	"if set rotates around Y-axis"
+
+	"damage"	"2"
+	"speed"	"100"
+	"start_on"	"1"
+	"x_axis"	"0"
+	"y_axis"	"0"
+}
+
+entityDef func_securitycamera {
+	"spawnclass"	"idSecurityCamera"
+
+	"editor_usage"		"Security Camera"
+	"editor_usage1"		"The camera should be adjustet to the starting position."
+	"editor_usage2"		"From there it will rotate by sweepAngel degrees and back"
+	"editor_usage3"		"see doom3's duffy/examples/securitycam.map for an example"
+
+	"editor_maxs"	"4 4 4"
+	"editor_mins"	"-4 -4 -4"
+	"editor_color"	"1 0.5 0.3"
+	"editor_rotatable"	"1"
+	"editor_showangle"	"1"
+
+	"editor_bool flipAxis"	"if set, the model axis are flipped"
+	"editor_int health"		"cameras health"
+	"editor_int modelAxis"	"0, 1, 2 depending on the direction the source model is built in"
+	"editor_float scanFov"	"field of view"
+	"editor_float scanDist"	"camera's view distance"
+	"editor_float sweepAngle"	"how far the camera sweeps"
+	"editor_float sweepSpeed"	"speed of a sweep"
+	"editor_float sweepWait"	"time to wait (in sec) after a sweep, before sweeping back"
+	"editor_float sightResume"	"time to wait (in sec) before resuming to scan after seing the player without activating"
+	"editor_float sightTime"	"amount of seconds until player is recognized"
+	"editor_float wait"		"time to wait (in sec) until alarm is revoked"
+
+	"editor_snd snd_activate"	"sound when camera enters alarm mode"
+	"editor_snd snd_moving"		"sound while moving"
+	"editor_snd snd_sight"	"sound when it sights the player"
+	"editor_snd snd_stop"	"when camera stops before sweeping back"
+
+	"snd_activate"	"security_camera_activate"
+	"snd_moving"	"security_camera_moving"
+	"snd_sight"	"security_camera_sight"
+	"snd_stop"	"security_camera_end"
+	"health"	"100"
+	"scanDist"	"200"
+	"scanFov"	"90"
+	"sightResume"	"1.5"
+	"sightTime"	"5"
+	"sweepAngle"	"90"
+	"sweepSpeed"	"5"
+	"sweepWait"	"0.5"
+	"wait"	"20"
+}
+
+entityDef func_shaking {
+	"spawnclass"	"idShaking"
+	"editor_usage"	"Shaking object. Starts shaking on spawn (unless start_off is set)"
+	"editor_maxs"	"12 12 12"
+	"editor_mins"	"-12 -12 -12"
+	"editor_color"	"0 0.5 0.8"
+
+	"editor_float period"	"The shake's period in secoonds"
+	"editor_var shake"	"angles of shake (pitch, yaw, roll)"
+	"editor_bool start_off"	"if set, it doesn't shake on spawn but starts when triggered"
+
+	"period"	"0.05"
+	"shake"	"0.5 0.5 0.5"
+}
+
+entityDef func_smoke {
+	"spawnclass"	"idFuncSmoke"
+	"editor_usage"	"Creates smoke with a 'smoke system'. Can be triggered to switch on/off"
+	"editor_usage1"	"If bound to an animation's bone, smoke will be emitted like from actors"
+
+	"editor_maxs"	"12 12 12"
+	"editor_mins"	"-12 -12 -12"
+	"editor_color"	"0 0.5 0.8"
+	"editor_rotatable"	"1"
+
+
+	"editor_var smoke"	"name of 'smoke system' to be used"
+	"editor_bool start_off"	"if set, the 'smoke system' is invisble on start"
+	
+	"noclipmodel"	"1"
+	"solid"	"0"
+}
+
+entityDef func_splinemover {
+	"spawnclass"	"idSplinePath"
+	"editor_usage"	"saves a 'spline' path"
+	// FIXME: wtf? for what? how?
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+	"editor_color"	"0 0.5 0.8"
+}
+
+entityDef func_spring {
+	"spawnclass"	"idSpring"
+	"editor_usage"	"A 'spring' to connect two entities. Buggy in vanilla doom3" 
+	// FIXME: fix this in dhewm3, see https://github.com/dhewm/dhewm3/issues/31
+
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+	"editor_color"	"1 0.5 0.3"
+
+	// descriptions mostly from "S@TaNiC" at http://www.doom3world.org/phpbb2/viewtopic.php?p=134673#p134673
+	"editor_var ent1"	"name of first entity to be connected, if not set the 'world' entity is used (I think; not sure about the last part)"
+	"editor_var ent2"	"name of second entity to be connected, if not set the 'world' entity is used (I think; not sure about the last part)"
+	"editor_float restlength"	"Length of the spring when at rest (not stretched/compressed)"
+	"editor_float damping"	"Damping simulates energy loss, and it is used to make sure that springs do not oscillate forever but come to rest over time."
+	"editor_float constant"	"Tightness of the spring. Bigger values will cause the spring to stretch less, smaller values will cause it to stretch further."
+
+	"editor_int id1"	"first physics object's (ent1) clip model id"
+	"editor_int id2"	"second physics object's (ent2) clip model id"
+	"editor_var point1"	"position on first clip model (id1)"
+	"editor_var point2"	"position on secpmd clip model (id2)"
+
+	"point1"	"0 0 0"
+	"point2"	"0 0 0"
+	"constant"	"100.0f"
+	"damping"	"10.0f"
+	"restlength"	"0.0f"
+	"id1"	"0"
+	"id2"	"0"
+} 
+
+entityDef func_static {
+	"spawnclass"	"idStaticEntity"
+	"editor_usage"	"A brush that is just there and does nothing. Used for walls and models that can be made (in)visible."
+	"editor_usage1"	"Toggles between visible and invisible when triggered. It's not solid while invisible."
+
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+	"editor_color"	"0 0.5 0.8"
+
+	"editor_bool hide"			"If set, the entity is invisble on spawn. *Must* be set to make the object's visibility switchable."
+	"editor_bool inline"		"If set, the model will be integrated with the level geometry by dmap."
+	"editor_bool noclipmodel"	"If set, no ASE/LWO collision model will created (saves memory)"
+	"editor_bool solid"			"If set, the object is solid"
+	"editor_gui gui"			"GUI attached to entity. Multiple GUIs can be connected with gui1, gui2, ..."
+	"editor_gui gui_demonic"	"'demonic GUI' attached to this entity. gui_demonic1, guidemonic2, .. also work" // FIXME: wtf does that mean?
+	"editor_bool gui_noninteractive"	"attached GUIs will be marked as noninteractive"
+	"editor_bool runGui"	"if set, does something expensive, so use very rarely. seems to update the guis each frame or something like that"
+	// FIXME: what does runGUI really do?
+
+	"noclipmodel"	"0"
+	"solid"	"1"
+}
+
+entityDef func_teleporter {
+	"spawnclass"	"idTeleporter"
+	"inherit"	"func_fx"
+	"editor_usage"	"teleports the player to the location of func_teleporter and given angle"
+	"editor_usage1" "Note: needs to be triggered, the player will then be beamed from trigger to the func_teleporter"
+
+	"editor_maxs"	"16 16 16"
+	"editor_mins"	"-16 -16 -16"
+	"editor_color"	"1 0.5 0.3"
+
+	"editor_var angle"	"direction the player looks at after respawn"
+	"editor_var wipe"	"'wipe' sound while teleportation"
+
+}
+
+entityDef func_waitforbutton {
+	"spawnclass"	"idTarget_WaitForButton"
+	"editor_usage"	"when activated, waits until player presses button, triggers target afterwards. switches on/off when triggered"
+
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+	"editor_color"	"0 0.5 0.8"
+
+	"editor_var target"	"entity to trigger. use 'target1', 'target2', ... to trigger multiple entities"
+}

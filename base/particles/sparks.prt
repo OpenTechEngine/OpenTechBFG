@@ -1,0 +1,52 @@
+particle SC_sparks { 
+	{
+		count 				160
+		material 			textures/sfx/spark
+		time 				5.000
+		cycles 				0.000
+		timeOffset 			0.000
+		bunching 			1.000
+		distribution 		cylinder 400.000 400.000 400.000 0.000
+		direction 			cone 90.000
+		orientation 		view
+		speed 				"15.000" to "5.000"
+		size 				"5.000" to "2.000"
+		aspect 				"1.000"
+		rotation 			"0.000"
+		randomDistribution 	1
+		boundsExpansion 	0.000
+		fadeIn 				0.100
+		fadeOut 			0.250
+		fadeIndex 			0.000
+		color 				1.000 1.000 1.000 1.000
+		fadeColor 			0.000 0.000 0.000 0.000
+		offset 				0.000 0.000 0.000
+		gravity 			-18.000
+	}
+}
+particle FW_sparks { 
+	{
+		count 				32
+		material 			textures/sfx/spark
+		time 				2.000
+		cycles 				0.000
+		timeOffset 			0.000
+		bunching 			1.000
+		distribution 		cylinder 20.000 20.000 20.000 0.000
+		direction 			outward 90.000
+		orientation 		aimed 0.000 0.600
+		speed 				"3.000" to "0.500"
+		size 				"30.000" to "5.000"
+		aspect 				"1.000"
+		rotation 			"0.000"
+		randomDistribution 	1
+		boundsExpansion 	0.000
+		fadeIn 				0.100
+		fadeOut 			0.250
+		fadeIndex 			0.000
+		color 				1.000 1.000 1.000 1.000
+		fadeColor 			0.000 0.000 0.000 0.000
+		offset 				0.000 0.000 0.000
+		gravity 			1.000
+	}
+}

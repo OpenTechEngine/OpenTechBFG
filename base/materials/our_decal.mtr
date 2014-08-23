@@ -1,0 +1,55 @@
+// just to get rid of errors rising up
+
+genericDamage
+{
+        noshadows
+        translucent
+        {
+         blend gl_dst_color,gl_zero
+                //blend  blend
+                map    textures/decals/genericdamage.tga
+                colored
+        }
+
+}
+
+
+player
+{
+        noshadows
+        translucent
+        {
+         blend gl_dst_color,gl_zero
+                //blend  blend
+                map    textures/decals/genericdamage.tga
+                colored
+        }
+
+}
+
+splashscreen
+{
+        noshadows
+        translucent
+        {
+         blend gl_dst_color,gl_zero
+                //blend  blend
+                map    textures/decals/genericdamage.tga
+                colored
+        }
+
+}
+
+console
+{
+        noshadows
+        translucent
+        {
+         blend gl_dst_color,gl_zero
+                //blend  blend
+                map    textures/decals/genericdamage.tga
+                colored
+        }
+
+}
+

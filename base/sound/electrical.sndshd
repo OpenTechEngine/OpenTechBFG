@@ -1,0 +1,9 @@
+electrical_sparks {
+	minDistance	1
+	maxDistance	10
+	volume		-6
+
+	sound/electrical_sparks/spark_01.wav
+	sound/electrical_sparks/spark_02.wav
+}
+

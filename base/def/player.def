@@ -1,0 +1,33 @@
+entityDef info_player_start {
+  "editor_color"     "1 0 0"
+  "editor_mins"      "-16 -16 0"
+  "editor_maxs"      "16 16 64"
+  "editor_showangle" "1"
+  "spawnclass"       "idPlayerStart"
+}
+
+entityDef info_player_deathmatch {
+  "editor_color"     "1 0 0"
+  "editor_mins"      "-16 -16 0"
+  "editor_maxs"      "16 16 64"
+  "editor_showangle" "1"
+  "spawnclass"       "idPlayerStart"
+}
+
+entityDef player_doommarine {
+   "spawnclass"   "idPlayer"
+   "scriptobject" "player"
+
+   "bone_hips"	  "legs"
+   "bone_chest"	  "torso"
+   "bone_head"	  "head"
+   
+   "model"	"model_player"
+
+   "snd_heartbeat"	"electrical_sparks"
+   "snd_heartbeat_dying"	"electrical_sparks"
+}
+
+entityDef player_doommarine_mp {
+  "inherit" "player_doommarine"
+}

@@ -1,0 +1,8 @@
+// recreated scripts from doom_util.script
+// (C) 2012 Daniel Gibson licensed under WTFPL v2
+
+// FIXME: almost all functions are missing!
+// TODO: would it make sense to implement more complex ones in C++?
+
+// the func_clipmodel spawn function as used by... func_clipmodel.
+void func_clipmodel() { /* does nothing.. */ }

@@ -1,0 +1,116 @@
+// all these textures are used by trigger entities and are otherwise (mostly?) useless I think.
+//
+// the materials have the same properties as the ones from Doom3 (I hope), 
+// but were rewritten from scratch.
+//
+// (C) 2012 Daniel Gibson, licensed under WTPFL v2 (see COPYING.txt)
+
+textures/triggers/trigger
+{    
+	qer_editorimage	textures/triggers/trigger.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/triggers/trigentityname
+{    
+	qer_editorimage	textures/triggers/trigentityname.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/triggers/trigentityname_once
+{    
+	qer_editorimage	textures/triggers/trigentitynameonce.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/triggers/trigfade
+{    
+	qer_editorimage	textures/triggers/trigfade.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/triggers/trigflashlight
+{    
+	qer_editorimage	textures/triggers/trigflashlight.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	flashlight_trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/triggers/triggui
+{    
+	qer_editorimage	textures/triggers/triggui.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/triggers/trighurt
+{    
+	qer_editorimage	textures/triggers/trighurt.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/triggers/trigmulti
+{    
+	qer_editorimage	textures/triggers/trigmulti.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/triggers/trigonce
+{    
+	qer_editorimage	textures/triggers/trigonce.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/triggers/trigrelay
+{    
+	qer_editorimage	textures/triggers/trigrelay.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/triggers/trigtimer
+{    
+	qer_editorimage	textures/triggers/trigtimer.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}

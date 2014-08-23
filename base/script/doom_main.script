@@ -1,0 +1,29 @@
+object player {
+  void init();
+  boolean AI_FORWARD;
+  boolean AI_BACKWARD;
+  boolean AI_STRAFE_LEFT;
+  boolean AI_STRAFE_RIGHT;
+  boolean AI_ATTACK_HELD;
+  boolean AI_WEAPON_FIRED;
+  boolean AI_JUMP;
+  boolean AI_DEAD;
+  boolean AI_CROUCH;
+  boolean AI_ONGROUND;
+  boolean AI_ONLADDER;
+  boolean AI_RUN;
+  boolean AI_HARDLANDING;
+  boolean AI_SOFTLANDING;
+  boolean AI_RELOAD;
+  boolean AI_PAIN;
+  boolean AI_TELEPORT;
+  boolean AI_TURN_LEFT;
+  boolean AI_TURN_RIGHT;
+  void RaiseWeapon();
+};
+
+void player::init() {
+}
+
+void player::RaiseWeapon() {
+}
