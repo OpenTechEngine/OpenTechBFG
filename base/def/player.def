@@ -1,3 +1,7 @@
+model model_player {
+      mesh                    "models/joint.md5mesh"
+}
+
 entityDef info_player_start {
   "editor_color"     "1 0 0"
   "editor_mins"      "-16 -16 0"
@@ -18,9 +22,13 @@ entityDef player_doommarine {
    "spawnclass"   "idPlayer"
    "scriptobject" "player"
 
-   "bone_hips"	  "legs"
-   "bone_chest"	  "torso"
-   "bone_head"	  "head"
+   "hud"                        "guis/hud.gui"
+   "def_weapon0"		"weapon_kick"
+   "def_weapon1"		"weapon_kick"
+
+   "bone_hips"	  "Legs"
+   "bone_chest"	  "Torso"
+   "bone_head"	  "Head"
    
    "model"	"model_player"
 

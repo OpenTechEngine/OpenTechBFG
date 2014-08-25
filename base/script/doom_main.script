@@ -1,29 +1,17 @@
-object player {
-  void init();
-  boolean AI_FORWARD;
-  boolean AI_BACKWARD;
-  boolean AI_STRAFE_LEFT;
-  boolean AI_STRAFE_RIGHT;
-  boolean AI_ATTACK_HELD;
-  boolean AI_WEAPON_FIRED;
-  boolean AI_JUMP;
-  boolean AI_DEAD;
-  boolean AI_CROUCH;
-  boolean AI_ONGROUND;
-  boolean AI_ONLADDER;
-  boolean AI_RUN;
-  boolean AI_HARDLANDING;
-  boolean AI_SOFTLANDING;
-  boolean AI_RELOAD;
-  boolean AI_PAIN;
-  boolean AI_TELEPORT;
-  boolean AI_TURN_LEFT;
-  boolean AI_TURN_RIGHT;
-  void RaiseWeapon();
-};
+// this script is the entry point for the rest of the scripts
+// if something is not loaded here or via the scripts loaded here
+// it's not loaded at all
 
-void player::init() {
-}
+#include "script/doom_defs.script"
+#include "script/doom_util.script"
+#include "script/doom_events.script"
+#include "script/weapon_base.script"
 
-void player::RaiseWeapon() {
+#include "script/player.script"
+#include "script/weapon_kick.script"
+
+void doom_main() {
+	sys.print( "Executing doom_main()\n");
+	// init your stuff here
+	sys.print( "Executed doom_main()\n" );
 }

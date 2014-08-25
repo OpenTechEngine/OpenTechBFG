@@ -114,7 +114,7 @@ textures/common/mirror
 	
 	{
 	 	blend add
-	 	//map textures/common/mirror.tga
+		//map textures/common/mirror.tga
 	}
 	
 	discrete

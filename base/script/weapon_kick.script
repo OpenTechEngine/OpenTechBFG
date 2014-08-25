@@ -1,0 +1,37 @@
+
+object weapon_kick : weapon_base {
+	float		side;
+
+	void		init();
+	
+	void		Lower();
+	void		Raise();
+	void		Idle();
+	void		Fire();
+	void		ExitCinematic();
+	string		GetFireAnim();
+};
+
+void weapon_kick::init() {
+}
+
+void weapon_kick::Raise() {
+}
+
+void weapon_kick::Lower() {
+}
+
+void weapon_kick::Idle() {
+}
+
+void weapon_kick::Fire() {
+	do {
+		melee();
+	} while ( WEAPON_ATTACK || WEAPON_NETFIRING );
+}
+
+void weapon_kick::ExitCinematic() {
+}
+
+string weapon_kick::GetFireAnim() {
+}

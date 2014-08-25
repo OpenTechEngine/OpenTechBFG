@@ -1,0 +1,36 @@
+entityDef weapon_kick {
+	"inv_name"		"Kick"
+	"inv_weapon"		"weapon_kick"
+	"weapon_scriptobject"	"weapon_kick"
+	"def_melee"		"damage_kick"
+	"melee_distance"	"64"
+	"ammoType"		""
+	"ammoRequired"		"0"
+	"clipSize"		"0"
+	"mtr_flashShader"	""
+	"flashColor"		""
+	"flashRadius"		"0"
+	"silent_fire"		"1"
+
+	"hide_time"		"0.3"	// how long it takes to widthdraw the weapon from hud
+	"hide_distance"		"-15"	// how far should we pull/push it before hiding
+
+	"impact_damage_effect"	"1"
+
+	"stealing"		"0"	// kicks don't steal other players weapons
+}
+
+entityDef damage_kick {
+	"damage"		"40"
+	"kickDir"		"-1 0 0"
+	"mtr_blob"		"genericDamage"
+	"blob_time"		"400"
+	"blob_size"		"500"
+	"blob_offset_x"		"300"
+	"knockback"		"30"
+	"push"			"30000"
+	"gib"			"1"
+	"kick_time"		"500"
+	"kick_amplitude"	"1"
+	"dv_time"		"100"
+}

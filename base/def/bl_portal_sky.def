@@ -1,5 +1,6 @@
 // this file is GPLv3, the author is Biel Bestué de Luna
-entityDef info_portalSky {
+
+entityDef info_portalsky {
     "editor_color"          "1 .5 0"
     "editor_mins"           "-1 -1 -4"
     "editor_maxs"           "1 1 0"
@@ -14,8 +15,8 @@ entityDef info_portalSky {
     "ps_scale"              "16"
 }
 
-entityDef info_portalSky_local {
-    "inherit"               "info_portalSky"
+entityDef info_portalsky_local {
+    "inherit"               "info_portalsky"
     "editor_color"          ".5 .5 0"
     "editor_mins"           "-1 -1 -4"
     "editor_maxs"           "1 1 0"
@@ -25,7 +26,7 @@ entityDef info_portalSky_local {
 }
 
 entityDef info_portalSky_global {
-    "inherit"               "info_portalSky"
+    "inherit"               "info_portalsky"
     "editor_color"          ".75 .75 0"
     "editor_mins"           "-1 -1 -4"
     "editor_maxs"           "1 1 0"
