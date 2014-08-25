@@ -4,6 +4,12 @@ entityDef worldspawn {
   "editor_maxs"  "?"
   "no_stamina"   "1"
   "spawnclass"   "idWorldspawn"
+  "editor_usage"		"world origin"
+  "editor_var music"		"music file to play"
+  "editor_var gravity"		"default gravity"
+  "editor_var no_stamina" 	"is stamina counted"
+  "editor_var no_Weapons" 	"only default weapon without attacks"
+
 }
 
 entityDef light {
@@ -11,5 +17,53 @@ entityDef light {
   "editor_mins"  "-8 -8 -8"
   "editor_maxs"  "8 8 8"
   "spawnclass"   "idLight"
+  "editor_rotatable"	"1"
+
+  "editor_usage"		"Light, if health is set, it can be destroyed"
+
+  "editor_material texture"	"shader to use"
+  "editor_color color"		"color"
+  "editor_var shaderParm3"	"shaderParm 3"
+  "editor_var shaderParm4"	"shaderParm 4"
+  "editor_var shaderParm5"	"shaderParm 5"
+  "editor_var shaderParm6"	"shaderParm 6"
+  "editor_var shaderParm7"	"shaderParm 7"
+  "editor_var count"		"trigger count to activate"
+  "editor_var break"		"break on trigger"
+  "editor_model model"		"model"
+  "editor_model broken"		"model when broken defaults to '_broken' added to name"
+  "editor_var hideModelOnBreak" "hide on break"
+  "editor_var health"		"health, 0 means indestructable"
+  "editor_var target"		"entities triggered on damage"
+  "editor_var levels"		"number of light levels, each trigger time will dimm"
+  "editor_var start_off"	"on level start, light will be off "
+  "editor_var snd_broken"	"sound to play on breaking"
+  "editor_var mtr_broken"	"material to use when broken"
+  "editor_color color_demonic"	"demonic color"
+  "editor_material mat_demonic"	"demonic material"
+  "editor_var leave_demonic_mat"	 "demonic material will stay, color reverts"
+  
+  "health"	"0"
+  "levels"	"1"
+  "start_off"	"0"
+  "count"	"1"
+  "break"	"0"
 }
+
+entityDef text {
+  "editor_color"		"1 1 0"
+  "editor_mins"			"-4 -4 -4"
+  "editor_maxs"			"4 4 4"
+  "editor_showangle"		"1"
+  "editor_rotatable"		"1"
+
+  "editor_usage"		"display text in level, debugging for debuging purpose"
+  "editor_var text"		"text to output"
+  "editor_var force"		"if 0 will print only in developermode, otherwise always"
+  "editor_var playerOriented" 	"if 1 will act like sprites, always facing player" 
+
+  "spawnclass"			"idTextEntity"
+}
+
+
 

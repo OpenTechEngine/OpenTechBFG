@@ -2,22 +2,6 @@ model model_player {
       mesh                    "models/joint.md5mesh"
 }
 
-entityDef info_player_start {
-  "editor_color"     "1 0 0"
-  "editor_mins"      "-16 -16 0"
-  "editor_maxs"      "16 16 64"
-  "editor_showangle" "1"
-  "spawnclass"       "idPlayerStart"
-}
-
-entityDef info_player_deathmatch {
-  "editor_color"     "1 0 0"
-  "editor_mins"      "-16 -16 0"
-  "editor_maxs"      "16 16 64"
-  "editor_showangle" "1"
-  "spawnclass"       "idPlayerStart"
-}
-
 entityDef player_doommarine {
    "spawnclass"   "idPlayer"
    "scriptobject" "player"
