@@ -4189,9 +4189,8 @@ void idCollisionModelManagerLocal::BuildModels( const idMapFile* mapFile )
 	idTimer timer;
 	timer.Start();
 	
-	if( !LoadCollisionModelFile( mapFile->GetName(), mapFile->GetGeometryCRC() ) )
+	if( !OldLoadCollisionModelFile( mapFile->GetName(), mapFile->GetGeometryCRC() ) )
 	{
-	
 		if( !mapFile->GetNumEntities() )
 		{
 			return;
