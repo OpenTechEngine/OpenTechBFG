@@ -1,0 +1,1 @@
+RBDoom3BFG: /home/kordex/idtech4/OpenTechBFG/neo/d3xp/Player.cpp:5692: void idPlayer::Weapon_Combat(): Assertion `idealWeapon.Get() >= 0' failed.

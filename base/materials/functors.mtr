@@ -1,4 +1,3 @@
-/*
 // all that stuff in textures/common/ - invisible in the game, used in the editor
 // for clipping, some entites etc
 //
@@ -325,4 +324,3 @@ textures/common/pda_gui
 // TODO: particle (not even sure what that is supposed to do or if it's used)
 
 // Note: triggers are in another file
-*/
