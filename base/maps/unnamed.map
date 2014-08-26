@@ -2,8 +2,8 @@ Version 2
 // entity 0
 {
 "classname" "worldspawn"
-"editor_drLastCameraPos" "487.29 414.938 -544.414"
-"editor_drLastCameraAngle" "48.3 224.7 0"
+"editor_drLastCameraPos" "-64.3789 61.1211 18.498"
+"editor_drLastCameraAngle" "-20.1 321 0"
 // primitive 0
 {
 brushDef3
@@ -148,6 +148,30 @@ brushDef3
 ( 0 0 -1 224 ) ( ( -0.03125 0 3.75 ) ( 0 -0.03125 7.5 ) ) "textures/colors/white" 0 0 0
 }
 }
+// primitive 12
+{
+brushDef3
+{
+( 0 0 1 -64 ) ( ( 0.03125 0 0.75 ) ( 0 0.03125 2.40625 ) ) "textures/colors/black" 0 0 0
+( 0 1 0 -27 ) ( ( 0.03125 0 61.59375 ) ( 0 0.03125 0 ) ) "textures/colors/black" 0 0 0
+( 1 0 0 48 ) ( ( 0.03125 0 0.75 ) ( 0 0.03125 0 ) ) "textures/colors/black" 0 0 0
+( 0 0 -1 -64 ) ( ( 0.03125 0 0.75 ) ( 0 0.03125 61.59375 ) ) "textures/colors/black" 0 0 0
+( 0 -1 0 -1 ) ( ( 0.03125 0 2.40625 ) ( 0 0.03125 0 ) ) "textures/colors/black" 0 0 0
+( -1 0 0 -59 ) ( ( 0.03125 0 62.96875 ) ( 0 0.03125 0 ) ) "textures/colors/black" 0 0 0
+}
+}
+// primitive 13
+{
+brushDef3
+{
+( 0 0 1 -64 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 0 1 0 -48 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 1 0 0 -51 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 0 0 -1 -64 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 0 -1 0 33 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( -1 0 0 30 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+}
+}
 }
 // entity 1
 {
@@ -159,7 +183,7 @@ brushDef3
 {
 "classname" "light"
 "name" "light_1"
-"origin" "-8 0 -16"
 "light_center" "0 0 0"
 "light_radius" "240 200 320"
+"origin" "-8 0 -16"
 }
