@@ -1,0 +1,165 @@
+Version 2
+// entity 0
+{
+"classname" "worldspawn"
+"editor_drLastCameraPos" "487.29 414.938 -544.414"
+"editor_drLastCameraAngle" "48.3 224.7 0"
+// primitive 0
+{
+brushDef3
+{
+( 0 0 1 -72 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 0 1 0 -72 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0.25 ) ) "textures/colors/white" 0 0 0
+( 1 0 0 -72 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0.25 ) ) "textures/colors/white" 0 0 0
+( 0 -1 0 -72 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0.25 ) ) "textures/colors/white" 0 0 0
+( -1 0 0 -80 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0.25 ) ) "textures/colors/white" 0 0 0
+( 0 0 -1 64 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+}
+}
+// primitive 1
+{
+brushDef3
+{
+( 0 0 1 -64 ) ( ( 0.03125 0 63.75 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 0 1 0 -80 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 1 0 0 -72 ) ( ( 0.03125 0 63.75 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 0 0 -1 -64 ) ( ( 0.03125 0 63.75 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( -1 0 0 -80 ) ( ( 0.03125 0 0.25 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 0 -1 0 72 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+}
+}
+// primitive 2
+{
+brushDef3
+{
+( 0 0 1 -64 ) ( ( 0.03125 0 0 ) ( 0 0.03125 63.75 ) ) "textures/colors/white" 0 0 0
+( 0 1 0 -72 ) ( ( 0.03125 0 0.25 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 1 0 0 -80 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 0 0 -1 -64 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0.25 ) ) "textures/colors/white" 0 0 0
+( 0 -1 0 -72 ) ( ( 0.03125 0 63.75 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( -1 0 0 72 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+}
+}
+// primitive 3
+{
+brushDef3
+{
+( 0 1 0 -72 ) ( ( 0.03125 0 0 ) ( 0 0.03125 63.75 ) ) "textures/colors/white" 0 0 0
+( 1 0 0 -72 ) ( ( 0.03125 0 0 ) ( 0 0.03125 63.75 ) ) "textures/colors/white" 0 0 0
+( 0 0 -1 -72 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 0 -1 0 -72 ) ( ( 0.03125 0 0 ) ( 0 0.03125 63.75 ) ) "textures/colors/white" 0 0 0
+( -1 0 0 -80 ) ( ( 0.03125 0 0 ) ( 0 0.03125 63.75 ) ) "textures/colors/white" 0 0 0
+( 0 0 1 64 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+}
+}
+// primitive 4
+{
+brushDef3
+{
+( 0 0 1 -64 ) ( ( 0.03125 0 0.25 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 1 0 0 -72 ) ( ( 0.03125 0 0.25 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 0 0 -1 -64 ) ( ( 0.03125 0 0.25 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 0 -1 0 -80 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( -1 0 0 -80 ) ( ( 0.03125 0 63.75 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 0 1 0 72 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+}
+}
+// primitive 5
+{
+brushDef3
+{
+( 0 0 1 -64 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0.25 ) ) "textures/colors/white" 0 0 0
+( 0 1 0 -72 ) ( ( 0.03125 0 63.75 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 0 0 -1 -64 ) ( ( 0.03125 0 0 ) ( 0 0.03125 63.75 ) ) "textures/colors/white" 0 0 0
+( 0 -1 0 -72 ) ( ( 0.03125 0 0.25 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( -1 0 0 -88 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+( 1 0 0 80 ) ( ( 0.03125 0 0 ) ( 0 0.03125 0 ) ) "textures/colors/white" 0 0 0
+}
+}
+// primitive 6
+{
+brushDef3
+{
+( 1 0 0 -312 ) ( ( 0.03125 0 62.75 ) ( 0 0.03125 63.25 ) ) "textures/colors/white" 0 0 0
+( 0 1 0 -272 ) ( ( 0 -0.03125 1 ) ( 0.03125 0 8 ) ) "textures/colors/white" 0 0 0
+( 0 0 -1 -248 ) ( ( 0.03125 0 63.5 ) ( 0 0.03125 7.25 ) ) "textures/colors/white" 0 0 0
+( 0 -1 0 -240 ) ( ( 0 0.03125 61.25 ) ( -0.03125 0 6 ) ) "textures/colors/white" 0 0 0
+( 0 0 1 -224 ) ( ( -0.03125 0 3.75 ) ( 0 -0.03125 7.75 ) ) "textures/colors/white" 0 0 0
+( -1 0 0 304 ) ( ( 0.03125 0 62.75 ) ( 0 0.03125 63.25 ) ) "textures/colors/white" 0 0 0
+}
+}
+// primitive 7
+{
+brushDef3
+{
+( 1 0 0 -304 ) ( ( 0.03125 0 62.5 ) ( 0 0.03125 63.25 ) ) "textures/colors/white" 0 0 0
+( 0 1 0 -280 ) ( ( 0 -0.03125 1 ) ( 0.03125 0 7.75 ) ) "textures/colors/white" 0 0 0
+( 0 0 -1 -248 ) ( ( 0.03125 0 63.25 ) ( 0 0.03125 7 ) ) "textures/colors/white" 0 0 0
+( -1 0 0 -328 ) ( ( -0.03125 0 60.75 ) ( 0 -0.03125 4 ) ) "textures/colors/white" 0 0 0
+( 0 0 1 -224 ) ( ( -0.03125 0 4 ) ( 0 -0.03125 7.5 ) ) "textures/colors/white" 0 0 0
+( 0 -1 0 272 ) ( ( 0 -0.03125 1 ) ( 0.03125 0 7.75 ) ) "textures/colors/white" 0 0 0
+}
+}
+// primitive 8
+{
+brushDef3
+{
+( 1 0 0 -304 ) ( ( 0.03125 0 62.75 ) ( 0 0.03125 63 ) ) "textures/colors/white" 0 0 0
+( 0 1 0 -272 ) ( ( 0 -0.03125 1.25 ) ( 0.03125 0 7.75 ) ) "textures/colors/white" 0 0 0
+( 0 0 -1 -256 ) ( ( 0.03125 0 63.5 ) ( 0 0.03125 7 ) ) "textures/colors/white" 0 0 0
+( -1 0 0 -328 ) ( ( -0.03125 0 61 ) ( 0 -0.03125 4.25 ) ) "textures/colors/white" 0 0 0
+( 0 -1 0 -240 ) ( ( 0 0.03125 61 ) ( -0.03125 0 5.75 ) ) "textures/colors/white" 0 0 0
+( 0 0 1 248 ) ( ( 0.03125 0 63.5 ) ( 0 0.03125 7 ) ) "textures/colors/white" 0 0 0
+}
+}
+// primitive 9
+{
+brushDef3
+{
+( 0 1 0 -272 ) ( ( 0 -0.03125 1 ) ( 0.03125 0 7.5 ) ) "textures/colors/white" 0 0 0
+( 0 0 -1 -248 ) ( ( 0.03125 0 63.5 ) ( 0 0.03125 6.75 ) ) "textures/colors/white" 0 0 0
+( -1 0 0 -336 ) ( ( -0.03125 0 61 ) ( 0 -0.03125 4 ) ) "textures/colors/white" 0 0 0
+( 0 -1 0 -240 ) ( ( 0 0.03125 61.25 ) ( -0.03125 0 5.5 ) ) "textures/colors/white" 0 0 0
+( 0 0 1 -224 ) ( ( -0.03125 0 3.75 ) ( 0 -0.03125 7.25 ) ) "textures/colors/white" 0 0 0
+( 1 0 0 328 ) ( ( -0.03125 0 61 ) ( 0 -0.03125 4 ) ) "textures/colors/white" 0 0 0
+}
+}
+// primitive 10
+{
+brushDef3
+{
+( 1 0 0 -304 ) ( ( 0.03125 0 63 ) ( 0 0.03125 63.25 ) ) "textures/colors/white" 0 0 0
+( 0 0 -1 -248 ) ( ( 0.03125 0 63.75 ) ( 0 0.03125 7 ) ) "textures/colors/white" 0 0 0
+( -1 0 0 -328 ) ( ( -0.03125 0 61.25 ) ( 0 -0.03125 4 ) ) "textures/colors/white" 0 0 0
+( 0 -1 0 -248 ) ( ( 0 0.03125 61.25 ) ( -0.03125 0 5.75 ) ) "textures/colors/white" 0 0 0
+( 0 0 1 -224 ) ( ( -0.03125 0 3.5 ) ( 0 -0.03125 7.5 ) ) "textures/colors/white" 0 0 0
+( 0 1 0 240 ) ( ( 0 0.03125 61.25 ) ( -0.03125 0 5.75 ) ) "textures/colors/white" 0 0 0
+}
+}
+// primitive 11
+{
+brushDef3
+{
+( 1 0 0 -304 ) ( ( 0.03125 0 62.75 ) ( 0 0.03125 63.5 ) ) "textures/colors/white" 0 0 0
+( 0 1 0 -272 ) ( ( 0 -0.03125 0.75 ) ( 0.03125 0 7.75 ) ) "textures/colors/white" 0 0 0
+( -1 0 0 -328 ) ( ( -0.03125 0 61 ) ( 0 -0.03125 3.75 ) ) "textures/colors/white" 0 0 0
+( 0 -1 0 -240 ) ( ( 0 0.03125 61.5 ) ( -0.03125 0 5.75 ) ) "textures/colors/white" 0 0 0
+( 0 0 1 -232 ) ( ( -0.03125 0 3.75 ) ( 0 -0.03125 7.5 ) ) "textures/colors/white" 0 0 0
+( 0 0 -1 224 ) ( ( -0.03125 0 3.75 ) ( 0 -0.03125 7.5 ) ) "textures/colors/white" 0 0 0
+}
+}
+}
+// entity 1
+{
+"classname" "info_player_start"
+"name" "info_player_start_1"
+"origin" "0 16 -32"
+}
+// entity 2
+{
+"classname" "light"
+"name" "light_1"
+"origin" "-8 0 -16"
+"light_center" "0 0 0"
+"light_radius" "240 200 320"
+}

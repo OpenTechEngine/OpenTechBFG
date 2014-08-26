@@ -1,3 +1,4 @@
+/*
 // all these textures are used by trigger entities and are otherwise (mostly?) useless I think.
 //
 // the materials have the same properties as the ones from Doom3 (I hope), 
@@ -114,3 +115,4 @@ textures/triggers/trigtimer
 	noShadows
 	// FIXME: TRANSPARENCY
 }
+*/
