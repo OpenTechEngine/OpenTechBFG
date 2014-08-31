@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-project(RBDoom3BFG)
+project(OpenTechBFG)
 
 ################################################################################
 
@@ -1349,9 +1349,9 @@ if(MSVC)
 	
 	list(APPEND RBDOOM3_SOURCES ${WIN32_RESOURCES})
 	
-	add_executable(RBDoom3BFG WIN32 ${RBDOOM3_INCLUDES} ${RBDOOM3_SOURCES})
+	add_executable(OpenTechBFG WIN32 ${RBDOOM3_INCLUDES} ${RBDOOM3_SOURCES})
 		
-	target_link_libraries(RBDoom3BFG
+	target_link_libraries(OpenTechBFG
 	  idlib
 	  ${JPEG_LIBRARY}
 	  ${PNG_LIBRARY}
@@ -1378,10 +1378,10 @@ if(MSVC)
 		
 	#CMAKE_BINARY_DIR
 	if(CMAKE_CL_64)
-		install(TARGETS RBDoom3BFG
+		install(TARGETS OpenTechBFG
 			RUNTIME DESTINATION .)
 	else()
-		install(TARGETS RBDoom3BFG
+		install(TARGETS OpenTechBFG
 			RUNTIME DESTINATION .)
 	endif()
 	
@@ -1453,7 +1453,7 @@ else()
 	LIST(APPEND _compiler_FLAGS ${_directory_flags})
 	SEPARATE_ARGUMENTS(_compiler_FLAGS)
 
-	add_executable(RBDoom3BFG WIN32 ${RBDOOM3_SOURCES})
+	add_executable(OpenTechBFG WIN32 ${RBDOOM3_SOURCES})
 
 	if(NOT WIN32)
 		if(NOT "${CMAKE_SYSTEM}" MATCHES "Darwin")
@@ -1464,7 +1464,7 @@ else()
 			set(DL_LIBRARY dl)
 		endif()
 
-		target_link_libraries(RBDoom3BFG
+		target_link_libraries(OpenTechBFG
 		  idlib
 		  ${JPEG_LIBRARY}
 		  ${PNG_LIBRARY}
