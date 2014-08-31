@@ -37,7 +37,7 @@
 #ifndef __UNZIP_H__
 #define __UNZIP_H__
 
-#include "../libs/zlib/minizip/unzip.h"
+#include <minizip/unzip.h>
 
 /*
  * DG: all unzip code has been moved to minizip/

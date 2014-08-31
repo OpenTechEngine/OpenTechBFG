@@ -31,9 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/Str.h"
 #include "../idlib/containers/List.h"
 #include "../idlib/containers/StrList.h"
-#include "../libs/zlib/zlib.h"
-// DG: all the zip access stuff from minizip is now in minizip/zip.h
-#include "minizip/zip.h"
+
+#include <zlib.h>
+#include <minizip/zip.h>
 
 class idFile_Memory;
 
