@@ -36,6 +36,7 @@ Contains external code for building ZipFiles.
 
 #include <stddef.h>
 #include <string.h>
+#include <zlib.h>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -47,7 +48,6 @@ Contains external code for building ZipFiles.
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_filesystem.h"
 #include "../idlib/sys/sys_types.h"
-#include "../libs/zlib/minizip/../zlib.h"
 #include "../idlib/containers/StrList.h"
 #include "Zip.h"
 #include "zconf.h"

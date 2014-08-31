@@ -32,6 +32,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
+#include <minizip/unzip.h>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -48,7 +49,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_assert.h"
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"
-#include "../libs/zlib/minizip/unzip.h"
 #include "../sys/sys_public.h"
 #include "zconf.h"
 

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-project(RBDoom3BFG)
+project(OpenTechBFG)
 
 ################################################################################
 
@@ -32,7 +32,7 @@ option(BUNDLED_PNG
 		"Use bundled libpng" OFF)
 
 option(BUNDLED_ZLIB
-		"Use bundled zlib" ON)
+		"Use bundled zlib" OFF)
 
 option(BUNDLED_MINIZIP
 		"Use bundled minizip" ON)
@@ -40,17 +40,8 @@ option(BUNDLED_MINIZIP
 option(BUNDLED_TIMIDITY
 		"Use bundled timidity" ON)
 
-option(BUNDLED_IRRXML
-		"Use bundled irrxml" OFF)
-
 option(BUNDLED_GLEW
-		"Use bundled glew" ON)
-
-option(BUNDLED_FREETYPE
-		"Use bundled freetype" OFF)
-
-option(BUNDLED_OGGVORBIS
-		"Use bundled oggvorbis" OFF)
+		"Use bundled glew" OFF)
 
 ################################################################################
 
@@ -315,8 +306,6 @@ if(BUNDLED_JPEG)
     libs/jpeg-6b/jpeglib.h
     libs/jpeg-6b/jversion.h)
 
-
-
   set(JPEG_SOURCES
     libs/jpeg-6b/jcapimin.c
     libs/jpeg-6b/jcapistd.c
@@ -364,161 +353,182 @@ if(BUNDLED_JPEG)
     libs/jpeg-6b/jerror.c
     libs/jpeg-6b/jmemmgr.c
     libs/jpeg-6b/jmemnobs.c)
+
   include_directories(libs/jpeg-6b)
   add_library(jpeg ${JPEG_SOURCES} ${JPEG_INCLUDES})
   set(JPEG_LIBRARY jpeg)
 else()
+  find_package(JPEG REQUIRED)
+  include_directories(${JPEG_INCLUDE_DIRS})
   set(JPEG_LIBRARY jpeg)
 endif()
 
 #libpng#########################################################################
 
 if(BUNDLED_PNG)	
-  file(GLOB PNG_INCLUDES libs/png/*.h)
-  file(GLOB PNG_SOURCES libs/png/*.c)
+  set(PNG_INCLUDES
+    libs/png/pngconf.h
+    libs/png/png.h)
+
+  set(PNG_SOURCES
+    #libs/png/example.c
+    libs/png/png.c
+    libs/png/pngerror.c
+    libs/png/pnggccrd.c
+    libs/png/pngget.c
+    libs/png/pngmem.c
+    libs/png/pngpread.c
+    libs/png/pngread.c
+    libs/png/pngrio.c
+    libs/png/pngrtran.c
+    libs/png/pngrutil.c
+    libs/png/pngset.c
+    libs/png/pngtrans.c
+    libs/png/pngvcrd.c
+    libs/png/pngwio.c
+    libs/png/pngwrite.c
+    libs/png/pngwtran.c
+    libs/png/pngwutil.c)
+
   include_directories(libs/png)
   add_library(png ${PNG_SOURCES} ${PNG_INCLUDES})
   set(PNG_LIBRARY png)
 else()
+  find_package(PNG REQUIRED)
+  include_directories(${PNG_INCLUDE_DIRS})
   set(PNG_LIBRARY png)
 endif()
 
-
 #libz###########################################################################
 
-file(GLOB ZLIB_INCLUDES libs/zlib/*.h)
-file(GLOB ZLIB_SOURCES libs/zlib/*.c)
-
 if(BUNDLED_ZLIB)
+  set(ZLIB_INCLUDES
+    libs/zlib/crc32.h
+    libs/zlib/deflate.h
+    libs/zlib/gzguts.h
+    libs/zlib/inffast.h
+    libs/zlib/inffixed.h
+    libs/zlib/inflate.h
+    libs/zlib/inftrees.h
+    libs/zlib/trees.h
+    libs/zlib/zconf.h
+    libs/zlib/zlib.h
+    libs/zlib/zutil.h)
+
+  set(ZLIB_SOURCES
+    libs/zlib/adler32.c
+    libs/zlib/compress.c
+    libs/zlib/crc32.c
+    libs/zlib/deflate.c
+    libs/zlib/gzclose.c
+    libs/zlib/gzlib.c
+    libs/zlib/gzread.c
+    libs/zlib/gzwrite.c
+    libs/zlib/infback.c
+    libs/zlib/inffast.c
+    libs/zlib/inflate.c
+    libs/zlib/inftrees.c
+    libs/zlib/trees.c
+    libs/zlib/uncompr.c
+    libs/zlib/zutil.c)
+
+  include_directories(libs/zlib)
   add_library(zlib ${ZLIB_SOURCES} ${ZLIB_INCLUDES})
   set(ZLIB_LIBRARY zlib)
+else()
+  find_package(ZLIB REQUIRED)
+  include_directories(${ZLIB_INCLUDE_DIRS})
+  set(ZLIB_LIBRARY z)
 endif()
 
 #minizip########################################################################
 
-file(GLOB MINIZIP_INCLUDES libs/zlib/minizip/*.h)
-file(GLOB MINIZIP_SOURCES libs/zlib/minizip/*.c libs/zlib/minizip/*.cpp)
-
 if(BUNDLED_MINIZIP)
+  set(MINIZIP_INCLUDES
+    libs/zlib/minizip/ioapi.h
+    libs/zlib/minizip/unzip.h
+    libs/zlib/minizip/zip.h)
+
+  set(MINIZIP_SOURCES
+    libs/zlib/minizip/ioapi.c
+    libs/zlib/minizip/unzip.cpp
+    libs/zlib/minizip/zip.cpp)
+
+  include_directories(libs/zlib)
   add_library(minizip ${MINIZIP_SOURCES} ${MINIZIP_INCLUDES})
   set(MINIZIP_LIBRARY minizip)
-endif()
-
-#irrxml#########################################################################
-
-file(GLOB IRRXML_INCLUDES libs/irrxml/src/*.h)
-file(GLOB IRRXML_SOURCES libs/irrxml/src/*.cpp)
-
-if(BUNDLED_IRRXML)
-  add_library(irrxml ${IRRXML_SOURCES} ${IRRXML_INCLUDES})
-  set(IRRXML_LIBRARY irrxml)
+else()
+  #find_package(MINIZIP REQUIRED)
+  #include_directories(${MINIZIP_INCLUDE_DIRS})
+  include_directories(/usr/include)
+  set(MINIZIP_LIBRARY minizip)
 endif()
 
 #glew###########################################################################
 
-set(GLEW_INCLUDES
-	libs/glew/include/GL/glew.h)
-	
-if(WIN32)
-	set(GLEW_INCLUDES ${GLEW_INCLUDES} libs/glew/include/GL/wglew.h)
-else()
-	set(GLEW_INCLUDES ${GLEW_INCLUDES} libs/glew/include/GL/glxew.h)
-endif()
-	
-set(GLEW_SOURCES
-	libs/glew/src/glew.c)
-
 if(BUNDLED_GLEW)
+  set(GLEW_INCLUDES
+      libs/glew/include/GL/glew.h)
+
+  if(WIN32)
+      set(GLEW_INCLUDES ${GLEW_INCLUDES} libs/glew/include/GL/wglew.h)
+  else()
+      set(GLEW_INCLUDES ${GLEW_INCLUDES} libs/glew/include/GL/glxew.h)
+  endif()
+
+  set(GLEW_SOURCES
+      libs/glew/src/glew.c)
+
+  include_directories(libs/glew/include)
   add_library(glew ${GLEW_SOURCES} ${GLEW_INCLUDES})
   set(GLEW_LIBRARY glew)
-endif()
 
-#freetype#######################################################################	
-
-set(FREETYPE_SOURCES
-	libs/freetype/src/autofit/autofit.c
-	libs/freetype/src/bdf/bdf.c
-	libs/freetype/src/cff/cff.c
-	libs/freetype/src/base/ftbase.c
-	libs/freetype/src/base/ftbitmap.c
-	libs/freetype/src/cache/ftcache.c
-	libs/freetype/src/base/ftdebug.c
-	libs/freetype/src/base/ftgasp.c
-	libs/freetype/src/base/ftglyph.c
-	libs/freetype/src/gzip/ftgzip.c
-	libs/freetype/src/base/ftinit.c
-	libs/freetype/src/lzw/ftlzw.c
-	libs/freetype/src/base/ftstroke.c
-	libs/freetype/src/base/ftsystem.c
-	libs/freetype/src/smooth/smooth.c
-	libs/freetype/src/base/ftbbox.c
-	libs/freetype/src/base/ftmm.c
-	libs/freetype/src/base/ftpfr.c
-	libs/freetype/src/base/ftsynth.c
-	libs/freetype/src/base/fttype1.c
-	libs/freetype/src/base/ftwinfnt.c
-	libs/freetype/src/pcf/pcf.c
-	libs/freetype/src/pfr/pfr.c
-	libs/freetype/src/psaux/psaux.c
-	libs/freetype/src/pshinter/pshinter.c
-	libs/freetype/src/psnames/psmodule.c
-	libs/freetype/src/raster/raster.c
-	libs/freetype/src/sfnt/sfnt.c
-	libs/freetype/src/truetype/truetype.c
-	libs/freetype/src/type1/type1.c
-	libs/freetype/src/cid/type1cid.c
-	libs/freetype/src/type42/type42.c
-	libs/freetype/src/winfonts/winfnt.c)
-
-if(BUNDLED_FREETYPE)
-  add_library(freetype ${FREETYPE_SOURCES})
-  set(FREETYPE_LIBRARY freetype)
-endif()
-
-#oggvorbis######################################################################
-
-set(OGGVORBIS_INCLUDES
-	libs/oggvorbis/ogg/ogg.h
-	libs/oggvorbis/ogg/os_types.h)
-	
-set(OGGVORBIS_SOURCES
-	libs/oggvorbis/oggsrc/bitwise.c
-	libs/oggvorbis/oggsrc/framing.c
-	
-	libs/oggvorbis/vorbissrc/mdct.c
-	libs/oggvorbis/vorbissrc/smallft.c
-	libs/oggvorbis/vorbissrc/block.c
-	libs/oggvorbis/vorbissrc/envelope.c
-	libs/oggvorbis/vorbissrc/windowvb.c
-	libs/oggvorbis/vorbissrc/lsp.c
-	libs/oggvorbis/vorbissrc/lpc.c
-	libs/oggvorbis/vorbissrc/analysis.c
-	libs/oggvorbis/vorbissrc/synthesis.c
-	libs/oggvorbis/vorbissrc/psy.c
-	libs/oggvorbis/vorbissrc/info.c
-	libs/oggvorbis/vorbissrc/floor1.c
-	libs/oggvorbis/vorbissrc/floor0.c
-	libs/oggvorbis/vorbissrc/res0.c
-	libs/oggvorbis/vorbissrc/mapping0.c
-	libs/oggvorbis/vorbissrc/registry.c
-	libs/oggvorbis/vorbissrc/codebook.c
-	libs/oggvorbis/vorbissrc/sharedbook.c
-	libs/oggvorbis/vorbissrc/lookup.c
-	libs/oggvorbis/vorbissrc/bitrate.c
-	libs/oggvorbis/vorbissrc/vorbisfile.c)
-
-if(BUNDLED_OGGVORBIS)
-  add_library(oggvorbis ${OGGVORBIS_SOURCES} ${OGGVORBIS_INCLUDES})
-  set(OGGVORBIS_LIBRARY oggvorbis)
+  add_definitions(-DGLEW_STATIC)
+else()
+  find_package(GLEW REQUIRED)
+  include_directories(${GLEW_INCLUDE_DIRS})
+  set(GLEW_LIBRARY GLEW)
 endif()
 
 #timidity#######################################################################
 
-file(GLOB TIMIDITY_INCLUDES libs/timidity/*.h)
-file(GLOB TIMIDITY_SOURCES libs/timidity/*.cpp)
-
 if(BUNDLED_TIMIDITY)
+  set(TIMIDITY_INCLUDES
+    libs/timidity/common.h
+    libs/timidity/config.h
+    libs/timidity/controls.h
+    libs/timidity/filter.h
+    libs/timidity/instrum.h
+    libs/timidity/mix.h
+    libs/timidity/output.h
+    libs/timidity/playmidi.h
+    libs/timidity/readmidi.h
+    libs/timidity/resample.h
+    libs/timidity/structs.h
+    libs/timidity/tables.h
+    libs/timidity/timidity.h)
+
+  set(TIMIDITY_SOURCES
+    libs/timidity/common.cpp
+    libs/timidity/controls.cpp
+    libs/timidity/filter.cpp
+    libs/timidity/instrum.cpp
+    libs/timidity/mix.cpp
+    libs/timidity/output.cpp
+    libs/timidity/playmidi.cpp
+    libs/timidity/readmidi.cpp
+    libs/timidity/resample.cpp
+    libs/timidity/sdl_a.cpp
+    libs/timidity/sdl_c.cpp
+    libs/timidity/tables.cpp
+    libs/timidity/timidity.cpp)
+
+  include_directories(libs/timidity)
   add_library(timidity ${TIMIDITY_SOURCES} ${TIMIDITY_INCLUDES})
+  set(TIMIDITY_LIBRARY timidity)
+else()
+  find_package(TIMIDITY REQUIRED)
+  include_directories(${TIMIDITY_INCLUDE_DIRS})
   set(TIMIDITY_LIBRARY timidity)
 endif()
 
@@ -693,45 +703,14 @@ source_group("tools\\sound" FILES ${EDITOR_SOUND_INCLUDES})
 source_group("tools\\sound" FILES ${EDITOR_SOUND_SOURCES})
 
 set(IDTOOLS_INCLUDES
-			#${TOOLS_INCLUDES}
-			#${TOOLS_COMAFX_INCLUDES}
-			#${TOOLS_COMMON_INCLUDES}
-			#${TOOLS_COMMON_PROPTREE_INCLUDES}
-			#${EDITOR_AF_INCLUDES}
-			#${EDITOR_DEBUGGER_INCLUDES}
-			#${EDITOR_DECL_INCLUDES}
-			#${EDITOR_GUIED_INCLUDES}
-			#${EDITOR_MATERIALEDITOR_INCLUDES}
-			#${EDITOR_PARTICLE_INCLUDES}
-			#${EDITOR_PDA_INCLUDES}
-			#${EDITOR_RADIANT_INCLUDES}
-			#${EDITOR_SCRIPT_INCLUDES}
-			#${EDITOR_SOUND_INCLUDES}
 			${COMPILER_INCLUDES}
 			${COMPILER_AAS_INCLUDES} ${COMPILER_AAS_SOURCES}
 			${COMPILER_DMAP_INCLUDES} ${COMPILER_DMAP_SOURCES}
-			#${COMPILER_RENDERBUMP_INCLUDES} ${COMPILER_RENDERBUMP_SOURCES}
-			#${COMPILER_ROQVQ_INCLUDES} ${COMPILER_ROQVQ_SOURCES}
 			)
 			
 set(IDTOOLS_SOURCES
-			#${TOOLS_COMAFX_SOURCES}
-			#${TOOLS_COMMON_SOURCES}
-			#${TOOLS_COMMON_PROPTREE_SOURCES}
-			#${EDITOR_AF_SOURCES}
-			#${EDITOR_DEBUGGER_SOURCES}
-			#${EDITOR_DECL_SOURCES}
-			#${EDITOR_GUIED_SOURCES}
-			#${EDITOR_MATERIALEDITOR_SOURCES}
-			#${EDITOR_PARTICLE_SOURCES}
-			#${EDITOR_PDA_SOURCES}
-			#${EDITOR_RADIANT_SOURCES}
-			#${EDITOR_SCRIPT_SOURCES}
-			#${EDITOR_SOUND_SOURCES}
 			${COMPILER_AAS_SOURCES}
 			${COMPILER_DMAP_SOURCES}
-			#${COMPILER_RENDERBUMP_SOURCES}
-			#${COMPILER_ROQVQ_SOURCES}
 			)
 
 ################################################################################
@@ -957,67 +936,7 @@ if(MSVC)
 endif()
 
 set(WIN32_RESOURCES
-	# sys/win32/rc/res/BEVEL.BMP
-	# sys/win32/rc/res/BITMAP2.BMP
-	# sys/win32/rc/res/BMP00001.BMP
-	# sys/win32/rc/res/BMP0002.BMP
-	# sys/win32/rc/res/DEFTEX.WAL
-	# sys/win32/rc/res/ENDCAP.BMP
-	# sys/win32/rc/res/GetString.htm
-	# sys/win32/rc/res/IBEVEL.BMP
-	# sys/win32/rc/res/IENDCAP.BMP
-	# sys/win32/rc/res/MEFileToolbar.bmp
-	# sys/win32/rc/res/MEtoolbar.bmp
-	# sys/win32/rc/res/MaterialEditor.ico
-	# sys/win32/rc/res/PropTree.rc2
-	# sys/win32/rc/res/Q.BMP
-	# sys/win32/rc/res/RADIANT3.GIF
-	# sys/win32/rc/res/Radiant.ico
-	# sys/win32/rc/res/RadiantDoc.ico
-	# sys/win32/rc/res/TOOLBAR1.BMP
-	# sys/win32/rc/res/TOOLBAR2.BMP
-	# sys/win32/rc/res/Toolbar.bmp
-	# sys/win32/rc/res/VIEWDEFA.BMP
-	# sys/win32/rc/res/VIEWOPPO.BMP
-	# sys/win32/rc/res/bmp00002.bmp
-	# sys/win32/rc/res/bmp00003.bmp
-	# sys/win32/rc/res/bmp00004.bmp
-	# sys/win32/rc/res/bmp00005.bmp
-	# sys/win32/rc/res/cchsb.bmp
-	# sys/win32/rc/res/ccrgb.bmp
-	# sys/win32/rc/res/dbg_back.bmp
-	# sys/win32/rc/res/dbg_breakpoint.ico
-	# sys/win32/rc/res/dbg_current.ico
-	# sys/win32/rc/res/dbg_currentline.ico
-	# sys/win32/rc/res/dbg_empty.ico
-	# sys/win32/rc/res/dbg_open.bmp
-	# sys/win32/rc/res/dbg_toolbar.bmp
 	sys/win32/rc/res/doom.ico
-	# sys/win32/rc/res/fpoint.cur
-	# sys/win32/rc/res/fxed_link.ico
-	# sys/win32/rc/res/fxed_toolbar.bmp
-	# sys/win32/rc/res/fxeditor.ico
-	# sys/win32/rc/res/guied.ico
-	# sys/win32/rc/res/guied_collapse.ico
-	# sys/win32/rc/res/guied_expand.ico
-	# sys/win32/rc/res/guied_hand.cur
-	# sys/win32/rc/res/guied_nav_visible.ico
-	# sys/win32/rc/res/guied_nav_visibledisabled.ico
-	# sys/win32/rc/res/guied_scripts.ico
-	# sys/win32/rc/res/guied_scripts_white.ico
-	# sys/win32/rc/res/guied_viewer_toolbar.bmp
-	# sys/win32/rc/res/icon2.ico
-	# sys/win32/rc/res/logo_sm3dfx.bmp
-	# sys/win32/rc/res/matedtree.bmp
-	# sys/win32/rc/res/me_disabled_icon.ico
-	# sys/win32/rc/res/me_enabled.ico
-	# sys/win32/rc/res/me_off_icon.ico
-	# sys/win32/rc/res/me_on_icon.ico
-	# sys/win32/rc/res/qe3.ico
-	# sys/win32/rc/res/shaderbar.bmp
-	# sys/win32/rc/res/shaderdoc.ico
-	# sys/win32/rc/res/shaderframe.ico
-	# sys/win32/rc/res/spliter.cur
 	)
 
 
@@ -1177,12 +1096,9 @@ set(RBDOOM3_SOURCES
 			${DOOMCLASSIC_SOURCES}
 			)
 
-add_definitions(-DUSE_DOOMCLASSIC)
-
-add_definitions(-D__DOOM__
-				-DGLEW_STATIC
-				#-DBUILD_FREETYPE
-				#-DFT2_BUILD_LIBRARY
+add_definitions(
+				-DUSE_DOOMCLASSIC
+				-D__DOOM__
 				)
 				
 if(MONOLITH)
@@ -1211,8 +1127,7 @@ endif()
 include_directories(
 			.
 			idlib
-			libs/glew/include
-			libs/zlib)
+			)
 
 if(IDTOOLS)
   add_definitions(-DUSE_IDTOOLS)
@@ -1349,26 +1264,20 @@ if(MSVC)
 	
 	list(APPEND RBDOOM3_SOURCES ${WIN32_RESOURCES})
 	
-	add_executable(RBDoom3BFG WIN32 ${RBDOOM3_INCLUDES} ${RBDOOM3_SOURCES})
+	add_executable(OpenTechBFG WIN32 ${RBDOOM3_INCLUDES} ${RBDOOM3_SOURCES})
 		
-	target_link_libraries(RBDoom3BFG
+	target_link_libraries(OpenTechBFG
 	  idlib
 	  ${JPEG_LIBRARY}
 	  ${PNG_LIBRARY}
 	  ${ZLIB_LIBRARY}
 	  ${MINIZIP_LIBRARY}
 	  ${TIMIDITY_LIBRARY}
-	  ${IRRXML_LIBRARY}
 	  ${GLEW_LIBRARY}
-	  ${FREETYPE_LIBRARY}
-	  ${OGGVORBIS_LIBRARY}
 	  ${DirectX_LIBRARIES}
-	  #libcurl 
-	  #openal32 
 	  opengl32
 	  glu32
 	  dbghelp
-	  #eaxguid
 	  iphlpapi
 	  winmm
 	  wsock32.lib
@@ -1378,10 +1287,10 @@ if(MSVC)
 		
 	#CMAKE_BINARY_DIR
 	if(CMAKE_CL_64)
-		install(TARGETS RBDoom3BFG
+		install(TARGETS OpenTechBFG
 			RUNTIME DESTINATION .)
 	else()
-		install(TARGETS RBDoom3BFG
+		install(TARGETS OpenTechBFG
 			RUNTIME DESTINATION .)
 	endif()
 	
@@ -1426,14 +1335,6 @@ else()
 			find_package(OpenAL REQUIRED)
 			add_definitions(-DUSE_OPENAL)
 
-			#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/include)
-			
-			#if(CMAKE_CL_64)
-			#	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/lib/win64)
-			#else()
-			#	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/lib/win32)
-			#endif()
-			
 			list(APPEND RBDOOM3_INCLUDES ${OPENAL_INCLUDES})
 			list(APPEND RBDOOM3_SOURCES
 				${OPENAL_SOURCES}
@@ -1453,7 +1354,7 @@ else()
 	LIST(APPEND _compiler_FLAGS ${_directory_flags})
 	SEPARATE_ARGUMENTS(_compiler_FLAGS)
 
-	add_executable(RBDoom3BFG WIN32 ${RBDOOM3_SOURCES})
+	add_executable(OpenTechBFG WIN32 ${RBDOOM3_SOURCES})
 
 	if(NOT WIN32)
 		if(NOT "${CMAKE_SYSTEM}" MATCHES "Darwin")
@@ -1464,17 +1365,14 @@ else()
 			set(DL_LIBRARY dl)
 		endif()
 
-		target_link_libraries(RBDoom3BFG
+		target_link_libraries(OpenTechBFG
 		  idlib
 		  ${JPEG_LIBRARY}
 		  ${PNG_LIBRARY}
 		  ${ZLIB_LIBRARY}
 		  ${MINIZIP_LIBRARY}
 		  ${TIMIDITY_LIBRARY}
-		  ${IRRXML_LIBRARY}
 		  ${GLEW_LIBRARY}
-		  ${FREETYPE_LIBRARY}
-		  ${OGGVORBIS_LIBRARY}
 		  ${OPENGL_LIBRARIES}
 		  pthread
 		  ${DL_LIBRARY}
