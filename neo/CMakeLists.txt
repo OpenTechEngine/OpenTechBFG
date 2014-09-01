@@ -40,8 +40,17 @@ option(BUNDLED_MINIZIP
 option(BUNDLED_TIMIDITY
 		"Use bundled timidity" ON)
 
+#option(BUNDLED_IRRXML
+#		"Use bundled irrxml" OFF)
+
 option(BUNDLED_GLEW
 		"Use bundled glew" OFF)
+
+#option(BUNDLED_FREETYPE
+#		"Use bundled freetype" OFF)
+
+#option(BUNDLED_OGGVORBIS
+#		"Use bundled oggvorbis" OFF)
 
 ################################################################################
 
@@ -464,6 +473,16 @@ else()
   set(MINIZIP_LIBRARY minizip)
 endif()
 
+#irrxml#########################################################################
+
+#file(GLOB IRRXML_INCLUDES libs/irrxml/src/*.h)
+#file(GLOB IRRXML_SOURCES libs/irrxml/src/*.cpp)
+
+#if(BUNDLED_IRRXML)
+#  add_library(irrxml ${IRRXML_SOURCES} ${IRRXML_INCLUDES})
+#  set(IRRXML_LIBRARY irrxml)
+#endif()
+
 #glew###########################################################################
 
 if(BUNDLED_GLEW)
@@ -489,6 +508,84 @@ else()
   include_directories(${GLEW_INCLUDE_DIRS})
   set(GLEW_LIBRARY GLEW)
 endif()
+
+#freetype#######################################################################	
+
+#set(FREETYPE_SOURCES
+#	libs/freetype/src/autofit/autofit.c
+#	libs/freetype/src/bdf/bdf.c
+#	libs/freetype/src/cff/cff.c
+#	libs/freetype/src/base/ftbase.c
+#	libs/freetype/src/base/ftbitmap.c
+#	libs/freetype/src/cache/ftcache.c
+#	libs/freetype/src/base/ftdebug.c
+#	libs/freetype/src/base/ftgasp.c
+#	libs/freetype/src/base/ftglyph.c
+#	libs/freetype/src/gzip/ftgzip.c
+#	libs/freetype/src/base/ftinit.c
+#	libs/freetype/src/lzw/ftlzw.c
+#	libs/freetype/src/base/ftstroke.c
+#	libs/freetype/src/base/ftsystem.c
+#	libs/freetype/src/smooth/smooth.c
+#	libs/freetype/src/base/ftbbox.c
+#	libs/freetype/src/base/ftmm.c
+#	libs/freetype/src/base/ftpfr.c
+#	libs/freetype/src/base/ftsynth.c
+#	libs/freetype/src/base/fttype1.c
+#	libs/freetype/src/base/ftwinfnt.c
+#	libs/freetype/src/pcf/pcf.c
+#	libs/freetype/src/pfr/pfr.c
+#	libs/freetype/src/psaux/psaux.c
+#	libs/freetype/src/pshinter/pshinter.c
+#	libs/freetype/src/psnames/psmodule.c
+#	libs/freetype/src/raster/raster.c
+#	libs/freetype/src/sfnt/sfnt.c
+#	libs/freetype/src/truetype/truetype.c
+#	libs/freetype/src/type1/type1.c
+#	libs/freetype/src/cid/type1cid.c
+#	libs/freetype/src/type42/type42.c
+#	libs/freetype/src/winfonts/winfnt.c)
+
+#if(BUNDLED_FREETYPE)
+#  add_library(freetype ${FREETYPE_SOURCES})
+#  set(FREETYPE_LIBRARY freetype)
+#endif()
+
+#oggvorbis######################################################################
+
+#set(OGGVORBIS_INCLUDES
+#	libs/oggvorbis/ogg/ogg.h
+#	libs/oggvorbis/ogg/os_types.h)
+	
+#set(OGGVORBIS_SOURCES
+#	libs/oggvorbis/oggsrc/bitwise.c
+#	libs/oggvorbis/oggsrc/framing.c
+#	libs/oggvorbis/vorbissrc/mdct.c
+#	libs/oggvorbis/vorbissrc/smallft.c
+#	libs/oggvorbis/vorbissrc/block.c
+#	libs/oggvorbis/vorbissrc/envelope.c
+#	libs/oggvorbis/vorbissrc/windowvb.c
+#	libs/oggvorbis/vorbissrc/lsp.c
+#	libs/oggvorbis/vorbissrc/lpc.c
+#	libs/oggvorbis/vorbissrc/analysis.c
+#	libs/oggvorbis/vorbissrc/synthesis.c
+#	libs/oggvorbis/vorbissrc/psy.c
+#	libs/oggvorbis/vorbissrc/info.c
+#	libs/oggvorbis/vorbissrc/floor1.c
+#	libs/oggvorbis/vorbissrc/floor0.c
+#	libs/oggvorbis/vorbissrc/res0.c
+#	libs/oggvorbis/vorbissrc/mapping0.c
+#	libs/oggvorbis/vorbissrc/registry.c
+#	libs/oggvorbis/vorbissrc/codebook.c
+#	libs/oggvorbis/vorbissrc/sharedbook.c
+#	libs/oggvorbis/vorbissrc/lookup.c
+#	libs/oggvorbis/vorbissrc/bitrate.c
+#	libs/oggvorbis/vorbissrc/vorbisfile.c)
+
+#if(BUNDLED_OGGVORBIS)
+#  add_library(oggvorbis ${OGGVORBIS_SOURCES} ${OGGVORBIS_INCLUDES})
+#  set(OGGVORBIS_LIBRARY oggvorbis)
+#endif()
 
 #timidity#######################################################################
 
@@ -703,14 +800,45 @@ source_group("tools\\sound" FILES ${EDITOR_SOUND_INCLUDES})
 source_group("tools\\sound" FILES ${EDITOR_SOUND_SOURCES})
 
 set(IDTOOLS_INCLUDES
+			#${TOOLS_INCLUDES}
+			#${TOOLS_COMAFX_INCLUDES}
+			#${TOOLS_COMMON_INCLUDES}
+			#${TOOLS_COMMON_PROPTREE_INCLUDES}
+			#${EDITOR_AF_INCLUDES}
+			#${EDITOR_DEBUGGER_INCLUDES}
+			#${EDITOR_DECL_INCLUDES}
+			#${EDITOR_GUIED_INCLUDES}
+			#${EDITOR_MATERIALEDITOR_INCLUDES}
+			#${EDITOR_PARTICLE_INCLUDES}
+			#${EDITOR_PDA_INCLUDES}
+			#${EDITOR_RADIANT_INCLUDES}
+			#${EDITOR_SCRIPT_INCLUDES}
+			#${EDITOR_SOUND_INCLUDES}
 			${COMPILER_INCLUDES}
 			${COMPILER_AAS_INCLUDES} ${COMPILER_AAS_SOURCES}
 			${COMPILER_DMAP_INCLUDES} ${COMPILER_DMAP_SOURCES}
+			#${COMPILER_RENDERBUMP_INCLUDES} ${COMPILER_RENDERBUMP_SOURCES}
+			#${COMPILER_ROQVQ_INCLUDES} ${COMPILER_ROQVQ_SOURCES}
 			)
 			
 set(IDTOOLS_SOURCES
+			#${TOOLS_COMAFX_SOURCES}
+			#${TOOLS_COMMON_SOURCES}
+			#${TOOLS_COMMON_PROPTREE_SOURCES}
+			#${EDITOR_AF_SOURCES}
+			#${EDITOR_DEBUGGER_SOURCES}
+			#${EDITOR_DECL_SOURCES}
+			#${EDITOR_GUIED_SOURCES}
+			#${EDITOR_MATERIALEDITOR_SOURCES}
+			#${EDITOR_PARTICLE_SOURCES}
+			#${EDITOR_PDA_SOURCES}
+			#${EDITOR_RADIANT_SOURCES}
+			#${EDITOR_SCRIPT_SOURCES}
+			#${EDITOR_SOUND_SOURCES}
 			${COMPILER_AAS_SOURCES}
 			${COMPILER_DMAP_SOURCES}
+			#${COMPILER_RENDERBUMP_SOURCES}
+			#${COMPILER_ROQVQ_SOURCES}
 			)
 
 ################################################################################
@@ -936,7 +1064,67 @@ if(MSVC)
 endif()
 
 set(WIN32_RESOURCES
+	# sys/win32/rc/res/BEVEL.BMP
+	# sys/win32/rc/res/BITMAP2.BMP
+	# sys/win32/rc/res/BMP00001.BMP
+	# sys/win32/rc/res/BMP0002.BMP
+	# sys/win32/rc/res/DEFTEX.WAL
+	# sys/win32/rc/res/ENDCAP.BMP
+	# sys/win32/rc/res/GetString.htm
+	# sys/win32/rc/res/IBEVEL.BMP
+	# sys/win32/rc/res/IENDCAP.BMP
+	# sys/win32/rc/res/MEFileToolbar.bmp
+	# sys/win32/rc/res/MEtoolbar.bmp
+	# sys/win32/rc/res/MaterialEditor.ico
+	# sys/win32/rc/res/PropTree.rc2
+	# sys/win32/rc/res/Q.BMP
+	# sys/win32/rc/res/RADIANT3.GIF
+	# sys/win32/rc/res/Radiant.ico
+	# sys/win32/rc/res/RadiantDoc.ico
+	# sys/win32/rc/res/TOOLBAR1.BMP
+	# sys/win32/rc/res/TOOLBAR2.BMP
+	# sys/win32/rc/res/Toolbar.bmp
+	# sys/win32/rc/res/VIEWDEFA.BMP
+	# sys/win32/rc/res/VIEWOPPO.BMP
+	# sys/win32/rc/res/bmp00002.bmp
+	# sys/win32/rc/res/bmp00003.bmp
+	# sys/win32/rc/res/bmp00004.bmp
+	# sys/win32/rc/res/bmp00005.bmp
+	# sys/win32/rc/res/cchsb.bmp
+	# sys/win32/rc/res/ccrgb.bmp
+	# sys/win32/rc/res/dbg_back.bmp
+	# sys/win32/rc/res/dbg_breakpoint.ico
+	# sys/win32/rc/res/dbg_current.ico
+	# sys/win32/rc/res/dbg_currentline.ico
+	# sys/win32/rc/res/dbg_empty.ico
+	# sys/win32/rc/res/dbg_open.bmp
+	# sys/win32/rc/res/dbg_toolbar.bmp
 	sys/win32/rc/res/doom.ico
+	# sys/win32/rc/res/fpoint.cur
+	# sys/win32/rc/res/fxed_link.ico
+	# sys/win32/rc/res/fxed_toolbar.bmp
+	# sys/win32/rc/res/fxeditor.ico
+	# sys/win32/rc/res/guied.ico
+	# sys/win32/rc/res/guied_collapse.ico
+	# sys/win32/rc/res/guied_expand.ico
+	# sys/win32/rc/res/guied_hand.cur
+	# sys/win32/rc/res/guied_nav_visible.ico
+	# sys/win32/rc/res/guied_nav_visibledisabled.ico
+	# sys/win32/rc/res/guied_scripts.ico
+	# sys/win32/rc/res/guied_scripts_white.ico
+	# sys/win32/rc/res/guied_viewer_toolbar.bmp
+	# sys/win32/rc/res/icon2.ico
+	# sys/win32/rc/res/logo_sm3dfx.bmp
+	# sys/win32/rc/res/matedtree.bmp
+	# sys/win32/rc/res/me_disabled_icon.ico
+	# sys/win32/rc/res/me_enabled.ico
+	# sys/win32/rc/res/me_off_icon.ico
+	# sys/win32/rc/res/me_on_icon.ico
+	# sys/win32/rc/res/qe3.ico
+	# sys/win32/rc/res/shaderbar.bmp
+	# sys/win32/rc/res/shaderdoc.ico
+	# sys/win32/rc/res/shaderframe.ico
+	# sys/win32/rc/res/spliter.cur
 	)
 
 
@@ -1099,6 +1287,8 @@ set(RBDOOM3_SOURCES
 add_definitions(
 				-DUSE_DOOMCLASSIC
 				-D__DOOM__
+				#-DBUILD_FREETYPE
+				#-DFT2_BUILD_LIBRARY
 				)
 				
 if(MONOLITH)
@@ -1273,11 +1463,17 @@ if(MSVC)
 	  ${ZLIB_LIBRARY}
 	  ${MINIZIP_LIBRARY}
 	  ${TIMIDITY_LIBRARY}
+	  #${IRRXML_LIBRARY}
 	  ${GLEW_LIBRARY}
+	  #${FREETYPE_LIBRARY}
+	  #${OGGVORBIS_LIBRARY}
 	  ${DirectX_LIBRARIES}
+	  #libcurl
+	  #openal32
 	  opengl32
 	  glu32
 	  dbghelp
+	  #eaxguid
 	  iphlpapi
 	  winmm
 	  wsock32.lib
@@ -1335,6 +1531,14 @@ else()
 			find_package(OpenAL REQUIRED)
 			add_definitions(-DUSE_OPENAL)
 
+			#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/include)
+
+			#if(CMAKE_CL_64)
+			# link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/lib/win64)
+			#else()
+			# link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/lib/win32)
+			#endif()
+
 			list(APPEND RBDOOM3_INCLUDES ${OPENAL_INCLUDES})
 			list(APPEND RBDOOM3_SOURCES
 				${OPENAL_SOURCES}
@@ -1372,7 +1576,10 @@ else()
 		  ${ZLIB_LIBRARY}
 		  ${MINIZIP_LIBRARY}
 		  ${TIMIDITY_LIBRARY}
+		  #${IRRXML_LIBRARY}
 		  ${GLEW_LIBRARY}
+		  #${FREETYPE_LIBRARY}
+		  #${OGGVORBIS_LIBRARY}
 		  ${OPENGL_LIBRARIES}
 		  pthread
 		  ${DL_LIBRARY}
