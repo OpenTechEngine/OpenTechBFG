@@ -15,10 +15,10 @@ option(SDL2
 		"Use SDL2 instead of SDL1.2" OFF)
 		
 option(OPENAL
-		"Use OpenAL soft instead of XAudio2" OFF)
+		"Use OpenAL soft instead of XAudio2" ON)
 
 option(FFMPEG
-		"Use FMPEG to render Bink videos" ON)
+		"Use FMPEG to render Bink videos" OFF)
 
 option(IDTOOLS
 		"Compile the built-in game tools" ON)
@@ -26,13 +26,13 @@ option(IDTOOLS
 #options########################################################################
 
 option(BUNDLED_JPEG
-		"Use bundled libjpeg" OFF)
+		"Use bundled libjpeg" ON)
 
 option(BUNDLED_PNG
-		"Use bundled libpng" OFF)
+		"Use bundled libpng" ON)
 
 option(BUNDLED_ZLIB
-		"Use bundled zlib" OFF)
+		"Use bundled zlib" ON)
 
 option(BUNDLED_MINIZIP
 		"Use bundled minizip" ON)
@@ -41,7 +41,7 @@ option(BUNDLED_IRRXML
 		"Use bundled irrxml" OFF)
 
 option(BUNDLED_GLEW
-		"Use bundled glew" OFF)
+		"Use bundled glew" ON)
 
 option(BUNDLED_FREETYPE
 		"Use bundled freetype" OFF)
@@ -54,26 +54,12 @@ option(BUNDLED_OGGVORBIS
 # Implicated build configuration
 
 if(UNIX)
-  set(OPENAL openal)
+  set(OPENAL_LIBRARY openal)
 endif()
 
 ################################################################################
 		
-if(MSVC)
-	#message(STATUS CMAKE_ROOT: ${CMAKE_ROOT})
-	
-	#if(CMAKE_CL_64)
-	#	SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/../bin/win64)
-	#else()
-	#	SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/../bin/win32)
-	#endif()
-	
-	#message(STATUS EXECUTABLE_OUTPUT_PATH: ${EXECUTABLE_OUTPUT_PATH})
-	#message(STATUS PROJECT_BINARY_DIR: ${PROJECT_BINARY_DIR})
-	#message(STATUS CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR})
-else()
-	message(STATUS CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE})
-endif()
+message(STATUS CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE})
 
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
 	add_definitions(-pipe)
@@ -90,6 +76,11 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
 		include_directories(libs/mingw-hacks)
 		include_directories(${DirectX_INCLUDE_DIR})
 		add_definitions(-DUSE_XINPUT)
+
+		if(OPENAL)
+			add_definitions(-DUSE_OPENAL)
+			include_directories(libs/openal-soft/include)
+		endif()
 	endif()	
 	
 	#if(NOT ANDROID)
@@ -120,49 +111,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
 	set(CMAKE_CXX_FLAGS_MINSIZEREL ${CMAKE_C_FLAGS_MINSIZEREL})
 
 elseif(MSVC)
-	
-	# Multiprocessor support for compiling
-	# /MP
-	
-	# /MT  use multithreaded, static runtime library
-	#      (=> binary won't need MSVCP100D.dll or similar)
-	# /MTd the same with debug symbols
-	# /MD and /MDd - the same with dynamic runtime lib
-	#     (=> MSVCP100D.dll or similar is needed to run binary)
 
-	# Inline Function Expansion: Any Suitable (/Ob2)
-	# "/Ob2",
-			
-	# enable Intrinsic Functions
-	# "/Oi",
-			
-	# Omit Frame Pointers
-	# "/Oy",
-	
-	# if(MSVC_VERSION EQUAL 1700)
-		# #message(STATUS "$ENV{LIBPATH}")
-		
-		# find_path(Windows_winmd_DIR NAMES Windows.winmd
-			# HINTS
-			# C:/Program Files (x86)/Windows Kits/8.0/References/CommonConfiguration/Neutral
-			# PATH_SUFFIXES "Neutral")
-			
-		# message(STATUS "${Windows_winmd_DIR}")
-		
-		# #set(WINRT_OPTIONS "/ZW /D USE_WINRT /AI \"C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral\"")
-		# #set(WINRT_OPTIONS "/ZW /D USE_WINRT /AI \"$ENV{LIBPATH}\" ")
-		# set(WINRT_OPTIONS "/ZW /D USE_WINRT")
-	
-		# set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /D _DEBUG /MP ${WINRT_OPTIONS}")
-		# set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /MP /Oi /Oy ${WINRT_OPTIONS}")
-		# set(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO} /MP /Oi ${WINRT_OPTIONS}")
-		# set(CMAKE_C_FLAGS_MINSIZEREL "${CMAKE_C_FLAGS_MINSIZEREL} /MP /Oi /Oy ${WINRT_OPTIONS}")
-		
-		# set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MP ${WINRT_OPTIONS}")
-		# set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MP /Oi /Oy ${WINRT_OPTIONS}")
-		# set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /MP ${WINRT_OPTIONS}")
-		# set(CMAKE_CXX_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_MINSIZEREL} /MP /Oi /Oy ${WINRT_OPTIONS}")
-	# else()
 		set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /D _DEBUG /MP /MTd")
 		set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /MP /Oi /Oy /MT")
 		set(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO} /MP /Oi /MTd")
@@ -179,7 +128,7 @@ elseif(MSVC)
 		set(CMAKE_EXE_LINKER_FLAGS_MINSIZEREL "${CMAKE_EXE_LINKER_FLAGS_MINSIZEREL} /SAFESEH:NO")
 		set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /SAFESEH:NO")
 		set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO} /SAFESEH:NO")
-	# endif()
+
 	
 
 	add_definitions(-DWIN32 
@@ -188,7 +137,6 @@ elseif(MSVC)
 					-D_CRT_NONSTDC_NO_DEPRECATE
 					-D_CRT_SECURE_NO_WARNINGS
 					-D_MBCS
-					#-DUSE_OPENAL
 					-DUSE_EXCEPTIONS)
 					
 	if(NOT CMAKE_CL_64)
@@ -262,7 +210,7 @@ set(ID_SOURCES_ALL
 			${ID_SYS_SOURCES}
 			)
 
-if(MSVC)
+if(MSVC OR WIN32)
 	list(APPEND ID_INCLUDES_ALL ${ID_SYS_WIN32_INCLUDES})
 	list(APPEND ID_SOURCES_ALL ${ID_SYS_WIN32_SOURCES})
 else()
@@ -285,7 +233,7 @@ source_group("idlib_math" FILES ${ID_MATH_SOURCES})
 source_group("idlib_sys" FILES ${ID_SYS_INCLUDES})
 source_group("idlib_sys" FILES ${ID_SYS_SOURCES})
 
-if(MSVC)
+if(MSVC OR WIN32)
 	source_group("idlib_sys\\win32" FILES ${ID_SYS_WIN32_INCLUDES})
 	source_group("idlib_sys\\win32" FILES ${ID_SYS_WIN32_SOURCES})
 else()
@@ -994,7 +942,7 @@ file(GLOB GAMED3XP_SCRIPT_INCLUDES d3xp/script/*.h)
 file(GLOB GAMED3XP_SCRIPT_SOURCES d3xp/script/*.cpp)
 
 file(GLOB_RECURSE WIN32_INCLUDES sys/win32/*.h)
-#file(GLOB_RECURSE WIN32_SOURCES sys/win32/*.cpp)
+file(GLOB_RECURSE WIN32_SOURCES sys/win32/*.cpp)
 
 set(WIN32_SOURCES
 	sys/win32/win_glimp.cpp
@@ -1006,7 +954,7 @@ set(WIN32_SOURCES
 	sys/win32/win_taskkeyhook.cpp
 	sys/win32/win_wndproc.cpp)
 	
-if(MSVC)
+if(MSVC OR WIN32)
 	list(APPEND WIN32_SOURCES sys/win32/win_cpu.cpp)
 endif()
 
@@ -1075,11 +1023,11 @@ set(WIN32_RESOURCES
 	)
 
 
-#if(USE_MFC_TOOLS)
+if(USE_MFC_TOOLS)
 	list(APPEND WIN32_RESOURCES sys/win32/rc/doom.rc)
 #else()
 #	list(APPEND WIN32_RESOURCES sys/win32/rc/doom_nomfc.rc)
-#endif()
+endif()
 
 
 file(GLOB POSIX_INCLUDES sys/posix/*.h)
@@ -1266,32 +1214,18 @@ if(IDTOOLS)
 	  ${IDTOOLS_SOURCES} 
 	)
 endif()
-			
-if(MSVC)
 
-	# if(MSVC_VERSION EQUAL 1700)
-		# set(DirectX_LIBRARIES
-			# dinput8
-			# dsound
-			# dxguid
-			# #dxerr
-			# Xinput
-			# xaudio2.lib
-			# )
-		
-		# if(NOT OPENAL)
-			# list(APPEND DirectX_LIBRARIES xaudio2.lib)
-		# endif()
-		
-	# else()
+## TARGETS
+			
+if(MSVC OR WIN32)
 		find_package(DirectX REQUIRED)
 		include_directories(${DirectX_INCLUDE_DIR})
-	#endif()
+
 	
 	if(OPENAL)
 		add_definitions(-DUSE_OPENAL)
 	
-		include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/include)
+		include_directories(libs/openal-soft/include)
 		
 		if(CMAKE_CL_64)
 			link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/lib/win64)
@@ -1301,9 +1235,8 @@ if(MSVC)
 		
 		list(APPEND OpenTechBFG_INCLUDES ${OPENAL_INCLUDES})
 		list(APPEND OpenTechBFG_SOURCES ${OPENAL_SOURCES})
-		
-		set(OpenAL_LIBRARIES
-			OpenAL32)
+
+		set(OPENAL_LIBRARY openal)
 			
 		if(CMAKE_CL_64)
 			install(FILES libs/openal-soft/lib/win64/OpenAL64.dll DESTINATION .)
@@ -1387,7 +1320,7 @@ if(MSVC)
 	list(APPEND OpenTechBFG_SOURCES ${WIN32_RESOURCES})
 	
 	add_executable(OpenTechEngine WIN32 ${OpenTechBFG_INCLUDES} ${OpenTechBFG_SOURCES})
-		
+
 	target_link_libraries(OpenTechEngine
 	  idlib
 	  ${JPEG_LIBRARY}
@@ -1399,8 +1332,6 @@ if(MSVC)
 	  ${FREETYPE_LIBRARY}
 	  ${OGGVORBIS_LIBRARY}
 	  ${DirectX_LIBRARIES}
-	  #libcurl 
-	  #openal32 
 	  opengl32
 	  glu32
 	  dbghelp
@@ -1408,8 +1339,8 @@ if(MSVC)
 	  iphlpapi
 	  winmm
 	  wsock32.lib
-	  ${OpenAL_LIBRARIES}
-	  ${FFmpeg_LIBRARIES}
+	  ${OPENAL_LIBRARY}
+	  ${FFMPEG_LIBRARIES}
 	  )
 		
 	#CMAKE_BINARY_DIR
@@ -1461,14 +1392,6 @@ else()
 		if(OPENAL)
 			find_package(OpenAL REQUIRED)
 			add_definitions(-DUSE_OPENAL)
-
-			#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/include)
-			
-			#if(CMAKE_CL_64)
-			#	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/lib/win64)
-			#else()
-			#	link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/lib/win32)
-			#endif()
 			
 			list(APPEND OpenTechBFG_INCLUDES ${OPENAL_INCLUDES})
 			list(APPEND OpenTechBFG_SOURCES ${OPENAL_SOURCES})

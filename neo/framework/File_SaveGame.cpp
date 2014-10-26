@@ -1245,9 +1245,13 @@ static void TestProcessFile( const char* const filename )
 	
 	const uint64 endWriteMicroseconds = Sys_Microseconds();
 	const uint64 writeMicroseconds = endWriteMicroseconds - startWriteMicroseconds;
-	
+#ifdef __WIN32__
+	idLib::Printf( "%I64u microseconds to compress %i bytes to %i written bytes = %4.1f MB/s\n",
+					   writeMicroseconds, testDataLength, readDataLength, ( float )readDataLength / writeMicroseconds );
+#else
 	idLib::Printf( "%lld microseconds to compress %i bytes to %i written bytes = %4.1f MB/s\n",
-				   writeMicroseconds, testDataLength, readDataLength, ( float )readDataLength / writeMicroseconds );
+					   writeMicroseconds, testDataLength, readDataLength, ( float )readDataLength / writeMicroseconds );
+#endif // __WIN32__
 				   
 	void* readData = ( void* )Mem_Alloc( testDataLength, TAG_SAVEGAMES );
 	
@@ -1260,8 +1264,12 @@ static void TestProcessFile( const char* const filename )
 	
 	const uint64 endReadMicroseconds = Sys_Microseconds();
 	const uint64 readMicroseconds = endReadMicroseconds - startReadMicroseconds;
-	
+#ifdef __WIN32__
+	idLib::Printf( "%I64u microseconds to decompress = %4.1f MB/s\n", readMicroseconds, ( float )testDataLength / readMicroseconds );
+#else
 	idLib::Printf( "%lld microseconds to decompress = %4.1f MB/s\n", readMicroseconds, ( float )testDataLength / readMicroseconds );
+#endif // __WIN32__
+
 	
 	int comparePoint;
 	for( comparePoint = 0; comparePoint < testDataLength; comparePoint++ )

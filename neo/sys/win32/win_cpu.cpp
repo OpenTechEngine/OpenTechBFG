@@ -130,7 +130,7 @@ double Sys_ClockTicksPerSecond() {
 			}
 			RegCloseKey( hKey );
 			if ( ret == ERROR_SUCCESS ) {
-				ticks = (double) ((unsigned long)ProcSpeed) * 1000000;
+				ticks = (double) ((uint64)ProcSpeed) * 1000000;
 			}
 		}
 	}
@@ -673,7 +673,7 @@ bool GetCPUInfo( cpuInfo_t & cpuInfo ) {
 
 				buffer = (PSYSTEM_LOGICAL_PROCESSOR_INFORMATION)malloc( returnLength );
 			} else {
-				idLib::Printf( "Sys_CPUCount error: %d\n", GetLastError() );
+				idLib::Printf( "Sys_CPUCount error: %lui\n", GetLastError() );
 				return false;
 			}
 		} else {

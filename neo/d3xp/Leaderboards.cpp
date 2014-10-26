@@ -291,10 +291,19 @@ class idLeaderboardCallbackTest : public idLeaderboardCallback
 		idLib::Printf( "%d total entries in leaderboard %d.\n", numRowsInLeaderboard, def->id );
 		for( int i = 0; i < rows.Num(); i++ )
 		{
+#ifdef __WIN32__
+			idLib::Printf( "%d: %s rank:%I64u", i, rows[i].name.c_str(), rows[i].rank );
+#else
 			idLib::Printf( "%d: %s rank:%lld", i, rows[i].name.c_str(), rows[i].rank );
+#endif // __WIN32__
+
 			for( int j = 0; j < def->numColumns; j++ )
 			{
-				idLib::Printf( ", score[%d]: %lld", j, rows[i].columns[j] );
+#ifdef __WIN32__
+				idLib::Printf( ", score[%d]: %I64u", j, rows[i].columns[j] );
+#else
+				idLib::Printf( ", score[%d]: %I64u", j, rows[i].columns[j] );
+	#endif // __WIN32__
 			}
 			idLib::Printf( "\n" );
 		}

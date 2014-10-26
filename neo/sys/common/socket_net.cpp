@@ -902,7 +902,11 @@ void Sys_InitNetworking()
 	pAdapterInfo = ( IP_ADAPTER_INFO* )malloc( sizeof( IP_ADAPTER_INFO ) );
 	if( !pAdapterInfo )
 	{
+#ifdef __WIN32__
+		idLib::FatalError( "Sys_InitNetworking: Couldn't malloc( %I64u )", sizeof( IP_ADAPTER_INFO ) );
+#else
 		idLib::FatalError( "Sys_InitNetworking: Couldn't malloc( %d )", sizeof( IP_ADAPTER_INFO ) );
+#endif // __WIN32__
 	}
 	ulOutBufLen = sizeof( IP_ADAPTER_INFO );
 	

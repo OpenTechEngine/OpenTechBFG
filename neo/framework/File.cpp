@@ -867,7 +867,11 @@ int idFile_Memory::Write( const void* buffer, int len )
 	{
 		if( maxSize != 0 )
 		{
+#ifdef __WIN32__
+			common->Error( "idFile_Memory::Write: exceeded maximum size %I64u", maxSize );
+#else
 			common->Error( "idFile_Memory::Write: exceeded maximum size %" PRIuSIZE "", maxSize );
+#endif // __WIN32__
 			return 0;
 		}
 		int extra = granularity * ( 1 + alloc / granularity );
@@ -953,7 +957,11 @@ void idFile_Memory::PreAllocate( size_t len )
 	{
 		if( maxSize != 0 )
 		{
+#ifdef __WIN32__
+			idLib::Error( "idFile_Memory::SetLength: exceeded maximum size %I64u", maxSize );
+#else
 			idLib::Error( "idFile_Memory::SetLength: exceeded maximum size %" PRIuSIZE "", maxSize );
+#endif // __WIN32__
 		}
 		char* newPtr = ( char* )Mem_Alloc( len, TAG_IDFILE );
 		if( allocated > 0 )
@@ -1139,7 +1147,11 @@ void idFile_Memory::TruncateData( size_t len )
 {
 	if( len > allocated )
 	{
+#ifdef __WIN32__
+		idLib::Error( "idFile_Memory::TruncateData: len (%I64u) exceeded allocated size (%I64u)", len, allocated );
+#else
 		idLib::Error( "idFile_Memory::TruncateData: len (%" PRIuSIZE ") exceeded allocated size (%" PRIuSIZE ")", len, allocated );
+#endif // __WIN32__
 	}
 	else
 	{
@@ -1370,7 +1382,11 @@ int idFile_Permanent::Read( void* buffer, int len )
 		DWORD bytesRead;
 		if( !ReadFile( o, buf, block, &bytesRead, NULL ) )
 		{
+#ifdef __WIN32__
+			idLib::Warning( "idFile_Permanent::Read failed with %lui from %s", GetLastError(), name.c_str() );
+#else
 			idLib::Warning( "idFile_Permanent::Read failed with %d from %s", GetLastError(), name.c_str() );
+#endif // __WIN32__
 		}
 		read = bytesRead;
 #else

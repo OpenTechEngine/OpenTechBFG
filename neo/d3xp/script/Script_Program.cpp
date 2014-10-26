@@ -1462,9 +1462,17 @@ byte* idProgram::ReserveDefMemory( int size )
 	if( numVariables > sizeof( variables ) )
 	{
 #if defined(USE_EXCEPTIONS)
+#ifdef __WIN32__
+		throw idCompileError( va( "Exceeded global memory size (%I64u bytes)", sizeof( variables ) ) );
+#else
 		throw idCompileError( va( "Exceeded global memory size (%zd bytes)", sizeof( variables ) ) );
+#endif // __WIN32__
+#else
+#ifdef __WIN32__
+		gameLocal.Error( "Exceeded global memory size (%I64u bytes)", sizeof( variables ) );
 #else
 		gameLocal.Error( "Exceeded global memory size (%zd bytes)", sizeof( variables ) );
+#endif // __WIN32__
 #endif
 	}
 	
