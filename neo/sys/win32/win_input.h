@@ -29,11 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include <windows.h>
 
-#ifdef _MSC_VER // DG: dx SDK's xinput.h is incompatible with MinGW..
+#define DIRECTINPUT_VERSION 0x0800
 #include <Xinput.h>
-#else // .. so use the one from wine instead when not using MSVC
-#include "wine-xinput.h"
-#endif // DG end
 
 #include "../sys/sys_session.h"
 
