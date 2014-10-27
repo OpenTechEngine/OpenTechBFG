@@ -50,14 +50,6 @@ option(BUNDLED_OGGVORBIS
 		"Use bundled oggvorbis" OFF)
 
 ################################################################################
-
-# Implicated build configuration
-
-if(UNIX)
-  set(OPENAL_LIBRARY openal)
-endif()
-
-################################################################################
 		
 message(STATUS CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE})
 
@@ -67,7 +59,24 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
 	add_definitions(-Werror=format-security)
 	add_definitions(-Werror=format)
 	add_definitions(-mmmx -msse -msse2)
-	if(NOT UNIX)
+	
+	add_definitions(-ftrapv)
+	# add_definitions(-Wextra)
+	# add_definitions(-Wfloat-equal)
+	add_definitions(-Wundef)
+	add_definitions(-Wpointer-arith)
+	add_definitions(-Wcast-align)
+	# add_definitions(-Wstrict-prototypes)
+	# add_definitions(-Wstrict-overflow=5)
+	# add_definitions(-Wwrite-strings)
+	# add_definitions(-Waggregate-return)
+	# add_definitions(-Wcast-qual)
+	# add_definitions(-Wswitch-default)
+	# add_definitions(-Wswitch-enum)
+	# add_definitions(-Wconversion)
+	# add_definitions(-Wunreachable-code)
+	
+	if(NOT UNIX) # MinGW
 		# require msvcr70.dll or newer for _aligned_malloc etc
 		# I think it is from Visual C++ .NET 2002, so it should be available on any remotely modern system.
 		add_definitions(-D__MSVCRT_VERSION__=0x0700)
@@ -81,7 +90,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
 			add_definitions(-DUSE_OPENAL)
 			include_directories(libs/openal-soft/include)
 		endif()
-	endif()	
+	endif()	# NOT UNIX
 	
 	#if(NOT ANDROID)
 		add_definitions(-DUSE_EXCEPTIONS)
@@ -94,7 +103,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
 		# append clang-specific settings for warnings (the second one make sure clang doesn't complain
 		# about unknown -W flags, like -Wno-unused-but-set-variable)
 		set(my_warn_flags "${my_warn_flags} -Wno-local-type-template-args -Wno-unknown-warning-option -Wno-inline-new-delete")
-	endif()
+	endif() # CLANG
 	
 	set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -D_DEBUG -O0 -ggdb -fno-strict-aliasing ${my_warn_flags}")
 	#set(CMAKE_C_FLAGS_DEBUGALL "${CMAKE_C_FLAGS_DEBUGALL} -g -ggdb -D_DEBUG -fno-strict-aliasing ${my_warn_flags}")
@@ -154,7 +163,7 @@ elseif(MSVC)
 		# 2: Use MFC in a Shared DLL 
 		set(CMAKE_MFC_FLAG 2)
 	endif()
-endif()
+endif() # MSVC
 
 #if(STANDALONE)
 #	add_definitions(-DSTANDALONE)
@@ -164,11 +173,10 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/common.cmake)
 
 ## TARGETS
 			
-if(NOT UNIX)
-		find_package(DirectX REQUIRED)
-		include_directories(${DirectX_INCLUDE_DIR})
+if(NOT UNIX) # MSVC and MinGW
+	find_package(DirectX REQUIRED)
+	include_directories(${DirectX_INCLUDE_DIR})
 
-	
 	if(OPENAL)
 		add_definitions(-DUSE_OPENAL)
 	
@@ -192,7 +200,7 @@ if(NOT UNIX)
 			install(FILES libs/openal-soft/lib/win32/OpenAL32.dll DESTINATION .)
 			install(FILES libs/openal-soft/lib/win32/OpenAL32.pdb DESTINATION .)
 		endif()
-	else()
+	else() # XAUDIO2
 		list(APPEND OpenTechBFG_INCLUDES ${XAUDIO2_INCLUDES})
 		list(APPEND OpenTechBFG_SOURCES ${XAUDIO2_SOURCES})
 	endif()
@@ -224,7 +232,7 @@ if(NOT UNIX)
 				avutil
 				swscale)
 		
-	endif()
+	endif() # FFMPEG
 	
 	if(USE_MFC_TOOLS)
 		
@@ -253,7 +261,7 @@ if(NOT UNIX)
 			${EDITOR_RADIANT_INCLUDES} ${EDITOR_RADIANT_SOURCES}
 			${EDITOR_SCRIPT_INCLUDES} ${EDITOR_SCRIPT_SOURCES}
 			${EDITOR_SOUND_INCLUDES} ${EDITOR_SOUND_SOURCES})
-	endif()
+	endif() # USE_MFC_TOOLS
 	
 	list(APPEND OpenTechBFG_INCLUDES
 		${SYS_INCLUDES} 
@@ -308,7 +316,9 @@ if(NOT UNIX)
 			RUNTIME DESTINATION .)
 	endif()
 	
-else()
+else() # UNIX
+
+	set(OPENAL_LIBRARY openal)
 
 	list(APPEND OpenTechBFG_SOURCES
 		${SYS_INCLUDES} ${SYS_SOURCES})
@@ -317,44 +327,44 @@ else()
 	include_directories(${OPENGL_INCLUDE_DIRS})
 
 	#if(UNIX)
-		if(FFMPEG)
-			find_package(FFMPEG REQUIRED)
-			add_definitions(-DUSE_FFMPEG)
-			
-			include_directories(${FFMPEG_INCLUDE_DIR})
-			link_directories(${FFMPEG_LIBRARIES_DIRS})
-		endif()
+	if(FFMPEG)
+		find_package(FFMPEG REQUIRED)
+		add_definitions(-DUSE_FFMPEG)
+		
+		include_directories(${FFMPEG_INCLUDE_DIR})
+		link_directories(${FFMPEG_LIBRARIES_DIRS})
+	endif()
 
-		if(SDL2)
-			find_package(SDL2 REQUIRED)
-			include_directories(${SDL2_INCLUDE_DIR})
-			set(SDLx_LIBRARY ${SDL2_LIBRARY})
-		else()
-			find_package(SDL REQUIRED)
-			include_directories(${SDL_INCLUDE_DIR})
-			set(SDLx_LIBRARY ${SDL_LIBRARY})
-		endif()
+	if(SDL2)
+		find_package(SDL2 REQUIRED)
+		include_directories(${SDL2_INCLUDE_DIR})
+		set(SDLx_LIBRARY ${SDL2_LIBRARY})
+	else()
+		find_package(SDL REQUIRED)
+		include_directories(${SDL_INCLUDE_DIR})
+		set(SDLx_LIBRARY ${SDL_LIBRARY})
+	endif()
 
-		if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-			list(REMOVE_ITEM POSIX_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/sys/posix/platform_linux.cpp)
-		else()
-			list(REMOVE_ITEM POSIX_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/sys/posix/platform_osx.cpp)
-		endif()
+	if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+		list(REMOVE_ITEM POSIX_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/sys/posix/platform_linux.cpp)
+	else()
+		list(REMOVE_ITEM POSIX_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/sys/posix/platform_osx.cpp)
+	endif()
 
-		list(APPEND OpenTechBFG_SOURCES
-			${POSIX_INCLUDES} ${POSIX_SOURCES}
-			${SDL_INCLUDES} ${SDL_SOURCES})
-			
-		if(OPENAL)
-			find_package(OpenAL REQUIRED)
-			add_definitions(-DUSE_OPENAL)
-			
-			list(APPEND OpenTechBFG_INCLUDES ${OPENAL_INCLUDES})
-			list(APPEND OpenTechBFG_SOURCES ${OPENAL_SOURCES})
-		else()
-			list(APPEND OpenTechBFG_INCLUDES ${STUBAUDIO_INCLUDES})
-			list(APPEND OpenTechBFG_SOURCES ${STUBAUDIO_SOURCES})
-		endif()
+	list(APPEND OpenTechBFG_SOURCES
+		${POSIX_INCLUDES} ${POSIX_SOURCES}
+		${SDL_INCLUDES} ${SDL_SOURCES})
+		
+	if(OPENAL)
+		find_package(OpenAL REQUIRED)
+		add_definitions(-DUSE_OPENAL)
+		
+		list(APPEND OpenTechBFG_INCLUDES ${OPENAL_INCLUDES})
+		list(APPEND OpenTechBFG_SOURCES ${OPENAL_SOURCES})
+	else()
+		list(APPEND OpenTechBFG_INCLUDES ${STUBAUDIO_INCLUDES})
+		list(APPEND OpenTechBFG_SOURCES ${STUBAUDIO_SOURCES})
+	endif()
 			
 	#endif()
 
@@ -366,32 +376,32 @@ else()
 
 	add_executable(OpenTechEngine WIN32 ${OpenTechBFG_SOURCES})
 
-	if(NOT WIN32)
-		if(NOT "${CMAKE_SYSTEM}" MATCHES "Darwin")
-			set(RT_LIBRARY rt)
-		endif()
-
-		if(NOT "${CMAKE_SYSTEM}" MATCHES "FreeBSD")
-			set(DL_LIBRARY dl)
-		endif()
-
-		target_link_libraries(OpenTechEngine
-		  idlib
-		  ${JPEG_LIBRARY}
-		  ${PNG_LIBRARY}
-		  ${ZLIB_LIBRARY}
-		  ${MINIZIP_LIBRARY}
-		  ${IRRXML_LIBRARY}
-		  ${GLEW_LIBRARY}
-		  ${FREETYPE_LIBRARY}
-		  ${OGGVORBIS_LIBRARY}
-		  ${OPENGL_LIBRARIES}
-		  pthread
-		  ${DL_LIBRARY}
-		  ${RT_LIBRARY}
-		  ${SDLx_LIBRARY}
-		  ${OPENAL_LIBRARY}
-		  ${FFMPEG_LIBRARIES}
-		  )
+	#if(NOT WIN32)
+	if(NOT "${CMAKE_SYSTEM}" MATCHES "Darwin")
+		set(RT_LIBRARY rt)
 	endif()
+
+	if(NOT "${CMAKE_SYSTEM}" MATCHES "FreeBSD")
+		set(DL_LIBRARY dl)
+	endif()
+
+	target_link_libraries(OpenTechEngine
+	  idlib
+	  ${JPEG_LIBRARY}
+	  ${PNG_LIBRARY}
+	  ${ZLIB_LIBRARY}
+	  ${MINIZIP_LIBRARY}
+	  ${IRRXML_LIBRARY}
+	  ${GLEW_LIBRARY}
+	  ${FREETYPE_LIBRARY}
+	  ${OGGVORBIS_LIBRARY}
+	  ${OPENGL_LIBRARIES}
+	  pthread
+	  ${DL_LIBRARY}
+	  ${RT_LIBRARY}
+	  ${SDLx_LIBRARY}
+	  ${OPENAL_LIBRARY}
+	  ${FFMPEG_LIBRARIES}
+	  )
+	#endif()
 endif()

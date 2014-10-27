@@ -136,6 +136,6 @@ typedef struct
 	
 } Win32Vars_t;
 
-extern Win32Vars_t	win32;
+extern Win32Vars_t win32;
 
 #endif /* !__WIN_LOCAL_H__ */

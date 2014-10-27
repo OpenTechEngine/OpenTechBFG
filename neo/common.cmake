@@ -504,17 +504,17 @@ file(GLOB GAMED3XP_SCRIPT_SOURCES d3xp/script/*.cpp)
 file(GLOB_RECURSE WIN32_INCLUDES sys/win32/*.h)
 file(GLOB_RECURSE WIN32_SOURCES sys/win32/*.cpp)
 
-set(WIN32_SOURCES
-	sys/win32/win_glimp.cpp
-	sys/win32/win_input.cpp
-	sys/win32/win_main.cpp
-	sys/win32/win_shared.cpp
-	sys/win32/win_snd.cpp
-	sys/win32/win_syscon.cpp
-	sys/win32/win_taskkeyhook.cpp
-	sys/win32/win_wndproc.cpp
-	sys/win32/win_cpu.cpp # MSVC?
-	)
+#set(WIN32_SOURCES
+#	sys/win32/win_glimp.cpp
+#	sys/win32/win_input.cpp
+#	sys/win32/win_main.cpp
+#	sys/win32/win_shared.cpp
+#	sys/win32/win_snd.cpp
+#	sys/win32/win_syscon.cpp
+#	sys/win32/win_taskkeyhook.cpp
+#	sys/win32/win_wndproc.cpp
+#	sys/win32/win_cpu.cpp # MSVC?
+#	)
 
 set(WIN32_RESOURCES
 	# sys/win32/rc/res/BEVEL.BMP
