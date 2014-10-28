@@ -1,5 +1,7 @@
-find_package(DirectX REQUIRED)
-include_directories(${DirectX_INCLUDE_DIR})
+if(0) # KORTEMIK TEMP
+  find_package(DirectX REQUIRED)
+  include_directories(${DirectX_INCLUDE_DIR})
+endif()
 
 if(OPENAL)
   add_definitions(-DUSE_OPENAL)
@@ -8,9 +10,9 @@ if(OPENAL)
   
   #if(CMAKE_CL_64)
   if(OPENAL) # KORTEMIK TEMP
-    link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/libs/win64)
+    link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/libs/Win64)
   else()
-    link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/libs/win32)
+    link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/libs/Win32)
   endif()
   
   list(APPEND OpenTechBFG_INCLUDES ${OPENAL_INCLUDES})
@@ -104,7 +106,6 @@ add_executable(OpenTechEngine WIN32 ${OpenTechBFG_INCLUDES} ${OpenTechBFG_SOURCE
 list(APPEND DIRECTX_LIBRARIES
   dxguid
   dinput8
-  XInput
   #d3d9
   #d3dx9
   dbghelp
@@ -113,6 +114,16 @@ list(APPEND DIRECTX_LIBRARIES
   winmm
   wsock32.lib
   )
+
+if(0) # KORTEMIK TEMP
+  list(APPEND DIRECTX_LIBRARIES
+  XInput
+  )
+else()
+  list(APPEND DIRECTX_LIBRARIES
+    xinput9_1_0
+  )
+endif()
 
 target_link_libraries(OpenTechEngine
   idlib
