@@ -1,18 +1,19 @@
-if(0) # KORTEMIK TEMP
+if(CMAKE_HOST_WIN32)
   find_package(DirectX REQUIRED)
   include_directories(${DirectX_INCLUDE_DIR})
 endif()
+
+add_definitions(-DUSE_XINPUT)
 
 if(OPENAL)
   add_definitions(-DUSE_OPENAL)
 
   include_directories(libs/openal-soft/include)
   
-  #if(CMAKE_CL_64)
-  if(OPENAL) # KORTEMIK TEMP
-    link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/libs/Win64)
-  else()
+  if(PROCESSOR_ARCHITECTURE STREQUAL "x86")
     link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/libs/Win32)
+  else()
+    link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/openal-soft/libs/Win64)
   endif()
   
   list(APPEND OpenTechBFG_INCLUDES ${OPENAL_INCLUDES})
@@ -34,15 +35,7 @@ endif()
 if(FFMPEG)
   add_definitions(-DUSE_FFMPEG)
 
-  if(CMAKE_CL_64)
-    include_directories(libs/ffmpeg-win64/include)
-    include_directories(libs/ffmpeg-win64/include/libswscale)
-    include_directories(libs/ffmpeg-win64/include/libavformat)
-    include_directories(libs/ffmpeg-win64/include/libavdevice)
-    include_directories(libs/ffmpeg-win64/include/libavcodec)
-    
-    link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/ffmpeg-win64/lib)
-  else()
+  if(PROCESSOR_ARCHITECTURE STREQUAL "x86")
     include_directories(libs/ffmpeg-win32/include)
     include_directories(libs/ffmpeg-win32/include/libswscale)
     include_directories(libs/ffmpeg-win32/include/libavformat)
@@ -50,6 +43,14 @@ if(FFMPEG)
     include_directories(libs/ffmpeg-win32/include/libavcodec)
     
     link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/ffmpeg-win32/lib)
+  else()
+    include_directories(libs/ffmpeg-win64/include)
+    include_directories(libs/ffmpeg-win64/include/libswscale)
+    include_directories(libs/ffmpeg-win64/include/libavformat)
+    include_directories(libs/ffmpeg-win64/include/libavdevice)
+    include_directories(libs/ffmpeg-win64/include/libavcodec)
+    
+    link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/ffmpeg-win64/lib)
   endif()
   
   set(FFmpeg_LIBRARIES
@@ -64,7 +65,7 @@ if(USE_MFC_TOOLS)
   
   include_directories(libs/atlmfc/include)
   if(CMAKE_CL_64)
-    link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/atlmfc/lib/amd64)
+    link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/atlmfc/lib/AMD64)
   else()
     link_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/atlmfc/lib)
   endif()
@@ -115,7 +116,7 @@ list(APPEND DIRECTX_LIBRARIES
   wsock32.lib
   )
 
-if(0) # KORTEMIK TEMP
+if(CMAKE_HOST_WIN32)
   list(APPEND DIRECTX_LIBRARIES
   XInput
   )
@@ -143,10 +144,5 @@ target_link_libraries(OpenTechEngine
   )
 
 #CMAKE_BINARY_DIR
-if(CMAKE_CL_64)
-  install(TARGETS OpenTechEngine
-    RUNTIME DESTINATION .)
-else()
-  install(TARGETS OpenTechEngine
-    RUNTIME DESTINATION .)
-endif()
+install(TARGETS OpenTechEngine
+  RUNTIME DESTINATION .)

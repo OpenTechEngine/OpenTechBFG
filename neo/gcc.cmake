@@ -27,16 +27,6 @@ if(NOT UNIX) # MinGW
   # require msvcr70.dll or newer for _aligned_malloc etc
   # I think it is from Visual C++ .NET 2002, so it should be available on any remotely modern system.
   add_definitions(-D__MSVCRT_VERSION__=0x0700)
-  
-#  find_package(DirectX REQUIRED) # KORTEMIK TEMP
-#  include_directories(libs/mingw-hacks)
-#  include_directories(${DirectX_INCLUDE_DIR}) # KORTEMIK TEMP
-  add_definitions(-DUSE_XINPUT)
-
-  if(OPENAL)
-    add_definitions(-DUSE_OPENAL)
-    include_directories(libs/openal-soft/include)
-  endif()
 endif()	# NOT UNIX
 
 #if(NOT ANDROID)
