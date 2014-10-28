@@ -19,22 +19,22 @@ set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBIN
 
 
 add_definitions(-DWIN32 
-				-D_WINDOWS
-				-D_CRT_SECURE_NO_DEPRECATE
-				-D_CRT_NONSTDC_NO_DEPRECATE
-				-D_CRT_SECURE_NO_WARNINGS
-				-D_MBCS
-				-DUSE_EXCEPTIONS)
-				
+  -D_WINDOWS
+  -D_CRT_SECURE_NO_DEPRECATE
+  -D_CRT_NONSTDC_NO_DEPRECATE
+  -D_CRT_SECURE_NO_WARNINGS
+  -D_MBCS
+  -DUSE_EXCEPTIONS)
+
 if(NOT CMAKE_CL_64)
-	add_definitions(-D_USE_32BIT_TIME_T)
+  add_definitions(-D_USE_32BIT_TIME_T)
 endif()
-				
+
 if(USE_MFC_TOOLS)
-	add_definitions(-D_AFXDLL)
-	
-	# 0: Use Standard Windows Libraries
-	# 1: Use MFC in a Static Library
-	# 2: Use MFC in a Shared DLL 
-	set(CMAKE_MFC_FLAG 2)
+  add_definitions(-D_AFXDLL)
+  
+  # 0: Use Standard Windows Libraries
+  # 1: Use MFC in a Static Library
+  # 2: Use MFC in a Shared DLL 
+  set(CMAKE_MFC_FLAG 2)
 endif()

@@ -24,32 +24,32 @@ add_definitions(-Wcast-align)
 # add_definitions(-Wunreachable-code)
 
 if(NOT UNIX) # MinGW
-	# require msvcr70.dll or newer for _aligned_malloc etc
-	# I think it is from Visual C++ .NET 2002, so it should be available on any remotely modern system.
-	add_definitions(-D__MSVCRT_VERSION__=0x0700)
-	
-	find_package(DirectX REQUIRED)
-	include_directories(libs/mingw-hacks)
-	include_directories(${DirectX_INCLUDE_DIR})
-	add_definitions(-DUSE_XINPUT)
+  # require msvcr70.dll or newer for _aligned_malloc etc
+  # I think it is from Visual C++ .NET 2002, so it should be available on any remotely modern system.
+  add_definitions(-D__MSVCRT_VERSION__=0x0700)
+  
+  find_package(DirectX REQUIRED)
+  include_directories(libs/mingw-hacks)
+  include_directories(${DirectX_INCLUDE_DIR})
+  add_definitions(-DUSE_XINPUT)
 
-	if(OPENAL)
-		add_definitions(-DUSE_OPENAL)
-		include_directories(libs/openal-soft/include)
-	endif()
+  if(OPENAL)
+    add_definitions(-DUSE_OPENAL)
+    include_directories(libs/openal-soft/include)
+  endif()
 endif()	# NOT UNIX
 
 #if(NOT ANDROID)
-	add_definitions(-DUSE_EXCEPTIONS)
+add_definitions(-DUSE_EXCEPTIONS)
 #endif()
 
 # the warnings are used for every profile anyway, so put them in a variable
 set(my_warn_flags "-Wno-pragmas -Wno-unused-variable -Wno-unused-but-set-variable -Wno-switch -Wno-unused-value -Winvalid-pch -Wno-multichar")
 
 if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
-	# append clang-specific settings for warnings (the second one make sure clang doesn't complain
-	# about unknown -W flags, like -Wno-unused-but-set-variable)
-	set(my_warn_flags "${my_warn_flags} -Wno-local-type-template-args -Wno-unknown-warning-option -Wno-inline-new-delete")
+  # append clang-specific settings for warnings (the second one make sure clang doesn't complain
+  # about unknown -W flags, like -Wno-unused-but-set-variable)
+  set(my_warn_flags "${my_warn_flags} -Wno-local-type-template-args -Wno-unknown-warning-option -Wno-inline-new-delete")
 endif() # CLANG
 
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -D_DEBUG -O0 -ggdb -fno-strict-aliasing ${my_warn_flags}")

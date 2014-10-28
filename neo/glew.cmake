@@ -2,16 +2,16 @@
 
 if(BUNDLED_GLEW)
   set(GLEW_INCLUDES
-      libs/glew/include/GL/glew.h)
+    libs/glew/include/GL/glew.h)
 
   if(WIN32)
-      set(GLEW_INCLUDES ${GLEW_INCLUDES} libs/glew/include/GL/wglew.h)
+    set(GLEW_INCLUDES ${GLEW_INCLUDES} libs/glew/include/GL/wglew.h)
   else()
-      set(GLEW_INCLUDES ${GLEW_INCLUDES} libs/glew/include/GL/glxew.h)
+    set(GLEW_INCLUDES ${GLEW_INCLUDES} libs/glew/include/GL/glxew.h)
   endif()
 
   set(GLEW_SOURCES
-      libs/glew/src/glew.c)
+    libs/glew/src/glew.c)
 
   include_directories(libs/glew/include)
   add_library(glew ${GLEW_SOURCES} ${GLEW_INCLUDES})
