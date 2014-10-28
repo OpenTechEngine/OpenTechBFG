@@ -60,7 +60,7 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
   add_definitions(-Werror=format)
   add_definitions(-mmmx -msse -msse2)
 
-  add_definitions(-std=c++11)
+#  add_definitions(-std=c++11)
 
   add_definitions(-ftrapv)
   # add_definitions(-Wextra)
