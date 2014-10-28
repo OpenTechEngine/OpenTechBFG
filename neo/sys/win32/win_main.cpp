@@ -885,7 +885,7 @@ Sys_DLL_Load
 intptr_t Sys_DLL_Load( const char *dllName )
 {
 	HINSTANCE libHandle = LoadLibrary( dllName );
-	return (int64)libHandle;
+	return (size_t)libHandle;
 }
 
 /*
