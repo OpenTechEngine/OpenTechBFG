@@ -130,7 +130,7 @@ double Sys_ClockTicksPerSecond() {
 			}
 			RegCloseKey( hKey );
 			if ( ret == ERROR_SUCCESS ) {
-				ticks = (double) ((uint32)ProcSpeed) * 1000000;
+				ticks = (double) ((uint64)ProcSpeed) * 1000000;
 			}
 		}
 	}
