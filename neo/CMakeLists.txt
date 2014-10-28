@@ -6,53 +6,53 @@ project(OpenTechEngine)
 ################################################################################
 
 option(USE_MFC_TOOLS
-		"Compile the built-in MFC based tools" OFF)
-		
+  "Compile the built-in MFC based tools" OFF)
+
 option(MONOLITH
-		"Embed game logic into main executable" ON)
-		
+  "Embed game logic into main executable" ON)
+
 option(SDL2
-		"Use SDL2 instead of SDL1.2" OFF)
-		
+  "Use SDL2 instead of SDL1.2" OFF)
+
 option(OPENAL
-		"Use OpenAL soft instead of XAudio2" ON)
+  "Use OpenAL soft instead of XAudio2" ON)
 
 option(FFMPEG
-		"Use FMPEG to render Bink videos" OFF)
+  "Use FMPEG to render Bink videos" OFF)
 
 option(IDTOOLS
-		"Compile the built-in game tools" ON)
+  "Compile the built-in game tools" ON)
 
 #options########################################################################
 
 # FIXME: should autodetect if there is a version available by CMake and use that if yes?
 
 option(BUNDLED_JPEG
-		"Use bundled libjpeg" ON)
+  "Use bundled libjpeg" ON)
 
 option(BUNDLED_PNG
-		"Use bundled libpng" ON)
+  "Use bundled libpng" ON)
 
 option(BUNDLED_ZLIB
-		"Use bundled zlib" ON)
+  "Use bundled zlib" ON)
 
 option(BUNDLED_MINIZIP
-		"Use bundled minizip" ON)
+  "Use bundled minizip" ON)
 
 option(BUNDLED_IRRXML
-		"Use bundled irrxml" OFF)
+  "Use bundled irrxml" OFF)
 
 option(BUNDLED_GLEW
-		"Use bundled glew" ON)
+  "Use bundled glew" ON)
 
 option(BUNDLED_FREETYPE
-		"Use bundled freetype" OFF)
+  "Use bundled freetype" OFF)
 
 option(BUNDLED_OGGVORBIS
-		"Use bundled oggvorbis" OFF)
+  "Use bundled oggvorbis" OFF)
 
 ################################################################################
-		
+
 message(STATUS CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE})
 
 ## Compiler specific options

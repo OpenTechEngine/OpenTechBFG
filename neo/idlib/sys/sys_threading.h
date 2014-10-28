@@ -44,7 +44,7 @@ If you have questions concerning this license or the applicable additional terms
 // RB begin
 #if defined(_WIN32)
 #undef LONG
-#include <Windows.h>
+#include <windows.h>
 
 typedef CRITICAL_SECTION		mutexHandle_t;
 typedef HANDLE					signalHandle_t;

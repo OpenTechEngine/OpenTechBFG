@@ -30,7 +30,12 @@ If you have questions concerning this license or the applicable additional terms
 #include <windows.h>
 
 #define DIRECTINPUT_VERSION 0x0800
+
+#if defined(USE_MINGWHACKS)
+#include <wine-xinput.h>
+#else
 #include <Xinput.h>
+#endif
 
 #include "../sys/sys_session.h"
 
