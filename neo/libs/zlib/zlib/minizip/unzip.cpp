@@ -80,7 +80,7 @@ The file was renamed from unzip.c to unzip.cpp so we can use C++ functions from 
 #include "../idlib/Str.h"
 #include "ioapi.h"
 #include "../zlib.h"
-#include "zconf.h"
+#include "../zconf.h"
 
 #pragma hdrstop
 
