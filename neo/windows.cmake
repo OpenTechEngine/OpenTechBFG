@@ -1,6 +1,8 @@
 if(CMAKE_HOST_WIN32)
-  find_package(DirectX REQUIRED)
-  include_directories(${DirectX_INCLUDE_DIR})
+  if(MSVC) # mingw does not work with directx headers
+    find_package(DirectX REQUIRED)
+    include_directories(${DirectX_INCLUDE_DIR})
+  endif() 
 endif()
 
 add_definitions(-DUSE_XINPUT)
