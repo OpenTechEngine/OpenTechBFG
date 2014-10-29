@@ -13,4 +13,6 @@ elseif(MSVC)
   include(${CMAKE_CURRENT_SOURCE_DIR}/../../cmake/msvc.cmake)
 endif() # MSVC
 
+include_directories(glew/include)
+
 include(glew.cmake)

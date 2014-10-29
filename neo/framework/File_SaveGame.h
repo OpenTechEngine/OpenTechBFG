@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #define __FILE_SAVEGAME_H__
 
 #include <stddef.h>
-#include <zlib/zlib.h>
+#include <zlib.h>
 
 #include "../idlib/Str.h"
 #include "../idlib/Thread.h"                     // for idSysSignal

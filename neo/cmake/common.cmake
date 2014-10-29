@@ -758,9 +758,9 @@ endif()
 # KORTEMIK: fix these to contain only /
 include_directories(
   .
-  idlib
-  libs/glew/include
-  libs/zlib)
+  idlib)
+#  libs/glew/include
+#  libs/zlib)
 
 if(IDTOOLS)
   add_definitions(-DUSE_IDTOOLS)

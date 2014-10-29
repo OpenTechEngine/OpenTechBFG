@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 #include <string.h>
-#include <zlib/zlib.h>
+#include <zlib.h>
 
 #include "../idlib/Heap.h"
 #include "../idlib/sys/sys_types.h"

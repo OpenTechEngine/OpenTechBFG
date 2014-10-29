@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <stddef.h>
 #include <string.h>
 
-#include <zlib/zlib.h>
+#include <zlib.h>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"

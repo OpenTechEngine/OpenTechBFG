@@ -8,7 +8,7 @@ else()
 endif()
 set(JPEG_LIBRARY jpeg)
 
-# zlib
+# zlib and minizip
 if(BUNDLED_ZLIB)
   add_subdirectory(libs/zlib)
   include_directories(libs/zlib/zlib)
@@ -16,21 +16,14 @@ if(BUNDLED_ZLIB)
 else()
   find_package(ZLIB REQUIRED)
   include_directories(${ZLIB_INCLUDE_DIRS})
+  include_directories(/usr/include) # for minizip
   set(ZLIB_LIBRARY z)
-endif()
-
-# minizip
-if(BUNDLED_MINIZIP)
-  include_directories(libs/zlib/zlib)
-else()
-  #find_package(MINIZIP REQUIRED)
-  #include_directories(${MINIZIP_INCLUDE_DIRS})
-  include_directories(/usr/include)
 endif()
 set(MINIZIP_LIBRARY minizip)
 
 # libpng
 if(BUNDLED_PNG)	
+  add_subdirectory(libs/png)
   include_directories(libs/png/png)
 else()
   find_package(PNG REQUIRED)
@@ -40,6 +33,7 @@ set(PNG_LIBRARY png)
 
 # glew
 if(BUNDLED_GLEW)
+  add_subdirectory(libs/glew)
   add_definitions(-DGLEW_STATIC)
   include_directories(libs/glew/glew/include)
   set(GLEW_LIBRARY glew)
