@@ -36,13 +36,13 @@ Contains the Image implementation for OpenGL.
 
 #include <assert.h>
 #include <stddef.h>
+#include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
 #include "../idlib/Heap.h"
 #include "../idlib/Lib.h"
 #include "../idlib/sys/sys_types.h"
-#include "../libs/glew/include/GL/glew.h"
 #include "../renderer/GraphicsAPIWrapper.h"
 #include "../renderer/Image.h"
 #include "../renderer/ImageOpts.h"

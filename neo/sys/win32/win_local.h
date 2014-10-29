@@ -32,8 +32,8 @@ If you have questions concerning this license or the applicable additional terms
 #include <windows.h>
 
 // RB: replaced QGL with GLEW
-#include "../libs/glew/include/GL/glew.h"
-#include "../libs/glew/include/GL/wglew.h" // windows OpenGL extensions
+#include <GL/glew.h>
+#include <GL/wglew.h> // windows OpenGL extensions
 // RB end
 
 #include "../framework/CVarSystem.h"

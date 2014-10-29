@@ -29,12 +29,12 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 
 #include <string.h>
+#include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
 #include "../framework/Common.h"
 #include "../idlib/Heap.h"
-#include "../libs/glew/include/GL/glew.h"
 #include "../renderer/GraphicsAPIWrapper.h"
 #include "../renderer/Image.h"
 #include "../renderer/RenderSystem.h"

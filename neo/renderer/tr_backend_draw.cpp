@@ -33,6 +33,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
+#include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"
 #include "../idlib/Lib.h"
@@ -48,7 +49,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_assert.h"
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"
-#include "../libs/glew/include/GL/glew.h"
 #include "../renderer/BufferObject.h"
 #include "../renderer/Cinematic.h"
 #include "../renderer/GLMatrix.h"

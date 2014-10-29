@@ -28,6 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 #include <string.h>
+#include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -42,7 +43,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"
-#include "../libs/glew/include/GL/glew.h"
 #include "../renderer/GraphicsAPIWrapper.h"
 #include "../renderer/GuiModel.h"
 #include "../renderer/Image.h"

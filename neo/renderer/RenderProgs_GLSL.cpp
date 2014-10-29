@@ -31,6 +31,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
+#include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/FileSystem.h"
@@ -47,7 +48,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"
-#include "../libs/glew/include/GL/glew.h"
 #include "../renderer/GraphicsAPIWrapper.h"
 #include "../renderer/RenderProgs.h"
 #include "../renderer/RenderSystem.h"

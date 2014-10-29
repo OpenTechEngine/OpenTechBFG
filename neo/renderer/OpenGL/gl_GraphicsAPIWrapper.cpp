@@ -30,13 +30,13 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include <assert.h>
 #include <string.h>
+#include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
 #include "../idlib/math/Math.h"
 #include "../idlib/math/Vector.h"
 #include "../idlib/sys/sys_types.h"
-#include "../libs/glew/include/GL/glew.h"
 #include "../renderer/Framebuffer.h"
 #include "../renderer/GLState.h"
 #include "../renderer/GraphicsAPIWrapper.h"
