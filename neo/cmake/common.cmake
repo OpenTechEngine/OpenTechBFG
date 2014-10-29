@@ -755,12 +755,10 @@ else()
   add_definitions(-D__DOOM_DLL__)
 endif()
 
-# KORTEMIK: fix these to contain only /
+# KORTEMIK: FIXME remove idlib from this list
 include_directories(
   .
   idlib)
-#  libs/glew/include
-#  libs/zlib)
 
 if(IDTOOLS)
   add_definitions(-DUSE_IDTOOLS)

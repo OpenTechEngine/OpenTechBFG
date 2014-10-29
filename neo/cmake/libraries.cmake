@@ -34,7 +34,6 @@ set(PNG_LIBRARY png)
 # glew
 if(BUNDLED_GLEW)
   add_subdirectory(libs/glew)
-  add_definitions(-DGLEW_STATIC)
   include_directories(libs/glew/glew/include)
   set(GLEW_LIBRARY glew)
 else()

@@ -15,7 +15,7 @@ option(SDL2
   "Use SDL2 instead of SDL1.2" OFF)
 
 option(OPENAL
-  "Use OpenAL soft instead of XAudio2" OFF)
+  "Use OpenAL soft instead of XAudio2" ON)
 
 option(FFMPEG
   "Use FMPEG to render Bink videos" OFF)

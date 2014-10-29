@@ -12,6 +12,7 @@ if(BUNDLED_GLEW)
 
   set(GLEW_SOURCES
     glew/src/glew.c)
-
+	
+  add_definitions(-DGLEW_STATIC)
   add_library(glew ${GLEW_SOURCES} ${GLEW_INCLUDES})
 endif()
