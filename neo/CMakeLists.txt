@@ -9,6 +9,8 @@ message(STATUS CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE})
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
   # GCC includes MinGW
   include(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/gcc.cmake)
+  add_definitions(-std=c++03)
+  #add_definitions(-pedantic) # KORTEMIK: we perhaps should fix these some day
 elseif(MSVC)
   include(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/msvc.cmake)
 endif() # MSVC
