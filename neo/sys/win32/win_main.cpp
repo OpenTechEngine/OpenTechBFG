@@ -53,7 +53,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../sys_local.h"
 #include "win_local.h"
-#include "../../renderer/tr_local.h"
+#include "../renderer/tr_local.h"
 #include "../framework/Licensee.h"
 
 idCVar Win32Vars_t::sys_arch( "sys_arch", "", CVAR_SYSTEM | CVAR_INIT, "" );
@@ -885,7 +885,7 @@ Sys_DLL_Load
 intptr_t Sys_DLL_Load( const char *dllName )
 {
 	HINSTANCE libHandle = LoadLibrary( dllName );
-	return (int64)libHandle;
+	return (size_t)libHandle;
 }
 
 /*

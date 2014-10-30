@@ -2,7 +2,7 @@
 
 #pragma hdrstop
 
-#include "../idlib/Base64.h"
+#include "Base64.h"
 #include "../framework/File.h"          // for idFile
 
 /*

@@ -30,10 +30,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __IMAGE_H__
 #define __IMAGE_H__
 
+#include <GL/glew.h>  // for GLint, GLuint, etc
+
 #include "../renderer/Material.h"       // for textureFilter_t, etc
 #include "../framework/File_Manifest.h"  // for idPreloadManifest, etc
 #include "../framework/FileSystem.h"    // for FILE_NOT_FOUND_TIMESTAMP, etc
-#include "../libs/glew/include/GL/glew.h"  // for GLint, GLuint, etc
 #include "../framework/Common.h"        // for MemInfo_t
 
 /*

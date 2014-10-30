@@ -76,11 +76,11 @@ The file was renamed from unzip.c to unzip.cpp so we can use C++ functions from 
 
 #include <string.h>
 
-#include "../idlib/Heap.h"
-#include "../idlib/Str.h"
-#include "../libs/zlib/minizip/ioapi.h"
-#include "minizip/../zlib.h"
-#include "zconf.h"
+#include "idlib/Heap.h"
+#include "idlib/Str.h"
+#include "ioapi.h"
+#include "../zlib.h"
+#include "../zconf.h"
 
 #pragma hdrstop
 

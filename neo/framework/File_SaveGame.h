@@ -29,13 +29,13 @@ If you have questions concerning this license or the applicable additional terms
 #define __FILE_SAVEGAME_H__
 
 #include <stddef.h>
+#include <zlib.h>
 
 #include "../idlib/Str.h"
 #include "../idlib/Thread.h"                     // for idSysSignal
 #include "../idlib/sys/sys_assert.h"
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"
-#include "../libs/zlib/zlib.h"
 #include "../framework/File.h"
 #include "../idlib/StrStatic.h"
 

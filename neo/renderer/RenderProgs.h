@@ -29,13 +29,13 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERPROGS_H__
 #define __RENDERPROGS_H__
 
+#include <GL/glew.h>
 
 #include "../idlib/Str.h"
 #include "../idlib/containers/List.h"
 #include "../idlib/containers/StaticList.h"
 #include "../idlib/math/Vector.h"
 #include "../idlib/sys/sys_types.h"
-#include "../libs/glew/include/GL/glew.h"
 
 static const int PC_ATTRIB_INDEX_VERTEX		= 0;
 static const int PC_ATTRIB_INDEX_NORMAL		= 2;

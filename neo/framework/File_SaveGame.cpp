@@ -29,6 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #include <stddef.h>
 #include <string.h>
 
+#include <zlib.h>
+
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
 #include "../framework/Compressor.h"
@@ -42,7 +44,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/hashing/MD5.h"
 #include "../idlib/sys/sys_assert.h"
 #include "../idlib/sys/sys_types.h"
-#include "../libs/zlib/minizip/../zlib.h"
 #include "../sys/sys_public.h"
 #include "File_SaveGame.h"
 #include "sys/sys_threading.h"

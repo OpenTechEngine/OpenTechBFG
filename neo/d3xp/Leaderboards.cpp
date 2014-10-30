@@ -302,8 +302,8 @@ class idLeaderboardCallbackTest : public idLeaderboardCallback
 #ifdef __WIN32__
 				idLib::Printf( ", score[%d]: %I64u", j, rows[i].columns[j] );
 #else
-				idLib::Printf( ", score[%d]: %I64u", j, rows[i].columns[j] );
-	#endif // __WIN32__
+				idLib::Printf( ", score[%d]: %lld", j, rows[i].columns[j] );
+#endif // __WIN32__
 			}
 			idLib::Printf( "\n" );
 		}

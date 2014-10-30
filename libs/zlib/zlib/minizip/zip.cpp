@@ -36,8 +36,8 @@ DG: The file was renamed from zip.c to zip.cpp so we can use C++ functions from 
 #include <string.h>
 
 #include "../idlib/Heap.h"
-#include "../libs/zlib/minizip/ioapi.h"
-#include "minizip/../zlib.h"
+#include "ioapi.h"
+#include "../zlib.h"
 
 #pragma hdrstop
 // DG end

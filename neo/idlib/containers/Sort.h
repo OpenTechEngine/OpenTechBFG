@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SORT_H__
 #define __SORT_H__
 
-#include "../idlib/sys/sys_defines.h"
-#include "../idlib/sys/sys_types.h"
+#include "idlib/sys/sys_defines.h"
+#include "idlib/sys/sys_types.h"
 
 /*
 ================================================================================================
