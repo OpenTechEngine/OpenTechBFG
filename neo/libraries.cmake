@@ -38,3 +38,20 @@ else()
   include_directories(${GLEW_INCLUDE_DIRS})
   set(GLEW_LIBRARY GLEW)
 endif()
+
+# openal
+if(BUNDLED_OPENAL)	
+  include_directories(../libs/openal/openal-soft.git/include)
+  set(OPENAL_LIBRARY ../libs/openal/openal-soft.git/lib/openal.a) # need to check where it builds to
+else()
+# TODO: OS specific code handles currently, should we have it here?
+endif()
+
+
+# sdl
+if(BUNDLED_SDL)	
+  include_directories(../libs/sdl/SDL.git/include)
+  set(SDLx_LIBRARY ../libs/sdl/SDL.git/lib/SDL2.a) # need to check where it builds to
+else()
+# TODO: OS specific code handles currently, should we have it here?
+endif()
