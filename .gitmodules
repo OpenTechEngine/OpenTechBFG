@@ -1,0 +1,3 @@
+[submodule "libs/openal/openal-soft.git"]
+	path = libs/openal/openal-soft.git
+	url = http://repo.or.cz/openal-soft.git

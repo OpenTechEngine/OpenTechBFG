@@ -50,6 +50,9 @@ option(BUNDLED_FREETYPE
 
 option(BUNDLED_OGGVORBIS
   "Use bundled oggvorbis" OFF)
+  
+option(BUNDLED_OPENAL
+  "Use bundled openal" OFF)
 
 ################################################################################
 
@@ -83,6 +86,11 @@ endif()
 # glew
 if(BUNDLED_GLEW)
   add_subdirectory(libs/glew)
+endif()
+
+# openal
+if(BUNDLED_OPENAL)
+  add_subdirectory(libs/openal)
 endif()
 
 ####
