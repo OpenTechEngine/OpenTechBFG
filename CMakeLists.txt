@@ -54,6 +54,10 @@ option(BUNDLED_OGGVORBIS
 option(BUNDLED_OPENAL
   "Use bundled openal" OFF)
 
+option(BUNDLED_SDL
+  "Use bundled SDL" OFF)
+
+  
 ################################################################################
 
 message(STATUS CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE})
@@ -93,6 +97,10 @@ if(BUNDLED_OPENAL)
   add_subdirectory(libs/openal)
 endif()
 
+# openal
+if(BUNDLED_SDL)
+  add_subdirectory(libs/sdl)
+endif()
 ####
 
 add_subdirectory(neo)
