@@ -1026,6 +1026,8 @@ public:
 	virtual idLobbyBackend* 		FindLobbyBackend( const idMatchParameters& p, int numPartyUsers, float skillLevel, idLobbyBackend::lobbyBackendType_t lobbyType ) = 0;
 	virtual idLobbyBackend* 		JoinFromConnectInfo( const lobbyConnectInfo_t& connectInfo , idLobbyBackend::lobbyBackendType_t lobbyType ) = 0;
 	virtual void					DestroyLobbyBackend( idLobbyBackend* lobbyBackend ) = 0;
+
+	virtual ~idSessionCallbacks() {};
 };
 
 #endif

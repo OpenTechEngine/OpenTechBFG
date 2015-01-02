@@ -2519,7 +2519,7 @@ bool idAI::NewWanderDir( const idVec3& dest )
 	}
 	
 	// try other directions
-	if( ( gameLocal.random.RandomInt() & 1 ) || abs( deltay ) > abs( deltax ) )
+	if( ( gameLocal.random.RandomInt() & 1 ) || idMath::Fabs( deltay ) > idMath::Fabs( deltax ) ) // DG: used abs() which is for ints..
 	{
 		tdir = d[ 1 ];
 		d[ 1 ] = d[ 2 ];

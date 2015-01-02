@@ -272,7 +272,7 @@ set(WIN32_RESOURCES
   # sys/win32/rc/res/spliter.cur
   )
 
-if(NOT UNIX)
+if(WIN32)
   if(USE_MFC_TOOLS)
     list(APPEND WIN32_RESOURCES sys/win32/rc/doom.rc)
     #else()

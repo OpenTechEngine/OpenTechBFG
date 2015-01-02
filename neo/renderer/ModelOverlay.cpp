@@ -684,7 +684,7 @@ idRenderModelOverlay::CreateOverlayDrawSurf
 */
 drawSurf_t* idRenderModelOverlay::CreateOverlayDrawSurf( const viewEntity_t* space, const idRenderModel* baseModel, unsigned int index )
 {
-	if( index < 0 || index >= numOverlayMaterials )
+	if( index >= numOverlayMaterials ) // DG: index is unsigned, can't be < 0 so don't check that
 	{
 		return NULL;
 	}

@@ -914,7 +914,7 @@ float* idJointBuffer::MapBuffer( bufferMapType_t mapType ) const
 	assert( mapType == BM_WRITE );
 	assert( apiObject != NULL );
 	
-	int numBytes = GetAllocedSize();
+	// int numBytes = GetAllocedSize(); // DG: unused
 	
 	void* buffer = NULL;
 	
@@ -922,7 +922,7 @@ float* idJointBuffer::MapBuffer( bufferMapType_t mapType ) const
 	glBindBuffer( GL_UNIFORM_BUFFER, reinterpret_cast< GLintptr >( apiObject ) );
 	// RB end
 	
-	numBytes = numBytes;
+	// numBytes = numBytes; DG: wtf was this about?
 	assert( GetOffset() == 0 );
 	//buffer = glMapBufferARB( GL_UNIFORM_BUFFER, GL_WRITE_ONLY_ARB );
 	buffer = glMapBufferRange( GL_UNIFORM_BUFFER, 0, GetAllocedSize(), GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT | GL_MAP_UNSYNCHRONIZED_BIT );

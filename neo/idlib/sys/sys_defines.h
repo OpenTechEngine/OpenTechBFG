@@ -261,6 +261,8 @@ extern volatile int ignoredReturnValue;
 
 #endif
 
+// DG: so we don't have to rely on "multichar constants" - 'asdf' is equivalent to MUCHARC('a', 's', 'd', 'f') on msvc and gcc
+#define MUCHARC(a, b, c, d) ( ((a)<<24) | ((b)<<16) | ((c)<<8) | (d) )
 
 /*
  * Macros for format conversion specifications for integer arguments of type
@@ -277,7 +279,7 @@ extern volatile int ignoredReturnValue;
 #define PRId64 "I64d"
 #define PRIu64 "I64u"
 
-#else // ifdef _MSC_VER
+#else // not _WIN32
 
 #define PRIiSIZE "zi"
 #define PRIuSIZE "zu"
@@ -288,4 +290,4 @@ extern volatile int ignoredReturnValue;
 #define PRId64 "lld"
 #define PRIu64 "llu"
 
-#endif // ifdef _MSC_VER
+#endif // _WIN32

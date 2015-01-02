@@ -118,27 +118,6 @@ void idMenuScreen_PDA_Inventory::ShowScreen( const mainMenuTransition_t transiti
 	idPlayer* player = gameLocal.GetLocalPlayer();
 	if( player != NULL )
 	{
-	
-		int numItems = player->GetInventory().items.Num();
-		for( int j = 0; j < numItems; j++ )
-		{
-			idDict* item = player->GetInventory().items[j];
-			if( !item->GetBool( "inv_pda" ) )
-			{
-				const char* iname = item->GetString( "inv_name" );
-				const char* iicon = item->GetString( "inv_icon" );
-				const char* itext = item->GetString( "inv_text" );
-				iname = iname;
-				iicon = iicon;
-				itext = itext;
-				const idKeyValue* kv = item->MatchPrefix( "inv_id", NULL );
-				if( kv )
-				{
-					//objectiveSystem->SetStateString( va( "inv_id_%i", j ), kv->GetValue() );
-				}
-			}
-		}
-		
 		idList<const idMaterial*> weaponIcons;
 		for( int j = 0; j < MAX_WEAPONS; j++ )
 		{

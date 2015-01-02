@@ -440,7 +440,7 @@ bool idPacketProcessor::GetSendFragment( const int time, sessionId_t sessionID, 
 		outMsg.WriteData( unsentMsg.GetReadData() + unsentMsg.GetReadCount(), currentSize );
 		unsentMsg.ReadData( NULL, currentSize );
 		
-		assert( moreFragments == unsentMsg.GetRemainingData() > 0 );
+		assert( moreFragments == ( unsentMsg.GetRemainingData() > 0 ) );
 		fragmentedSend = moreFragments;
 		
 		fragmentSequence++;				// Advance sequence

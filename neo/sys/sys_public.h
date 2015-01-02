@@ -439,7 +439,7 @@ const char*		Sys_GetLastErrorString();
 
 void			Sys_Init();
 void			Sys_Shutdown();
-void			Sys_Error( const char* error, ... );
+NO_RETURN void	Sys_Error( const char* error, ... );
 const char* 	Sys_GetCmdLine();
 // DG: Sys_ReLaunch() doesn't need any options (and the old way is painful for POSIX systems)
 void			Sys_ReLaunch();
@@ -447,7 +447,7 @@ void			Sys_ReLaunch();
 void			Sys_Launch( const char* path, idCmdArgs& args,  void* launchData, unsigned int launchDataSize );
 void			Sys_SetLanguageFromSystem();
 const char* 	Sys_DefaultLanguage();
-void			Sys_Quit();
+NO_RETURN void	Sys_Quit();
 
 bool			Sys_AlreadyRunning();
 
@@ -786,6 +786,8 @@ public:
 	
 	virtual void			OpenURL( const char* url, bool quit ) = 0;
 	virtual void			StartProcess( const char* exePath, bool quit ) = 0;
+
+	virtual ~idSys() {}
 };
 
 extern idSys* 				sys;

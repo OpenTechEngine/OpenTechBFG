@@ -32,7 +32,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/File.h"          // for idFile, idFile_Memory
 #include "sys_localuser.h"
 
-class lobbyConnectInfo_t;
+struct lobbyConnectInfo_t;
 
 
 typedef uint8 peerMask_t;
@@ -416,6 +416,8 @@ public:
 	virtual void						DrawDebugNetworkHUD() const = 0;
 	virtual void						DrawDebugNetworkHUD2() const = 0;
 	virtual void						DrawDebugNetworkHUD_ServerSnapshotMetrics( bool draw ) = 0;
+
+	virtual ~idLobbyBase() {}
 };
 
 /*

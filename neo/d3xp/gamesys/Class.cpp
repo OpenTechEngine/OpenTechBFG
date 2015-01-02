@@ -1057,7 +1057,7 @@ bool idClass::ProcessEventArgPtr( const idEventDef* ev, intptr_t* data )
 // RB: I tried first to get CPU_EASYARGS switch running with x86_64
 // but it caused many crashes with the Doom scripts.
 // The new Callbacks.cpp was generated with intptr_t and it works fine.
-#if !CPU_EASYARGS
+#ifndef CPU_EASYARGS
 
 	/*
 	on ppc architecture, floats are passed in a separate set of registers

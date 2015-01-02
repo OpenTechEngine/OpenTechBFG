@@ -173,7 +173,7 @@ void idSecurityCamera::Spawn()
 	}
 	
 	negativeSweep = ( sweepAngle < 0 ) ? true : false;
-	sweepAngle = abs( sweepAngle );
+	sweepAngle = idMath::Fabs( sweepAngle ); // DG: used abs() which is for ints..
 	
 	scanFovCos = cos( scanFov * idMath::PI / 360.0f );
 	

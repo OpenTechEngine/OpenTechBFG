@@ -191,7 +191,7 @@ void	R_SetAlphaNormalDivergence( byte* in, int width, int height )
 					{
 						continue;
 					}
-					byte*	corner_p = in + ( ( ( y + yy ) & ( height - 1 ) ) * width + ( ( x + xx )&width - 1 ) ) * 4;
+					byte*	corner_p = in + ( ( ( y + yy ) & ( height - 1 ) ) * width + ( ( x + xx ) & ( width - 1 ) ) ) * 4;
 					idVec3	corner;
 					corner[0] = ( corner_p[0] - 128 ) / 127;
 					corner[1] = ( corner_p[1] - 128 ) / 127;

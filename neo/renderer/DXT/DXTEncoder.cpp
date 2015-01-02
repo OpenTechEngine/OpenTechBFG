@@ -1173,7 +1173,7 @@ NormalDistanceDXT5
 */
 int NormalDistanceDXT5( const int* vector, const int* normalized )
 {
-#if _MSC_VER && defined(_M_IX86)
+#if defined(_MSC_VER) && defined(_M_IX86)
 	int result;
 	__asm
 	{

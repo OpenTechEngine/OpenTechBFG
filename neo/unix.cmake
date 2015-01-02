@@ -56,7 +56,11 @@ GET_DIRECTORY_PROPERTY(_directory_flags DEFINITIONS)
 LIST(APPEND _compiler_FLAGS ${_directory_flags})
 SEPARATE_ARGUMENTS(_compiler_FLAGS)
 
-add_executable(OpenTechEngine WIN32 ${OpenTechBFG_SOURCES})
+# I want the executable in build/, not build/neo/
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
+
+add_executable(OpenTechEngine ${OpenTechBFG_SOURCES})
 
 #if(NOT WIN32)
 if(NOT "${CMAKE_SYSTEM}" MATCHES "Darwin")

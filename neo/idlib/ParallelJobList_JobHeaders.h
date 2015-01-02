@@ -81,9 +81,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "math/Math.h"
 #include "ParallelJobList.h"
 
-#if _MSC_VER >= 1600
+#if defined(_MSC_VER) && _MSC_VER >= 1600
 #undef NULL
-#define NULL 0
+#define NULL 0 // DG: TODO: really necessary? maybe use std::nullptr if available?
 #endif
 
 #endif // !__PARALLELJOBLIST_JOBHEADERS_H__

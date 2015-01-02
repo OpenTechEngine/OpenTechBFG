@@ -1153,12 +1153,13 @@ void SSDProjectile::ReadProjectiles( idFile* savefile, idGameSSDWindow* _game )
 
 const char* powerupMaterials[][2] =
 {
-	"game/SSD/powerupHealthClosed",			"game/SSD/powerupHealthOpen",
-	"game/SSD/powerupSuperBlasterClosed",	"game/SSD/powerupSuperBlasterOpen",
-	"game/SSD/powerupNukeClosed",			"game/SSD/powerupNukeOpen",
-	"game/SSD/powerupRescueClosed",			"game/SSD/powerupRescueOpen",
-	"game/SSD/powerupBonusPointsClosed",	"game/SSD/powerupBonusPointsOpen",
-	"game/SSD/powerupDamageClosed",			"game/SSD/powerupDamageOpen",
+	// DG: added braces around pairs for clarity and to make clang happy
+	{ "game/SSD/powerupHealthClosed",			"game/SSD/powerupHealthOpen" },
+	{ "game/SSD/powerupSuperBlasterClosed",	"game/SSD/powerupSuperBlasterOpen" },
+	{ "game/SSD/powerupNukeClosed",			"game/SSD/powerupNukeOpen" },
+	{ "game/SSD/powerupRescueClosed",			"game/SSD/powerupRescueOpen" },
+	{ "game/SSD/powerupBonusPointsClosed",	"game/SSD/powerupBonusPointsOpen" },
+	{ "game/SSD/powerupDamageClosed",			"game/SSD/powerupDamageOpen" }
 };
 
 #define POWERUP_MATERIAL_COUNT 6

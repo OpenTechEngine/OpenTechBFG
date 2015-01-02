@@ -227,7 +227,10 @@ idQueue<type,nodePtr>::Test
 template< typename type, idQueueNode<type> type::*nodePtr >
 void idQueue<type, nodePtr>::Test()
 {
-
+	// DG: clang complains about Test() using the local type idMyType in a template
+	//     and it's debatable if this is the right place for a test anyway..
+	//     so just comment this code out (it can still be read as a usage example)
+#if 0
 	class idMyType
 	{
 	public:
@@ -240,6 +243,8 @@ void idQueue<type, nodePtr>::Test()
 	myQueue.Add( element );
 	element = myQueue.RemoveFirst();
 	delete element;
+#endif // 0
+	// DG end
 }
 
 #endif // !__QUEUE_H__

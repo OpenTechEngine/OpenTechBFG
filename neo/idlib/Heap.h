@@ -497,7 +497,8 @@ ID_INLINE _type_* idBlockAlloc<_type_, _blockSize_, memTag>::Alloc()
 	_type_ * t = ( _type_* ) element->buffer;
 	if( clearAllocs )
 	{
-		memset( t, 0, sizeof( _type_ ) );
+		// DG: cast t to void* to tell clang that it's totally fine to overwrite the vtable here (new is called below)
+		memset( (void*)t, 0, sizeof( _type_ ) );
 	}
 	new( t ) _type_;
 	return t;

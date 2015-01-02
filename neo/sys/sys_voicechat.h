@@ -87,6 +87,8 @@ public:
 	virtual void		FlushBuffers() {}
 	virtual void		ToggleMuteLocal( const lobbyUser_t* src, const lobbyUser_t* target );
 	
+	virtual ~idVoiceChatMgr() {};
+
 protected:
 
 	struct remoteMachine_t

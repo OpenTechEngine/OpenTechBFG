@@ -192,7 +192,7 @@ idMenuHandler_HUD::ShowTip
 */
 void idMenuHandler_HUD::ShowTip( const char* title, const char* tip, bool autoHide )
 {
-	autoHideTip = autoHideTip;
+	autoHideTip = autoHideTip; // FIXME: autoHideTip = autoHide; ? does that break anything?
 	tipStartTime = gameLocal.time;
 	hiding = false;
 	idMenuScreen_HUD* screen = GetHud();

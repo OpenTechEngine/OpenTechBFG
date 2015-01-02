@@ -104,6 +104,9 @@ list(REMOVE_DUPLICATES OpenTechBFG_SOURCES)
 
 list(APPEND OpenTechBFG_SOURCES ${WIN32_RESOURCES})
 
+# I want the executable in build/, not build/neo/
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
 add_executable(OpenTechEngine WIN32 ${OpenTechBFG_INCLUDES} ${OpenTechBFG_SOURCES})
 
 list(APPEND DIRECTX_LIBRARIES

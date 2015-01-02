@@ -169,7 +169,7 @@ protected:
 	friend class idSoundHardware_OpenAL;
 	friend class idSoundVoice_OpenAL;
 	
-	~idSoundSample_OpenAL();
+	virtual ~idSoundSample_OpenAL();
 	
 	bool			LoadWav( const idStr& name );
 	bool			LoadAmplitude( const idStr& name );

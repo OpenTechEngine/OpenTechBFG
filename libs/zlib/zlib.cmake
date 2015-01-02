@@ -32,4 +32,9 @@ if(BUNDLED_ZLIB)
     zlib/zutil.c)
 	
   add_library(zlib ${ZLIB_SOURCES} ${ZLIB_INCLUDES})
+  
+  if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+    add_definitions(-Wno-implicit-function-declaration)
+  endif()
+  
 endif()

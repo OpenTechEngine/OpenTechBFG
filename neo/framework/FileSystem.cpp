@@ -64,12 +64,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifdef WIN32
 #include <io.h>	// for _read
 #else
-#if !__MACH__ && __MWERKS__
-#include <stat.h>
-#include <types.h>
-#else
 #include <sys/stat.h>
-#endif
 #endif
 
 
@@ -517,8 +512,8 @@ idFileHandle idFileSystemLocal::OpenOSFile( const char* fileName, fsMode_t mode 
 		return NULL;
 	}
 #else
+	fp = NULL; // DG: make sure it's initialized even if mode contains garbage
 	
-#ifndef __MWERKS__
 #ifndef WIN32
 	// some systems will let you fopen a directory
 	struct stat buf;
@@ -526,7 +521,6 @@ idFileHandle idFileSystemLocal::OpenOSFile( const char* fileName, fsMode_t mode 
 	{
 		return NULL;
 	}
-#endif
 #endif
 	
 	if( mode == FS_WRITE )

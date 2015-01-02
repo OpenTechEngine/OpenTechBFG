@@ -408,7 +408,7 @@ bool idSoundSample_OpenAL::LoadWav( const idStr& filename )
 	}
 	timestamp = wave.Timestamp();
 	
-	totalBufferSize = wave.SeekToChunk( 'data' );
+	totalBufferSize = wave.SeekToChunk( MUCHARC( 'd', 'a', 't', 'a' ) );
 	
 	if( format.basic.formatTag == idWaveFile::FORMAT_PCM || format.basic.formatTag == idWaveFile::FORMAT_EXTENSIBLE )
 	{
@@ -487,7 +487,7 @@ bool idSoundSample_OpenAL::LoadWav( const idStr& filename )
 			buffers[i].buffer = GPU_CONVERT_CPU_TO_CPU_CACHED_READONLY_ADDRESS( buffers[i].buffer );
 		}
 		
-		int seekTableSize = wave.SeekToChunk( 'seek' );
+		int seekTableSize = wave.SeekToChunk( MUCHARC('s', 'e', 'e', 'k') );
 		if( seekTableSize != 4 * buffers.Num() )
 		{
 			idLib::Warning( "LoadWav( %s ) : %s", filename.c_str(), "Wrong number of entries in seek table" );

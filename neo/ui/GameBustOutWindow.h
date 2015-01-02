@@ -114,7 +114,7 @@ public:
 public:
 	BOBrick();
 	BOBrick( BOEntity* _ent, float _x, float _y, float _width, float _height );
-	~BOBrick();
+	virtual ~BOBrick();
 	
 	virtual void	WriteToSaveGame( idFile* savefile );
 	virtual void	ReadFromSaveGame( idFile* savefile, idGameBustOutWindow* game );
@@ -139,7 +139,7 @@ public:
 	virtual const char*	HandleEvent( const sysEvent_t* event, bool* updateVisuals );
 	virtual void		PostParse();
 	virtual void		Draw( int time, float x, float y );
-	virtual const char*	Activate( bool activate );
+	virtual void 		Activate( bool activate, idStr& act );
 	virtual idWinVar* 	GetWinVarByName( const char* _name, bool winLookup = false, drawWin_t** owner = NULL );
 	
 	idList<BOEntity*>	entities;

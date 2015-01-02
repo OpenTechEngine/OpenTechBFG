@@ -87,7 +87,7 @@ bool idWaveFile::Open( const char* filename )
 	idSwap::Little( header.size );
 	idSwap::Big( header.format );
 	
-	if( header.id != 'RIFF' || header.format != 'WAVE' || header.size < 4 )
+	if( header.id != MUCHARC( 'R', 'I', 'F', 'F' ) || header.format != MUCHARC( 'W', 'A', 'V', 'E' ) || header.size < 4 )
 	{
 		Close();
 		idLib::Warning( "Header is not RIFF WAVE in %s", filename );
@@ -473,7 +473,7 @@ Writes a wave format header to a file ptr,
 
 bool idWaveFile::WriteSampleDataDirect( idList< sampleData_t >& sampleData, idFile* file )
 {
-	static const uint32 sample = 'smpl';
+	static const uint32 sample = samplerChunk_t::id;
 	file->WriteBig( sample );
 	uint32 samplerData = sampleData.Num() * 24;
 	uint32 chunkSize = 36 + samplerData;
@@ -513,7 +513,7 @@ Writes a data chunk to a file ptr
 
 bool idWaveFile::WriteDataDirect( char* _data, uint32 size, idFile* file )
 {
-	static const uint32 data = 'data';
+	static const uint32 data = dataChunk_t::id;
 	file->WriteBig( data );
 	file->Write( &size, sizeof( uint32 ) );
 	file->WriteBigArray( _data, size );
@@ -530,8 +530,8 @@ Writes a wave header to a file ptr,
 
 bool idWaveFile::WriteHeaderDirect( uint32 fileSize, idFile* file )
 {
-	static const uint32 riff = 'RIFF';
-	static const uint32 wave = 'WAVE';
+	static const uint32 riff = MUCHARC( 'R', 'I', 'F', 'F' );
+	static const uint32 wave = MUCHARC( 'W', 'A', 'V', 'E' );
 	file->WriteBig( riff );
 	file->WriteBig( fileSize );
 	file->WriteBig( wave );

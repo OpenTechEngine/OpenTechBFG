@@ -116,7 +116,7 @@ public:
 #pragma pack( push, 1 )
 	struct waveFmt_t
 	{
-		static const uint32 id = 'fmt ';
+		static const uint32 id = MUCHARC( 'f', 'm', 't', ' ' );
 		// This is the basic data we'd expect to see in any valid wave file
 		struct basic_t
 		{
@@ -183,14 +183,14 @@ public:
 	
 	struct dataChunk_t
 	{
-		static const uint32 id = 'data';
+		static const uint32 id = MUCHARC( 'd', 'a', 't', 'a' );
 		uint32 size;
 		void* data;
 	};
 	
 	struct formatChunk_t
 	{
-		static const uint32 id = 'fmt ';
+		static const uint32 id = MUCHARC( 'f', 'm', 't', ' ' );
 		uint32 size;
 		uint16 compressionCode;
 		uint16 numChannels;
@@ -203,7 +203,7 @@ public:
 	
 	struct samplerChunk_t
 	{
-		static const uint32 id = 'smpl';
+		static const uint32 id = MUCHARC( 's', 'm', 'p', 'l' );
 		uint32 manufacturer;		// ignored
 		uint32 product;				// ignored
 		uint32 samplePeriod;		// ignored (normally 1000000000/samplesPerSec)
