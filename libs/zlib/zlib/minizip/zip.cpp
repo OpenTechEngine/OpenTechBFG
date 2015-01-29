@@ -95,8 +95,8 @@ DG: The file was renamed from zip.c to zip.cpp so we can use C++ functions from 
 # define TRYFREE(p) {if (p) free(p);}
 #endif
 #else // 0
-#define ALLOC(size) (Mem_Alloc(size, TAG_IDFILE))
-#define TRYFREE(p) {Mem_Free(p);} // Mem_Free - as well as free() - check for NULL themselves, no need to do it here
+#define ALLOC(size) (BFG::Mem_Alloc(size, BFG::TAG_IDFILE))
+#define TRYFREE(p) {BFG::Mem_Free(p);} // Mem_Free - as well as free() - check for NULL themselves, no need to do it here
 #endif // 0
 
 /*

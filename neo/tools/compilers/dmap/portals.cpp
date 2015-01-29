@@ -665,7 +665,7 @@ bool FloodEntities( tree_t* tree )
 		
 		mapEnt->epairs.GetString( "classname", "", &cl );
 		
-		if( !strcmp( cl, "light" ) )
+		if( !idStr::Cmp( cl, "light" ) )
 		{
 			const char*	v;
 			

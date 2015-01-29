@@ -1089,7 +1089,7 @@ void Posix_InitConsoleInput()
 		char* term = getenv( "TERM" );
 		if( term )
 		{
-			if( strcmp( term, "linux" ) && strcmp( term, "xterm" ) && strcmp( term, "xterm-color" ) && strcmp( term, "screen" ) )
+			if( idStr::Cmp( term, "linux" ) && idStr::Cmp( term, "xterm" ) && idStr::Cmp( term, "xterm-color" ) && idStr::Cmp( term, "screen" ) )
 			{
 				Sys_Printf( "WARNING: terminal type '%s' is unknown. terminal support may not work correctly\n", term );
 			}

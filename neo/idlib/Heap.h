@@ -42,7 +42,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"              // for Max
 
-//namespace BFG { // TODO namespace Heap.h too
+namespace BFG { // TODO namespace Heap.h too
+//using BFG::AssertFailed; // temporery for now
 
 /*
 ===============================================================================
@@ -179,8 +180,6 @@ enum memTag_t
 
 static const int MAX_TAGS = 256;
 
-
-
 // RB: 64 bit fixes, changed int to size_t
 void* 		Mem_Alloc16( const size_t size, const memTag_t tag );
 void		Mem_Free16( void* ptr );
@@ -199,12 +198,14 @@ void* 		Mem_ClearedAlloc( const size_t size, const memTag_t tag );
 char* 		Mem_CopyString( const char* in );
 // RB end
 
+} // namespace BFG
+
 ID_INLINE void* operator new( size_t s )
 #if !defined(_MSC_VER)
 throw( std::bad_alloc ) // DG: standard signature seems to include throw(..)
 #endif
 {
-	return Mem_Alloc( s, TAG_NEW );
+	return BFG::Mem_Alloc( s, BFG::TAG_NEW );
 }
 
 ID_INLINE void operator delete( void* p )
@@ -212,14 +213,14 @@ ID_INLINE void operator delete( void* p )
 throw() // DG: delete musn't throw
 #endif
 {
-	Mem_Free( p );
+	BFG::Mem_Free( p );
 }
 ID_INLINE void* operator new[]( size_t s )
 #if !defined(_MSC_VER)
 throw( std::bad_alloc ) // DG: standard signature seems to include throw(..)
 #endif
 {
-	return Mem_Alloc( s, TAG_NEW );
+	return BFG::Mem_Alloc( s, BFG::TAG_NEW );
 }
 
 ID_INLINE void operator delete[]( void* p )
@@ -227,31 +228,33 @@ ID_INLINE void operator delete[]( void* p )
 throw() // DG: delete musn't throw
 #endif
 {
-	Mem_Free( p );
+	BFG::Mem_Free( p );
 }
 
-ID_INLINE void* operator new( size_t s, memTag_t tag )
+ID_INLINE void* operator new( size_t s, BFG::memTag_t tag )
 {
 	return Mem_Alloc( s, tag );
 }
 
-ID_INLINE void operator delete( void* p, memTag_t tag )
+ID_INLINE void operator delete( void* p, BFG::memTag_t tag )
 #if !defined(_MSC_VER)
 throw() // DG: delete musn't throw
 #endif
 {
-	Mem_Free( p );
+	BFG::Mem_Free( p );
 }
 
-ID_INLINE void* operator new[]( size_t s, memTag_t tag )
+ID_INLINE void* operator new[]( size_t s, BFG::memTag_t tag )
 {
-	return Mem_Alloc( s, tag );
+	return BFG::Mem_Alloc( s, tag );
 }
 
-ID_INLINE void operator delete[]( void* p, memTag_t tag ) throw() // DG: delete musn't throw
+ID_INLINE void operator delete[]( void* p, BFG::memTag_t tag ) throw() // DG: delete musn't throw
 {
-	Mem_Free( p );
+	BFG::Mem_Free( p );
 }
+
+namespace BFG {
 
 // Define replacements for the PS3 library's aligned new operator.
 // Without these, allocations of objects with 32 byte or greater alignment
@@ -421,7 +424,7 @@ private:
 	{
 		_type_* 		data;	// this is a hack to make sure the save game system marks _type_ as saveable
 		element_t* 		next;
-		BFG::byte			buffer[( CONST_MAX( sizeof( _type_ ), sizeof( element_t* ) ) + ( BLOCK_ALLOC_ALIGNMENT - 1 ) ) & ~( BLOCK_ALLOC_ALIGNMENT - 1 )];
+		byte			buffer[( CONST_MAX( sizeof( _type_ ), sizeof( element_t* ) ) + ( BLOCK_ALLOC_ALIGNMENT - 1 ) ) & ~( BLOCK_ALLOC_ALIGNMENT - 1 )];
 	};
 	
 	class idBlock
@@ -833,7 +836,13 @@ void idDynamicAlloc<type, baseBlockSize, minBlockSize>::Clear()
 ==============================================================================
 */
 
+} // namespace BFG
+
+// FIXME include not in it's place
+
 #include "containers/BTree.h"
+
+namespace BFG {
 
 //#define DYNAMIC_BLOCK_ALLOC_CHECK
 
@@ -843,7 +852,7 @@ class idDynamicBlock
 public:
 	type* 							GetMemory() const
 	{
-		return ( type* )( ( ( BFG::byte* ) this ) + sizeof( idDynamicBlock<type> ) );
+		return ( type* )( ( ( byte* ) this ) + sizeof( idDynamicBlock<type> ) );
 	}
 	int								GetSize() const
 	{
@@ -1149,7 +1158,7 @@ type* idDynamicBlockAlloc<type, baseBlockSize, minBlockSize, _tag_>::Resize( typ
 		return NULL;
 	}
 	
-	idDynamicBlock<type>* block = ( idDynamicBlock<type>* )( ( ( BFG::byte* ) ptr ) - ( int )sizeof( idDynamicBlock<type> ) );
+	idDynamicBlock<type>* block = ( idDynamicBlock<type>* )( ( ( byte* ) ptr ) - ( int )sizeof( idDynamicBlock<type> ) );
 	
 	usedBlockMemory -= block->GetSize();
 	
@@ -1179,7 +1188,7 @@ void idDynamicBlockAlloc<type, baseBlockSize, minBlockSize, _tag_>::Free( type* 
 		return;
 	}
 	
-	idDynamicBlock<type>* block = ( idDynamicBlock<type>* )( ( ( BFG::byte* ) ptr ) - ( int )sizeof( idDynamicBlock<type> ) );
+	idDynamicBlock<type>* block = ( idDynamicBlock<type>* )( ( ( byte* ) ptr ) - ( int )sizeof( idDynamicBlock<type> ) );
 	
 	numUsedBlocks--;
 	usedBlockMemory -= block->GetSize();
@@ -1201,7 +1210,7 @@ const char* idDynamicBlockAlloc<type, baseBlockSize, minBlockSize, _tag_>::Check
 		return NULL;
 	}
 	
-	block = ( idDynamicBlock<type>* )( ( ( BFG::byte* ) ptr ) - ( int )sizeof( idDynamicBlock<type> ) );
+	block = ( idDynamicBlock<type>* )( ( ( byte* ) ptr ) - ( int )sizeof( idDynamicBlock<type> ) );
 	
 	if( block->node != NULL )
 	{
@@ -1272,7 +1281,7 @@ idDynamicBlock<type>* idDynamicBlockAlloc<type, baseBlockSize, minBlockSize, _ta
 	}
 	else if( allowAllocs )
 	{
-		int allocSize = BFG::Max( baseBlockSize, alignedBytes + ( int )sizeof( idDynamicBlock<type> ) );
+		int allocSize = Max( baseBlockSize, alignedBytes + ( int )sizeof( idDynamicBlock<type> ) );
 		block = ( idDynamicBlock<type>* ) Mem_Alloc16( allocSize, _tag_ );
 		if( lockMemory )
 		{
@@ -1350,14 +1359,14 @@ idDynamicBlock<type>* idDynamicBlockAlloc<type, baseBlockSize, minBlockSize, _ta
 	}
 	
 	// if the unused space at the end of this block is large enough to hold a block with at least one element
-	if( block->GetSize() - alignedBytes - ( int )sizeof( idDynamicBlock<type> ) < BFG::Max( minBlockSize, ( int )sizeof( type ) ) )
+	if( block->GetSize() - alignedBytes - ( int )sizeof( idDynamicBlock<type> ) < Max( minBlockSize, ( int )sizeof( type ) ) )
 	{
 		return block;
 	}
 	
 	idDynamicBlock<type>* newBlock;
 	
-	newBlock = ( idDynamicBlock<type>* )( ( ( BFG::byte* ) block ) + ( int )sizeof( idDynamicBlock<type> ) + alignedBytes );
+	newBlock = ( idDynamicBlock<type>* )( ( ( byte* ) block ) + ( int )sizeof( idDynamicBlock<type> ) + alignedBytes );
 #ifdef DYNAMIC_BLOCK_ALLOC_CHECK
 	memcpy( newBlock->id, blockId, sizeof( newBlock->id ) );
 	newBlock->allocator = ( void* )this;
@@ -1476,6 +1485,6 @@ void idDynamicBlockAlloc<type, baseBlockSize, minBlockSize, _tag_>::CheckMemory(
 	}
 }
 
-//} // namespace BFG
+} // namespace BFG
 
 #endif /* !__HEAP_H__ */

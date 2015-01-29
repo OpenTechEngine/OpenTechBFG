@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef SYS_FILESYSTEM_H
 #define SYS_FILESYSTEM_H
 
-namespace BFG {
-
 #include "../idlib/containers/List.h"   // for idList
+
+namespace BFG {
 
 void			Sys_Mkdir( const char* path );
 bool			Sys_Rmdir( const char* path );

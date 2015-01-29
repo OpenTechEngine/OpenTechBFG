@@ -668,7 +668,7 @@ void idTypeDef::AddFunction( const function_t* func )
 	
 	for( i = 0; i < functions.Num(); i++ )
 	{
-		if( !strcmp( functions[ i ]->def->Name(), func->def->Name() ) )
+		if( !idStr::Cmp( functions[ i ]->def->Name(), func->def->Name() ) )
 		{
 			if( func->def->TypeDef()->MatchesVirtualFunction( *functions[ i ]->def->TypeDef() ) )
 			{
@@ -1306,7 +1306,7 @@ byte* idScriptObject::GetVariable( const char* name, etype_t etype ) const
 		for( i = 0; i < t->NumParameters(); i++ )
 		{
 			parm = t->GetParmType( i );
-			if( !strcmp( t->GetParmName( i ), name ) )
+			if( !idStr::Cmp( t->GetParmName( i ), name ) )
 			{
 				if( etype != parm->FieldType()->Type() )
 				{
@@ -1374,7 +1374,7 @@ idTypeDef* idProgram::GetType( idTypeDef& type, bool allocate )
 
 	for( int i = typesHash.First( idStr::Hash( type.Name() ) ); i != -1; i = typesHash.Next( i ) )
 	{
-		if( types[ i ]->MatchesType( type ) && !strcmp( types[ i ]->Name(), type.Name() ) )
+		if( types[ i ]->MatchesType( type ) && !idStr::Cmp( types[ i ]->Name(), type.Name() ) )
 		{
 			return types[ i ];
 		}
@@ -1402,7 +1402,7 @@ idTypeDef* idProgram::FindType( const char* name )
 	for( int i = typesHash.First( idStr::Hash( name ) ); i != -1; i = typesHash.Next( i ) )
 	{
 		idTypeDef* check = types[ i ];
-		if( !strcmp( check->Name(), name ) )
+		if( !idStr::Cmp( check->Name(), name ) )
 		{
 			return check;
 		}
@@ -1514,7 +1514,7 @@ idVarDef* idProgram::AllocDef( idTypeDef* type, const char* name, idVarDef* scop
 		//
 		// vector
 		//
-		if( !strcmp( name, RESULT_STRING ) )
+		if( !idStr::Cmp( name, RESULT_STRING ) )
 		{
 			// <RESULT> vector defs don't need the _x, _y and _z components
 			assert( scope->Type() == ev_function );

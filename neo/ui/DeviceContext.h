@@ -29,8 +29,6 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __DEVICECONTEXT_H__
 #define __DEVICECONTEXT_H__
 
-namespace BFG {
-
 // device context support for gui stuff
 //
 
@@ -41,6 +39,8 @@ namespace BFG {
 #include "../idlib/math/Vector.h"
 #include "../renderer/Font.h"
 #include "Rectangle.h"
+
+namespace BFG {
 
 class idFont;
 class idMaterial;

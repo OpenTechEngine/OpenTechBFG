@@ -259,18 +259,19 @@ void TestGameAPI()
 	gameImport_t testImport;
 	gameExport_t testExport;
 	
-	testImport.sys						= ::sys;
-	testImport.common					= ::common;
-	testImport.cmdSystem				= ::cmdSystem;
-	testImport.cvarSystem				= ::cvarSystem;
-	testImport.fileSystem				= ::fileSystem;
-	testImport.renderSystem				= ::renderSystem;
-	testImport.soundSystem				= ::soundSystem;
-	testImport.renderModelManager		= ::renderModelManager;
-	testImport.uiManager				= ::uiManager;
-	testImport.declManager				= ::declManager;
-	testImport.AASFileManager			= ::AASFileManager;
-	testImport.collisionModelManager	= ::collisionModelManager;
+	// was in global namespace, like ::sys
+	testImport.sys						= sys;
+	testImport.common					= common;
+	testImport.cmdSystem				= cmdSystem;
+	testImport.cvarSystem				= cvarSystem;
+	testImport.fileSystem				= fileSystem;
+	testImport.renderSystem				= renderSystem;
+	testImport.soundSystem				= soundSystem;
+	testImport.renderModelManager		= renderModelManager;
+	testImport.uiManager				= uiManager;
+	testImport.declManager				= declManager;
+	testImport.AASFileManager			= AASFileManager;
+	testImport.collisionModelManager	= collisionModelManager;
 	
 	testExport = *GetGameAPI( &testImport );
 }

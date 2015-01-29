@@ -303,7 +303,7 @@ void idDemoFile::WriteHashString( const char* str )
 	// see if it is already in the has table
 	for( int i = 0 ; i < demoStrings.Num() ; i++ )
 	{
-		if( !strcmp( demoStrings[i]->c_str(), str ) )
+		if( !idStr::Cmp( demoStrings[i]->c_str(), str ) )
 		{
 			WriteInt( i );
 			return;

@@ -80,6 +80,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "ParallelJobList.h"
 #include "sys/sys_localuser.h"
 #include "sys/sys_threading.h"
+#include "../renderer/Image.h"
 
 #if defined(USE_IDTOOLS)
 #include "../tools/compilers/compiler_public.h"
@@ -364,7 +365,7 @@ void idCommonLocal::StartupVariable( const char* match )
 	int i = 0;
 	while(	i < com_numConsoleLines )
 	{
-		if( strcmp( com_consoleLines[ i ].Argv( 0 ), "set" ) != 0 )
+		if( idStr::Cmp( com_consoleLines[ i ].Argv( 0 ), "set" ) != 0 )
 		{
 			i++;
 			continue;
@@ -854,8 +855,6 @@ CONSOLE_COMMAND( reloadLanguage, "reload language dict", NULL )
 {
 	commonLocal.InitLanguageDict();
 }
-
-#include "../renderer/Image.h"
 
 struct emptyCommand_t;
 

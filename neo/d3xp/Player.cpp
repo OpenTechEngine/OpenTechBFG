@@ -5872,7 +5872,7 @@ void idPlayer::Weapon_GUI()
 		// HACK - Check to see who is activating the frag chamber. Im sorry.
 		if( common->IsMultiplayer() && focusGUIent )
 		{
-			if( strcmp( focusGUIent->GetName(), "chamber_gui_console" ) == 0 && strcmp( command, " ; runScript chamber_trigger" ) == 0 )
+			if( idStr::Cmp( focusGUIent->GetName(), "chamber_gui_console" ) == 0 && idStr::Cmp( command, " ; runScript chamber_trigger" ) == 0 )
 			{
 				gameLocal.playerActivateFragChamber = this;
 			}
@@ -9929,7 +9929,7 @@ void idPlayer::ServerDealDamage( int damage, idEntity& inflictor, idEntity& atta
 			}
 			
 			// HACK - A - LICIOUS - Check to see if we are being damaged by the frag chamber.
-			if( oldHealth > 0 && strcmp( gameLocal.GetMapName(), "maps/game/mp/d3dm3.map" ) == 0 && strcmp( damageDefName, "damage_triggerhurt_1000_chamber" ) == 0 )
+			if( oldHealth > 0 && idStr::Cmp( gameLocal.GetMapName(), "maps/game/mp/d3dm3.map" ) == 0 && idStr::Cmp( damageDefName, "damage_triggerhurt_1000_chamber" ) == 0 )
 			{
 				idPlayer* fragChamberActivator = gameLocal.playerActivateFragChamber;
 				if( fragChamberActivator != NULL )

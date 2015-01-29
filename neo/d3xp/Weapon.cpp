@@ -3447,9 +3447,9 @@ void idWeapon::Event_WeaponState( const char* statename, int blendFrames )
 	idealState = statename;
 	
 	// HACK, Fixes reload animation on player not playing on second reload ( on non local client players, and only with host viewing. )
-	if( common->IsMultiplayer() && strcmp( weaponDef->GetName(), "weapon_shotgun_double_mp" ) == 0 )
+	if( common->IsMultiplayer() && idStr::Cmp( weaponDef->GetName(), "weapon_shotgun_double_mp" ) == 0 )
 	{
-		if( strcmp( statename, "Reload" ) != 0 )
+		if( idStr::Cmp( statename, "Reload" ) != 0 )
 		{
 			if( status ==  WP_RELOAD )
 			{
@@ -4647,7 +4647,7 @@ void idWeapon::Event_Melee()
 				globalKickDir = muzzleAxis * kickDir;
 				//Adjust the melee powerup modifier for the invulnerability boss fight
 				float mod = owner->PowerUpModifier( MELEE_DAMAGE );
-				if( !strcmp( ent->GetEntityDefName(), "monster_hunter_invul" ) )
+				if( !idStr::Cmp( ent->GetEntityDefName(), "monster_hunter_invul" ) )
 				{
 					//Only do a quater of the damage mod
 					mod *= 0.25f;

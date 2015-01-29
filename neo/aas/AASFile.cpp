@@ -663,7 +663,7 @@ bool idAASSettings::ValidEntity( const char* classname ) const
 	
 	if( playerFlood )
 	{
-		if( !strcmp( classname, "info_player_start" ) || !strcmp( classname , "info_player_deathmatch" ) || !strcmp( classname, "func_teleporter" ) )
+		if( !idStr::Cmp( classname, "info_player_start" ) || !idStr::Cmp( classname , "info_player_deathmatch" ) || !idStr::Cmp( classname, "func_teleporter" ) )
 		{
 			return true;
 		}

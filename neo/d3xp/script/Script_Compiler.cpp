@@ -775,11 +775,11 @@ idVarDef* idCompiler::EmitOpcode( const opcode_t* op, idVarDef* var_a, idVarDef*
 		return var_c;
 	}
 	
-	if( var_a && !strcmp( var_a->Name(), RESULT_STRING ) )
+	if( var_a && !idStr::Cmp( var_a->Name(), RESULT_STRING ) )
 	{
 		var_a->numUsers++;
 	}
-	if( var_b && !strcmp( var_b->Name(), RESULT_STRING ) )
+	if( var_b && !idStr::Cmp( var_b->Name(), RESULT_STRING ) )
 	{
 		var_b->numUsers++;
 	}
@@ -842,7 +842,7 @@ bool idCompiler::EmitPush( idVarDef* expression, const idTypeDef* funcArg )
 	// RB end
 	
 	out = NULL;
-	for( op = &opcodes[ OP_PUSH_F ]; op->name && !strcmp( op->name, "<PUSH>" ); op++ )
+	for( op = &opcodes[ OP_PUSH_F ]; op->name && !idStr::Cmp( op->name, "<PUSH>" ); op++ )
 	{
 		if( ( funcArg->Type() == op->type_a->Type() ) && ( expression->Type() == op->type_b->Type() ) )
 		{
@@ -1568,7 +1568,7 @@ idVarDef* idCompiler::LookupDef( const char* name, const idVarDef* baseobj )
 						break;
 					}
 					op++;
-					if( !op->name || strcmp( op->name, "." ) )
+					if( !op->name || idStr::Cmp( op->name, "." ) )
 					{
 						Error( "no valid opcode to access type '%s'", field->TypeDef()->SuperClass()->Name() );
 					}
@@ -1972,7 +1972,7 @@ idVarDef* idCompiler::GetExpression( int priority )
 			}
 			
 			op++;
-			if( !op->name || strcmp( op->name, oldop->name ) )
+			if( !op->name || idStr::Cmp( op->name, oldop->name ) )
 			{
 				Error( "type mismatch for '%s'", oldop->name );
 			}
@@ -2149,7 +2149,7 @@ void idCompiler::ParseReturnStatement()
 	
 	for( op = opcodes; op->name; op++ )
 	{
-		if( !strcmp( op->name, "=" ) )
+		if( !idStr::Cmp( op->name, "=" ) )
 		{
 			break;
 		}
@@ -2160,7 +2160,7 @@ void idCompiler::ParseReturnStatement()
 	while( !TypeMatches( type_a, op->type_a->Type() ) || !TypeMatches( type_b, op->type_b->Type() ) )
 	{
 		op++;
-		if( !op->name || strcmp( op->name, "=" ) )
+		if( !op->name || idStr::Cmp( op->name, "=" ) )
 		{
 			Error( "type mismatch for return value" );
 		}

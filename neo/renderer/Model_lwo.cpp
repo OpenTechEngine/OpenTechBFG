@@ -2856,7 +2856,7 @@ int lwResolvePolySurfaces( lwPolygonList* polygon, lwTagList* tlist,
 		st = *surf;
 		while( st )
 		{
-			if( !strcmp( st->name, tlist->tag[ i ] ) )
+			if( !idStr::Cmp( st->name, tlist->tag[ i ] ) )
 			{
 				s[ i ] = st;
 				break;
@@ -3797,13 +3797,13 @@ textures to surface channels and shaders to surfaces.
 
 static int compare_textures( lwTexture* a, lwTexture* b )
 {
-	return strcmp( a->ord, b->ord );
+	return idStr::Cmp( a->ord, b->ord );
 }
 
 
 static int compare_shaders( lwPlugin* a, lwPlugin* b )
 {
-	return strcmp( a->ord, b->ord );
+	return idStr::Cmp( a->ord, b->ord );
 }
 
 

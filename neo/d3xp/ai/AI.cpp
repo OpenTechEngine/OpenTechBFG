@@ -5625,7 +5625,7 @@ void idAI::TriggerParticles( const char* jointName )
 void idAI::TriggerFX( const char* joint, const char* fx )
 {
 
-	if( !strcmp( joint, "origin" ) )
+	if( !idStr::Cmp( joint, "origin" ) )
 	{
 		idEntityFx::StartFx( fx, NULL, NULL, this, true );
 	}

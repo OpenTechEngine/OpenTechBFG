@@ -179,4 +179,4 @@ ID_INLINE bool idImageOpts::operator==( const idImageOpts& opts )
 
 } // namespace BFG
 
-#endif
+#endif // __IMAGEOPTS_H__

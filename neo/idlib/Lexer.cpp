@@ -236,7 +236,7 @@ int idLexer::GetPunctuationId( const char* p )
 	
 	for( i = 0; idLexer::punctuations[i].p; i++ )
 	{
-		if( !strcmp( idLexer::punctuations[i].p, p ) )
+		if( !idStr::Cmp( idLexer::punctuations[i].p, p ) )
 		{
 			return idLexer::punctuations[i].n;
 		}

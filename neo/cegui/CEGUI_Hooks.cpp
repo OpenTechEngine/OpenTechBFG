@@ -48,7 +48,7 @@ namespace // anon. namespace for helper functions and global state
 
 	void UpdateTimePulse()
 	{
-		double newTimePulseSec = 0.001 * Sys_Milliseconds();
+		double newTimePulseSec = 0.001 * BFG::Sys_Milliseconds();
 
 		ceguiSys->injectTimePulse(newTimePulseSec - oldTimePulseSec);
 
@@ -151,14 +151,14 @@ namespace // anon. namespace for helper functions and global state
 	}
 
 	// keyboard keys, mouse keys, mousewheel (TODO: really?)
-	bool HandleKeyEvent(const sysEvent_t& keyEvent)
+	bool HandleKeyEvent(const BFG::sysEvent_t& keyEvent)
 	{
-		assert(keyEvent.evType == SE_KEY);
+		assert(keyEvent.evType == BFG::SE_KEY);
 
-		keyNum_t keyNum = static_cast<keyNum_t>(keyEvent.evValue);
+		BFG::keyNum_t keyNum = static_cast<BFG::keyNum_t>(keyEvent.evValue);
 		bool pressed = keyEvent.evValue2;
 
-		if(keyNum < K_JOY1)
+		if(keyNum < BFG::K_JOY1)
 		{
 			// Key::Scan is dinput keynums, and so is keyNum_t (at least for everything below K_JOY1)
 			Key::Scan key = static_cast<Key::Scan>(keyEvent.evValue);
@@ -172,11 +172,11 @@ namespace // anon. namespace for helper functions and global state
 				return ceguiSys->getDefaultGUIContext().injectKeyUp( key );
 			}
 		}
-		else if(keyNum >= K_MOUSE1 && keyNum < K_MOUSE1 + MouseButtonCount)
+		else if(keyNum >= BFG::K_MOUSE1 && keyNum < BFG::K_MOUSE1 + MouseButtonCount)
 		{
 			// K_MOUSE* are contiguous, so are CEGUI::MouseButton::*Button - and have the same order
 			// (left, right, middle, X1, X2). CEGUI::LeftButton is 0.
-			MouseButton button = static_cast<MouseButton>(keyNum - K_MOUSE1);
+			MouseButton button = static_cast<MouseButton>(keyNum - BFG::K_MOUSE1);
 			if(pressed)
 			{
 				return ceguiSys->getDefaultGUIContext().injectMouseButtonDown(button);
@@ -201,7 +201,7 @@ bool idCEGUI::Init()
 	createWindow();
 
 	ceguiSys = &(System::getSingleton());
-	oldTimePulseSec = 0.001 * Sys_Milliseconds();
+	oldTimePulseSec = 0.001 * BFG::Sys_Milliseconds();
 
 	return true;
 }
@@ -212,7 +212,7 @@ void idCEGUI::NotifyDisplaySizeChanged(int width, int height)
 }
 
 // inject a sys event
-bool idCEGUI::InjectSysEvent(const sysEvent_t* event)
+bool idCEGUI::InjectSysEvent(const BFG::sysEvent_t* event)
 {
 	if(event == NULL)
 	{
@@ -220,17 +220,17 @@ bool idCEGUI::InjectSysEvent(const sysEvent_t* event)
 		return false;
 	}
 
-	const sysEvent_t& ev = *event;
+	const BFG::sysEvent_t& ev = *event;
 
 	switch(ev.evType)
 	{
-		case SE_KEY:
+		case BFG::SE_KEY:
 			return HandleKeyEvent(ev);
-		case SE_MOUSE_ABSOLUTE:
+		case BFG::SE_MOUSE_ABSOLUTE:
 			return ceguiSys->getDefaultGUIContext().injectMousePosition(ev.evValue, ev.evValue2);
-		case SE_CHAR:
+		case BFG::SE_CHAR:
 			return ceguiSys->getDefaultGUIContext().injectChar(ev.evValue);
-		case SE_MOUSE_LEAVE:
+		case BFG::SE_MOUSE_LEAVE:
 			// not sure why this is interesting (and mouse entering again not), but whatever..
 			return ceguiSys->getDefaultGUIContext().injectMouseLeaves();
 

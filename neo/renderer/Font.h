@@ -115,6 +115,6 @@ private:
 	fontInfo_t* fontInfo;
 };
 
-#endif // __FONT_H__
-
 } // namespace BFG
+
+#endif // __FONT_H__

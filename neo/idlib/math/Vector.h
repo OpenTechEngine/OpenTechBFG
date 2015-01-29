@@ -1438,7 +1438,7 @@ ID_INLINE idVec6::idVec6()
 
 ID_INLINE idVec6::idVec6( const float* a )
 {
-	memcpy( p, a, 6 * sizeof( float ) );
+	std::memcpy( p, a, 6 * sizeof( float ) );
 }
 
 ID_INLINE idVec6::idVec6( const float a1, const float a2, const float a3, const float a4, const float a5, const float a6 )

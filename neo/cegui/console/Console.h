@@ -12,7 +12,7 @@
 
 namespace CEGUIConsole {
 
-class Console: public virtual idConsole {
+class Console: public virtual BFG::idConsole {
 public:
 	Console();
 	virtual ~Console();
@@ -29,7 +29,7 @@ public:
 	void	Print( const char* text );
 
 	// process console event, like toggle show hide, and other keys
-	bool	ProcessEvent( const sysEvent_t* event, bool forceAccept );
+	bool	ProcessEvent( const BFG::sysEvent_t* event, bool forceAccept );
 
 
 	// unimplemented
@@ -39,9 +39,9 @@ public:
 	// clear the timers on any recent prints that are displayed in the notify lines
 	void	ClearNotifyLines() { };
 	void	Draw( bool forceFullScreen ) { };
-	void	PrintOverlay( idOverlayHandle& handle, justify_t justify, VERIFY_FORMAT_STRING const char* text, ... ) { };
-	idDebugGraph* 	CreateGraph( int numItems ) { return NULL; }; // TODO implement
-	void			DestroyGraph( idDebugGraph* graph )  { }; // TODO implement
+	void	PrintOverlay( BFG::idOverlayHandle& handle, BFG::justify_t justify, VERIFY_FORMAT_STRING const char* text, ... ) { };
+	BFG::idDebugGraph* 	CreateGraph( int numItems ) { return NULL; }; // TODO implement
+	void			DestroyGraph( BFG::idDebugGraph* graph )  { }; // TODO implement
 
 private:
 	bool isInitialized();

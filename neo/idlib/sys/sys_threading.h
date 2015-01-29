@@ -31,8 +31,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #include <stdint.h>                     // for uintptr_t
 
-namespace BFG {
-
 #ifndef __TYPEINFOGEN__
 
 /*
@@ -47,13 +45,16 @@ namespace BFG {
 #if defined(_WIN32)
 #undef LONG
 #include <windows.h>
-
+namespace BFG {
 typedef CRITICAL_SECTION		mutexHandle_t;
 typedef HANDLE					signalHandle_t;
 typedef LONG					interlockedInt_t;
+} // namespace BFG
 #else
 
 #include <pthread.h>
+
+namespace BFG {
 
 struct signalHandle_t
 {
@@ -68,8 +69,13 @@ struct signalHandle_t
 
 typedef pthread_mutex_t			mutexHandle_t;
 typedef int						interlockedInt_t;
+
+} // namespace BFG
 #endif
+
 // RB end
+
+namespace BFG {
 
 // _ReadWriteBarrier() does not translate to any instructions but keeps the compiler
 // from reordering read and write instructions across the barrier.

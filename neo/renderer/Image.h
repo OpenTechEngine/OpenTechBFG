@@ -36,6 +36,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/File_Manifest.h"  // for idPreloadManifest, etc
 #include "../framework/FileSystem.h"    // for FILE_NOT_FOUND_TIMESTAMP, etc
 #include "../framework/Common.h"        // for MemInfo_t
+#include "../renderer/ImageOpts.h"
 
 namespace BFG {
 

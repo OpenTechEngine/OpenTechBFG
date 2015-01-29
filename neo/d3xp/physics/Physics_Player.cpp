@@ -2365,7 +2365,7 @@ bool idPhysics_Player::ClientPusherLocked( bool& justBecameUnlocked )
 					clientPusherLocked = true; // locked until you have a ground contact that isn't a non static phys obj
 					
 					// HACK - Tomiko Reactor rotating disks screw up if server locks the pushed clients, but elevators need clients to be locked ( otherwise clients will clip through elevators )
-					if( strcmp( ent->GetName(), "cylinder_disk1" ) == 0 || strcmp( ent->GetName(), "cylinder_disk2" ) == 0 || strcmp( ent->GetName(), "cylinder_disk3" ) == 0 )
+					if( idStr::Cmp( ent->GetName(), "cylinder_disk1" ) == 0 || idStr::Cmp( ent->GetName(), "cylinder_disk2" ) == 0 || idStr::Cmp( ent->GetName(), "cylinder_disk3" ) == 0 )
 					{
 						clientPusherLocked = false;
 					}

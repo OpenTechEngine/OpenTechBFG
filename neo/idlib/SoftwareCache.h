@@ -148,7 +148,7 @@ class ALIGNTYPE128 idSoftwareCache
 public:
 	void Prefetch( const _type_ * obj )
 	{
-		::Prefetch( obj, 0 );
+		BFG::Prefetch( obj, 0 );
 	}
 };
 

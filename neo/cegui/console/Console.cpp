@@ -84,12 +84,12 @@ void Console::Print(const char * text)
 	}
 }
 
-bool Console::ProcessEvent( const sysEvent_t* event, bool forceAccept )
+bool Console::ProcessEvent( const BFG::sysEvent_t* event, bool forceAccept )
 {
 	if (isInitialized()) {
-		const bool consoleKey = event->evType == SE_KEY && event->evValue == K_GRAVE && com_allowConsole.GetBool();
+		const bool consoleKey = event->evType == BFG::SE_KEY && event->evValue == BFG::K_GRAVE && BFG::com_allowConsole.GetBool();
 
-		const bool tabKey = event->evType == SE_KEY && event->evValue == K_TAB;
+		const bool tabKey = event->evType == BFG::SE_KEY && event->evValue == BFG::K_TAB;
 
 		// we always catch the console key event
 		if( !forceAccept && consoleKey )
@@ -104,12 +104,12 @@ bool Console::ProcessEvent( const sysEvent_t* event, bool forceAccept )
 			if( Active() )
 			{
 				Close();
-				Sys_GrabMouseCursor( true );
+				BFG::Sys_GrabMouseCursor( true );
 			}
 			else
 			{
 				Open();
-				Sys_GrabMouseCursor( false );
+				BFG::Sys_GrabMouseCursor( false );
 			}
 			return true;
 		}
@@ -144,4 +144,4 @@ bool Console::ProcessEvent( const sysEvent_t* event, bool forceAccept )
 } /* namespace CEGUIConsole */
 
 static CEGUIConsole::Console localConsole;
-idConsole* console = &localConsole;
+BFG::idConsole* BFG::console = &localConsole;

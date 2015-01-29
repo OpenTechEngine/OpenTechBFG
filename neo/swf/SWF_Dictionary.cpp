@@ -187,6 +187,4 @@ idSWFDictionaryEntry* idSWF::FindDictionaryEntry( int characterID )
 	return &dictionary[ characterID ];
 }
 
-}
-
 } // namespace BFG

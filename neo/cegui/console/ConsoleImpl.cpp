@@ -152,16 +152,16 @@ void ConsoleImpl::Execute(CEGUI::String inMsg)
 	if (strlen(cmd) >= 1)
 	{
 
-		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, cmd );	// valid command
-		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "\n" );
-		consoleHistory.AddToHistory( cmd );
+		BFG::cmdSystem->BufferCommandText( BFG::CMD_EXEC_APPEND, cmd );	// valid command
+		BFG::cmdSystem->BufferCommandText( BFG::CMD_EXEC_APPEND, "\n" );
+		BFG::consoleHistory.AddToHistory( cmd );
 	}
 }
 void ConsoleImpl::PopulateHistory(void)
 {
 	// TODO implement cegui window historylist aka the dropdown list,
 	// should be filled on access
-	idStr hist = consoleHistory.RetrieveFromHistory( true );
+	BFG::idStr hist = BFG::consoleHistory.RetrieveFromHistory( true );
 }
 
 void ConsoleImpl::TabComplete(void)
@@ -171,9 +171,9 @@ void ConsoleImpl::TabComplete(void)
 
 	CEGUI::String cmdStub = ConsoleWin->getChild("Combobox")->getText();
 
-	cmdSystem->CommandCompletion( AutoCompleteCallback ); // function pointer to our static member function
+	BFG::cmdSystem->CommandCompletion( AutoCompleteCallback ); // function pointer to our static member function
 	// if command is valid
-	cmdSystem->ArgCompletion( cmdStub.c_str(), AutoCompleteCallback );
+	BFG::cmdSystem->ArgCompletion( cmdStub.c_str(), AutoCompleteCallback );
 
 
 

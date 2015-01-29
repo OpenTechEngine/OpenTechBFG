@@ -44,7 +44,7 @@ namespace idCEGUI
 	void NotifyDisplaySizeChanged(int width, int height);
 
 	// inject a sys event (keyboard, mouse, unicode character)
-	bool InjectSysEvent(const sysEvent_t *keyEvent);
+	bool InjectSysEvent(const BFG::sysEvent_t *keyEvent);
 
 	// inject the current mouse wheel delta for scrolling
 	bool InjectMouseWheel(int delta);

@@ -129,11 +129,11 @@ static void ASE_ParseBracedBlock( void ( *parser )( const char* token ) )
 	
 	while( ASE_GetToken( false ) )
 	{
-		if( !strcmp( ase.token, "{" ) )
+		if( !idStr::Cmp( ase.token, "{" ) )
 		{
 			indent++;
 		}
-		else if( !strcmp( ase.token, "}" ) )
+		else if( !idStr::Cmp( ase.token, "}" ) )
 		{
 			--indent;
 			if( indent == 0 )
@@ -155,11 +155,11 @@ static void ASE_SkipEnclosingBraces()
 	
 	while( ASE_GetToken( false ) )
 	{
-		if( !strcmp( ase.token, "{" ) )
+		if( !idStr::Cmp( ase.token, "{" ) )
 		{
 			indent++;
 		}
-		else if( !strcmp( ase.token, "}" ) )
+		else if( !idStr::Cmp( ase.token, "}" ) )
 		{
 			indent--;
 			if( indent == 0 )
@@ -179,7 +179,7 @@ static void ASE_KeyMAP_DIFFUSE( const char* token )
 {
 	aseMaterial_t*	material;
 	
-	if( !strcmp( token, "*BITMAP" ) )
+	if( !idStr::Cmp( token, "*BITMAP" ) )
 	{
 		idStr	qpath;
 		idStr	matname;
@@ -199,31 +199,31 @@ static void ASE_KeyMAP_DIFFUSE( const char* token )
 		qpath = fileSystem->OSPathToRelativePath( matname );
 		idStr::Copynz( ase.currentMaterial->name, qpath, sizeof( ase.currentMaterial->name ) );
 	}
-	else if( !strcmp( token, "*UVW_U_OFFSET" ) )
+	else if( !idStr::Cmp( token, "*UVW_U_OFFSET" ) )
 	{
 		material = ase.model->materials[ase.model->materials.Num() - 1];
 		ASE_GetToken( false );
 		material->uOffset = atof( ase.token );
 	}
-	else if( !strcmp( token, "*UVW_V_OFFSET" ) )
+	else if( !idStr::Cmp( token, "*UVW_V_OFFSET" ) )
 	{
 		material = ase.model->materials[ase.model->materials.Num() - 1];
 		ASE_GetToken( false );
 		material->vOffset = atof( ase.token );
 	}
-	else if( !strcmp( token, "*UVW_U_TILING" ) )
+	else if( !idStr::Cmp( token, "*UVW_U_TILING" ) )
 	{
 		material = ase.model->materials[ase.model->materials.Num() - 1];
 		ASE_GetToken( false );
 		material->uTiling = atof( ase.token );
 	}
-	else if( !strcmp( token, "*UVW_V_TILING" ) )
+	else if( !idStr::Cmp( token, "*UVW_V_TILING" ) )
 	{
 		material = ase.model->materials[ase.model->materials.Num() - 1];
 		ASE_GetToken( false );
 		material->vTiling = atof( ase.token );
 	}
-	else if( !strcmp( token, "*UVW_ANGLE" ) )
+	else if( !idStr::Cmp( token, "*UVW_ANGLE" ) )
 	{
 		material = ase.model->materials[ase.model->materials.Num() - 1];
 		ASE_GetToken( false );
@@ -236,7 +236,7 @@ static void ASE_KeyMAP_DIFFUSE( const char* token )
 
 static void ASE_KeyMATERIAL( const char* token )
 {
-	if( !strcmp( token, "*MAP_DIFFUSE" ) )
+	if( !idStr::Cmp( token, "*MAP_DIFFUSE" ) )
 	{
 		ASE_ParseBracedBlock( ASE_KeyMAP_DIFFUSE );
 	}
@@ -247,12 +247,12 @@ static void ASE_KeyMATERIAL( const char* token )
 
 static void ASE_KeyMATERIAL_LIST( const char* token )
 {
-	if( !strcmp( token, "*MATERIAL_COUNT" ) )
+	if( !idStr::Cmp( token, "*MATERIAL_COUNT" ) )
 	{
 		ASE_GetToken( false );
 		VERBOSE( ( "..num materials: %s\n", ase.token ) );
 	}
-	else if( !strcmp( token, "*MATERIAL" ) )
+	else if( !idStr::Cmp( token, "*MATERIAL" ) )
 	{
 		VERBOSE( ( "..material %d\n", ase.model->materials.Num() ) );
 		
@@ -270,7 +270,7 @@ static void ASE_KeyNODE_TM( const char* token )
 {
 	int		i;
 	
-	if( !strcmp( token, "*TM_ROW0" ) )
+	if( !idStr::Cmp( token, "*TM_ROW0" ) )
 	{
 		for( i = 0 ; i < 3 ; i++ )
 		{
@@ -278,7 +278,7 @@ static void ASE_KeyNODE_TM( const char* token )
 			ase.currentObject->mesh.transform[0][i] = atof( ase.token );
 		}
 	}
-	else if( !strcmp( token, "*TM_ROW1" ) )
+	else if( !idStr::Cmp( token, "*TM_ROW1" ) )
 	{
 		for( i = 0 ; i < 3 ; i++ )
 		{
@@ -286,7 +286,7 @@ static void ASE_KeyNODE_TM( const char* token )
 			ase.currentObject->mesh.transform[1][i] = atof( ase.token );
 		}
 	}
-	else if( !strcmp( token, "*TM_ROW2" ) )
+	else if( !idStr::Cmp( token, "*TM_ROW2" ) )
 	{
 		for( i = 0 ; i < 3 ; i++ )
 		{
@@ -294,7 +294,7 @@ static void ASE_KeyNODE_TM( const char* token )
 			ase.currentObject->mesh.transform[2][i] = atof( ase.token );
 		}
 	}
-	else if( !strcmp( token, "*TM_ROW3" ) )
+	else if( !idStr::Cmp( token, "*TM_ROW3" ) )
 	{
 		for( i = 0 ; i < 3 ; i++ )
 		{
@@ -308,7 +308,7 @@ static void ASE_KeyMESH_VERTEX_LIST( const char* token )
 {
 	aseMesh_t* pMesh = ASE_GetCurrentMesh();
 	
-	if( !strcmp( token, "*MESH_VERTEX" ) )
+	if( !idStr::Cmp( token, "*MESH_VERTEX" ) )
 	{
 		ASE_GetToken( false );		// skip number
 		
@@ -338,7 +338,7 @@ static void ASE_KeyMESH_FACE_LIST( const char* token )
 {
 	aseMesh_t* pMesh = ASE_GetCurrentMesh();
 	
-	if( !strcmp( token, "*MESH_FACE" ) )
+	if( !idStr::Cmp( token, "*MESH_FACE" ) )
 	{
 		ASE_GetToken( false );	// skip face number
 		
@@ -383,7 +383,7 @@ static void ASE_KeyTFACE_LIST( const char* token )
 {
 	aseMesh_t* pMesh = ASE_GetCurrentMesh();
 	
-	if( !strcmp( token, "*MESH_TFACE" ) )
+	if( !idStr::Cmp( token, "*MESH_TFACE" ) )
 	{
 		int a, b, c;
 		
@@ -412,7 +412,7 @@ static void ASE_KeyCFACE_LIST( const char* token )
 {
 	aseMesh_t* pMesh = ASE_GetCurrentMesh();
 	
-	if( !strcmp( token, "*MESH_CFACE" ) )
+	if( !idStr::Cmp( token, "*MESH_CFACE" ) )
 	{
 		ASE_GetToken( false );
 		
@@ -440,7 +440,7 @@ static void ASE_KeyMESH_TVERTLIST( const char* token )
 {
 	aseMesh_t* pMesh = ASE_GetCurrentMesh();
 	
-	if( !strcmp( token, "*MESH_TVERT" ) )
+	if( !idStr::Cmp( token, "*MESH_TVERT" ) )
 	{
 		const int maxLength = 80;
 		char u[maxLength], v[maxLength], w[maxLength];
@@ -482,7 +482,7 @@ static void ASE_KeyMESH_CVERTLIST( const char* token )
 	
 	pMesh->colorsParsed = true;
 	
-	if( !strcmp( token, "*MESH_VERTCOL" ) )
+	if( !idStr::Cmp( token, "*MESH_VERTCOL" ) )
 	{
 		ASE_GetToken( false );
 		
@@ -517,7 +517,7 @@ static void ASE_KeyMESH_NORMALS( const char* token )
 	pMesh->normalsParsed = true;
 	f = &pMesh->faces[ase.currentFace];
 	
-	if( !strcmp( token, "*MESH_FACENORMAL" ) )
+	if( !idStr::Cmp( token, "*MESH_FACENORMAL" ) )
 	{
 		int	num;
 		
@@ -549,7 +549,7 @@ static void ASE_KeyMESH_NORMALS( const char* token )
 		
 		ase.currentFace++;
 	}
-	else if( !strcmp( token, "*MESH_VERTEXNORMAL" ) )
+	else if( !idStr::Cmp( token, "*MESH_VERTEXNORMAL" ) )
 	{
 		int	num;
 		int	v;
@@ -597,42 +597,42 @@ static void ASE_KeyMESH( const char* token )
 {
 	aseMesh_t* pMesh = ASE_GetCurrentMesh();
 	
-	if( !strcmp( token, "*TIMEVALUE" ) )
+	if( !idStr::Cmp( token, "*TIMEVALUE" ) )
 	{
 		ASE_GetToken( false );
 		
 		pMesh->timeValue = atoi( ase.token );
 		VERBOSE( ( ".....timevalue: %d\n", pMesh->timeValue ) );
 	}
-	else if( !strcmp( token, "*MESH_NUMVERTEX" ) )
+	else if( !idStr::Cmp( token, "*MESH_NUMVERTEX" ) )
 	{
 		ASE_GetToken( false );
 		
 		pMesh->numVertexes = atoi( ase.token );
 		VERBOSE( ( ".....num vertexes: %d\n", pMesh->numVertexes ) );
 	}
-	else if( !strcmp( token, "*MESH_NUMTVERTEX" ) )
+	else if( !idStr::Cmp( token, "*MESH_NUMTVERTEX" ) )
 	{
 		ASE_GetToken( false );
 		
 		pMesh->numTVertexes = atoi( ase.token );
 		VERBOSE( ( ".....num tvertexes: %d\n", pMesh->numTVertexes ) );
 	}
-	else if( !strcmp( token, "*MESH_NUMCVERTEX" ) )
+	else if( !idStr::Cmp( token, "*MESH_NUMCVERTEX" ) )
 	{
 		ASE_GetToken( false );
 		
 		pMesh->numCVertexes = atoi( ase.token );
 		VERBOSE( ( ".....num cvertexes: %d\n", pMesh->numCVertexes ) );
 	}
-	else if( !strcmp( token, "*MESH_NUMFACES" ) )
+	else if( !idStr::Cmp( token, "*MESH_NUMFACES" ) )
 	{
 		ASE_GetToken( false );
 		
 		pMesh->numFaces = atoi( ase.token );
 		VERBOSE( ( ".....num faces: %d\n", pMesh->numFaces ) );
 	}
-	else if( !strcmp( token, "*MESH_NUMTVFACES" ) )
+	else if( !idStr::Cmp( token, "*MESH_NUMTVFACES" ) )
 	{
 		ASE_GetToken( false );
 		
@@ -644,7 +644,7 @@ static void ASE_KeyMESH( const char* token )
 			common->Error( "MESH_NUMTVFACES != MESH_NUMFACES" );
 		}
 	}
-	else if( !strcmp( token, "*MESH_NUMCVFACES" ) )
+	else if( !idStr::Cmp( token, "*MESH_NUMCVFACES" ) )
 	{
 		ASE_GetToken( false );
 		
@@ -656,35 +656,35 @@ static void ASE_KeyMESH( const char* token )
 			common->Error( "MESH_NUMCVFACES != MESH_NUMFACES" );
 		}
 	}
-	else if( !strcmp( token, "*MESH_VERTEX_LIST" ) )
+	else if( !idStr::Cmp( token, "*MESH_VERTEX_LIST" ) )
 	{
 		pMesh->vertexes = ( idVec3* )Mem_Alloc( sizeof( idVec3 ) * pMesh->numVertexes, TAG_MODEL );
 		ase.currentVertex = 0;
 		VERBOSE( ( ".....parsing MESH_VERTEX_LIST\n" ) );
 		ASE_ParseBracedBlock( ASE_KeyMESH_VERTEX_LIST );
 	}
-	else if( !strcmp( token, "*MESH_TVERTLIST" ) )
+	else if( !idStr::Cmp( token, "*MESH_TVERTLIST" ) )
 	{
 		ase.currentVertex = 0;
 		pMesh->tvertexes = ( idVec2* )Mem_Alloc( sizeof( idVec2 ) * pMesh->numTVertexes, TAG_MODEL );
 		VERBOSE( ( ".....parsing MESH_TVERTLIST\n" ) );
 		ASE_ParseBracedBlock( ASE_KeyMESH_TVERTLIST );
 	}
-	else if( !strcmp( token, "*MESH_CVERTLIST" ) )
+	else if( !idStr::Cmp( token, "*MESH_CVERTLIST" ) )
 	{
 		ase.currentVertex = 0;
 		pMesh->cvertexes = ( idVec3* )Mem_Alloc( sizeof( idVec3 ) * pMesh->numCVertexes, TAG_MODEL );
 		VERBOSE( ( ".....parsing MESH_CVERTLIST\n" ) );
 		ASE_ParseBracedBlock( ASE_KeyMESH_CVERTLIST );
 	}
-	else if( !strcmp( token, "*MESH_FACE_LIST" ) )
+	else if( !idStr::Cmp( token, "*MESH_FACE_LIST" ) )
 	{
 		pMesh->faces = ( aseFace_t* )Mem_Alloc( sizeof( aseFace_t ) * pMesh->numFaces, TAG_MODEL );
 		ase.currentFace = 0;
 		VERBOSE( ( ".....parsing MESH_FACE_LIST\n" ) );
 		ASE_ParseBracedBlock( ASE_KeyMESH_FACE_LIST );
 	}
-	else if( !strcmp( token, "*MESH_TFACELIST" ) )
+	else if( !idStr::Cmp( token, "*MESH_TFACELIST" ) )
 	{
 		if( !pMesh->faces )
 		{
@@ -694,7 +694,7 @@ static void ASE_KeyMESH( const char* token )
 		VERBOSE( ( ".....parsing MESH_TFACE_LIST\n" ) );
 		ASE_ParseBracedBlock( ASE_KeyTFACE_LIST );
 	}
-	else if( !strcmp( token, "*MESH_CFACELIST" ) )
+	else if( !idStr::Cmp( token, "*MESH_CFACELIST" ) )
 	{
 		if( !pMesh->faces )
 		{
@@ -704,7 +704,7 @@ static void ASE_KeyMESH( const char* token )
 		VERBOSE( ( ".....parsing MESH_CFACE_LIST\n" ) );
 		ASE_ParseBracedBlock( ASE_KeyCFACE_LIST );
 	}
-	else if( !strcmp( token, "*MESH_NORMALS" ) )
+	else if( !idStr::Cmp( token, "*MESH_NORMALS" ) )
 	{
 		if( !pMesh->faces )
 		{
@@ -721,7 +721,7 @@ static void ASE_KeyMESH_ANIMATION( const char* token )
 	aseMesh_t* mesh;
 	
 	// loads a single animation frame
-	if( !strcmp( token, "*MESH" ) )
+	if( !idStr::Cmp( token, "*MESH" ) )
 	{
 		VERBOSE( ( "...found MESH\n" ) );
 		
@@ -745,24 +745,24 @@ static void ASE_KeyGEOMOBJECT( const char* token )
 	
 	object = ase.currentObject;
 	
-	if( !strcmp( token, "*NODE_NAME" ) )
+	if( !idStr::Cmp( token, "*NODE_NAME" ) )
 	{
 		ASE_GetToken( true );
 		VERBOSE( ( " %s\n", ase.token ) );
 		idStr::Copynz( object->name, ase.token, sizeof( object->name ) );
 	}
-	else if( !strcmp( token, "*NODE_PARENT" ) )
+	else if( !idStr::Cmp( token, "*NODE_PARENT" ) )
 	{
 		ASE_SkipRestOfLine();
 	}
 	// ignore unused data blocks
-	else if( !strcmp( token, "*NODE_TM" ) ||
-			 !strcmp( token, "*TM_ANIMATION" ) )
+	else if( !idStr::Cmp( token, "*NODE_TM" ) ||
+			 !idStr::Cmp( token, "*TM_ANIMATION" ) )
 	{
 		ASE_ParseBracedBlock( ASE_KeyNODE_TM );
 	}
 	// ignore regular meshes that aren't part of animation
-	else if( !strcmp( token, "*MESH" ) )
+	else if( !idStr::Cmp( token, "*MESH" ) )
 	{
 		ase.currentMesh = &ase.currentObject->mesh;
 		idVec3	transforms[ 4 ];
@@ -780,23 +780,23 @@ static void ASE_KeyGEOMOBJECT( const char* token )
 		ASE_ParseBracedBlock( ASE_KeyMESH );
 	}
 	// according to spec these are obsolete
-	else if( !strcmp( token, "*MATERIAL_REF" ) )
+	else if( !idStr::Cmp( token, "*MATERIAL_REF" ) )
 	{
 		ASE_GetToken( false );
 		
 		object->materialRef = atoi( ase.token );
 	}
 	// loads a sequence of animation frames
-	else if( !strcmp( token, "*MESH_ANIMATION" ) )
+	else if( !idStr::Cmp( token, "*MESH_ANIMATION" ) )
 	{
 		VERBOSE( ( "..found MESH_ANIMATION\n" ) );
 		
 		ASE_ParseBracedBlock( ASE_KeyMESH_ANIMATION );
 	}
 	// skip unused info
-	else if( !strcmp( token, "*PROP_MOTIONBLUR" ) ||
-			 !strcmp( token, "*PROP_CASTSHADOW" ) ||
-			 !strcmp( token, "*PROP_RECVSHADOW" ) )
+	else if( !idStr::Cmp( token, "*PROP_MOTIONBLUR" ) ||
+			 !idStr::Cmp( token, "*PROP_CASTSHADOW" ) ||
+			 !idStr::Cmp( token, "*PROP_RECVSHADOW" ) )
 	{
 		ASE_SkipRestOfLine();
 	}
@@ -821,7 +821,7 @@ void ASE_ParseGeomObject()
 
 static void ASE_KeyGROUP( const char* token )
 {
-	if( !strcmp( token, "*GEOMOBJECT" ) )
+	if( !idStr::Cmp( token, "*GEOMOBJECT" ) )
 	{
 		ASE_ParseGeomObject();
 	}
@@ -851,35 +851,35 @@ aseModel_t* ASE_Parse( const char* buffer, bool verbose )
 	
 	while( ASE_GetToken( false ) )
 	{
-		if( !strcmp( ase.token, "*3DSMAX_ASCIIEXPORT" ) ||
-				!strcmp( ase.token, "*COMMENT" ) )
+		if( !idStr::Cmp( ase.token, "*3DSMAX_ASCIIEXPORT" ) ||
+				!idStr::Cmp( ase.token, "*COMMENT" ) )
 		{
 			ASE_SkipRestOfLine();
 		}
-		else if( !strcmp( ase.token, "*SCENE" ) )
+		else if( !idStr::Cmp( ase.token, "*SCENE" ) )
 		{
 			ASE_SkipEnclosingBraces();
 		}
-		else if( !strcmp( ase.token, "*GROUP" ) )
+		else if( !idStr::Cmp( ase.token, "*GROUP" ) )
 		{
 			ASE_GetToken( false );		// group name
 			ASE_ParseBracedBlock( ASE_KeyGROUP );
 		}
-		else if( !strcmp( ase.token, "*SHAPEOBJECT" ) )
+		else if( !idStr::Cmp( ase.token, "*SHAPEOBJECT" ) )
 		{
 			ASE_SkipEnclosingBraces();
 		}
-		else if( !strcmp( ase.token, "*CAMERAOBJECT" ) )
+		else if( !idStr::Cmp( ase.token, "*CAMERAOBJECT" ) )
 		{
 			ASE_SkipEnclosingBraces();
 		}
-		else if( !strcmp( ase.token, "*MATERIAL_LIST" ) )
+		else if( !idStr::Cmp( ase.token, "*MATERIAL_LIST" ) )
 		{
 			VERBOSE( ( "MATERIAL_LIST\n" ) );
 			
 			ASE_ParseBracedBlock( ASE_KeyMATERIAL_LIST );
 		}
-		else if( !strcmp( ase.token, "*GEOMOBJECT" ) )
+		else if( !idStr::Cmp( ase.token, "*GEOMOBJECT" ) )
 		{
 			ASE_ParseGeomObject();
 		}

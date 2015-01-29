@@ -113,7 +113,7 @@ int idParser::RemoveGlobalDefine( const char* name )
 	
 	for( prev = NULL, d = idParser::globaldefines; d; prev = d, d = d->next )
 	{
-		if( !strcmp( d->name, name ) )
+		if( !idStr::Cmp( d->name, name ) )
 		{
 			break;
 		}
@@ -236,7 +236,7 @@ define_t* idParser::FindHashedDefine( define_t** definehash, const char* name )
 	hash = PC_NameHash( name );
 	for( d = definehash[hash]; d; d = d->hashnext )
 	{
-		if( !strcmp( d->name, name ) )
+		if( !idStr::Cmp( d->name, name ) )
 		{
 			return d;
 		}
@@ -255,7 +255,7 @@ define_t* idParser::FindDefine( define_t* defines, const char* name )
 	
 	for( d = defines; d; d = d->next )
 	{
-		if( !strcmp( d->name, name ) )
+		if( !idStr::Cmp( d->name, name ) )
 		{
 			return d;
 		}
@@ -1251,7 +1251,7 @@ int idParser::Directive_undef()
 	hash = PC_NameHash( token.c_str() );
 	for( lastdefine = NULL, define = idParser::definehash[hash]; define; define = define->hashnext )
 	{
-		if( !strcmp( define->name, token.c_str() ) )
+		if( !idStr::Cmp( define->name, token.c_str() ) )
 		{
 			if( define->flags & DEFINE_FIXED )
 			{
@@ -1388,7 +1388,7 @@ int idParser::Directive_define()
 	do
 	{
 		t = new( TAG_IDLIB_PARSER ) idToken( token );
-		if( t->type == TT_NAME && !strcmp( t->c_str(), define->name ) )
+		if( t->type == TT_NAME && !idStr::Cmp( t->c_str(), define->name ) )
 		{
 			t->flags |= TOKEN_FL_RECURSIVE_DEFINE;
 			idParser::Warning( "recursive define (removed recursion)" );
@@ -3784,7 +3784,7 @@ int idParser::GetPunctuationId( const char* p )
 	
 	for( i = 0; idParser::punctuations[i].p; i++ )
 	{
-		if( !strcmp( idParser::punctuations[i].p, p ) )
+		if( !idStr::Cmp( idParser::punctuations[i].p, p ) )
 		{
 			return idParser::punctuations[i].n;
 		}

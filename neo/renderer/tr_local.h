@@ -39,6 +39,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderWorld.h"    // for renderLight_t, etc
 #include "../renderer/RenderSystem.h"   // for idRenderSystem, etc
 
+#include "ModelDecal.h"
+#include "ModelOverlay.h"
+#include "Interaction.h"
+
 namespace BFG {
 
 // everything that is needed by the backend needs
@@ -83,10 +87,6 @@ SURFACES
 
 ==============================================================================
 */
-
-#include "ModelDecal.h"
-#include "ModelOverlay.h"
-#include "Interaction.h"
 
 class idRenderWorldLocal;
 struct viewEntity_t;
@@ -1467,6 +1467,10 @@ void RB_ShutdownDebugTools();
 
 //=============================================
 
+} // namespace BFG
+
+// FIXME remove these from here
+
 #include "ResolutionScale.h"
 #include "RenderLog.h"
 #include "jobs/ShadowShared.h"
@@ -1483,7 +1487,5 @@ void RB_ShutdownDebugTools();
 #include "RenderWorld_local.h"
 #include "GuiModel.h"
 #include "VertexCache.h"
-
-} // namespace BFG
 
 #endif /* !__TR_LOCAL_H__ */

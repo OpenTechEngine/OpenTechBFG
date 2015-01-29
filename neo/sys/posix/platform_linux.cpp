@@ -515,6 +515,8 @@ void Sys_ReLaunch()
 	// DG end
 }
 
+} // namespace BFG
+
 /*
 ===============
 main
@@ -523,32 +525,30 @@ main
 int main( int argc, const char** argv )
 {
 	// DG: needed for Sys_ReLaunch()
-	cmdargc = argc;
-	cmdargv = argv;
+	BFG::cmdargc = argc;
+	BFG::cmdargv = argv;
 	// DG end
 #ifdef ID_MCHECK
 	// must have -lmcheck linkage
-	mcheck( abrt_func );
-	Sys_Printf( "memory consistency checking enabled\n" );
+	BFG::mcheck( abrt_func );
+	BFG::Sys_Printf( "memory consistency checking enabled\n" );
 #endif
 	
-	Posix_EarlyInit( );
+	BFG::Posix_EarlyInit( );
 	
 	if( argc > 1 )
 	{
-		common->Init( argc - 1, &argv[1], NULL );
+		BFG::common->Init( argc - 1, &argv[1], NULL );
 	}
 	else
 	{
-		common->Init( 0, NULL, NULL );
+		BFG::common->Init( 0, NULL, NULL );
 	}
 	
-	Posix_LateInit( );
+	BFG::Posix_LateInit( );
 	
 	while( 1 )
 	{
-		common->Frame();
+		BFG::common->Frame();
 	}
 }
-
-} // namespace BFG

@@ -29,15 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <cctype>
 #include <cctype>                      // for toupper, isdigit
-#include <cstdarg>
 #include <cstdarg>                     // for va_list, va_end, va_start
-#include <cstddef>
 #include <cstddef>                     // for size_t
-#include <cstdio>
 #include <cstdio>                      // for vsprintf, vsnprintf
-#include <cstring>
 #include <cstring>                     // for strlen, memmove, strcpy, etc
 
 #include "../framework/../framework/CmdSystem.h"
@@ -2269,7 +2264,7 @@ int idStr::snPrintf( char* dest, int size, const char* fmt, ... )
 	char buffer[32000];	// big, but small enough to fit in PPC stack
 	
 	va_start( argptr, fmt );
-	len = vsprintf( buffer, fmt, argptr );
+	len = std::vsprintf( buffer, fmt, argptr ); // TODO check also if FIXME case
 	va_end( argptr );
 	if( len >= sizeof( buffer ) )
 	{
@@ -2386,7 +2381,7 @@ char* va( const char* fmt, ... )
 	index = ( index + 1 ) & 3;
 	
 	va_start( argptr, fmt );
-	vsprintf( buf, fmt, argptr ); // FIXME: wtf, this should really use idStr::vsnPrintf() !!!
+	std::vsprintf( buf, fmt, argptr ); // FIXME: wtf, this should really use idStr::vsnPrintf() !!!
 	va_end( argptr );
 	
 	return buf;

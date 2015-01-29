@@ -1045,7 +1045,7 @@ bool MA_ParseConnectAttr( idParser& parser )
 		//Is this an attribute for one of our meshes
 		for( int i = 0; i < maGlobal.model->objects.Num(); i++ )
 		{
-			if( !strcmp( maGlobal.model->objects[i]->name, srcName ) )
+			if( !idStr::Cmp( maGlobal.model->objects[i]->name, srcName ) )
 			{
 				//maGlobal.model->objects[i]->materialRef = MA_AddMaterial(destName);
 				strcpy( maGlobal.model->objects[i]->materialName, destName );

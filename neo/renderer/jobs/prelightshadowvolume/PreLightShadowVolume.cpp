@@ -113,6 +113,6 @@ void PreLightShadowVolumeJob( const preLightShadowVolumeParms_t* parms )
 	}
 }
 
-} // namespace BFG
-
 REGISTER_PARALLEL_JOB( PreLightShadowVolumeJob, "PreLightShadowVolumeJob" );
+
+} // namespace BFG

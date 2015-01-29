@@ -559,6 +559,6 @@ void idRenderLog::CloseBlock()
 	PC_EndNamedEvent();
 }
 
-} // namespace BFG
-
 #endif // !STUB_RENDER_LOG
+
+} // namespace BFG
