@@ -485,7 +485,7 @@ idDrawVert::Lerp
 ID_INLINE void idDrawVert::Lerp( const idDrawVert& a, const idDrawVert& b, const float f )
 {
 	xyz = a.xyz + f * ( b.xyz - a.xyz );
-	SetTexCoord( ::Lerp( a.GetTexCoord(), b.GetTexCoord(), f ) );
+	SetTexCoord( BFG::Lerp( a.GetTexCoord(), b.GetTexCoord(), f ) );
 }
 
 /*
@@ -495,12 +495,12 @@ idDrawVert::LerpAll
 */
 ID_INLINE void idDrawVert::LerpAll( const idDrawVert& a, const idDrawVert& b, const float f )
 {
-	xyz = ::Lerp( a.xyz, b.xyz, f );
-	SetTexCoord( ::Lerp( a.GetTexCoord(), b.GetTexCoord(), f ) );
+	xyz = BFG::Lerp( a.xyz, b.xyz, f );
+	SetTexCoord( BFG::Lerp( a.GetTexCoord(), b.GetTexCoord(), f ) );
 	
-	idVec3 normal = ::Lerp( a.GetNormal(), b.GetNormal(), f );
-	idVec3 tangent = ::Lerp( a.GetTangent(), b.GetTangent(), f );
-	idVec3 bitangent = ::Lerp( a.GetBiTangent(), b.GetBiTangent(), f );
+	idVec3 normal = BFG::Lerp( a.GetNormal(), b.GetNormal(), f );
+	idVec3 tangent = BFG::Lerp( a.GetTangent(), b.GetTangent(), f );
+	idVec3 bitangent = BFG::Lerp( a.GetBiTangent(), b.GetBiTangent(), f );
 	normal.Normalize();
 	tangent.Normalize();
 	bitangent.Normalize();

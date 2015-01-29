@@ -316,6 +316,6 @@ literals or sizeof(). NEVER use an actual variable as a parameter to one of thes
 
 #define CONST_DEG2RAD( a )			( (a) * CONST_PI / 180.0f )
 
-#endif // SYS_TYPES_H
-
 } // namespace BFG
+
+#endif // SYS_TYPES_H

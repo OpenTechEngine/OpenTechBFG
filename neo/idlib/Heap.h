@@ -42,7 +42,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"              // for Max
 
-namespace BFG {
+//namespace BFG { // TODO namespace Heap.h too
 
 /*
 ===============================================================================
@@ -421,7 +421,7 @@ private:
 	{
 		_type_* 		data;	// this is a hack to make sure the save game system marks _type_ as saveable
 		element_t* 		next;
-		byte			buffer[( CONST_MAX( sizeof( _type_ ), sizeof( element_t* ) ) + ( BLOCK_ALLOC_ALIGNMENT - 1 ) ) & ~( BLOCK_ALLOC_ALIGNMENT - 1 )];
+		BFG::byte			buffer[( CONST_MAX( sizeof( _type_ ), sizeof( element_t* ) ) + ( BLOCK_ALLOC_ALIGNMENT - 1 ) ) & ~( BLOCK_ALLOC_ALIGNMENT - 1 )];
 	};
 	
 	class idBlock
@@ -843,7 +843,7 @@ class idDynamicBlock
 public:
 	type* 							GetMemory() const
 	{
-		return ( type* )( ( ( byte* ) this ) + sizeof( idDynamicBlock<type> ) );
+		return ( type* )( ( ( BFG::byte* ) this ) + sizeof( idDynamicBlock<type> ) );
 	}
 	int								GetSize() const
 	{
@@ -866,7 +866,7 @@ public:
 	int								size;					// size in bytes of the block
 	idDynamicBlock<type>* 			prev;					// previous memory block
 	idDynamicBlock<type>* 			next;					// next memory block
-	idBTreeNode<idDynamicBlock<type>, int>* node;			// node in the B-Tree with free blocks
+	BFG::idBTreeNode<idDynamicBlock<type>, int>* node;			// node in the B-Tree with free blocks
 };
 
 template<class type, int baseBlockSize, int minBlockSize, memTag_t _tag_ = TAG_BLOCKALLOC>
@@ -916,7 +916,7 @@ public:
 private:
 	idDynamicBlock<type>* 			firstBlock;				// first block in list in order of increasing address
 	idDynamicBlock<type>* 			lastBlock;				// last block in list in order of increasing address
-	idBTree<idDynamicBlock<type>, int, 4>freeTree;			// B-Tree with free memory blocks
+	BFG::idBTree<idDynamicBlock<type>, int, 4>freeTree;			// B-Tree with free memory blocks
 	bool							allowAllocs;			// allow base block allocations
 	bool							lockMemory;				// lock memory so it cannot get swapped out
 	
@@ -1149,7 +1149,7 @@ type* idDynamicBlockAlloc<type, baseBlockSize, minBlockSize, _tag_>::Resize( typ
 		return NULL;
 	}
 	
-	idDynamicBlock<type>* block = ( idDynamicBlock<type>* )( ( ( byte* ) ptr ) - ( int )sizeof( idDynamicBlock<type> ) );
+	idDynamicBlock<type>* block = ( idDynamicBlock<type>* )( ( ( BFG::byte* ) ptr ) - ( int )sizeof( idDynamicBlock<type> ) );
 	
 	usedBlockMemory -= block->GetSize();
 	
@@ -1179,7 +1179,7 @@ void idDynamicBlockAlloc<type, baseBlockSize, minBlockSize, _tag_>::Free( type* 
 		return;
 	}
 	
-	idDynamicBlock<type>* block = ( idDynamicBlock<type>* )( ( ( byte* ) ptr ) - ( int )sizeof( idDynamicBlock<type> ) );
+	idDynamicBlock<type>* block = ( idDynamicBlock<type>* )( ( ( BFG::byte* ) ptr ) - ( int )sizeof( idDynamicBlock<type> ) );
 	
 	numUsedBlocks--;
 	usedBlockMemory -= block->GetSize();
@@ -1201,7 +1201,7 @@ const char* idDynamicBlockAlloc<type, baseBlockSize, minBlockSize, _tag_>::Check
 		return NULL;
 	}
 	
-	block = ( idDynamicBlock<type>* )( ( ( byte* ) ptr ) - ( int )sizeof( idDynamicBlock<type> ) );
+	block = ( idDynamicBlock<type>* )( ( ( BFG::byte* ) ptr ) - ( int )sizeof( idDynamicBlock<type> ) );
 	
 	if( block->node != NULL )
 	{
@@ -1272,7 +1272,7 @@ idDynamicBlock<type>* idDynamicBlockAlloc<type, baseBlockSize, minBlockSize, _ta
 	}
 	else if( allowAllocs )
 	{
-		int allocSize = Max( baseBlockSize, alignedBytes + ( int )sizeof( idDynamicBlock<type> ) );
+		int allocSize = BFG::Max( baseBlockSize, alignedBytes + ( int )sizeof( idDynamicBlock<type> ) );
 		block = ( idDynamicBlock<type>* ) Mem_Alloc16( allocSize, _tag_ );
 		if( lockMemory )
 		{
@@ -1350,14 +1350,14 @@ idDynamicBlock<type>* idDynamicBlockAlloc<type, baseBlockSize, minBlockSize, _ta
 	}
 	
 	// if the unused space at the end of this block is large enough to hold a block with at least one element
-	if( block->GetSize() - alignedBytes - ( int )sizeof( idDynamicBlock<type> ) < Max( minBlockSize, ( int )sizeof( type ) ) )
+	if( block->GetSize() - alignedBytes - ( int )sizeof( idDynamicBlock<type> ) < BFG::Max( minBlockSize, ( int )sizeof( type ) ) )
 	{
 		return block;
 	}
 	
 	idDynamicBlock<type>* newBlock;
 	
-	newBlock = ( idDynamicBlock<type>* )( ( ( byte* ) block ) + ( int )sizeof( idDynamicBlock<type> ) + alignedBytes );
+	newBlock = ( idDynamicBlock<type>* )( ( ( BFG::byte* ) block ) + ( int )sizeof( idDynamicBlock<type> ) + alignedBytes );
 #ifdef DYNAMIC_BLOCK_ALLOC_CHECK
 	memcpy( newBlock->id, blockId, sizeof( newBlock->id ) );
 	newBlock->allocator = ( void* )this;
@@ -1476,6 +1476,6 @@ void idDynamicBlockAlloc<type, baseBlockSize, minBlockSize, _tag_>::CheckMemory(
 	}
 }
 
-} // namespace BFG
+//} // namespace BFG
 
 #endif /* !__HEAP_H__ */

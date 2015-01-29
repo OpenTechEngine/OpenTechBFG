@@ -54,7 +54,7 @@ bool AssertFailed( const char* file, int line, const char* expression );
 
 // idassert is useful for cases where some external library (think MFC, etc.)
 // decides it's a good idea to redefine assert on us
-#define idassert( x )	(void)( ( !!( x ) ) || ( AssertFailed( __FILE__, __LINE__, #x ) ) )
+#define idassert( x )	(void)( ( !!( x ) ) || ( BFG::AssertFailed( __FILE__, __LINE__, #x ) ) )
 
 // We have the code analysis tools on the 360 compiler,
 // so let it know what our asserts are.
@@ -68,7 +68,7 @@ bool AssertFailed( const char* file, int line, const char* expression );
 #endif
 // RB end
 
-#define verify( x )		( ( x ) ? true : ( AssertFailed( __FILE__, __LINE__, #x ), false ) )
+#define verify( x )		( ( x ) ? true : ( BFG::AssertFailed( __FILE__, __LINE__, #x ), false ) )
 
 
 #else // _DEBUG

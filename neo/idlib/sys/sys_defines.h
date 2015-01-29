@@ -29,7 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef SYS_DEFINES_H
 #define SYS_DEFINES_H
 
-namespace BFG {
+#ifdef __cplusplus
+ namespace BFG {
+#endif // __cplusplus
+
 
 /*
 ================================================================================================
@@ -261,7 +264,7 @@ extern volatile int ignoredReturnValue;
 #define MAX_UNSIGNED_TYPE( x )	( ( ( ( 1U << ( ( sizeof( x ) - 1 ) * 8 ) ) - 1 ) << 8 ) | 255U )
 #define MIN_UNSIGNED_TYPE( x )	0
 
-#endif
+
 
 // DG: so we don't have to rely on "multichar constants" - 'asdf' is equivalent to MUCHARC('a', 's', 'd', 'f') on msvc and gcc
 #define MUCHARC(a, b, c, d) ( ((a)<<24) | ((b)<<16) | ((c)<<8) | (d) )
@@ -294,4 +297,8 @@ extern volatile int ignoredReturnValue;
 
 #endif // _WIN32
 
-} // namespace BFG
+#ifdef __cplusplus
+ } // namespace BFG
+#endif // __cplusplus
+
+#endif // SYS_DEFINES_H
