@@ -34,14 +34,14 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 //#include "local.h"
 
-#include <assert.h>
+#include <cassert>
 // DG: needed for Sys_ReLaunch()
 #include <dirent.h>
-#include <errno.h>
+#include <cerrno>
 #include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <sys/stat.h>
 #include <unistd.h>
 

@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 
-#include <stdlib.h>
-#include <stdlib.h>                     // for exit, abs
+#include <cstdlib>
+#include <cstdlib>                     // for exit, abs
 
 #include "../idlib/Lib.h"
 #include "../idlib/Lib.h"               // for idException, idLib

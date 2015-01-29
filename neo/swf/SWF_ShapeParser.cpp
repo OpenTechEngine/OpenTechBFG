@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Lib.h"
 #include "../idlib/containers/List.h"

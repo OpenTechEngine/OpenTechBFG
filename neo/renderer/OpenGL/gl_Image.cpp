@@ -34,8 +34,8 @@ Contains the Image implementation for OpenGL.
 ================================================================================================
 */
 
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"

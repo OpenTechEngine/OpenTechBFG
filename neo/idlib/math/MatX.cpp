@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include <emmintrin.h>
 #include <stdint.h>
-#include <string.h>
+#include <cstring>
 #include <xmmintrin.h>
 
 #include "../framework/Common.h"

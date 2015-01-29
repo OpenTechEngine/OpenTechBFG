@@ -28,11 +28,11 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
 #include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"

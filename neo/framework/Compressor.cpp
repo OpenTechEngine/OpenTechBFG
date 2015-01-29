@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <string.h>
+#include <cstring>
 
 #include "../framework/Common.h"
 #include "../framework/Compressor.h"

@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdio.h>
+#include <cstdio>
 
 #include "../Game_local.h"
 #include "../d3xp/Game_defines.h"

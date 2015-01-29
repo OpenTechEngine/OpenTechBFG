@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <string.h>
+#include <cstring>
 
 #include "../d3xp/Pvs.h"
 #include "../idlib/Heap.h"

@@ -29,11 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 
-#include <errno.h>                      // for ETIMEDOUT
+#include <cerrno>                      // for ETIMEDOUT
 #include <pthread.h>                    // for pthread_mutex_lock, etc
 #include <stdint.h>                     // for uintptr_t
 #include <sys/time.h>                   // for CLOCK_REALTIME
-#include <time.h>                       // for timespec, NULL, etc
+#include <ctime>                       // for timespec, NULL, etc
 
 #include "../framework/Common.h"        // for idCommon
 #include "../idlib/Lib.h"               // for idLib, idLib::common

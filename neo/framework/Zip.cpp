@@ -34,8 +34,8 @@ Contains external code for building ZipFiles.
 ================================================================================================
 */
 
-#include <stddef.h>
-#include <string.h>
+#include <cstddef>
+#include <cstring>
 #include <zlib.h>
 
 #include "../framework/CVarSystem.h"

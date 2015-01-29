@@ -32,7 +32,7 @@ If you have questions concerning this license or the applicable additional terms
 #undef min			// windef.h macros
 #undef max
 
-#include <math.h>
+#include <cmath>
 
 #include "../idlib/Heap.h"
 #include "../idlib/Lib.h"

@@ -33,7 +33,7 @@ Contains the WaveFile implementation.
 ================================================================================================
 */
 
-#include <string.h>
+#include <cstring>
 
 #include "../framework/FileSystem.h"
 #include "../idlib/Heap.h"

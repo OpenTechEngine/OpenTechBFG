@@ -30,9 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <stddef.h>
+#include <cstddef>
 #include <stdint.h>
-#include <string.h>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"  // for idCVar, etc
 #include "../framework/Common.h"
@@ -79,7 +79,7 @@ extern "C"
 #define INT64_C(c) (c ## LL)
 #define UINT64_C(c) (c ## ULL)
 #endif
-//#include <inttypes.h>
+//#include <cinttypes>
 //#endif
 
 #include <libavcodec/avcodec.h>

@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 #include <AL/al.h>
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../idlib/Lib.h"

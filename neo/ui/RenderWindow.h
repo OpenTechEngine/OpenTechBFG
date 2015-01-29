@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERWINDOW_H
 #define __RENDERWINDOW_H
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Lib.h"
 #include "../idlib/Str.h"

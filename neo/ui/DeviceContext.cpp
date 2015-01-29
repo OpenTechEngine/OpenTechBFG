@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/DeclManager.h"

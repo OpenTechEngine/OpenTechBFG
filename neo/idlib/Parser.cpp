@@ -28,18 +28,18 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <math.h>                       // for fabs
-#include <stdarg.h>
-#include <stdarg.h>                     // for va_end, va_list, va_start
-#include <stdio.h>
-#include <stdio.h>                      // for NULL, sprintf, vsprintf
-#include <stdlib.h>
-#include <stdlib.h>                     // for abs
-#include <string.h>
-#include <string.h>                     // for strlen, strcpy
-#include <time.h>
-#include <time.h>                       // for ctime, time, time_t
+#include <cmath>
+#include <cmath>                       // for fabs
+#include <cstdarg>
+#include <cstdarg>                     // for va_end, va_list, va_start
+#include <cstdio>
+#include <cstdio>                      // for NULL, sprintf, vsprintf
+#include <cstdlib>
+#include <cstdlib>                     // for abs
+#include <cstring>
+#include <cstring>                     // for strlen, strcpy
+#include <ctime>
+#include <ctime>                       // for ctime, time, time_t
 
 #include "../framework/../framework/CmdSystem.h"
 #include "../framework/CmdSystem.h"  // for CONSOLE_COMMAND

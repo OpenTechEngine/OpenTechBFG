@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __LISTWINDOW_H
 #define __LISTWINDOW_H
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Heap.h"
 #include "../idlib/Str.h"

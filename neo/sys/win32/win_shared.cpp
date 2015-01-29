@@ -33,7 +33,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <lmerr.h>
 #include <lmcons.h>
 #include <lmwksta.h>
-#include <errno.h>
+#include <cerrno>
 #include <fcntl.h>
 #include <direct.h>
 #include <io.h>

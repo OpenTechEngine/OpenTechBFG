@@ -1,7 +1,7 @@
 #ifndef __MD5_H__
 #define __MD5_H__
 
-#include <stddef.h>                     // for size_t
+#include <cstddef>                     // for size_t
 
 namespace BFG {
 

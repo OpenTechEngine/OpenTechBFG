@@ -30,9 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef _WIN32
 #include <alloca.h>
 #endif
-#include <assert.h>
-#include <stdarg.h>
-#include <string.h>
+#include <cassert>
+#include <cstdarg>
+#include <cstring>
 
 #include "../framework/BuildVersion.h"
 #include "../framework/CVarSystem.h"

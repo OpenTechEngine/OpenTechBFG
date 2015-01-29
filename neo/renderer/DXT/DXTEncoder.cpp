@@ -32,9 +32,9 @@ Contains the DxtEncoder implementation.
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
 
 #include "../idlib/containers/Sort.h"
 #include "../idlib/math/Math.h"

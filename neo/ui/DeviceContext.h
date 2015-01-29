@@ -34,7 +34,7 @@ namespace BFG {
 // device context support for gui stuff
 //
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/containers/List.h"
 #include "../idlib/math/Matrix.h"

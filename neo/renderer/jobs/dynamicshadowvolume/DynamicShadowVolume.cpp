@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #include <emmintrin.h>
-#include <stddef.h>
+#include <cstddef>
 #include <xmmintrin.h>
 
 #include "../../../idlib/geometry/DrawVert_intrinsics.h"

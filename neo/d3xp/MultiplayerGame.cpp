@@ -28,12 +28,12 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <math.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cmath>
+#include <cstdarg>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #include "../d3xp/Achievements.h"
 #include "../d3xp/Entity.h"

@@ -43,9 +43,9 @@ Note that other POSIX systems may need some small changes, e.g. in Sys_InitNetwo
 #include <ws2tcpip.h>
 #endif
 
-#include <limits.h>
-#include <stdlib.h>
-#include <string.h>
+#include <climits>
+#include <cstdlib>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -68,7 +68,7 @@ Note that other POSIX systems may need some small changes, e.g. in Sys_InitNetwo
 #else // ! _WIN32
 
 #include <arpa/inet.h>
-#include <errno.h>
+#include <cerrno>
 #include <fcntl.h>
 #include <net/if.h>
 #include <netdb.h>

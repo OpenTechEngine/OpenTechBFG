@@ -34,12 +34,12 @@ Event are used for scheduling tasks and for linking script commands.
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stdarg.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstdarg>
+#include <cstddef>
 #include <stdint.h>
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../cm/CollisionModel.h"

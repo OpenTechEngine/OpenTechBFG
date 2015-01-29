@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MULTIPLAYERGAME_H__
 #define	__MULTIPLAYERGAME_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Str.h"
 #include "../idlib/math/Vector.h"

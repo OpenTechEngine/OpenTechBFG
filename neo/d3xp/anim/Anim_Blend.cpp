@@ -27,11 +27,11 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <ctype.h>
-#include <stddef.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cctype>
+#include <cstddef>
+#include <cstdlib>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../d3xp/Actor.h"

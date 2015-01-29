@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cstdlib>
+#include <cstring>
 
 #include "../aas/AASFile.h"
 #include "../cm/CollisionModel.h"

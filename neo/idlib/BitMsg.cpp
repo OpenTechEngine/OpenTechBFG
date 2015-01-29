@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <string.h>                     // for memcpy, NULL
+#include <cstring>                     // for memcpy, NULL
 #include "../idlib/BitMsg.h"            // for idBitMsg
 #include "../idlib/Dict.h"              // for idDict, idKeyValue
 #include "../idlib/Lib.h"               // for idLib, MAX_STRING_CHARS

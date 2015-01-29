@@ -29,8 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "../idlib/geometry/Surface_Polytope.h"
 
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 #include "../idlib/bv/Bounds.h"
 #include "../idlib/math/Math.h"

@@ -30,8 +30,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __STR_H__
 #define __STR_H__
 
-#include <stdio.h>
-#include <stdarg.h>
+#include <cstdio>
+#include <cstdarg>
 
 #include "../idlib/containers/Sort.h"            // for idSort_Quick
 #include "../idlib/CmdArgs.h"

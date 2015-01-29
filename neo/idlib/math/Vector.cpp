@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
+#include <cmath>
 
 #include "../idlib/Str.h"
 #include "../idlib/math/Angles.h"

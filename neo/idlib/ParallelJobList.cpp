@@ -29,8 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "../idlib/ParallelJobList.h"
 
-#include <stdio.h>                      // for NULL
-#include <string.h>
+#include <cstdio>                      // for NULL
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../idlib/Lib.h"

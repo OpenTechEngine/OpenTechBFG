@@ -29,11 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __WINVAR_H__
 #define __WINVAR_H__
 
-#include <assert.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cstddef>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #include "../framework/DeclManager.h"
 #include "../framework/File.h"

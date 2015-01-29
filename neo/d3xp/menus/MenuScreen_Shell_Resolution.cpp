@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../../renderer/tr_local.h"
 #include "../d3xp/menus/MenuHandler.h"

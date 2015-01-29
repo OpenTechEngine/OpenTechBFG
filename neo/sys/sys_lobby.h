@@ -29,8 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_LOBBY_H__
 #define __SYS_LOBBY_H__
 
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 #include "../framework/Common_dialog.h"
 #include "../idlib/Lib.h"

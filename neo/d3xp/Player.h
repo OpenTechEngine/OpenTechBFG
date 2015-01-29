@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_PLAYER_H__
 #define __GAME_PLAYER_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/Actor.h"

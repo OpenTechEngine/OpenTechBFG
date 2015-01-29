@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #define __GAME_AF_H__
 
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../d3xp/anim/Anim.h"
 //#include "../d3xp/physics/Physics.h"

@@ -35,7 +35,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/Common.h"
 #include "../framework/DeclManager.h"

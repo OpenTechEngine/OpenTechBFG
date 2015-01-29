@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SLIDERWINDOW_H__
 #define __SLIDERWINDOW_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Str.h"
 #include "../ui/Rectangle.h"

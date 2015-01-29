@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <stdio.h>
+#include <cstdio>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/AFEntity.h"

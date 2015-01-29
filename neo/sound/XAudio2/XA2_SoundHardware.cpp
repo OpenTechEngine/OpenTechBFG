@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <XAudio2.h>
 #include <XAudio2fx.h>
 
-#include <string.h>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"

@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_ENTITY_H__
 #define __GAME_ENTITY_H__
 
-#include <assert.h>
+#include <cassert>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/Game.h"

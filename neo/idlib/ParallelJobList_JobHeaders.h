@@ -39,11 +39,11 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "sys/sys_defines.h"
 
-#include <stddef.h>					// for offsetof
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
+#include <cstddef>					// for offsetof
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include <cstring>
 
 // RB: added <stdint.h> for missing uintptr_t
 #include <stdint.h>
@@ -59,11 +59,11 @@ If you have questions concerning this license or the applicable additional terms
 
 #elif defined(__linux__)
 #include <malloc.h> // DG: _alloca16 needs that
-#include <signal.h>
+#include <csignal>
 // RB end
 // Yamagi begin
 #elif defined(__FreeBSD__)
-#include <signal.h>
+#include <csignal>
 #endif
 // Yamagi end
 

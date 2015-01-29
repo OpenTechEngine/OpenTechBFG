@@ -31,7 +31,7 @@ If you have questions concerning this license or the applicable additional terms
 StaticShadowVolumeJob
 ===================
 */
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"

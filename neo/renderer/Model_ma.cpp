@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 
 #include "../framework/Common.h"
 #include "../framework/FileSystem.h"

@@ -35,8 +35,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <math.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdlib>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/Entity.h"

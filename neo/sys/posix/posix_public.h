@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_POSIX__
 #define __SYS_POSIX__
 
-#include <signal.h>
+#include <csignal>
 
 namespace BFG {
 

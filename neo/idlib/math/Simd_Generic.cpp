@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <string.h>                     // for memcpy, memset
+#include <cstring>                     // for memcpy, memset
 #include "../idlib/math/Math.h"         // for idMath, idMath::INFINITY
 #include "../idlib/math/Quat.h"         // for idQuat
 #include "../idlib/math/Simd.h"         // for VPCALL

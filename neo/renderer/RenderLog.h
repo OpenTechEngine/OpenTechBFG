@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERLOG_H__
 #define __RENDERLOG_H__
 
-#include <assert.h>
+#include <cassert>
 
 #include "../framework/CVarSystem.h"
 #include "../idlib/sys/sys_defines.h"

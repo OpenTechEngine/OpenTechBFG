@@ -29,16 +29,16 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <ctype.h>
-#include <ctype.h>                      // for toupper, isdigit
-#include <stdarg.h>
-#include <stdarg.h>                     // for va_list, va_end, va_start
-#include <stddef.h>
-#include <stddef.h>                     // for size_t
-#include <stdio.h>
-#include <stdio.h>                      // for vsprintf, vsnprintf
-#include <string.h>
-#include <string.h>                     // for strlen, memmove, strcpy, etc
+#include <cctype>
+#include <cctype>                      // for toupper, isdigit
+#include <cstdarg>
+#include <cstdarg>                     // for va_list, va_end, va_start
+#include <cstddef>
+#include <cstddef>                     // for size_t
+#include <cstdio>
+#include <cstdio>                      // for vsprintf, vsnprintf
+#include <cstring>
+#include <cstring>                     // for strlen, memmove, strcpy, etc
 
 #include "../framework/../framework/CmdSystem.h"
 #include "../framework/CmdSystem.h"  // for args, etc

@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __AASFILE_H__
 #define __AASFILE_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Dict.h"
 #include "../idlib/Heap.h"

@@ -35,9 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 #else
 #include <mm_malloc.h>                  // for posix_memalign
 #endif
-#include <stddef.h>                     // for size_t
-#include <stdlib.h>                     // for NULL, free
-#include <string.h>                     // for strcpy, strlen
+#include <cstddef>                     // for size_t
+#include <cstdlib>                     // for NULL, free
+#include <cstring>                     // for strcpy, strlen
 
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"              // for Max

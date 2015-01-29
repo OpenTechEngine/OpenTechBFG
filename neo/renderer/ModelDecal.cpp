@@ -27,9 +27,9 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
+#include <cassert>
 #include <emmintrin.h>
-#include <stddef.h>
+#include <cstddef>
 #include <xmmintrin.h>
 
 #include "../framework/Common.h"

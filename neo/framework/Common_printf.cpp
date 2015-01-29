@@ -28,10 +28,10 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
+#include <cstdarg>
+#include <cstdio>
+#include <cstring>
+#include <ctime>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"

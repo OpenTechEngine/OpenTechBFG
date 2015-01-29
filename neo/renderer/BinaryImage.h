@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __BINARYIMAGE_H__
 #define __BINARYIMAGE_H__
 
-#include <string.h>
+#include <cstring>
 
 #include "../idlib/Heap.h"
 #include "../idlib/Str.h"

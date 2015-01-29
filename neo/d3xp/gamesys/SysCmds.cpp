@@ -27,12 +27,12 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <math.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cmath>
+#include <cstddef>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../cm/CollisionModel.h"

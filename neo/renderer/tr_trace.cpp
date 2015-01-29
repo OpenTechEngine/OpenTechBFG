@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 #include <emmintrin.h>
-#include <stddef.h>
+#include <cstddef>
 #include <xmmintrin.h>
 
 #include "../framework/CVarSystem.h"

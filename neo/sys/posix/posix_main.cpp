@@ -28,20 +28,20 @@ If you have questions concerning this license or the applicable additional terms
 */
 #include <dirent.h>
 #include <dlfcn.h>
-#include <errno.h>
+#include <cerrno>
 #include <fcntl.h>
 #include <fnmatch.h>
-#include <signal.h>
-#include <stdarg.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <csignal>
+#include <cstdarg>
+#include <cstddef>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <sys/select.h>
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <termios.h>
-#include <time.h>
+#include <ctime>
 #include <unistd.h>
 
 #include "../framework/CVarSystem.h"

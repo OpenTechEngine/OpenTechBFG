@@ -33,7 +33,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/math/Angles.h"
 
-#include <float.h>
+#include <cfloat>
 
 namespace BFG {
 

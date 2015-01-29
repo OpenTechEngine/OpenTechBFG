@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GUISCRIPT_H
 #define __GUISCRIPT_H
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Heap.h"
 #include "../idlib/containers/List.h"

@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #undef private // FIXME investigate why undef private
 #undef protected // FIXME investigate why undef protected
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/Common_dialog.h"
 #include "../framework/FileSystem.h"

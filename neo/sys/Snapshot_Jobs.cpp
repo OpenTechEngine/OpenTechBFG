@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 
 #include "../idlib/sys/sys_assert.h"
 #include "../sys/LightweightCompression.h"

@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 
 #if defined( MACOS_X )
-#include <signal.h>
+#include <csignal>
 #include <sys/types.h>
 #endif
 
@@ -38,8 +38,8 @@ If you have questions concerning this license or the applicable additional terms
 #include <unistd.h>
 #endif
 
-#include <stdarg.h>                     // for va_end, va_list, va_start
-#include <stddef.h>                     // for NULL
+#include <cstdarg>                     // for va_end, va_list, va_start
+#include <cstddef>                     // for NULL
 #include "../framework/Common.h"        // for idCommon
 #include "../idlib/Dict.h"              // for idDict
 #include "../idlib/Lib.h"               // for idLib, MAX_STRING_CHARS, etc

@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "../framework/CVarSystem.h"
 #include "../idlib/Heap.h"

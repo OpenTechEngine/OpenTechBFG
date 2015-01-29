@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef	__AIMASSIST_H__
 #define	__AIMASSIST_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/math/Angles.h"
 #include "../idlib/math/Vector.h"

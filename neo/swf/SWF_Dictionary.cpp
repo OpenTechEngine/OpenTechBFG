@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Heap.h"
 #include "../idlib/Lib.h"

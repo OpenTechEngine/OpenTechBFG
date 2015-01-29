@@ -26,10 +26,10 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstring>
+#include <cmath>
+#include <cstdlib>
 
 namespace BFG {
 

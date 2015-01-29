@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <math.h>
-#include <string.h>
+#include <cassert>
+#include <cmath>
+#include <cstring>
 
 #include "../d3xp/Entity.h"
 #include "../d3xp/Player.h"

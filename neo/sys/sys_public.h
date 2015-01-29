@@ -30,9 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_PUBLIC__
 #define __SYS_PUBLIC__
 
-#include <stdarg.h>
+#include <cstdarg>
 #include <stdint.h>
-#include <stdio.h>
+#include <cstdio>
 
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/CmdArgs.h"

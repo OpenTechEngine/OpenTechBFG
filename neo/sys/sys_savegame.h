@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_SAVEGAME_H__
 #define __SYS_SAVEGAME_H__
 
-#include <time.h>
+#include <ctime>
 
 #include "../framework/CVarSystem.h"
 #include "../idlib/Dict.h"

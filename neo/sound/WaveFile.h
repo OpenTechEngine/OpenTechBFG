@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __WAVEFILE_H
 #define __WAVEFILE_H
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/File.h"
 #include "../idlib/containers/List.h"

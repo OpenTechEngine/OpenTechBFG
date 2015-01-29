@@ -33,7 +33,7 @@ Contains the ColorSpace conversion implementation.
 ================================================================================================
 */
 
-#include <string.h>
+#include <cstring>
 
 #include "../idlib/Heap.h"
 #include "../idlib/geometry/DrawVert.h"

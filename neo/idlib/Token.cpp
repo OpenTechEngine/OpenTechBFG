@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Token.h"
 #include "../idlib/math/Math.h"

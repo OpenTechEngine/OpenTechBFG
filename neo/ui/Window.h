@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __WINDOW_H__
 #define __WINDOW_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <stdint.h>
 
 #include "../idlib/Heap.h"

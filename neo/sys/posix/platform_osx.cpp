@@ -31,7 +31,7 @@ If you have questions concerning this license or the applicable additional terms
 //#include "../sys_local.h"
 
 #include <pthread.h>
-#include <errno.h>
+#include <cerrno>
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>

@@ -36,9 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 #undef vsnprintf
 // DG end
 
-#include <stddef.h>
+#include <cstddef>
 #include <stdint.h>
-#include <string.h>
+#include <cstring>
 
 #include <SDL.h>
 

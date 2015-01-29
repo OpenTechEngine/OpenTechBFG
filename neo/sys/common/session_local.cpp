@@ -14,8 +14,8 @@ Contains the windows implementation of the network session
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"

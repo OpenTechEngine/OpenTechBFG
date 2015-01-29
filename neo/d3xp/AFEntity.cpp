@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <stdio.h>
-#include <string.h>
+#include <cassert>
+#include <cstdio>
+#include <cstring>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/AF.h"

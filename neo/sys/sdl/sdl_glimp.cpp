@@ -37,8 +37,8 @@ If you have questions concerning this license or the applicable additional terms
 // DG end
 
 #include <SDL.h>
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"

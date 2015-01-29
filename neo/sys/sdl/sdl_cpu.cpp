@@ -37,7 +37,7 @@ If you have questions concerning this license or the applicable additional terms
 // DG end
 
 #include <SDL.h>
-#include <stdio.h>
+#include <cstdio>
 
 #include "../idlib/sys/sys_types.h"
 #include "../sys/sys_public.h"

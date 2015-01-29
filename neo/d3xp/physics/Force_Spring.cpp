@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../d3xp/gamesys/Class.h"
 #include "../d3xp/physics/Force_Spring.h"

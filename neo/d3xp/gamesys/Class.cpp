@@ -34,11 +34,11 @@ instancing of objects.
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stdarg.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstdarg>
+#include <cstddef>
 #include <stdint.h>
-#include <string.h>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../d3xp/Entity.h"

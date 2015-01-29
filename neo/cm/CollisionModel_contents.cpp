@@ -35,7 +35,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "../cm/CollisionModel.h"
 #include "../framework/Common.h"

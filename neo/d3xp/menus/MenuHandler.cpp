@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 
 #include "../d3xp/menus/MenuHandler.h"
 #include "../d3xp/menus/MenuScreen.h"

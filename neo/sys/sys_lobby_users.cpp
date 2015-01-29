@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 #include "../framework/PlayerProfile.h"
 #include "../idlib/BitMsg.h"

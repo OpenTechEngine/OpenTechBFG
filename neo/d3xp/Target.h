@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #define __GAME_TARGET_H__
 
 
-#include <string.h>
+#include <cstring>
 
 #include "../d3xp/Entity.h"
 #include "../d3xp/gamesys/Class.h"

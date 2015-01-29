@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <string.h> // for memset
+#include <cstring> // for memset
 
 #include "../framework/UsercmdGen.h"
 #include "../sys_session_local.h"

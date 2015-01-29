@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 
-#include <signal.h>                     // for raise, SIGTRAP
-#include <stddef.h>
+#include <csignal>                     // for raise, SIGTRAP
+#include <cstddef>
 
 #include "../framework/../framework/CVarSystem.h"
 #include "../framework/../framework/CVarSystem.h"  // for ::CVAR_BOOL, etc
@@ -39,7 +39,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "containers/StaticList.h"
 
 #ifndef _WIN32
-#include <signal.h> // for raise()
+#include <csignal> // for raise()
 #endif
 
 namespace BFG {

@@ -34,7 +34,7 @@ Vagary specific AI code
 ***********************************************************************/
 
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../Game_local.h"
 #include "../d3xp/Actor.h"

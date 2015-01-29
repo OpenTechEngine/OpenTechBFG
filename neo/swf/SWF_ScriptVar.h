@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SWF_SCRIPTVAR_H__
 #define __SWF_SCRIPTVAR_H__
 
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 
 #include "../idlib/Heap.h"
 #include "../idlib/LangDict.h"

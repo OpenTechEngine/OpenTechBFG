@@ -33,7 +33,7 @@ Various utility objects and functions.
 
 #pragma hdrstop
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../aas/AASFile.h"
 #include "../cm/CollisionModel.h"

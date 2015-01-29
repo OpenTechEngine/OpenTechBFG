@@ -30,9 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Lcp.h"
 
 #include <emmintrin.h>
-#include <math.h>
+#include <cmath>
 #include <stdint.h>
-#include <string.h>
+#include <cstring>
 #include <xmmintrin.h>
 
 #include "../framework/../framework/CVarSystem.h"

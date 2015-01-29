@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>                       // for sqrt
-#include <stdlib.h>                     // for abs
+#include <cmath>                       // for sqrt
+#include <cstdlib>                     // for abs
 #include <xmmintrin.h>                  // for __m128
 #include "../idlib/math/Math.h"         // for idMath, etc
 #include "../idlib/sys/sys_assert.h"             // for assert

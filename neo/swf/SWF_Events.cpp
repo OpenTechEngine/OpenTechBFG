@@ -25,8 +25,8 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <math.h>
-#include <stddef.h>
+#include <cmath>
+#include <cstddef>
 
 #include "../framework/KeyInput.h"
 #include "../idlib/Lib.h"

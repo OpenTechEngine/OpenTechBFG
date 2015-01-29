@@ -2,7 +2,7 @@
 #pragma hdrstop
 #include "../idlib/hashing/MD4.h"
 
-#include <string.h>
+#include <cstring>
 
 namespace BFG {
 

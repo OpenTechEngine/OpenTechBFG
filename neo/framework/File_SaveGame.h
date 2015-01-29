@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __FILE_SAVEGAME_H__
 #define __FILE_SAVEGAME_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <zlib.h>
 
 #include "../idlib/Str.h"

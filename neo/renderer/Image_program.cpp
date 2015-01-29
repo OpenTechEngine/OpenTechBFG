@@ -55,7 +55,7 @@ Manager
 
 // tr_imageprogram.c
 
-#include <string.h>
+#include <cstring>
 
 #include "../idlib/Heap.h"
 #include "../idlib/Lexer.h"

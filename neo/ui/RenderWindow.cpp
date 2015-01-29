@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 
 #include "../d3xp/Game.h"
 #include "../framework/Common.h"

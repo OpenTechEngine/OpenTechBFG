@@ -29,10 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
 #include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"

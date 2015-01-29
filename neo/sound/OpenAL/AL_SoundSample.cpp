@@ -30,8 +30,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 #include <AL/al.h>
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"

@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>                       // for M_PI
+#include <cmath>                       // for M_PI
 #include <stdint.h>                     // for intptr_t
 
 #include "../idlib/math/Math.h"         // for idMath

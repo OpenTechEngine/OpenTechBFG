@@ -49,7 +49,7 @@ move around it to view it from different angles.
 */
 
 #pragma hdrstop
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "../Game_local.h"
 #include "../d3xp/Actor.h"

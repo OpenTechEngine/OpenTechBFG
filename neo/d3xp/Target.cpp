@@ -33,7 +33,7 @@ Invisible entities that affect other entities or the world when activated.
 
 #pragma hdrstop
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/Achievements.h"

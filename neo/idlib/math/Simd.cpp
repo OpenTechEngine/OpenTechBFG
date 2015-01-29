@@ -30,15 +30,15 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 
 #ifdef __APPLE__
-#include <stdlib.h>
+#include <cstdlib>
 #include <unistd.h>			// this is for sleep()
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <mach/mach_time.h>
 #endif
 
-#include <math.h>                       // for fabs, sqrt
-#include <stddef.h>                     // for NULL
+#include <cmath>                       // for fabs, sqrt
+#include <cstddef>                     // for NULL
 #include "../framework/Common.h"        // for idCommon, common
 #include "../idlib/Lib.h"               // for idLib, idLib::common, etc
 #include "../idlib/Str.h"               // for va, S_COLOR_RED, idStr

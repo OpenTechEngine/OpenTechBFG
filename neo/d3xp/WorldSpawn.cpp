@@ -34,7 +34,7 @@ Worldspawn class.  Each map has one worldspawn which handles global spawnargs.
 
 #pragma hdrstop
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../d3xp/WorldSpawn.h"
 #include "../d3xp/gamesys/Class.h"

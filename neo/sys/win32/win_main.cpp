@@ -36,8 +36,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include <windows.h>
 
-#include <errno.h>
-#include <float.h>
+#include <cerrno>
+#include <cfloat>
 #include <fcntl.h>
 #include <direct.h>
 #include <io.h>
