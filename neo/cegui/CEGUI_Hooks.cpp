@@ -40,6 +40,7 @@ If you have questions concerning this license or the applicable additional terms
 
 
 using namespace CEGUI;
+using BFG::AssertFailed;
 
 namespace // anon. namespace for helper functions and global state
 {

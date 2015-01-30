@@ -29,11 +29,14 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __FILESYSTEM_H__
 #define __FILESYSTEM_H__
 
+#include "../idlib/Str.h"
+#include "../idlib/containers/StrList.h"
 #include "../idlib/sys/sys_filesystem.h"
 
-#include "../framework/File_Resource.h"
-
 namespace BFG {
+
+	class idFile_Cached;
+	class idResourceCacheEntry;
 
 /*
 ===============================================================================

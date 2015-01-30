@@ -8,10 +8,12 @@
 #ifndef ConsoleImpl_H_
 #define ConsoleImpl_H_
 
+
 #include "../idlib/Str.h"
 #include "../wrap_cegui.h"
 
 #include "ConsoleMsg.h"
+
 
 namespace CEGUIConsole {
 

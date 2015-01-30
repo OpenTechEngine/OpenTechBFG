@@ -29,6 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef SYS_DEFINES_H
 #define SYS_DEFINES_H
 
+#ifdef _MSC_VER
+// checking format strings catches a LOT of errors
+#include <CodeAnalysis\SourceAnnotations.h>
+#endif
+
 #ifdef __cplusplus
  namespace BFG {
 #endif // __cplusplus
@@ -216,9 +221,6 @@ bulk of the codebase, so it is the best place for analyze pragmas.
 // win32 needs this, but 360 doesn't
 #pragma warning( disable: 6540 )	// warning C6540: The use of attribute annotations on this function will invalidate all of its existing __declspec annotations [D:\tech5\engine\engine-10.vcxproj]
 
-
-// checking format strings catches a LOT of errors
-#include <CodeAnalysis\SourceAnnotations.h>
 #define	VERIFY_FORMAT_STRING	[SA_FormatString(Style="printf")]
 // DG: alternative for GCC with attribute (NOOP for MSVC)
 #define ID_STATIC_ATTRIBUTE_PRINTF(STRIDX, FIRSTARGIDX)

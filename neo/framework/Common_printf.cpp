@@ -143,11 +143,11 @@ void idCommonLocal::VPrintf( const char* fmt, va_list args )
 		int	t = Sys_Milliseconds();
 		if( com_timestampPrints.GetInteger() == 1 )
 		{
-			sprintf( msg, "[%5.2f]", t * 0.001f );
+			std::sprintf( msg, "[%5.2f]", t * 0.001f );
 		}
 		else
 		{
-			sprintf( msg, "[%i]", t );
+			std::sprintf( msg, "[%i]", t );
 		}
 	}
 	timeLength = strlen( msg );

@@ -1024,7 +1024,7 @@ char* idRectangle::String() const
 	s = str[ index ];
 	index = ( index + 1 ) & 7;
 	
-	sprintf( s, "%.2f %.2f %.2f %.2f", x, y, w, h );
+	std::sprintf( s, "%.2f %.2f %.2f %.2f", x, y, w, h );
 	
 	return s;
 }

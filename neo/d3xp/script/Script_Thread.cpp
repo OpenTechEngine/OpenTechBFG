@@ -933,7 +933,7 @@ void idThread::Error( const char* fmt, ... ) const
 	char	text[ 1024 ];
 	
 	va_start( argptr, fmt );
-	vsprintf( text, fmt, argptr );
+	std::vsprintf( text, fmt, argptr );
 	va_end( argptr );
 	
 	interpreter.Error( text );
@@ -950,7 +950,7 @@ void idThread::Warning( const char* fmt, ... ) const
 	char	text[ 1024 ];
 	
 	va_start( argptr, fmt );
-	vsprintf( text, fmt, argptr );
+	std::vsprintf( text, fmt, argptr );
 	va_end( argptr );
 	
 	interpreter.Warning( text );

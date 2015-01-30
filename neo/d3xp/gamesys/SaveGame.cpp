@@ -1107,7 +1107,7 @@ void idRestoreGame::Error( const char* fmt, ... )
 	char	text[ 1024 ];
 	
 	va_start( argptr, fmt );
-	vsprintf( text, fmt, argptr );
+	std::vsprintf( text, fmt, argptr );
 	va_end( argptr );
 	
 	objects.DeleteContents( true );

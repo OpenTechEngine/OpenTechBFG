@@ -129,7 +129,7 @@ struct netVersion_s
 {
 	netVersion_s()
 	{
-		sprintf( string, "%s.%d", ENGINE_VERSION, BUILD_NUMBER );
+		std::sprintf( string, "%s.%d", ENGINE_VERSION, BUILD_NUMBER );
 	}
 	char	string[256];
 } netVersion;

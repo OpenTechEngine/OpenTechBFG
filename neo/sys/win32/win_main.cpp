@@ -231,7 +231,7 @@ void Sys_Error( const char *error, ... ) {
     MSG        msg;
 
 	va_start( argptr, error );
-	vsprintf( text, error, argptr );
+	std::vsprintf( text, error, argptr );
 	va_end( argptr);
 
 	Conbuf_AppendText( text );

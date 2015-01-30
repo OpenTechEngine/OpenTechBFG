@@ -30,6 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #define __TOKENPARSER_H__
 
 #include "../framework/FileSystem.h"    // for FILE_NOT_FOUND_TIMESTAMP
+#include "../framework/File.h"
 
 namespace BFG {
 

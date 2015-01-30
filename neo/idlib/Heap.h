@@ -925,7 +925,7 @@ public:
 private:
 	idDynamicBlock<type>* 			firstBlock;				// first block in list in order of increasing address
 	idDynamicBlock<type>* 			lastBlock;				// last block in list in order of increasing address
-	BFG::idBTree<idDynamicBlock<type>, int, 4>freeTree;			// B-Tree with free memory blocks
+	idBTree<idDynamicBlock<type>, int, 4>freeTree;			// B-Tree with free memory blocks
 	bool							allowAllocs;			// allow base block allocations
 	bool							lockMemory;				// lock memory so it cannot get swapped out
 	

@@ -237,7 +237,7 @@ void idRenderModelManagerLocal::WritePrecacheCommands( idFile* f )
 		}
 		
 		char	str[1024];
-		sprintf( str, "touchModel %s\n", model->Name() );
+		std::sprintf( str, "touchModel %s\n", model->Name() );
 		common->Printf( "%s", str );
 		f->Printf( "%s", str );
 	}

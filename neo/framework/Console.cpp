@@ -29,6 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #ifndef _WIN32
 #include <alloca.h>
+#undef _mm_nmsub_ps
 #endif
 #include <cassert>
 #include <cstdarg>

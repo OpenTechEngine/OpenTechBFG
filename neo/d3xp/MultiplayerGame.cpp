@@ -692,7 +692,7 @@ const char* idMultiplayerGame::GameTime()
 		}
 		else
 		{
-			sprintf( buff, "WMP %i", s );
+			std::sprintf( buff, "WMP %i", s );
 		}
 	}
 	else
@@ -717,7 +717,7 @@ const char* idMultiplayerGame::GameTime()
 		t = s / 10;
 		s -= t * 10;
 		
-		sprintf( buff, "%i:%i%i", m, t, s );
+		std::sprintf( buff, "%i:%i%i", m, t, s );
 	}
 	return &buff[0];
 }

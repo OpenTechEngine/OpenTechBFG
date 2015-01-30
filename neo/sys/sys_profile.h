@@ -31,8 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifdef _WIN32
 // KORTEMIK: namespaces collide
 #undef _mm_nmsub_ps
-#define _CSTRING_ 1
 #endif
+
 #include <memory>
 
 #include "sys_savegame.h"

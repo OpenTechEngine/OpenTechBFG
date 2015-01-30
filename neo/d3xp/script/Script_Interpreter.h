@@ -207,11 +207,11 @@ ID_INLINE const char* idInterpreter::FloatToString( float value )
 	
 	if( value == ( float )( int )value )
 	{
-		sprintf( text, "%d", ( int )value );
+		std::sprintf( text, "%d", ( int )value );
 	}
 	else
 	{
-		sprintf( text, "%f", value );
+		std::sprintf( text, "%f", value );
 	}
 	return text;
 }

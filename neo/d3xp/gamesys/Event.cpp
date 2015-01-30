@@ -105,7 +105,7 @@ idEventDef::idEventDef( const char* command, const char* formatspec, char return
 	if( numargs > D_EVENT_MAXARGS )
 	{
 		eventError = true;
-		sprintf( eventErrorMsg, "idEventDef::idEventDef : Too many args for '%s' event.", name );
+		std::sprintf( eventErrorMsg, "idEventDef::idEventDef : Too many args for '%s' event.", name );
 		return;
 	}
 	
@@ -159,7 +159,7 @@ idEventDef::idEventDef( const char* command, const char* formatspec, char return
 				
 			default :
 				eventError = true;
-				sprintf( eventErrorMsg, "idEventDef::idEventDef : Invalid arg format '%s' string for '%s' event.", formatspec, name );
+				std::sprintf( eventErrorMsg, "idEventDef::idEventDef : Invalid arg format '%s' string for '%s' event.", formatspec, name );
 				return;
 				break;
 		}
@@ -179,7 +179,7 @@ idEventDef::idEventDef( const char* command, const char* formatspec, char return
 			if( idStr::Cmp( formatspec, ev->formatspec ) != 0 )
 			{
 				eventError = true;
-				sprintf( eventErrorMsg, "idEvent '%s' defined twice with same name but differing format strings ('%s'!='%s').",
+				std::sprintf( eventErrorMsg, "idEvent '%s' defined twice with same name but differing format strings ('%s'!='%s').",
 						 command, formatspec, ev->formatspec );
 				return;
 			}
@@ -187,7 +187,7 @@ idEventDef::idEventDef( const char* command, const char* formatspec, char return
 			if( ev->returnType != returnType )
 			{
 				eventError = true;
-				sprintf( eventErrorMsg, "idEvent '%s' defined twice with same name but differing return types ('%c'!='%c').",
+				std::sprintf( eventErrorMsg, "idEvent '%s' defined twice with same name but differing return types ('%c'!='%c').",
 						 command, returnType, ev->returnType );
 				return;
 			}
@@ -202,7 +202,7 @@ idEventDef::idEventDef( const char* command, const char* formatspec, char return
 	if( numEventDefs >= MAX_EVENTS )
 	{
 		eventError = true;
-		sprintf( eventErrorMsg, "numEventDefs >= MAX_EVENTS" );
+		std::sprintf( eventErrorMsg, "numEventDefs >= MAX_EVENTS" );
 		return;
 	}
 	eventDefList[numEventDefs] = ev;

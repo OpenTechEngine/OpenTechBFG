@@ -100,44 +100,44 @@ int FS_WriteFloatString( char* buf, const char* fmt, va_list argPtr )
 							sprintf( tmp, "%1.10f", f );
 							tmp.StripTrailing( '0' );
 							tmp.StripTrailing( '.' );
-							index += sprintf( buf + index, "%s", tmp.c_str() );
+							index += std::sprintf( buf + index, "%s", tmp.c_str() );
 						}
 						else
 						{
-							index += sprintf( buf + index, format.c_str(), f );
+							index += std::sprintf( buf + index, format.c_str(), f );
 						}
 						break;
 					case 'd':
 					case 'i':
 						i = va_arg( argPtr, int );
-						index += sprintf( buf + index, format.c_str(), i );
+						index += std::sprintf( buf + index, format.c_str(), i );
 						break;
 					case 'u':
 						u = va_arg( argPtr, unsigned int );
-						index += sprintf( buf + index, format.c_str(), u );
+						index += std::sprintf( buf + index, format.c_str(), u );
 						break;
 					case 'o':
 						u = va_arg( argPtr, unsigned int );
-						index += sprintf( buf + index, format.c_str(), u );
+						index += std::sprintf( buf + index, format.c_str(), u );
 						break;
 					case 'x':
 						u = va_arg( argPtr, unsigned int );
-						index += sprintf( buf + index, format.c_str(), u );
+						index += std::sprintf( buf + index, format.c_str(), u );
 						break;
 					case 'X':
 						u = va_arg( argPtr, unsigned int );
-						index += sprintf( buf + index, format.c_str(), u );
+						index += std::sprintf( buf + index, format.c_str(), u );
 						break;
 					case 'c':
 						i = va_arg( argPtr, int );
-						index += sprintf( buf + index, format.c_str(), ( char ) i );
+						index += std::sprintf( buf + index, format.c_str(), ( char ) i );
 						break;
 					case 's':
 						str = va_arg( argPtr, char* );
-						index += sprintf( buf + index, format.c_str(), str );
+						index += std::sprintf( buf + index, format.c_str(), str );
 						break;
 					case '%':
-						index += sprintf( buf + index, "%s", format.c_str() );
+						index += std::sprintf( buf + index, "%s", format.c_str() );
 						break;
 					default:
 						common->Error( "FS_WriteFloatString: invalid format %s", format.c_str() );
@@ -150,16 +150,16 @@ int FS_WriteFloatString( char* buf, const char* fmt, va_list argPtr )
 				switch( *fmt )
 				{
 					case 't':
-						index += sprintf( buf + index, "\t" );
+						index += std::sprintf( buf + index, "\t" );
 						break;
 					case 'v':
-						index += sprintf( buf + index, "\v" );
+						index += std::sprintf( buf + index, "\v" );
 						break;
 					case 'n':
-						index += sprintf( buf + index, "\n" );
+						index += std::sprintf( buf + index, "\n" );
 						break;
 					case '\\':
-						index += sprintf( buf + index, "\\" );
+						index += std::sprintf( buf + index, "\\" );
 						break;
 					default:
 						common->Error( "FS_WriteFloatString: unknown escape character \'%c\'", *fmt );
@@ -168,7 +168,7 @@ int FS_WriteFloatString( char* buf, const char* fmt, va_list argPtr )
 				fmt++;
 				break;
 			default:
-				index += sprintf( buf + index, "%c", *fmt );
+				index += std::sprintf( buf + index, "%c", *fmt );
 				fmt++;
 				break;
 		}
