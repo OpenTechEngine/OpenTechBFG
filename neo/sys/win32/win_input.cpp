@@ -905,7 +905,7 @@ void idJoystickWin32::SetRumble( int inputDeviceNum, int rumbleLow, int rumbleHi
 	if( err != ERROR_SUCCESS )
 	{
 
-		idLib::Warning("XInputSetState error: 0x%" PRIxSIZE "", (size_t)err);
+		idLib::Warning("XInputSetState error: 0x%" BFG_PRIxSIZE "", (size_t)err);
 
 	}
 }

@@ -1947,8 +1947,8 @@ CONSOLE_COMMAND( testSIMD, "test SIMD code", NULL )
 // RB begin
 CONSOLE_COMMAND( testFormattingSizes, "test printf format security", 0 )
 {
-	common->Printf( " sizeof( int32 ): %" PRIuSIZE " bytes\n", sizeof( int32 ) );
-	common->Printf( " sizeof( int64 ): %" PRIuSIZE " bytes\n", sizeof( int64 ) );
+	common->Printf( " sizeof( int32 ): %" BFG_PRIuSIZE " bytes\n", sizeof( int32 ) );
+	common->Printf( " sizeof( int64 ): %" BFG_PRIuSIZE " bytes\n", sizeof( int64 ) );
 }
 // RB end
 

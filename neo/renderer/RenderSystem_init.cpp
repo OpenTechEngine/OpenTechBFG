@@ -79,6 +79,11 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/Licensee.h"
 #endif
 
+#ifdef _WIN32
+// macro collision
+#undef FindText
+#endif
+
 // RB begin
 #if defined(_WIN32)
 
@@ -2136,7 +2141,7 @@ void GfxInfo_f( const idCmdArgs& args )
 	typedef BOOL ( WINAPI * PFNWGLSWAPINTERVALEXTPROC )( int interval );
 	extern	PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT;
 	
-	if( r_swapInterval.GetInteger() && wglSwapIntervalEXT != NULL )
+	if( r_swapInterval.GetInteger() && ::wglSwapIntervalEXT != NULL )
 	{
 		common->Printf( "Forcing swapInterval %i\n", r_swapInterval.GetInteger() );
 	}

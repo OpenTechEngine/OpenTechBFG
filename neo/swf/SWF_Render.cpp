@@ -59,6 +59,11 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
+#ifdef _WIN32
+// macro collision
+#undef FindText
+#endif
+
 namespace BFG {
 
 idCVar swf_timescale( "swf_timescale", "1", CVAR_FLOAT, "timescale for swf files" );

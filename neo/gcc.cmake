@@ -71,6 +71,9 @@ if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
   
   # FIXME: at some point we should just clean up the unused crap!
   add_definitions(-Wno-unused-private-field)
+
+  # prevent png.h including setjmp.h as same declarations are found on pthread.h
+  add_definitions(-DPNG_SKIP_SETJMP_CHECK)
 endif()
 
 if(MINGW) # MinGW, 32 and 64bit

@@ -304,7 +304,7 @@ void	idBoundsTrack::Test()
 		FindBoundsIntersectionsSimSIMD( shortTestBounds, boundsList, maxIndex, intersectedIndexes2 );
 	}
 	const int64 stop = Sys_Microseconds();
-	idLib::Printf("%" PRId64 " microseconds for 40 itterations\n", stop - start);
+	idLib::Printf("%" BFG_PRId64 " microseconds for 40 itterations\n", stop - start);
 }
 
 

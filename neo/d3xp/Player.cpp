@@ -123,8 +123,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "PredictedValue_impl.h"
 
 #ifdef _WIN32
+// macro collision
 #undef min
 #undef max
+#undef FindText
 #endif
 
 namespace BFG {

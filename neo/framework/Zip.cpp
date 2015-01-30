@@ -521,7 +521,7 @@ bool idZipBuilder::CreateZipFileFromFiles( const idList< idFile_Memory* >& srcFi
 					errcode = zipWriteInFileInZip( zf, buffer.Ptr(), ( unsigned int )bytesRead );
 					if( errcode != ZIP_OK )
 					{
-						idLib::Warning( "Error writing to zipfile (%" PRIuSIZE " bytes)!", bytesRead );
+						idLib::Warning( "Error writing to zipfile (%" BFG_PRIuSIZE " bytes)!", bytesRead );
 						continue;
 					}
 				}
@@ -629,7 +629,7 @@ bool idZipBuilder::AddFile( zipFile zf, idFile_Memory* src, bool deleteFile )
 				errcode = zipWriteInFileInZip( zf, buffer.Ptr(), ( unsigned int )bytesRead );
 				if( errcode != ZIP_OK )
 				{
-					idLib::Warning( "Error writing to zipfile (%" PRIuSIZE " bytes)!", bytesRead );
+					idLib::Warning( "Error writing to zipfile (%" BFG_PRIuSIZE " bytes)!", bytesRead );
 					continue;
 				}
 			}

@@ -80,6 +80,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Model.h"
 #include "Game_local.h"
 
+#ifdef _WIN32
+#undef FindText
+#endif
+
 namespace BFG {
 
 /***********************************************************************

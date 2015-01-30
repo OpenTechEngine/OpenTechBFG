@@ -868,7 +868,7 @@ int idFile_Memory::Write( const void* buffer, int len )
 	{
 		if( maxSize != 0 )
 		{
-			common->Error("idFile_Memory::Write: exceeded maximum size %" PRIuSIZE "", maxSize);
+			common->Error("idFile_Memory::Write: exceeded maximum size %" BFG_PRIuSIZE "", maxSize);
 			return 0;
 		}
 		int extra = granularity * ( 1 + alloc / granularity );
@@ -954,7 +954,7 @@ void idFile_Memory::PreAllocate( size_t len )
 	{
 		if( maxSize != 0 )
 		{
-			idLib::Error("idFile_Memory::SetLength: exceeded maximum size %" PRIuSIZE "", maxSize);
+			idLib::Error("idFile_Memory::SetLength: exceeded maximum size %" BFG_PRIuSIZE "", maxSize);
 		}
 		char* newPtr = ( char* )Mem_Alloc( len, TAG_IDFILE );
 		if( allocated > 0 )
@@ -1140,7 +1140,7 @@ void idFile_Memory::TruncateData( size_t len )
 {
 	if( len > allocated )
 	{
-		idLib::Error( "idFile_Memory::TruncateData: len (%" PRIuSIZE ") exceeded allocated size (%" PRIuSIZE ")", len, allocated );
+		idLib::Error( "idFile_Memory::TruncateData: len (%" BFG_PRIuSIZE ") exceeded allocated size (%" BFG_PRIuSIZE ")", len, allocated );
 	}
 	else
 	{

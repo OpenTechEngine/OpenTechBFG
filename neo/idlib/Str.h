@@ -36,6 +36,11 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/containers/Sort.h"            // for idSort_Quick
 
+#ifdef _WIN32
+// macro collision
+#undef FindText
+#endif
+
 namespace BFG {
 
 class idCmdArgs;
