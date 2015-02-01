@@ -250,7 +250,6 @@ LONG WINAPI MainWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
 			}
 			
 			// do the OpenGL setup
-			void GLW_WM_CREATE( HWND hWnd );
 			GLW_WM_CREATE( hWnd );
 			
 			break;

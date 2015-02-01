@@ -79,6 +79,8 @@ LONG WINAPI MainWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam );
 
 void Conbuf_AppendText( const char* msg );
 
+void GLW_WM_CREATE(HWND hWnd);
+
 struct Win32Vars_t
 {
 	HWND			hWnd;

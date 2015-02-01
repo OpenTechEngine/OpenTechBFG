@@ -42,6 +42,8 @@ namespace BFG {
 class idSWFSpriteInstance;
 class idSWFTextInstance;
 
+extern idCVar swf_debug;
+
 /*
 ========================
 This is the base class for script variables which are implemented in code

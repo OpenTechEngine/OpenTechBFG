@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#pragma hdrstop
+
 
 #include <cstddef>
 #include <algorithm>
@@ -59,14 +59,16 @@ If you have questions concerning this license or the applicable additional terms
 #include "Common_local.h"
 #include "sys/sys_savegame.h"
 
+#pragma hdrstop
+
+#ifdef _WIN32
+// macro collision
+#undef min
+#endif
+
 namespace BFG {
 
 struct emptyCommand_t;
-
-#ifdef _WIN32
-// KORTEMIK: namespaces collide
-#undef min
-#endif
 
 /*
 

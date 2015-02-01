@@ -509,7 +509,6 @@ void idParallelJobList_Threads::Submit( idParallelJobList_Threads* waitForJobLis
 	if( threaded )
 	{
 		// hand over to the manager
-		void SubmitJobList( idParallelJobList_Threads * jobList, int parallelism );
 		SubmitJobList( this, parallelism );
 	}
 	else

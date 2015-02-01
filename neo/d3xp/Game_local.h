@@ -100,6 +100,9 @@ class idUserInterface;
 class idWeapon;
 class idMenuHandler_Shell;
 
+extern idCVar g_demoMode;
+extern idCVar net_ucmdRate;
+extern idCVar net_allowCheats;
 extern idRenderWorld *gameRenderWorld;
 extern idSoundWorld *gameSoundWorld;
 

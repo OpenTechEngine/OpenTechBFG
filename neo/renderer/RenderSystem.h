@@ -40,6 +40,9 @@ If you have questions concerning this license or the applicable additional terms
 
 namespace BFG {
 
+extern idCVar stereoRender_warp;
+extern idCVar stereoRender_swapEyes;
+
 /*
 ===============================================================================
 

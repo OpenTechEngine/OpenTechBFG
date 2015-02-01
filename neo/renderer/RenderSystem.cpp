@@ -777,7 +777,6 @@ void idRenderSystemLocal::SwapCommandBuffers_FinishRendering(
 
 		// wait for our fence to hit, which means the swap has actually happened
 		// We must do this before clearing any resources the GPU may be using
-		void GL_BlockingSwapBuffers();
 		GL_BlockingSwapBuffers();
 	}
 	

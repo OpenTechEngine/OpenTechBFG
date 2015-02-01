@@ -35,6 +35,8 @@ If you have questions concerning this license or the applicable additional terms
 namespace BFG {
 
 extern idCVar net_verboseSnapshot;
+extern idCVar net_ssTemplateDebug;
+
 #define NET_VERBOSESNAPSHOT_PRINT	if ( net_verboseSnapshot.GetInteger() > 0 ) idLib::Printf
 #define NET_VERBOSESNAPSHOT_PRINT_LEVEL( X, Y )  if ( net_verboseSnapshot.GetInteger() >= ( X ) ) idLib::Printf( "%s", Y )
 
