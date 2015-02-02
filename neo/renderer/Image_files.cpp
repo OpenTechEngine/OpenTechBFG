@@ -28,9 +28,23 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
+
+
+
+extern "C"
+{
+#include <png.h>
+#include <pngconf.h>
+}
+
 #include <cstdarg>
 #include <cstdio>
 #include <cstring>
+
+extern "C" {
+#include <jpeglib.h>
+}
+
 
 #include "../framework/Common.h"
 #include "../framework/File.h"
@@ -58,10 +72,6 @@ void R_LoadImage( const char *name, byte **pic, int *width, int *height, bool ma
  * (stdio.h is sufficient on ANSI-conforming systems.)
  * You may also wish to include "jerror.h".
  */
-
-extern "C" {
-#include <jpeglib.h>
-}
 
 namespace BFG {
 
@@ -629,12 +639,6 @@ PNG LOADING
 
 =========================================================
 */
-
-extern "C"
-{
-#include <png.h>
-#include <pngconf.h>
-}
 
 static void png_Error( png_structp pngPtr, png_const_charp msg )
 {
