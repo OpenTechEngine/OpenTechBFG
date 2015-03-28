@@ -56,9 +56,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-namespace SWF
-{
-
 const static int NUM_LOBBY_OPTIONS = 8;
 
 extern idCVar net_inviteOnly;
@@ -863,4 +860,3 @@ void idMenuScreen_Shell_GameLobby::UpdateLobby()
 	}
 }
 
-} // namespace SWF

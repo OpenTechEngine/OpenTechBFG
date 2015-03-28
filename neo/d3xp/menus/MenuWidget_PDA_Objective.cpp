@@ -41,9 +41,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_SpriteInstance.h"
 #include "../swf/SWF_TextInstance.h"
 
-namespace SWF
-{
-
 /*
 ========================
 idMenuWidget_PDA_Objective::Update
@@ -205,5 +202,4 @@ void idMenuWidget_PDA_Objective::ObserveEvent( const idMenuWidget& widget, const
 	}
 }
 
-} // namespace SWF
 

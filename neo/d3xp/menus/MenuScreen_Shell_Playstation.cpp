@@ -43,9 +43,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-namespace SWF
-{
-
 const static int NUM_SETTING_OPTIONS = 8;
 /*
 ========================
@@ -252,4 +249,3 @@ bool idMenuScreen_Shell_Playstation::HandleAction( idWidgetAction& action, const
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
 
-} // namespace SWF

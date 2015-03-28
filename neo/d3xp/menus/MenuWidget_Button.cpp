@@ -44,9 +44,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-namespace SWF
-{
-
 /*
 ================================================================================================
 idMenuWidget_Button
@@ -714,5 +711,4 @@ void idMenuWidget_ScoreboardButton::SetButtonInfo( int index_, idList< idStr >& 
 	SetValues( list );
 }
 
-} // namespace SWF
 

@@ -48,9 +48,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_SpriteInstance.h"
 #include "../swf/SWF_TextInstance.h"
 
-namespace SWF
-{
-
 //***************************************************************
 // DEFAULT SCOREBOARD
 //***************************************************************
@@ -716,4 +713,3 @@ void idMenuScreen_Scoreboard_Team::Initialize( idMenuHandler* data )
 	
 }
 
-} // namespace SWF

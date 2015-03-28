@@ -50,9 +50,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_ScriptVar.h"
 #include "../swf/SWF_SpriteInstance.h"
 
-namespace SWF
-{
-
 static const int MAX_PDA_ITEMS = 15;
 static const int MAX_NAV_OPTIONS = 4;
 
@@ -737,5 +734,4 @@ idMenuHandler_PDA::~idMenuHandler_PDA()
 	Cleanup();
 }
 
-} // namespace SWF
 

@@ -47,9 +47,6 @@ If you have questions concerning this license or the applicable additional terms
 
 class idMaterial;
 
-namespace SWF
-{
-
 static const int MAX_VIDEO_ITEMS = 5;
 
 /*
@@ -390,4 +387,3 @@ bool idMenuScreen_PDA_VideoDisks::HandleAction( idWidgetAction& action, const id
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
 
-} // namespace SWF

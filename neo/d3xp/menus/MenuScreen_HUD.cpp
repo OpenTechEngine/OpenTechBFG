@@ -66,9 +66,6 @@ If you have questions concerning this license or the applicable additional terms
 class idEntity;
 class idMaterial;
 
-namespace SWF
-{
-
 extern idCVar pm_stamina;
 extern idCVar in_useJoystick;
 extern idCVar flashlight_batteryDrainTimeMS;
@@ -2434,4 +2431,3 @@ void idMenuScreen_HUD::UpdateChattingHud( idPlayer* player )
 	}
 }
 
-} // namespace SWF

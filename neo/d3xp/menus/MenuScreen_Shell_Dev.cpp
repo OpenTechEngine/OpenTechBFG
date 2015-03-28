@@ -44,9 +44,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-namespace SWF
-{
-
 const static int NUM_DEV_OPTIONS = 8;
 
 /*
@@ -311,5 +308,4 @@ bool idMenuScreen_Shell_Dev::HandleAction( idWidgetAction& action, const idWidge
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
 
-} // namespace SWF
 

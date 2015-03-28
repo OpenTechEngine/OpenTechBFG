@@ -41,9 +41,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-namespace SWF
-{
-
 /*
 ================================================================================================
 idMenuWidget_CommandBar
@@ -244,5 +241,4 @@ bool idMenuWidget_CommandBar::ExecuteEvent( const idWidgetEvent& event )
 	}
 }
 
-} // namespace SWF
 

@@ -48,9 +48,6 @@ If you have questions concerning this license or the applicable additional terms
 
 class idSWFScriptObject;
 
-namespace SWF
-{
-
 #pragma hdrstop
 
 extern idCVar in_useJoystick;
@@ -543,5 +540,4 @@ void idMenuHandler::ClearWidgetActionRepeater()
 	actionRepeater.isActive = false;
 }
 
-} // namespace SWF
 

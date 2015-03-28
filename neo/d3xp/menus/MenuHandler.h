@@ -31,14 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h" // for voiceStateDisplay_t
 
 #include "../d3xp/menus/MenuHandler_Interface.h" // for Interfaces
+#include "../d3xp/menus/MenuState.h"
 
-#ifdef USE_CEGUI
-#include "../d3xp/menus/MenuHandler_SWF.h"
-#else
-#include "../d3xp/menus/MenuHandler_SWF.h"
-#endif
-
-class mpScoreboardInfo;
+#include "../d3xp/menus/mpScoreboardInfo.h"
 
 /*
 ================================================
@@ -52,6 +47,8 @@ public:
 	~idMenuHandler();
 
 	virtual bool IsActive();
+	virtual void ClearWidgetActionRepeater();
+	virtual bool HandleGuiEvent( const sysEvent_t* sev );
 };
 
 /*
@@ -64,18 +61,24 @@ class idMenuHandler_Shell : public idMenuHandler_Shell_Interface, public idMenuH
 public:
 	idMenuHandler_Shell();
 	~idMenuHandler_Shell();
+
+	virtual bool IsActive() { return idMenuHandler::IsActive(); }
+	virtual void ClearWidgetActionRepeater() { idMenuHandler::ClearWidgetActionRepeater(); }
+
 	virtual void Update();
 	virtual void ActivateMenu( bool show );
 	virtual void Initialize( const char* swfFile, idSoundWorld* sw );
-	bool HandleGuiEvent( const sysEvent_t* sev );
+	virtual bool HandleGuiEvent( const sysEvent_t* sev ) { return idMenuHandler::HandleGuiEvent( sev ); }
 
 	virtual void UpdateSavedGames();
 	virtual void SetShellState( shellState_t s );
+	virtual void SetNextScreen( int screen, int trans );
 
 	virtual void SetInGame( bool val );
 	virtual void UpdateLeaderboard( const idLeaderboardCallback* callback );
 	virtual void SetCanContinue( bool valid );
 	virtual void SetGameComplete();
+	virtual bool GetGameComplete();
 	virtual void SetTimeRemaining( int time );
 };
 
@@ -90,9 +93,12 @@ public:
 	idMenuHandler_PDA();
 	~idMenuHandler_PDA() {};
 
+	virtual bool IsActive() { return idMenuHandler::IsActive(); }
+	virtual void ClearWidgetActionRepeater() { idMenuHandler::ClearWidgetActionRepeater(); }
 	virtual void			Update();
 	virtual void			ActivateMenu( bool show );
 	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
+	virtual bool HandleGuiEvent( const sysEvent_t* sev ) { return idMenuHandler::HandleGuiEvent( sev ); }
 };
 
 /*
@@ -106,10 +112,13 @@ public:
 	idMenuHandler_HUD();
 	~idMenuHandler_HUD() {};
 
+	virtual bool IsActive() { return idMenuHandler::IsActive(); }
+	virtual void ClearWidgetActionRepeater() { idMenuHandler::ClearWidgetActionRepeater(); }
 	virtual void			Update();
 	virtual void			ActivateMenu( bool show );
 	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
-
+	virtual bool HandleGuiEvent( const sysEvent_t* sev ) { return idMenuHandler::HandleGuiEvent( sev ); }
+	virtual idMenuScreen_HUD* GetHud();
 	virtual void			ShowTip( const char* title, const char* tip, bool autoHide );
 	virtual void					HideTip();
 	virtual void					SetRadioMessage( bool show );
@@ -125,6 +134,10 @@ class idMenuHandler_Scoreboard : public idMenuHandler_Scoreboard_Interface, publ
 public:
 	idMenuHandler_Scoreboard();
 	~idMenuHandler_Scoreboard() {};
+
+	virtual bool IsActive() { return idMenuHandler::IsActive(); }
+	virtual void ClearWidgetActionRepeater() { idMenuHandler::ClearWidgetActionRepeater(); }
+	virtual bool HandleGuiEvent( const sysEvent_t* sev );
 
 	virtual void			Update();
 	virtual void			ActivateMenu( bool show );

@@ -39,9 +39,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_SpriteInstance.h"
 #include "../swf/SWF_TextInstance.h"
 
-namespace SWF
-{
-
 void idMenuWidget_PDA_VideoInfo::Update()
 {
 
@@ -149,5 +146,4 @@ void idMenuWidget_PDA_VideoInfo::ObserveEvent( const idMenuWidget& widget, const
 	}
 }
 
-} // namespace SWF
 

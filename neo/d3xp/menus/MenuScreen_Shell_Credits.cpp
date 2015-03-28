@@ -46,9 +46,6 @@ class idSWFParmList;
 
 #pragma hdrstop
 
-namespace SWF
-{
-
 static const int NUM_CREDIT_LINES = 16;
 
 void idMenuScreen_Shell_Credits::SetupCreditList()
@@ -1023,4 +1020,3 @@ void idMenuScreen_Shell_Credits::UpdateCredits()
 	creditIndex++;
 }
 
-} // namespace SWF

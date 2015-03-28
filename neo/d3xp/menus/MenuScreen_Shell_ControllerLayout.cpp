@@ -49,9 +49,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-namespace SWF
-{
-
 const static int NUM_LAYOUT_OPTIONS = 1;
 
 const static int MAX_CONTROLLER_CONFIGS = 2;
@@ -471,4 +468,3 @@ bool idMenuScreen_Shell_ControllerLayout::idMenuDataSource_LayoutSettings::IsDat
 	return hasLocalChanges;
 }
 
-} // namespace SWF

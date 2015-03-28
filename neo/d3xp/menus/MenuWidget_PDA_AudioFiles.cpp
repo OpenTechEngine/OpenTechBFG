@@ -42,9 +42,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_SpriteInstance.h"
 #include "../swf/SWF_TextInstance.h"
 
-namespace SWF
-{
-
 static const int MAX_AUDIO_ITEMS = 3;
 
 
@@ -237,4 +234,3 @@ void idMenuWidget_PDA_AudioFiles::ObserveEvent( const idMenuWidget& widget, cons
 	}
 }
 
-} // namespace SWF

@@ -50,9 +50,6 @@ class idSWFScriptObject;
 
 extern idCVar g_demoMode;
 
-namespace SWF
-{
-
 const static int NUM_PAUSE_OPTIONS = 6;
 
 enum pauseMenuCmds_t
@@ -573,4 +570,3 @@ bool idMenuScreen_Shell_Pause::HandleAction( idWidgetAction& action, const idWid
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
 
-} // namespace SWF

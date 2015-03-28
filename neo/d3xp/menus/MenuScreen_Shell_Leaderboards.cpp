@@ -63,9 +63,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h"
 #include "../sys/sys_signin.h"
 
-namespace SWF
-{
-
 const static int NUM_LEADERBOARD_ITEMS = 16;
 const int MAX_STAT_LISTINGS = 16;
 static const int MAX_ROWS_PER_BLOCK = 50;
@@ -1266,4 +1263,3 @@ void idLBCache::DisplayGamerCardUI( const idLeaderboardCallback::row_t* row )
 {
 }
 
-} // namespace SWF

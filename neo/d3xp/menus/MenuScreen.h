@@ -30,6 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #define __MENUSCREEN_H__
 
 #include "../d3xp/menus/MenuScreen_Interface.h"   // for idMenuScreen_HUD_Interface
+#include "../d3xp/menus/MenuState.h"
 
 //*
 //================================================
@@ -50,6 +51,7 @@ public:
 
 	virtual void DownloadVideo();
 	virtual void DownloadPDA( const idDeclPDA* pda, bool newSecurity );
+	virtual void UpdatedSecurity();
 
 	virtual void ClearNewPDAInfo();
 
@@ -66,6 +68,7 @@ public:
 	virtual void SetCursorText( const idStr& action, const idStr& focus );
 	virtual void UpdateCursorState();
 	virtual void CombatCursorFlash();
+	virtual void UpdateSoulCube( bool ready );
 	virtual void ShowRespawnMessage( bool show );
 	virtual void SetShowSoulCubeOnLoad( bool show );
 

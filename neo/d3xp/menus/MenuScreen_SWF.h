@@ -40,19 +40,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_signin.h"          // for idSignInManagerBase
 
 #include "../d3xp/menus/MenuScreen_Interface.h" // for idMenuScreen_HUD_Interface
+#include "../d3xp/menus/MenuState.h"
+
 #include "../d3xp/menus/MenuWidget.h"   // for idMenuWidget
-
-namespace SWF
-{
-
-enum mainMenuTransition_t
-{
-	MENU_TRANSITION_INVALID = -1,
-	MENU_TRANSITION_SIMPLE,
-	MENU_TRANSITION_ADVANCE,
-	MENU_TRANSITION_BACK,
-	MENU_TRANSITION_FORCE
-};
 
 /*
 ================================================
@@ -1848,6 +1838,5 @@ inline void InvitePartyOrFriends()
 	}
 }
 
-} // namespace SWF
 
 #endif // __MENUSCREENSWF_H__

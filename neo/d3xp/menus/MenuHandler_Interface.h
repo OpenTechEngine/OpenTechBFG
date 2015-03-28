@@ -30,22 +30,11 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../sys/sys_session.h" // for voiceStateDisplay_t
 
-class mpScoreboardInfo;
+#include "../d3xp/menus/MenuState.h"
 
-enum shellState_t
-{
-	SHELL_STATE_INVALID = -1,
-	SHELL_STATE_PRESS_START,
-	SHELL_STATE_IDLE,
-	SHELL_STATE_PARTY_LOBBY,
-	SHELL_STATE_GAME_LOBBY,
-	SHELL_STATE_PAUSED,
-	SHELL_STATE_CONNECTING,
-	SHELL_STATE_SEARCHING,
-	SHELL_STATE_LOADING,
-	SHELL_STATE_BUSY,
-	SHELL_STATE_IN_GAME
-};
+class mpScoreboardInfo;
+class idSoundWorld;
+class idMenuScreen_HUD;
 
 /*
 ================================================
@@ -57,7 +46,9 @@ class idMenuHandler_Interface
 public:
 	virtual					~idMenuHandler_Interface() {};
 	
-	virtual bool			IsActive() = 0;
+	virtual bool IsActive() = 0;
+	virtual void ClearWidgetActionRepeater() = 0;
+	virtual bool HandleGuiEvent( const sysEvent_t* sev ) = 0;
 };
 
 /*
@@ -76,11 +67,13 @@ public:
 	
 	virtual void UpdateSavedGames() = 0;
 	virtual void SetShellState( shellState_t s ) = 0;
-	
+	virtual void SetNextScreen( int screen, int trans ) = 0;
+
 	virtual void SetInGame( bool val ) = 0;
 	virtual void UpdateLeaderboard( const idLeaderboardCallback* callback ) = 0;
 	virtual void SetCanContinue( bool valid ) = 0;
 	virtual void SetGameComplete() = 0;
+	virtual bool GetGameComplete() = 0;
 	virtual void SetTimeRemaining( int time ) = 0;
 };
 
@@ -113,6 +106,7 @@ public:
 	virtual void			ActivateMenu( bool show ) = 0;
 	virtual void			Initialize( const char* swfFile, idSoundWorld* sw ) = 0;
 	
+	virtual idMenuScreen_HUD* GetHud() = 0;
 	virtual void			ShowTip( const char* title, const char* tip, bool autoHide ) = 0;
 	virtual void					HideTip() = 0;
 	virtual void					SetRadioMessage( bool show ) = 0;

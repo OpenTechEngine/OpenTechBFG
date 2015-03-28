@@ -43,9 +43,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-namespace SWF
-{
-
 /*
 ================================================================================================
 idMenuWidget_List
@@ -503,4 +500,3 @@ int idMenuWidget_GameBrowserList::GetServerIndex()
 	
 }
 
-} // namespace SWF

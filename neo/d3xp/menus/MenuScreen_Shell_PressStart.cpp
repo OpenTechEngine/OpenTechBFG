@@ -56,9 +56,6 @@ class idMaterial;
 
 extern idCVar g_demoMode;
 
-namespace SWF
-{
-
 static const int NUM_GAME_SELECTIONS_VISIBLE = 0;
 
 namespace
@@ -375,4 +372,3 @@ bool idMenuScreen_Shell_PressStart::HandleAction( idWidgetAction& action, const 
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
 
-} // namespace SWF

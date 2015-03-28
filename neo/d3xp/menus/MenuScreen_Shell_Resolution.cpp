@@ -49,9 +49,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_SpriteInstance.h"
 #include "../swf/SWF_TextInstance.h"
 
-namespace SWF
-{
-
 const static int NUM_SETTING_OPTIONS = 7;
 
 enum settingMenuCmds_t
@@ -364,4 +361,3 @@ bool idMenuScreen_Shell_Resolution::HandleAction( idWidgetAction& action, const 
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
 
-} // namespace SWF

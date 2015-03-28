@@ -54,9 +54,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-namespace SWF
-{
-
 typedef struct
 {
 	const char* display;
@@ -646,5 +643,4 @@ bool idMenuScreen_Shell_Bindings::HandleAction( idWidgetAction& action, const id
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
 
-} // namespace SWF
 

@@ -52,9 +52,6 @@ class idSWFScriptObject;
 
 extern idCVar g_demoMode;
 
-namespace SWF
-{
-
 const static int NUM_MAIN_OPTIONS = 6;
 /*
 ========================
@@ -619,5 +616,4 @@ bool idMenuScreen_Shell_Root::HandleAction( idWidgetAction& action, const idWidg
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
 
-} // namespace SWF
 

@@ -29,14 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MENUSCREENINTERFACE_H__
 #define __MENUSCREENINTERFACE_H__
 
-enum cursorState_t
-{
-	CURSOR_NONE,
-	CURSOR_IN_COMBAT,
-	CURSOR_TALK,
-	CURSOR_GRABBER,
-	CURSOR_ITEM,
-};
+#include "../d3xp/menus/MenuState.h"
 
 //*
 //================================================
@@ -56,6 +49,7 @@ public:
 	
 	virtual void DownloadVideo() = 0;
 	virtual void DownloadPDA( const idDeclPDA* pda, bool newSecurity ) = 0;
+	virtual void UpdatedSecurity() = 0;
 	
 	virtual void ClearNewPDAInfo() = 0;
 	
@@ -72,6 +66,7 @@ public:
 	virtual void SetCursorText( const idStr& action, const idStr& focus ) = 0;
 	virtual void UpdateCursorState() = 0;
 	virtual void CombatCursorFlash() = 0;
+	virtual void UpdateSoulCube( bool ready ) = 0;
 	virtual void ShowRespawnMessage( bool show ) = 0;
 	virtual void SetShowSoulCubeOnLoad( bool show ) = 0;
 	

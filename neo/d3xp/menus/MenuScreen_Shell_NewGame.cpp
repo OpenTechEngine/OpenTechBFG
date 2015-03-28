@@ -43,9 +43,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-namespace SWF
-{
-
 const static int NUM_NEW_GAME_OPTIONS = 8;
 /*
 ========================
@@ -247,4 +244,3 @@ bool idMenuScreen_Shell_NewGame::HandleAction( idWidgetAction& action, const idW
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
 
-} // namespace SWF

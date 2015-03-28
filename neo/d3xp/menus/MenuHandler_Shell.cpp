@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include <stddef.h>
 
-#include "../Game_local.h"
-#include "../d3xp/Player.h"
+//#include "../Game_local.h"
+//#include "../d3xp/Player.h"
 #include "../d3xp/menus/MenuHandler_SWF.h"
 #include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
@@ -65,9 +65,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys/sys_savegame.h"
 
 class idLeaderboardCallback;
-
-namespace SWF
-{
 
 extern idCVar g_demoMode;
 
@@ -1943,5 +1940,4 @@ void idMenuHandler_Shell::ShowLEIntro()
 	}
 }
 
-} // namespace SWF
 

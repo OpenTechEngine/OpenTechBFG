@@ -38,9 +38,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-namespace SWF
-{
-
 class idMenuHandler;
 
 /*
@@ -292,4 +289,3 @@ int idMenuWidget_ScoreboardList::GetTotalNumberOfOptions() const
 	return GetChildren().Num();
 }
 
-} // namespace SWF

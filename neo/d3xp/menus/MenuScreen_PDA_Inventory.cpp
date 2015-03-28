@@ -50,9 +50,6 @@ If you have questions concerning this license or the applicable additional terms
 
 class idMaterial;
 
-namespace SWF
-{
-
 static const int NUM_INVENTORY_ITEMS_VISIBLE = 9;
 
 /*
@@ -448,5 +445,4 @@ bool idMenuScreen_PDA_Inventory::HandleAction( idWidgetAction& action, const idW
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
 
-} // namespace SWF
 

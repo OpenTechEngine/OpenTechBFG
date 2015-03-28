@@ -36,45 +36,11 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/DeclPDA.h"       // for idDeclAudio
 
 #include "../d3xp/menus/MenuHandler_Interface.h" // for Interfaces
+#include "../d3xp/menus/MenuState.h"
+
 #include "../d3xp/menus/MenuScreen_SWF.h"   // for idMenuScreen, etc
 
-namespace SWF
-{
-
-enum shellAreas_t
-{
-	SHELL_AREA_INVALID = -1,
-	SHELL_AREA_START,
-	SHELL_AREA_ROOT,
-	SHELL_AREA_DEV,
-	SHELL_AREA_CAMPAIGN,
-	SHELL_AREA_LOAD,
-	SHELL_AREA_SAVE,
-	SHELL_AREA_NEW_GAME,
-	SHELL_AREA_GAME_OPTIONS,
-	SHELL_AREA_SYSTEM_OPTIONS,
-	SHELL_AREA_MULTIPLAYER,
-	SHELL_AREA_GAME_LOBBY,
-	SHELL_AREA_STEREOSCOPICS,
-	SHELL_AREA_PARTY_LOBBY,
-	SHELL_AREA_SETTINGS,
-	SHELL_AREA_AUDIO,
-	SHELL_AREA_VIDEO,
-	SHELL_AREA_KEYBOARD,
-	SHELL_AREA_CONTROLS,
-	SHELL_AREA_CONTROLLER_LAYOUT,
-	SHELL_AREA_GAMEPAD,
-	SHELL_AREA_PAUSE,
-	SHELL_AREA_LEADERBOARDS,
-	SHELL_AREA_PLAYSTATION,
-	SHELL_AREA_DIFFICULTY,
-	SHELL_AREA_RESOLUTION,
-	SHELL_AREA_MATCH_SETTINGS,
-	SHELL_AREA_MODE_SELECT,
-	SHELL_AREA_BROWSER,
-	SHELL_AREA_CREDITS,
-	SHELL_NUM_AREAS
-};
+#include "../d3xp/menus/mpScoreboardInfo.h"
 
 enum pdaAreas_t
 {
@@ -91,15 +57,6 @@ enum hudArea_t
 	HUD_AREA_INVALID = -1,
 	HUD_AREA_PLAYING,
 	HUD_NUM_AREAS
-};
-
-enum scoreboardArea_t
-{
-	SCOREBOARD_AREA_INVALID = -1,
-	SCOREBOARD_AREA_DEFAULT,
-	SCOREBOARD_AREA_TEAM,
-	SCOREBOARD_AREA_CTF,
-	SCOREBOARD_NUM_AREAS
 };
 
 enum pdaHandlerWidgets_t
@@ -156,80 +113,6 @@ struct actionRepeater_t
 	bool				isActive;
 };
 
-class mpScoreboardInfo
-{
-public:
-
-	mpScoreboardInfo() :
-		voiceState( VOICECHAT_DISPLAY_NONE ),
-		score( 0 ),
-		wins( 0 ),
-		ping( 0 ),
-		team( -1 ),
-		playerNum( 0 )
-	{
-	}
-	
-	mpScoreboardInfo( const mpScoreboardInfo& src )
-	{
-		voiceState = src.voiceState;
-		score = src.score;
-		wins = src.wins;
-		ping = src.ping;
-		spectateData = src.spectateData;
-		name = src.name;
-		team = src.team;
-		playerNum = src.playerNum;
-	}
-	
-	void operator=( const mpScoreboardInfo& src )
-	{
-		voiceState = src.voiceState;
-		score = src.score;
-		wins = src.wins;
-		ping = src.ping;
-		spectateData = src.spectateData;
-		name = src.name;
-		team = src.team;
-		playerNum = src.playerNum;
-	}
-	
-	bool operator!=( const mpScoreboardInfo& otherInfo ) const
-	{
-	
-		if( otherInfo.score != score || otherInfo.wins != wins || otherInfo.ping != ping ||
-				otherInfo.spectateData != spectateData || otherInfo.name != name || otherInfo.team != team ||
-				otherInfo.playerNum != playerNum || otherInfo.voiceState != voiceState )
-		{
-			return true;
-		}
-		
-		return false;
-	}
-	
-	bool operator==( const mpScoreboardInfo& otherInfo ) const
-	{
-	
-		if( otherInfo.score != score || otherInfo.wins != wins || otherInfo.ping != ping ||
-				otherInfo.spectateData != spectateData || otherInfo.name != name || otherInfo.team != team ||
-				otherInfo.playerNum != playerNum || otherInfo.voiceState != voiceState )
-		{
-			return false;
-		}
-		
-		return true;
-	}
-	
-	voiceStateDisplay_t voiceState;
-	int score;
-	int wins;
-	int ping;
-	int team;
-	int playerNum;
-	idStr spectateData;
-	idStr name;
-	
-};
 
 /*
 ================================================
@@ -241,9 +124,8 @@ class idMenuHandler : public idMenuHandler_Interface
 public:
 	idMenuHandler();
 	virtual					~idMenuHandler();
-private:
+
 	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
-public:
 	virtual void			Cleanup();
 	virtual void			Update();
 	virtual void			UpdateChildren();
@@ -362,6 +244,9 @@ public:
 		marsRotation( NULL )
 	{
 	}
+
+	virtual void 			ClearWidgetActionRepeater() { idMenuHandler::ClearWidgetActionRepeater(); }
+
 	virtual void			Update();
 	virtual void			ActivateMenu( bool show );
 	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
@@ -508,6 +393,7 @@ public:
 	}
 	virtual ~idMenuHandler_PDA();
 	
+	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
 	virtual void			Update();
 	virtual void			ActivateMenu( bool show );
 	virtual void			TriggerMenu();
@@ -530,8 +416,6 @@ public:
 	virtual void			Cleanup();
 	
 protected:
-	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
-
 	bool							audioLogPlaying;
 	bool							videoPlaying;
 	idList< idList< idStr, TAG_IDLIB_LIST_MENU >, TAG_IDLIB_LIST_MENU >		pdaNames;
@@ -637,6 +521,5 @@ protected:
 	
 };
 
-} // namespace SWF
 
 #endif //__MENUHANDLERSWF_H__

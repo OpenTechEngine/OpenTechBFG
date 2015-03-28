@@ -50,8 +50,6 @@ If you have questions concerning this license or the applicable additional terms
 class idPlayer;
 class idSWFParmList;
 
-namespace SWF
-{
 
 /*
 ========================
@@ -637,5 +635,4 @@ void idMenuHandler_Scoreboard::UpdateScoreboardSelection()
 	}
 }
 
-} // namespace SWF
 
