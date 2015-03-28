@@ -31,8 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../Game_local.h"
 #include "../d3xp/Player.h"
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/DeclEntityDef.h"
 #include "../framework/DeclManager.h"
@@ -49,6 +49,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_SpriteInstance.h"
 
 class idMaterial;
+
+namespace SWF
+{
 
 static const int NUM_INVENTORY_ITEMS_VISIBLE = 9;
 
@@ -444,3 +447,6 @@ bool idMenuScreen_PDA_Inventory::HandleAction( idWidgetAction& action, const idW
 	
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
+
+} // namespace SWF
+

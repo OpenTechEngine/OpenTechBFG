@@ -29,8 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #include <stddef.h>
 
 #include "../Game_local.h"
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -51,6 +51,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_SpriteInstance.h"
 #include "../swf/SWF_TextInstance.h"
 #include "../sys/sys_public.h"
+
+namespace SWF
+{
 
 const static int NUM_SYSTEM_OPTIONS_OPTIONS = 4;
 
@@ -498,3 +501,5 @@ bool idMenuScreen_Shell_Stereoscopics::idMenuDataSource_StereoSettings::IsRestar
 	}
 	return false;
 }
+
+} // namespace SWF

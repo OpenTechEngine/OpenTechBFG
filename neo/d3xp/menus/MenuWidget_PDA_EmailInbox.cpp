@@ -44,6 +44,9 @@ If you have questions concerning this license or the applicable additional terms
 
 class idMenuHandler;
 
+namespace SWF
+{
+
 static const int MAX_EMAIL_ITEMS = 7;
 
 /*
@@ -219,3 +222,5 @@ void idMenuWidget_PDA_EmailInbox::ObserveEvent( const idMenuWidget& widget, cons
 		}
 	}
 }
+
+} // namespace SWF

@@ -39,6 +39,9 @@ class idMenuHandler;
 
 #pragma hdrstop
 
+namespace SWF
+{
+
 /*
 ========================
 idMenuWidget_NavBar::Initialize
@@ -210,3 +213,5 @@ bool idMenuWidget_NavBar::PrepareListElement( idMenuWidget& widget, const int na
 	return true;
 	
 }
+
+} // namespace SWF

@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 #include <stddef.h>
 
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -53,6 +53,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys/sys_localuser.h"
 
 #pragma hdrstop
+
+namespace SWF
+{
 
 typedef struct
 {
@@ -642,3 +645,6 @@ bool idMenuScreen_Shell_Bindings::HandleAction( idWidgetAction& action, const id
 	
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
+
+} // namespace SWF
+

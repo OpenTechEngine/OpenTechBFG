@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 #include <stddef.h>
 
-#include "../d3xp/menus/MenuHandler.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../idlib/Heap.h"
 #include "../idlib/Str.h"
@@ -36,6 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_TextInstance.h"
 
 #pragma hdrstop
+
+namespace SWF
+{
 
 /*
 ========================
@@ -212,3 +215,5 @@ void idMenuWidget_MenuButton::Update()
 		hitBox->Set( "onRollOut", new( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_ROLL_OUT, 0 ) );
 	}
 }
+
+} // namespace SWF

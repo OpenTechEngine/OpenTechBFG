@@ -29,69 +29,59 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MENUSCREEN_H__
 #define __MENUSCREEN_H__
 
-class idPlayer;
-class idDeclPDA;
-class idStr;
-
-enum cursorState_t
-{
-	CURSOR_NONE,
-	CURSOR_IN_COMBAT,
-	CURSOR_TALK,
-	CURSOR_GRABBER,
-	CURSOR_ITEM,
-};
+#include "../d3xp/menus/MenuScreen_Interface.h"   // for idMenuScreen_HUD_Interface
 
 //*
 //================================================
 //idMenuScreen_HUD
 //================================================
 //*/
-class idMenuScreen_HUD
+class idMenuScreen_HUD : public idMenuScreen_HUD_Interface
 {
 public:
-	virtual ~idMenuScreen_HUD() {}
-	
-	virtual void UpdateHealthArmor( idPlayer* player ) = 0;
-	virtual void UpdateStamina( idPlayer* player ) = 0;
-	virtual void UpdateLocation( idPlayer* player ) = 0;
-	virtual void UpdateWeaponInfo( idPlayer* player ) = 0;
-	virtual void UpdateWeaponStates( idPlayer* player, bool weaponChanged ) = 0;
-	
-	virtual void DownloadVideo() = 0;
-	virtual void DownloadPDA( const idDeclPDA* pda, bool newSecurity ) = 0;
-	
-	virtual void ClearNewPDAInfo() = 0;
-	
-	virtual void UpdateOxygen( bool show, int val = 0 ) = 0;
-	virtual void SetupObjective( const idStr& title, const idStr& desc, const idMaterial* screenshot ) = 0;
-	virtual void SetupObjectiveComplete( const idStr& title ) = 0;
-	virtual void ShowObjective( bool complete ) = 0;
-	virtual void HideObjective( bool complete ) = 0;
-	virtual void GiveWeapon( idPlayer* player, int weaponIndex ) = 0;
-	virtual void UpdatePickupInfo( int index, const idStr& name ) = 0;
-	virtual bool IsPickupListReady() = 0;
-	virtual void ShowPickups() = 0;
-	virtual void SetCursorState( idPlayer* player, cursorState_t state, int set ) = 0;
-	virtual void SetCursorText( const idStr& action, const idStr& focus ) = 0;
-	virtual void UpdateCursorState() = 0;
-	virtual void CombatCursorFlash() = 0;
-	virtual void ShowRespawnMessage( bool show ) = 0;
-	virtual void SetShowSoulCubeOnLoad( bool show ) = 0;
-	
+	idMenuScreen_HUD();
+	~idMenuScreen_HUD();
+
+	virtual void UpdateHealthArmor( idPlayer* player );
+	virtual void UpdateStamina( idPlayer* player );
+	virtual void UpdateLocation( idPlayer* player );
+	virtual void UpdateWeaponInfo( idPlayer* player );
+	virtual void UpdateWeaponStates( idPlayer* player, bool weaponChanged );
+
+	virtual void DownloadVideo();
+	virtual void DownloadPDA( const idDeclPDA* pda, bool newSecurity );
+
+	virtual void ClearNewPDAInfo();
+
+	virtual void UpdateOxygen( bool show, int val = 0 );
+	virtual void SetupObjective( const idStr& title, const idStr& desc, const idMaterial* screenshot );
+	virtual void SetupObjectiveComplete( const idStr& title );
+	virtual void ShowObjective( bool complete );
+	virtual void HideObjective( bool complete );
+	virtual void GiveWeapon( idPlayer* player, int weaponIndex );
+	virtual void UpdatePickupInfo( int index, const idStr& name );
+	bool IsPickupListReady();
+	virtual void ShowPickups();
+	virtual void SetCursorState( idPlayer* player, cursorState_t state, int set );
+	virtual void SetCursorText( const idStr& action, const idStr& focus );
+	virtual void UpdateCursorState();
+	virtual void CombatCursorFlash();
+	virtual void ShowRespawnMessage( bool show );
+	virtual void SetShowSoulCubeOnLoad( bool show );
+
 	// MULTIPLAYER
-	
-	virtual void ToggleMPInfo( bool show, bool showTeams, bool isCTF = false ) = 0;
-	virtual void SetFlagState( int team, int state ) = 0;
-	virtual void SetTeamScore( int team, int score ) = 0;
-	virtual void SetTeam( int team ) = 0;
-	virtual void TriggerHitTarget( bool show, const idStr& target, int color = 0 ) = 0;
-	virtual void ToggleLagged( bool show ) = 0;
-	virtual void UpdateGameTime( const char* time ) = 0;
-	virtual void UpdateMessage( bool show, const idStr& message ) = 0;
-	virtual void ShowNewItem( const char* name, const char* icon ) = 0;
-	virtual void UpdateFlashlight( idPlayer* player ) = 0;
-	virtual void UpdateChattingHud( idPlayer* player ) = 0;
+
+	virtual void ToggleMPInfo( bool show, bool showTeams, bool isCTF = false );
+	virtual void SetFlagState( int team, int state );
+	virtual void SetTeamScore( int team, int score );
+	virtual void SetTeam( int team );
+	virtual void TriggerHitTarget( bool show, const idStr& target, int color = 0 );
+	virtual void ToggleLagged( bool show );
+	virtual void UpdateGameTime( const char* time );
+	virtual void UpdateMessage( bool show, const idStr& message );
+	virtual void ShowNewItem( const char* name, const char* icon );
+	virtual void UpdateFlashlight( idPlayer* player );
+	virtual void UpdateChattingHud( idPlayer* player );
 };
 
 #endif // __MENUSCREEN_H__

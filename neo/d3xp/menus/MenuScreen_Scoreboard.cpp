@@ -30,8 +30,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../Game_local.h"
 #include "../d3xp/MultiplayerGame.h"
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/Common.h"
 #include "../idlib/Heap.h"
@@ -47,6 +47,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_ScriptVar.h"
 #include "../swf/SWF_SpriteInstance.h"
 #include "../swf/SWF_TextInstance.h"
+
+namespace SWF
+{
 
 //***************************************************************
 // DEFAULT SCOREBOARD
@@ -712,3 +715,5 @@ void idMenuScreen_Scoreboard_Team::Initialize( idMenuHandler* data )
 	AddEventAction( WIDGET_EVENT_SCROLL_UP_RELEASE ).Set( new( TAG_SWF ) idWidgetActionHandler( this, WIDGET_ACTION_EVENT_STOP_REPEATER, WIDGET_EVENT_SCROLL_UP_RELEASE ) );
 	
 }
+
+} // namespace SWF

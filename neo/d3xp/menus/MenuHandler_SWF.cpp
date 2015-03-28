@@ -29,8 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #include <assert.h>
 #include <stddef.h>
 
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/CVarSystem.h"
 #include "../idlib/Heap.h"
@@ -47,6 +47,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 
 class idSWFScriptObject;
+
+namespace SWF
+{
 
 #pragma hdrstop
 
@@ -539,3 +542,6 @@ void idMenuHandler::ClearWidgetActionRepeater()
 {
 	actionRepeater.isActive = false;
 }
+
+} // namespace SWF
+

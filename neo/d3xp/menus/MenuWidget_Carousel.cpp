@@ -44,6 +44,9 @@ class idSWFScriptObject;
 
 #pragma hdrstop
 
+namespace SWF
+{
+
 void idMenuWidget_Carousel::Initialize( idMenuHandler* data )
 {
 	idMenuWidget::Initialize( data );
@@ -337,3 +340,4 @@ void idMenuWidget_Carousel::MoveToIndex( int index, bool instant )
 	idLib::Printf( "moveDiff = %i\n", moveDiff );
 }
 
+} // namespace SWF

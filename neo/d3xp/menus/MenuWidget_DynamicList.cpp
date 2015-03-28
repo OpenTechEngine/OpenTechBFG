@@ -30,14 +30,18 @@ If you have questions concerning this license or the applicable additional terms
 #include "../d3xp/menus/MenuWidget.h"
 #include "../idlib/Heap.h"
 #include "../idlib/Str.h"
-#include "../idlib/containers/List.h"
 #include "../swf/SWF.h"
 #include "../swf/SWF_ScriptObject.h"
 #include "../swf/SWF_SpriteInstance.h"
 
-class idMenuHandler;
+#include "../idlib/containers/List.h"
 
 #pragma hdrstop
+
+namespace SWF
+{
+
+class idMenuHandler;
 
 /*
 ========================
@@ -287,3 +291,5 @@ int idMenuWidget_ScoreboardList::GetTotalNumberOfOptions() const
 {
 	return GetChildren().Num();
 }
+
+} // namespace SWF

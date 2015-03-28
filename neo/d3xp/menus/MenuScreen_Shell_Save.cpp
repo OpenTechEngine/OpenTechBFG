@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 #include <assert.h>
 #include <stdlib.h>
 
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/BuildVersion.h"
 #include "../framework/CmdSystem.h"
@@ -54,6 +54,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
+namespace SWF
+{
 
 const static int NUM_SAVE_OPTIONS = 10;
 
@@ -609,3 +611,6 @@ bool idMenuScreen_Shell_Save::HandleAction( idWidgetAction& action, const idWidg
 	
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
+
+} // namespace SWF
+

@@ -41,6 +41,9 @@ class idMenuHandler;
 
 #pragma hdrstop
 
+namespace SWF
+{
+
 void idMenuWidget_ScrollBar::Initialize( idMenuHandler* data )
 {
 	idMenuWidget::Initialize( data );
@@ -309,3 +312,5 @@ void idMenuWidget_ScrollBar::ObserveEvent( const idMenuWidget& widget, const idW
 		}
 	}
 }
+
+} // namespace SWF

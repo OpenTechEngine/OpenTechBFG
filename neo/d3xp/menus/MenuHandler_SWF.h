@@ -35,8 +35,11 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_SpriteInstance.h"  // for idSWFSpriteInstance
 #include "../framework/DeclPDA.h"       // for idDeclAudio
 
-#include "../d3xp/menus/MenuHandler.h" // for Abstracts
-#include "../d3xp/menus/MenuScreen.h"   // for idMenuScreen, etc
+#include "../d3xp/menus/MenuHandler_Interface.h" // for Interfaces
+#include "../d3xp/menus/MenuScreen_SWF.h"   // for idMenuScreen, etc
+
+namespace SWF
+{
 
 enum shellAreas_t
 {
@@ -233,12 +236,14 @@ public:
 idMenuHandler
 ================================================
 */
-class idMenuHandler_SWF : public idMenuHandler
+class idMenuHandler : public idMenuHandler_Interface
 {
 public:
-	idMenuHandler_SWF();
-	virtual					~idMenuHandler_SWF();
+	idMenuHandler();
+	virtual					~idMenuHandler();
+private:
 	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
+public:
 	virtual void			Cleanup();
 	virtual void			Update();
 	virtual void			UpdateChildren();
@@ -329,10 +334,10 @@ struct lobbyPlayerInfo_t
 idMenuHandler_Shell
 ================================================
 */
-class idMenuHandler_Shell_SWF : public idMenuHandler_Shell, public idMenuHandler
+class idMenuHandler_Shell : public idMenuHandler_Shell_Interface, public idMenuHandler
 {
 public:
-	idMenuHandler_Shell_SWF() :
+	idMenuHandler_Shell() :
 		state( SHELL_STATE_INVALID ),
 		nextState( SHELL_STATE_INVALID ),
 		smallFrameShowing( false ),
@@ -492,21 +497,21 @@ private:
 idMenuHandler_PDA
 ================================================
 */
-class idMenuHandler_PDA_SWF : public idMenuHandler_PDA, public idMenuHandler
+class idMenuHandler_PDA : public idMenuHandler_PDA_Interface, public idMenuHandler
 {
 public:
-	idMenuHandler_PDA_SWF() :
+	idMenuHandler_PDA() :
 		audioLogPlaying( false ),
 		videoPlaying( false ),
 		audioFile( NULL )
 	{
 	}
-	virtual ~idMenuHandler_PDA_SWF();
+	virtual ~idMenuHandler_PDA();
 	
 	virtual void			Update();
 	virtual void			ActivateMenu( bool show );
 	virtual void			TriggerMenu();
-	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
+
 	virtual bool			HandleAction( idWidgetAction& action, const idWidgetEvent& event, idMenuWidget* widget, bool forceHandled = false );
 	virtual idMenuScreen* 	GetMenuScreen( int index );
 	virtual bool			IsActive()
@@ -525,6 +530,7 @@ public:
 	virtual void			Cleanup();
 	
 protected:
+	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
 
 	bool							audioLogPlaying;
 	bool							videoPlaying;
@@ -539,14 +545,14 @@ protected:
 
 /*
 ================================================
-idMenuHandler_PDA
+idMenuHandler_HUD
 ================================================
 */
-class idMenuHandler_HUD_SWF : public idMenuHandler_HUD, public idMenuHandler
+class idMenuHandler_HUD : public idMenuHandler_HUD_Interface, public idMenuHandler
 {
 public:
 
-	idMenuHandler_HUD_SWF() :
+	idMenuHandler_HUD() :
 		autoHideTip( true ),
 		tipStartTime( 0 ),
 		hiding( false ),
@@ -585,11 +591,11 @@ protected:
 idMenuHandler_Scoreboard
 ================================================
 */
-class idMenuHandler_Scoreboard_SWF : public idMenuHandler_Scoreboard, public idMenuHandler
+class idMenuHandler_Scoreboard : public ::idMenuHandler_Scoreboard_Interface, public idMenuHandler
 {
 public:
 
-	idMenuHandler_Scoreboard_SWF() :
+	idMenuHandler_Scoreboard() :
 		redScore( 0 ),
 		blueScore( 0 ),
 		activationScreen( SCOREBOARD_AREA_INVALID )
@@ -631,5 +637,6 @@ protected:
 	
 };
 
+} // namespace SWF
 
 #endif //__MENUHANDLERSWF_H__

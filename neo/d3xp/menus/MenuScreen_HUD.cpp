@@ -34,8 +34,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../d3xp/MultiplayerGame.h"
 #include "../d3xp/Player.h"
 #include "../d3xp/Weapon.h"
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
 #include "../framework/Common.h"
@@ -65,6 +65,9 @@ If you have questions concerning this license or the applicable additional terms
 
 class idEntity;
 class idMaterial;
+
+namespace SWF
+{
 
 extern idCVar pm_stamina;
 extern idCVar in_useJoystick;
@@ -2430,3 +2433,5 @@ void idMenuScreen_HUD::UpdateChattingHud( idPlayer* player )
 		}
 	}
 }
+
+} // namespace SWF

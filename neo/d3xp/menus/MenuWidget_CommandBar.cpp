@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 #include <stddef.h>
 
-#include "../d3xp/menus/MenuHandler.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../idlib/Heap.h"
 #include "../idlib/Str.h"
@@ -40,6 +40,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_TextInstance.h"
 
 #pragma hdrstop
+
+namespace SWF
+{
 
 /*
 ================================================================================================
@@ -240,3 +243,6 @@ bool idMenuWidget_CommandBar::ExecuteEvent( const idWidgetEvent& event )
 		return idMenuWidget::ExecuteEvent( event );
 	}
 }
+
+} // namespace SWF
+

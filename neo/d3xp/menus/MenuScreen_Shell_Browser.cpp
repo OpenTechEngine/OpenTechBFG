@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 #include <stddef.h>
 
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/Common.h"
 #include "../idlib/Callback.h"
@@ -49,6 +49,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h"
 
 #pragma hdrstop
+
+namespace SWF
+{
 
 enum browserCommand_t
 {
@@ -479,3 +482,6 @@ bool idMenuScreen_Shell_GameBrowser::HandleAction( idWidgetAction& action, const
 	
 	return idMenuScreen::HandleAction( action, event, widget, forceHandle );
 }
+
+} // namespace SWF
+

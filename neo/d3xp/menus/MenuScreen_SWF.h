@@ -39,8 +39,11 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../sys/sys_signin.h"          // for idSignInManagerBase
 
-#include "../d3xp/menus/MenuScreen.h" // for idMenuScreen_HUDAbstract
+#include "../d3xp/menus/MenuScreen_Interface.h" // for idMenuScreen_HUD_Interface
 #include "../d3xp/menus/MenuWidget.h"   // for idMenuWidget
+
+namespace SWF
+{
 
 enum mainMenuTransition_t
 {
@@ -1571,14 +1574,14 @@ private:
 
 //*
 //================================================
-//idMenuScreen_HUD
+//idMenuScreen
 //================================================
 //*/
-class idMenuScreen_HUD_SWF : public idMenuScreen_HUD, public idMenuScreen
+class idMenuScreen_HUD : public idMenuScreen_HUD_Interface, public idMenuScreen
 {
 public:
 
-	idMenuScreen_HUD_SWF() :
+	idMenuScreen_HUD() :
 		weaponInfo( NULL ),
 		playerInfo( NULL ),
 		stamina( NULL ),
@@ -1844,5 +1847,7 @@ inline void InvitePartyOrFriends()
 		session->InviteFriends();
 	}
 }
+
+} // namespace SWF
 
 #endif // __MENUSCREENSWF_H__

@@ -30,34 +30,28 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../sys/sys_session.h" // for voiceStateDisplay_t
 
-class mpScoreboardInfo;
+#include "../d3xp/menus/MenuHandler_Interface.h" // for Interfaces
 
-enum shellState_t
-{
-	SHELL_STATE_INVALID = -1,
-	SHELL_STATE_PRESS_START,
-	SHELL_STATE_IDLE,
-	SHELL_STATE_PARTY_LOBBY,
-	SHELL_STATE_GAME_LOBBY,
-	SHELL_STATE_PAUSED,
-	SHELL_STATE_CONNECTING,
-	SHELL_STATE_SEARCHING,
-	SHELL_STATE_LOADING,
-	SHELL_STATE_BUSY,
-	SHELL_STATE_IN_GAME
-};
+#ifdef USE_CEGUI
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#else
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#endif
+
+class mpScoreboardInfo;
 
 /*
 ================================================
 idMenuHandler
 ================================================
 */
-class idMenuHandler
+class idMenuHandler : public idMenuHandler_Interface
 {
 public:
-	virtual					~idMenuHandler() {};
-	
-	virtual bool			IsActive() = 0;
+	idMenuHandler();
+	~idMenuHandler();
+
+	virtual bool IsActive();
 };
 
 /*
@@ -65,22 +59,24 @@ public:
 idMenuHandler_Shell
 ================================================
  */
-class idMenuHandler_Shell : public virtual idMenuHandler
+class idMenuHandler_Shell : public idMenuHandler_Shell_Interface, public idMenuHandler
 {
 public:
-	virtual ~idMenuHandler_Shell() {};
-	virtual void Update() = 0;
-	virtual void ActivateMenu( bool show ) = 0;
-	virtual void Initialize( const char* swfFile, idSoundWorld* sw ) = 0;
-	virtual bool HandleGuiEvent( const sysEvent_t* sev ) = 0;
-	
-	virtual void UpdateSavedGames() = 0;
-	virtual void SetShellState( shellState_t s ) = 0;
-	
-	virtual void SetInGame( bool val ) = 0;
-	virtual void UpdateLeaderboard( const idLeaderboardCallback* callback ) = 0;
-	virtual void SetCanContinue( bool valid ) = 0;
-	virtual void SetGameComplete() = 0;
+	idMenuHandler_Shell();
+	~idMenuHandler_Shell();
+	virtual void Update();
+	virtual void ActivateMenu( bool show );
+	virtual void Initialize( const char* swfFile, idSoundWorld* sw );
+	bool HandleGuiEvent( const sysEvent_t* sev );
+
+	virtual void UpdateSavedGames();
+	virtual void SetShellState( shellState_t s );
+
+	virtual void SetInGame( bool val );
+	virtual void UpdateLeaderboard( const idLeaderboardCallback* callback );
+	virtual void SetCanContinue( bool valid );
+	virtual void SetGameComplete();
+	virtual void SetTimeRemaining( int time );
 };
 
 /*
@@ -88,33 +84,35 @@ public:
 idMenuHandler_PDA
 ================================================
 */
-class idMenuHandler_PDA : public virtual idMenuHandler
+class idMenuHandler_PDA : public idMenuHandler_PDA_Interface,  public idMenuHandler
 {
 public:
-	virtual ~idMenuHandler_PDA() {};
-	
-	virtual void			Update() = 0;
-	virtual void			ActivateMenu( bool show ) = 0;
-	virtual void			Initialize( const char* swfFile, idSoundWorld* sw ) = 0;
+	idMenuHandler_PDA();
+	~idMenuHandler_PDA() {};
+
+	virtual void			Update();
+	virtual void			ActivateMenu( bool show );
+	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
 };
 
 /*
 ================================================
-idMenuHandler_PDA
+idMenuHandler_HUD
 ================================================
 */
-class idMenuHandler_HUD : public virtual idMenuHandler
+class idMenuHandler_HUD : public idMenuHandler_HUD_Interface, public idMenuHandler
 {
 public:
-	virtual ~idMenuHandler_HUD() {};
-	
-	virtual void			Update() = 0;
-	virtual void			ActivateMenu( bool show ) = 0;
-	virtual void			Initialize( const char* swfFile, idSoundWorld* sw ) = 0;
-	
-	virtual void			ShowTip( const char* title, const char* tip, bool autoHide ) = 0;
-	virtual void					HideTip() = 0;
-	virtual void					SetRadioMessage( bool show ) = 0;
+	idMenuHandler_HUD();
+	~idMenuHandler_HUD() {};
+
+	virtual void			Update();
+	virtual void			ActivateMenu( bool show );
+	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
+
+	virtual void			ShowTip( const char* title, const char* tip, bool autoHide );
+	virtual void					HideTip();
+	virtual void					SetRadioMessage( bool show );
 };
 
 /*
@@ -122,19 +120,20 @@ public:
 idMenuHandler_Scoreboard
 ================================================
 */
-class idMenuHandler_Scoreboard : public virtual idMenuHandler
+class idMenuHandler_Scoreboard : public idMenuHandler_Scoreboard_Interface, public idMenuHandler
 {
 public:
-	virtual ~idMenuHandler_Scoreboard() {};
-	
-	virtual void			Update() = 0;
-	virtual void			ActivateMenu( bool show ) = 0;
-	virtual void			Initialize( const char* swfFile, idSoundWorld* sw ) = 0;
-	virtual void					UpdateScoreboard( idList< mpScoreboardInfo >& data, idStr gameInfo ) = 0;
-	virtual void					UpdateSpectating( idStr spectate, idStr follow ) = 0;
-	virtual void					SetTeamScores( int r, int b ) = 0;
-	virtual void					SetActivationScreen( int screen, int trans ) = 0;
-	virtual void					UpdateScoreboardSelection() = 0;
+	idMenuHandler_Scoreboard();
+	~idMenuHandler_Scoreboard() {};
+
+	virtual void			Update();
+	virtual void			ActivateMenu( bool show );
+	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
+	virtual void					UpdateScoreboard( idList< mpScoreboardInfo >& data, idStr gameInfo );
+	virtual void					UpdateSpectating( idStr spectate, idStr follow );
+	virtual void					SetTeamScores( int r, int b );
+	virtual void					SetActivationScreen( int screen, int trans );
+	virtual void					UpdateScoreboardSelection();
 };
 
 

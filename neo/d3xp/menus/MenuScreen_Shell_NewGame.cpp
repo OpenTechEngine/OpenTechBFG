@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 #include <stddef.h>
 
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../idlib/Heap.h"
 #include "../idlib/Str.h"
@@ -42,6 +42,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_TextInstance.h"
 
 #pragma hdrstop
+
+namespace SWF
+{
 
 const static int NUM_NEW_GAME_OPTIONS = 8;
 /*
@@ -243,3 +246,5 @@ bool idMenuScreen_Shell_NewGame::HandleAction( idWidgetAction& action, const idW
 	
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
+
+} // namespace SWF

@@ -30,12 +30,15 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../Game_local.h"
 #include "../d3xp/Player.h"
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../idlib/Heap.h"
 #include "../swf/SWF.h"
 
 class idSoundWorld;
+
+namespace SWF
+{
 
 static const int TIP_DISPLAY_TIME = 5000;
 
@@ -137,7 +140,7 @@ void idMenuHandler_HUD::ActivateMenu( bool show )
 idMenuHandler_HUD::Initialize
 ========================
 */
-void idMenuHandler_HUD::Initialize( const char* swfFile, idSoundWorld* sw )
+void idMenuHandler_HUD::Initialize( const char* swfFile, ::idSoundWorld* sw )
 {
 	idMenuHandler::Initialize( swfFile, sw );
 	
@@ -216,3 +219,5 @@ void idMenuHandler_HUD::HideTip()
 	}
 	hiding = true;
 }
+
+} // namespace SWF

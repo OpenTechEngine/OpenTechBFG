@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../Game_local.h"
 #include "../d3xp/Player.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/DeclPDA.h"
 #include "../idlib/containers/List.h"
@@ -38,6 +38,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_ScriptObject.h"
 #include "../swf/SWF_SpriteInstance.h"
 #include "../swf/SWF_TextInstance.h"
+
+namespace SWF
+{
 
 void idMenuWidget_PDA_VideoInfo::Update()
 {
@@ -145,4 +148,6 @@ void idMenuWidget_PDA_VideoInfo::ObserveEvent( const idMenuWidget& widget, const
 		}
 	}
 }
+
+} // namespace SWF
 

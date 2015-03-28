@@ -29,8 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #include <stddef.h>
 
 #include "../../renderer/tr_local.h"
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -48,6 +48,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_ScriptVar.h"
 #include "../swf/SWF_SpriteInstance.h"
 #include "../swf/SWF_TextInstance.h"
+
+namespace SWF
+{
 
 const static int NUM_SETTING_OPTIONS = 7;
 
@@ -360,3 +363,5 @@ bool idMenuScreen_Shell_Resolution::HandleAction( idWidgetAction& action, const 
 	
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
+
+} // namespace SWF

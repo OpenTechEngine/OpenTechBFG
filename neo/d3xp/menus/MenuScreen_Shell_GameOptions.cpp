@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 #include <stddef.h>
 
 #include "../d3xp/gamesys/SysCvar.h"
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/CVarSystem.h"
 #include "../idlib/Heap.h"
@@ -45,6 +45,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_TextInstance.h"
 
 #pragma hdrstop
+
+namespace SWF
+{
 
 const static int NUM_GAME_OPTIONS_OPTIONS = 8;
 
@@ -426,3 +429,5 @@ bool idMenuScreen_Shell_GameOptions::idMenuDataSource_GameSettings::IsDataChange
 	
 	return false;
 }
+
+} // namespace SWF

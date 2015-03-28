@@ -38,6 +38,9 @@ class idMaterial;
 
 #pragma hdrstop
 
+namespace SWF
+{
+
 void idMenuWidget_ItemAssignment::SetIcon( int index, const idMaterial* icon )
 {
 
@@ -133,3 +136,6 @@ void idMenuWidget_ItemAssignment::Update()
 		}
 	}
 }
+
+} // namespace SWF
+

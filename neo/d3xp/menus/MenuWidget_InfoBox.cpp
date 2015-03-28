@@ -41,6 +41,9 @@ class idMenuHandler;
 
 #pragma hdrstop
 
+namespace SWF
+{
+
 /*
 ========================
 idMenuWidget_InfoBox::Update
@@ -246,3 +249,5 @@ void idMenuWidget_InfoBox::ObserveEvent( const idMenuWidget& widget, const idWid
 		}
 	}
 }
+
+} // namespace SWF

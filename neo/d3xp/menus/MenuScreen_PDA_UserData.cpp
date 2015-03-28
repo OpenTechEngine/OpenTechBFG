@@ -31,8 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../Game_local.h"
 #include "../d3xp/Player.h"
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/DeclPDA.h"
 #include "../idlib/Heap.h"
@@ -46,6 +46,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_SpriteInstance.h"
 
 
+namespace SWF
+{
 
 /*
 ========================
@@ -301,3 +303,6 @@ bool idMenuScreen_PDA_UserData::HandleAction( idWidgetAction& action, const idWi
 	
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
+
+} // namespace SWF
+
