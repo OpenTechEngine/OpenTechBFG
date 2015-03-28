@@ -25,8 +25,8 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#ifndef __MENUDATA_H__
-#define __MENUDATA_H__
+#ifndef __MENUHANDLERSWF_H__
+#define __MENUHANDLERSWF_H__
 
 #include "../d3xp/menus/MenuWidget.h"   // for idMenuWidget
 #include "../swf/SWF_ScriptVar.h"       // for idSWFScriptVar
@@ -632,4 +632,4 @@ protected:
 };
 
 
-#endif //__MENUDATA_H__
+#endif //__MENUHANDLERSWF_H__

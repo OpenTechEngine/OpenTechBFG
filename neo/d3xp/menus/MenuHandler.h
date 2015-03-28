@@ -49,7 +49,7 @@ enum shellState_t
 
 /*
 ================================================
-idMenuHandlerbstract
+idMenuHandler
 ================================================
 */
 class idMenuHandler

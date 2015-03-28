@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#ifndef __MENUSCREEN_H__
-#define __MENUSCREEN_H__
+#ifndef __MENUSCREENSWF_H__
+#define __MENUSCREENSWF_H__
 
 #include "../../renderer/tr_local.h"
 
@@ -1845,4 +1845,4 @@ inline void InvitePartyOrFriends()
 	}
 }
 
-#endif
+#endif // __MENUSCREENSWF_H__
