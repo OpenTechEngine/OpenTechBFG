@@ -29,62 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MENUSCREEN_H__
 #define __MENUSCREEN_H__
 
-#include "../d3xp/menus/MenuScreen_Interface.h"   // for idMenuScreen_HUD_Interface
-#include "../d3xp/menus/MenuState.h"
-
-//*
-//================================================
-//idMenuScreen_HUD
-//================================================
-//*/
-class idMenuScreen_HUD : public idMenuScreen_HUD_Interface
-{
-public:
-	idMenuScreen_HUD();
-	~idMenuScreen_HUD();
-
-	virtual void UpdateHealthArmor( idPlayer* player );
-	virtual void UpdateStamina( idPlayer* player );
-	virtual void UpdateLocation( idPlayer* player );
-	virtual void UpdateWeaponInfo( idPlayer* player );
-	virtual void UpdateWeaponStates( idPlayer* player, bool weaponChanged );
-
-	virtual void DownloadVideo();
-	virtual void DownloadPDA( const idDeclPDA* pda, bool newSecurity );
-	virtual void UpdatedSecurity();
-
-	virtual void ClearNewPDAInfo();
-
-	virtual void UpdateOxygen( bool show, int val = 0 );
-	virtual void SetupObjective( const idStr& title, const idStr& desc, const idMaterial* screenshot );
-	virtual void SetupObjectiveComplete( const idStr& title );
-	virtual void ShowObjective( bool complete );
-	virtual void HideObjective( bool complete );
-	virtual void GiveWeapon( idPlayer* player, int weaponIndex );
-	virtual void UpdatePickupInfo( int index, const idStr& name );
-	bool IsPickupListReady();
-	virtual void ShowPickups();
-	virtual void SetCursorState( idPlayer* player, cursorState_t state, int set );
-	virtual void SetCursorText( const idStr& action, const idStr& focus );
-	virtual void UpdateCursorState();
-	virtual void CombatCursorFlash();
-	virtual void UpdateSoulCube( bool ready );
-	virtual void ShowRespawnMessage( bool show );
-	virtual void SetShowSoulCubeOnLoad( bool show );
-
-	// MULTIPLAYER
-
-	virtual void ToggleMPInfo( bool show, bool showTeams, bool isCTF = false );
-	virtual void SetFlagState( int team, int state );
-	virtual void SetTeamScore( int team, int score );
-	virtual void SetTeam( int team );
-	virtual void TriggerHitTarget( bool show, const idStr& target, int color = 0 );
-	virtual void ToggleLagged( bool show );
-	virtual void UpdateGameTime( const char* time );
-	virtual void UpdateMessage( bool show, const idStr& message );
-	virtual void ShowNewItem( const char* name, const char* icon );
-	virtual void UpdateFlashlight( idPlayer* player );
-	virtual void UpdateChattingHud( idPlayer* player );
-};
+#ifdef USE_CEGUI
+#include "../cegui/menu/MenuScreen_CEGUI.h"
+#else
+#include "../d3xp/menus/MenuScreen_SWF.h"
+#endif
 
 #endif // __MENUSCREEN_H__

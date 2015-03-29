@@ -68,7 +68,7 @@ public:
 	virtual void UpdateSavedGames() = 0;
 	virtual void SetShellState( shellState_t s ) = 0;
 	virtual void SetNextScreen( int screen, int trans ) = 0;
-
+	
 	virtual void SetInGame( bool val ) = 0;
 	virtual void UpdateLeaderboard( const idLeaderboardCallback* callback ) = 0;
 	virtual void SetCanContinue( bool valid ) = 0;

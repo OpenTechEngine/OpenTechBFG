@@ -31,6 +31,11 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../d3xp/menus/MenuState.h"
 
+class idPlayer;
+class idMaterial;
+class idDeclPDA;
+class idStr;
+
 //*
 //================================================
 //idMenuScreen_HUD_Interface

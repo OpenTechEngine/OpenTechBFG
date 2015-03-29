@@ -184,8 +184,33 @@ set(GAMED3XP_GAMESYS_SOURCES
   #d3xp/gamesys/TypeInfo.cpp
   )
 
-file(GLOB GAMED3XP_MENUS_INCLUDES d3xp/menus/*.h)
-file(GLOB GAMED3XP_MENUS_SOURCES d3xp/menus/*.cpp)
+  
+# shared menu includes only for cegui builds
+set(GAMED3XP_MENUS_SHARED_INCLUDES
+	d3xp/menus/MenuHandler_Interface.h
+	d3xp/menus/MenuScreen_Interface.h
+	d3xp/menus/MenuHandler.h
+	d3xp/menus/MenuScreen.h
+	d3xp/menus/MenuState.h
+  )
+
+if (CEGUI)
+  list(APPEND GAMED3XP_MENUS_INCLUDES
+    ${GAMED3XP_MENUS_SHARED_INCLUDES}
+  )
+else()
+  file(GLOB GAMED3XP_MENUS_SWF_INCLUDES d3xp/menus/*.h)
+  file(GLOB GAMED3XP_MENUS_SWF_SOURCES d3xp/menus/*.cpp)
+  
+  list(APPEND GAMED3XP_MENUS_INCLUDES
+    ${GAMED3XP_MENUS_SHARED_INCLUDES}
+	${GAMED3XP_MENUS_SWF_INCLUDES}
+  )
+  
+  list(APPEND GAMED3XP_MENUS_SOURCES
+	${GAMED3XP_MENUS_SWF_SOURCES}
+  )
+endif()
 
 file(GLOB GAMED3XP_PHYSICS_INCLUDES d3xp/physics/*.h)
 file(GLOB GAMED3XP_PHYSICS_SOURCES d3xp/physics/*.cpp)

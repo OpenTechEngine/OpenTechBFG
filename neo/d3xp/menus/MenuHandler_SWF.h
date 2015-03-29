@@ -124,7 +124,7 @@ class idMenuHandler : public idMenuHandler_Interface
 public:
 	idMenuHandler();
 	virtual					~idMenuHandler();
-
+	
 	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
 	virtual void			Cleanup();
 	virtual void			Update();
@@ -244,9 +244,16 @@ public:
 		marsRotation( NULL )
 	{
 	}
-
-	virtual void 			ClearWidgetActionRepeater() { idMenuHandler::ClearWidgetActionRepeater(); }
-
+	
+	virtual void 			ClearWidgetActionRepeater()
+	{
+		idMenuHandler::ClearWidgetActionRepeater();
+	}
+	virtual void			SetNextScreen( int screen, int trans )
+	{
+		idMenuHandler::SetNextScreen( screen, trans );
+	}
+	
 	virtual void			Update();
 	virtual void			ActivateMenu( bool show );
 	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
@@ -393,11 +400,20 @@ public:
 	}
 	virtual ~idMenuHandler_PDA();
 	
+	virtual void 			ClearWidgetActionRepeater()
+	{
+		idMenuHandler::ClearWidgetActionRepeater();
+	}
+	virtual bool			HandleGuiEvent( const sysEvent_t* sev )
+	{
+		return idMenuHandler::HandleGuiEvent( sev );
+	}
+	
 	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
 	virtual void			Update();
 	virtual void			ActivateMenu( bool show );
 	virtual void			TriggerMenu();
-
+	
 	virtual bool			HandleAction( idWidgetAction& action, const idWidgetEvent& event, idMenuWidget* widget, bool forceHandled = false );
 	virtual idMenuScreen* 	GetMenuScreen( int index );
 	virtual bool			IsActive()
@@ -444,6 +460,16 @@ public:
 	{
 	}
 	
+	virtual void 			ClearWidgetActionRepeater()
+	{
+		idMenuHandler::ClearWidgetActionRepeater();
+	}
+	virtual bool			HandleGuiEvent( const sysEvent_t* sev )
+	{
+		return idMenuHandler::HandleGuiEvent( sev );
+	}
+	
+	
 	virtual void			Update();
 	virtual void			ActivateMenu( bool show );
 	virtual void			Initialize( const char* swfFile, idSoundWorld* sw );
@@ -484,6 +510,15 @@ public:
 		blueScore( 0 ),
 		activationScreen( SCOREBOARD_AREA_INVALID )
 	{
+	}
+	
+	virtual void 			ClearWidgetActionRepeater()
+	{
+		idMenuHandler::ClearWidgetActionRepeater();
+	}
+	virtual bool			HandleGuiEvent( const sysEvent_t* sev )
+	{
+		return idMenuHandler::HandleGuiEvent( sev );
 	}
 	
 	virtual void			Update();
