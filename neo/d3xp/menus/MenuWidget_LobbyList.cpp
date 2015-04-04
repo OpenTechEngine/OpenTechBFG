@@ -152,3 +152,4 @@ void idMenuWidget_LobbyList::SetEntryData( int index, idStr name, voiceStateDisp
 	
 	button->SetButtonInfo( name, voiceState );
 }
+

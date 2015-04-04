@@ -133,3 +133,5 @@ void idMenuWidget_ItemAssignment::Update()
 		}
 	}
 }
+
+

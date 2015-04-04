@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 #include <stddef.h>
 
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuWidget.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../idlib/Heap.h"
 #include "../idlib/LangDict.h"
 #include "../idlib/Str.h"
@@ -710,3 +710,5 @@ void idMenuWidget_ScoreboardButton::SetButtonInfo( int index_, idList< idStr >& 
 	voiceState = voiceState_;
 	SetValues( list );
 }
+
+

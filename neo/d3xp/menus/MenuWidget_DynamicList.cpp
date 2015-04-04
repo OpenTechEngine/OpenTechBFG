@@ -287,3 +287,4 @@ int idMenuWidget_ScoreboardList::GetTotalNumberOfOptions() const
 {
 	return GetChildren().Num();
 }
+

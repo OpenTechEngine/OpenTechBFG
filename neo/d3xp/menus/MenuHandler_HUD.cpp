@@ -28,10 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include <stddef.h>
 
-#include "../Game_local.h"
-#include "../d3xp/Player.h"
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../idlib/Heap.h"
 #include "../swf/SWF.h"
 
@@ -216,3 +214,4 @@ void idMenuHandler_HUD::HideTip()
 	}
 	hiding = true;
 }
+

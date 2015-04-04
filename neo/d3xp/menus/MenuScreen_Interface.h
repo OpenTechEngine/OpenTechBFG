@@ -26,31 +26,25 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#ifndef __MENUSCREENABSTRACT_H__
-#define __MENUSCREENABSTRACT_H__
+#ifndef __MENUSCREENINTERFACE_H__
+#define __MENUSCREENINTERFACE_H__
+
+#include "../d3xp/menus/MenuState.h"
 
 class idPlayer;
+class idMaterial;
 class idDeclPDA;
 class idStr;
 
-enum cursorState_t
-{
-	CURSOR_NONE,
-	CURSOR_IN_COMBAT,
-	CURSOR_TALK,
-	CURSOR_GRABBER,
-	CURSOR_ITEM,
-};
-
 //*
 //================================================
-//idMenuScreen_HUD
+//idMenuScreen_HUD_Interface
 //================================================
 //*/
-class idMenuScreen_HUDAbstract
+class idMenuScreen_HUD_Interface
 {
 public:
-	virtual ~idMenuScreen_HUDAbstract() {}
+	virtual ~idMenuScreen_HUD_Interface() {}
 	
 	virtual void UpdateHealthArmor( idPlayer* player ) = 0;
 	virtual void UpdateStamina( idPlayer* player ) = 0;
@@ -60,6 +54,7 @@ public:
 	
 	virtual void DownloadVideo() = 0;
 	virtual void DownloadPDA( const idDeclPDA* pda, bool newSecurity ) = 0;
+	virtual void UpdatedSecurity() = 0;
 	
 	virtual void ClearNewPDAInfo() = 0;
 	
@@ -76,6 +71,7 @@ public:
 	virtual void SetCursorText( const idStr& action, const idStr& focus ) = 0;
 	virtual void UpdateCursorState() = 0;
 	virtual void CombatCursorFlash() = 0;
+	virtual void UpdateSoulCube( bool ready ) = 0;
 	virtual void ShowRespawnMessage( bool show ) = 0;
 	virtual void SetShowSoulCubeOnLoad( bool show ) = 0;
 	
@@ -94,4 +90,4 @@ public:
 	virtual void UpdateChattingHud( idPlayer* player ) = 0;
 };
 
-#endif // __MENUSCREENABSTRACT_H__
+#endif // __MENUSCREENINTERFACE_H__

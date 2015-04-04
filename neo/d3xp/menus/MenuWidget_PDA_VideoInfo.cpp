@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../Game_local.h"
 #include "../d3xp/Player.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/DeclPDA.h"
 #include "../idlib/containers/List.h"
@@ -145,4 +145,5 @@ void idMenuWidget_PDA_VideoInfo::ObserveEvent( const idMenuWidget& widget, const
 		}
 	}
 }
+
 

@@ -29,8 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #include <stddef.h>
 
 #include "../Game_local.h"
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -498,3 +498,4 @@ bool idMenuScreen_Shell_Stereoscopics::idMenuDataSource_StereoSettings::IsRestar
 	}
 	return false;
 }
+

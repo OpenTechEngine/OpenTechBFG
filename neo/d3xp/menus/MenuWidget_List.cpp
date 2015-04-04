@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <assert.h>
 #include <stddef.h>
 
-#include "../d3xp/menus/MenuHandler.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../idlib/LangDict.h"
 #include "../idlib/Str.h"
@@ -499,3 +499,4 @@ int idMenuWidget_GameBrowserList::GetServerIndex()
 	return -1;
 	
 }
+

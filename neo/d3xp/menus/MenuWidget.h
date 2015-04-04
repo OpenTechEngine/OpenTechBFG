@@ -1719,4 +1719,5 @@ private:
 	widgetEvent_t targetEvent;
 };
 
-#endif
+
+#endif // __MENU_WIDGET_H__

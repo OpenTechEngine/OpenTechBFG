@@ -7,5 +7,5 @@ mkdir build
 
 cd build
 
-cmake -G "Eclipse CDT4 - MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_ECLIPSE_VERSION=4.4.1 ../
+cmake -G "Eclipse CDT4 - MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_ECLIPSE_VERSION=4.4.1 -DBUNDLED_FREETYPE=ON ../
 pause

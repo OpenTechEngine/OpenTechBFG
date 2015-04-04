@@ -309,3 +309,4 @@ void idMenuWidget_ScrollBar::ObserveEvent( const idMenuWidget& widget, const idW
 		}
 	}
 }
+

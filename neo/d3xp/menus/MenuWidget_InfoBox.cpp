@@ -246,3 +246,4 @@ void idMenuWidget_InfoBox::ObserveEvent( const idMenuWidget& widget, const idWid
 		}
 	}
 }
+

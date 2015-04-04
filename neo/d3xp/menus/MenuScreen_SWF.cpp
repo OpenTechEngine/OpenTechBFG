@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 #include <stddef.h>
 
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../idlib/Heap.h"
 #include "../idlib/sys/sys_assert.h"

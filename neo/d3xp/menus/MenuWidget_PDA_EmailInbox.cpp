@@ -219,3 +219,4 @@ void idMenuWidget_PDA_EmailInbox::ObserveEvent( const idMenuWidget& widget, cons
 		}
 	}
 }
+
