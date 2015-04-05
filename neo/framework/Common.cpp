@@ -88,6 +88,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../sys/sys_savegame.h"
 
+#ifdef USE_CEGUI // in idCommonLocal::ProcessEvent() we events into cegui
+#include "../cegui/CEGUI_Hooks.h"
+#endif // USE_CEGUI
 
 
 #if defined( _DEBUG )
@@ -946,6 +949,8 @@ void idCommonLocal::RenderBink( const char* path )
 		
 		Sys_GenerateEvents();
 		
+		// FIXME: DG: not sure the following code is the right way to do this...
+		
 		// queue system events ready for polling
 		Sys_GetEvent();
 		
@@ -1517,6 +1522,9 @@ void idCommonLocal::Shutdown()
 	delete loadGUI;
 	loadGUI = NULL;
 	
+	printf( "idCEGUI::Destroy();\n" );
+	idCEGUI::Destroy();
+	
 	printf( "delete renderWorld;\n" );
 	delete renderWorld;
 	renderWorld = NULL;
@@ -1813,6 +1821,12 @@ bool idCommonLocal::ProcessEvent( const sysEvent_t* event )
 			}
 		}
 	}
+	
+#ifdef USE_CEGUI
+	// send events to cegui
+	// TODO: should this always be injected or only if a cegui window is active?
+	idCEGUI::InjectSysEvent( event ); // TODO: could check return value?
+#endif // USE_CEGUI
 	
 	// let the pull-down console take it if desired
 	if( console->ProcessEvent( event, false ) )

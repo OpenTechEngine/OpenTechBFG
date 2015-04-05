@@ -38,7 +38,11 @@ Note that other POSIX systems may need some small changes, e.g. in Sys_InitNetwo
 
 #ifndef _WIN32
 #include <sys/socket.h> // IWYU pragma: keep
+#else
+#include <winsock2.h>
+#include <ws2tcpip.h>
 #endif
+
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
@@ -902,7 +906,7 @@ void Sys_InitNetworking()
 	pAdapterInfo = ( IP_ADAPTER_INFO* )malloc( sizeof( IP_ADAPTER_INFO ) );
 	if( !pAdapterInfo )
 	{
-		idLib::FatalError("Sys_InitNetworking: Couldn't malloc( %" PRIiSIZE " )", sizeof(IP_ADAPTER_INFO));
+		idLib::FatalError( "Sys_InitNetworking: Couldn't malloc( %" PRIiSIZE " )", sizeof( IP_ADAPTER_INFO ) );
 	}
 	ulOutBufLen = sizeof( IP_ADAPTER_INFO );
 	

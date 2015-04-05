@@ -1462,9 +1462,9 @@ byte* idProgram::ReserveDefMemory( int size )
 	if( numVariables > sizeof( variables ) )
 	{
 #if defined(USE_EXCEPTIONS)
-		throw idCompileError(va("Exceeded global memory size (%" PRIiSIZE " bytes)", sizeof(variables)));
+		throw idCompileError( va( "Exceeded global memory size (%" PRIiSIZE " bytes)", sizeof( variables ) ) );
 #else
-		gameLocal.Error("Exceeded global memory size (%" PRIiSIZE " bytes)", sizeof(variables));
+		gameLocal.Error( "Exceeded global memory size (%" PRIiSIZE " bytes)", sizeof( variables ) );
 #endif
 	}
 	

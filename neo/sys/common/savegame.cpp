@@ -247,7 +247,7 @@ int idSaveGameThread::Save()
 					{
 						// DG: unify windows and posix savegames => replace GetLastError() Sys_GetLastErrorString()
 						idLib::Warning( "[%s]: Write failed. Error = %s", __FUNCTION__, Sys_GetLastErrorString() );
-
+						
 						file->error = true;
 						callback->errorCode = SAVEGAME_E_INSUFFICIENT_ROOM;
 						ret = -1;

@@ -793,9 +793,9 @@ void idPush::ClipEntityRotation( trace_t& trace, const idEntity* ent, const idCl
 	{
 		skip->Disable();
 	}
-
+	
 	ent->GetPhysics()->ClipRotation( trace, rotation, clipModel );
-
+	
 	if( skip )
 	{
 		skip->Enable();
@@ -814,9 +814,9 @@ void idPush::ClipEntityTranslation( trace_t& trace, const idEntity* ent, const i
 	{
 		skip->Disable();
 	}
-
+	
 	ent->GetPhysics()->ClipTranslation( trace, translation, clipModel );
-
+	
 	if( skip )
 	{
 		skip->Enable();
@@ -831,9 +831,9 @@ int idPush::TryRotatePushEntity( trace_t& results, idEntity* check, idClipModel*
 	idRotation newRotation;
 	float checkAngle;
 	idPhysics* physics;
-
+	
 	physics = check->GetPhysics();
-
+	
 #ifdef ROTATIONAL_PUSH_DEBUG
 	bool startsolid = false;
 	if( physics->ClipContents( clipModel ) )
@@ -841,12 +841,12 @@ int idPush::TryRotatePushEntity( trace_t& results, idEntity* check, idClipModel*
 		startsolid = true;
 	}
 #endif
-
+	
 	results.fraction = 1.0f;
 	results.endpos = clipModel->GetOrigin();
 	results.endAxis = newAxis;
 	memset( &results.c, 0, sizeof( results.c ) );
-
+	
 	// always pushed when standing on the pusher
 	if( physics->IsGroundClipModel( clipModel->GetEntity()->entityNumber, clipModel->GetId() ) )
 	{
@@ -864,12 +864,12 @@ int idPush::TryRotatePushEntity( trace_t& results, idEntity* check, idClipModel*
 			// if there is a collision
 			if( results.fraction < 1.0f )
 			{
-
+			
 				// FIXME: try to push the blocking entity as well or try to slide along collision plane(s)?
-
+				
 				results.c.normal = -results.c.normal;
 				results.c.dist = -results.c.dist;
-
+				
 				// the entity will be crushed between the pusher and some other entity
 				return PUSH_BLOCKED;
 			}
@@ -915,32 +915,32 @@ int idPush::TryRotatePushEntity( trace_t& results, idEntity* check, idClipModel*
 		// if there is a collision
 		if( trace.fraction < 1.0f )
 		{
-
+		
 			// FIXME: try to push the blocking entity as well or try to slide along collision plane(s)?
-
+			
 			results.c.normal = -results.c.normal;
 			results.c.dist = -results.c.dist;
-
+			
 			// the entity will be crushed between the pusher and some other entity
 			return PUSH_BLOCKED;
 		}
 	}
-
+	
 	SaveEntityPosition( check );
-
+	
 	newRotation.Set( rotation.GetOrigin(), rotation.GetVec(), checkAngle );
 	// NOTE:	this code prevents msvc 6.0 & 7.0 from screwing up the above code in
 	//			release builds moving less floats than it should
 	static float shit = checkAngle;
-
+	
 	newRotation.RotatePoint( rotationPoint );
-
+	
 	// rotate the entity
 	physics->Rotate( newRotation );
-
+	
 	// set pusher into final position
 	clipModel->Link( gameLocal.clip, clipModel->GetEntity(), clipModel->GetId(), clipModel->GetOrigin(), newAxis );
-
+	
 #ifdef ROTATIONAL_PUSH_DEBUG
 	if( physics->ClipContents( clipModel ) )
 	{
@@ -950,11 +950,11 @@ int idPush::TryRotatePushEntity( trace_t& results, idEntity* check, idClipModel*
 		}
 	}
 #endif
-
+	
 	// if the entity uses actor physics
 	if( physics->IsType( idPhysics_Actor::Type ) )
 	{
-
+	
 		// rotate the collision model back to axial
 		if( !RotateEntityToAxial( check, rotationPoint ) )
 		{
@@ -962,7 +962,7 @@ int idPush::TryRotatePushEntity( trace_t& results, idEntity* check, idClipModel*
 			return PUSH_BLOCKED;
 		}
 	}
-
+	
 #ifdef ROTATIONAL_PUSH_DEBUG
 	if( physics->ClipContents( clipModel ) )
 	{
@@ -972,11 +972,11 @@ int idPush::TryRotatePushEntity( trace_t& results, idEntity* check, idClipModel*
 		}
 	}
 #endif
-
+	
 	// if the entity is an actor using actor physics
 	if( check->IsType( idActor::Type ) && physics->IsType( idPhysics_Actor::Type ) )
 	{
-
+	
 		// if the entity is standing ontop of the pusher
 		if( physics->IsGroundClipModel( clipModel->GetEntity()->entityNumber, clipModel->GetId() ) )
 		{
@@ -987,7 +987,7 @@ int idPush::TryRotatePushEntity( trace_t& results, idEntity* check, idClipModel*
 			actor->SetDeltaViewAngles( delta );
 		}
 	}
-
+	
 	return PUSH_OK;
 }
 
@@ -998,9 +998,9 @@ int idPush::TryTranslatePushEntity( trace_t& results, idEntity* check, idClipMod
 	idVec3		checkMove;
 	idVec3		oldOrigin;
 	idPhysics*	physics;
-
+	
 	physics = check->GetPhysics();
-
+	
 #ifdef TRANSLATIONAL_PUSH_DEBUG
 	bool startsolid = false;
 	if( physics->ClipContents( clipModel ) )
@@ -1008,12 +1008,12 @@ int idPush::TryTranslatePushEntity( trace_t& results, idEntity* check, idClipMod
 		startsolid = true;
 	}
 #endif
-
+	
 	results.fraction = 1.0f;
 	results.endpos = newOrigin;
 	results.endAxis = clipModel->GetAxis();
 	memset( &results.c, 0, sizeof( results.c ) );
-
+	
 	// always pushed when standing on the pusher
 	if( physics->IsGroundClipModel( clipModel->GetEntity()->entityNumber, clipModel->GetId() ) )
 	{
@@ -1029,12 +1029,12 @@ int idPush::TryTranslatePushEntity( trace_t& results, idEntity* check, idClipMod
 			// if there is a collision
 			if( results.fraction < 1.0f )
 			{
-
+			
 				// FIXME: try to push the blocking entity as well or try to slide along collision plane(s)?
-
+				
 				results.c.normal = -results.c.normal;
 				results.c.dist = -results.c.dist;
-
+				
 				// the entity will be crushed between the pusher and some other entity
 				return PUSH_BLOCKED;
 			}
@@ -1061,41 +1061,41 @@ int idPush::TryTranslatePushEntity( trace_t& results, idEntity* check, idClipMod
 		// if there is a collisions
 		if( trace.fraction < 1.0f )
 		{
-
+		
 			results.c.normal = -results.c.normal;
 			results.c.dist = -results.c.dist;
-
+			
 			// FIXME: try to push the blocking entity as well ?
 			// FIXME: handle sliding along more than one collision plane ?
 			// FIXME: this code has issues, player pushing box into corner in "maps/mre/aaron/test.map"
-
+			
 			/*
 						oldOrigin = physics->GetOrigin();
-
+			
 						// movement still remaining
 						checkMove *= (1.0f - trace.fraction);
-
+			
 						// project the movement along the collision plane
 						if ( !checkMove.ProjectAlongPlane( trace.c.normal, 0.1f, 1.001f ) ) {
 							return PUSH_BLOCKED;
 						}
 						checkMove *= 1.001f;
-
+			
 						// move entity from collision point along the collision plane
 						physics->SetOrigin( trace.endpos );
 						ClipEntityTranslation( trace, check, NULL, NULL, checkMove );
-
+			
 						if ( trace.fraction < 1.0f ) {
 							physics->SetOrigin( oldOrigin );
 							return PUSH_BLOCKED;
 						}
-
+			
 						checkMove = trace.endpos - oldOrigin;
-
+			
 						// move entity in reverse only colliding with pusher
 						physics->SetOrigin( trace.endpos );
 						ClipEntityTranslation( trace, check, clipModel, NULL, -move );
-
+			
 						physics->SetOrigin( oldOrigin );
 			*/
 			if( trace.fraction < 1.0f )
@@ -1104,12 +1104,12 @@ int idPush::TryTranslatePushEntity( trace_t& results, idEntity* check, idClipMod
 			}
 		}
 	}
-
+	
 	SaveEntityPosition( check );
-
+	
 	// translate the entity
 	physics->Translate( checkMove );
-
+	
 #ifdef TRANSLATIONAL_PUSH_DEBUG
 	// set the pusher in the translated position
 	clipModel->Link( gameLocal.clip, clipModel->GetEntity(), clipModel->GetId(), newOrigin, clipModel->GetAxis() );
@@ -1121,7 +1121,7 @@ int idPush::TryTranslatePushEntity( trace_t& results, idEntity* check, idClipMod
 		}
 	}
 #endif
-
+	
 	return PUSH_OK;
 }
 
@@ -1134,36 +1134,36 @@ int idPush::DiscardEntities( idEntity* entityList[], int numEntities, int flags,
 {
 	int i, num;
 	idEntity* check;
-
+	
 	// remove all entities we cannot or should not push from the list
 	for( num = i = 0; i < numEntities; i++ )
 	{
 		check = entityList[ i ];
-
+		
 		// if the physics object is not pushable
 		if( !check->GetPhysics()->IsPushable() )
 		{
 			continue;
 		}
-
+		
 		// if the entity doesn't clip with this pusher
 		if( !( check->GetPhysics()->GetClipMask() & pusher->GetPhysics()->GetContents() ) )
 		{
 			continue;
 		}
-
+		
 		// don't push players in noclip mode
 		if( check->IsType( idPlayer::Type ) && static_cast<idPlayer*>( check )->noclip )
 		{
 			continue;
 		}
-
+		
 		// if we should only push idMoveable entities
 		if( ( flags & PUSHFL_ONLYMOVEABLE ) && !check->IsType( idMoveable::Type ) )
 		{
 			continue;
 		}
-
+		
 		// if we shouldn't push entities the clip model rests upon
 		if( flags & PUSHFL_NOGROUNDENTITIES )
 		{
@@ -1172,11 +1172,11 @@ int idPush::DiscardEntities( idEntity* entityList[], int numEntities, int flags,
 				continue;
 			}
 		}
-
+		
 		// keep entity in list
 		entityList[ num++ ] = entityList[i];
 	}
-
+	
 	return num;
 }
 
@@ -1198,26 +1198,26 @@ float idPush::ClipTranslationalPush( trace_t& results, idEntity* pusher, const i
 	bool		wasEnabled;
 	float		totalMass;
 	idClipModel* clipModel;
-
+	
 	clipModel = pusher->GetPhysics()->GetClipModel();
-
+	
 	totalMass = 0.0f;
-
+	
 	results.fraction = 1.0f;
 	results.endpos = newOrigin;
 	results.endAxis = clipModel->GetAxis();
 	memset( &results.c, 0, sizeof( results.c ) );
-
+	
 	if( translation == vec3_origin )
 	{
 		return totalMass;
 	}
-
+	
 	dir = translation;
 	dir.Normalize();
 	dir.z += 1.0f;
 	dir *= 10.0f;
-
+	
 	// get bounds for the whole movement
 	bounds = clipModel->GetBounds();
 	if( bounds[0].x >= bounds[1].x )
@@ -1225,37 +1225,37 @@ float idPush::ClipTranslationalPush( trace_t& results, idEntity* pusher, const i
 		return totalMass;
 	}
 	pushBounds.FromBoundsTranslation( bounds, clipModel->GetOrigin(), clipModel->GetAxis(), translation );
-
+	
 	wasEnabled = clipModel->IsEnabled();
-
+	
 	// make sure we don't get the pushing clip model in the list
 	clipModel->Disable();
-
+	
 	listedEntities = gameLocal.clip.EntitiesTouchingBounds( pushBounds, -1, entityList, MAX_GENTITIES );
-
+	
 	// discard entities we cannot or should not push
 	listedEntities = DiscardEntities( entityList, listedEntities, flags, pusher );
-
+	
 	if( flags & PUSHFL_CLIP )
 	{
-
+	
 		// can only clip movement of a trace model
 		assert( clipModel->IsTraceModel() );
-
+		
 		// disable to be pushed entities for collision detection
 		for( i = 0; i < listedEntities; i++ )
 		{
 			entityList[i]->GetPhysics()->DisableClip();
 		}
-
+		
 		gameLocal.clip.Translation( results, clipModel->GetOrigin(), clipModel->GetOrigin() + translation, clipModel, clipModel->GetAxis(), pusher->GetPhysics()->GetClipMask(), NULL );
-
+		
 		// enable to be pushed entities for collision detection
 		for( i = 0; i < listedEntities; i++ )
 		{
 			entityList[i]->GetPhysics()->EnableClip();
 		}
-
+		
 		if( results.fraction == 0.0f )
 		{
 			if( wasEnabled )
@@ -1264,40 +1264,40 @@ float idPush::ClipTranslationalPush( trace_t& results, idEntity* pusher, const i
 			}
 			return totalMass;
 		}
-
+		
 		clipMove = results.endpos - clipModel->GetOrigin();
 		clipOrigin = results.endpos;
-
+		
 	}
 	else
 	{
-
+	
 		clipMove = translation;
 		clipOrigin = newOrigin;
 	}
-
+	
 	// we have to enable the clip model because we use it during pushing
 	clipModel->Enable();
-
+	
 	// save pusher old position
 	oldOrigin = clipModel->GetOrigin();
-
+	
 	// try to push the entities
 	for( i = 0; i < listedEntities; i++ )
 	{
-
+	
 		check = entityList[ i ];
-
+		
 		idPhysics* physics = check->GetPhysics();
-
+		
 		// disable the entity for collision detection
 		physics->DisableClip();
-
+		
 		res = TryTranslatePushEntity( pushResults, check, clipModel, flags, clipOrigin, clipMove );
-
+		
 		// enable the entity for collision detection
 		physics->EnableClip();
-
+		
 		// if the entity is pushed
 		if( res == PUSH_OK )
 		{
@@ -1307,7 +1307,7 @@ float idPush::ClipTranslationalPush( trace_t& results, idEntity* pusher, const i
 			physics->EvaluateContacts();
 			// put pusher back in old position
 			clipModel->Link( gameLocal.clip, clipModel->GetEntity(), clipModel->GetId(), oldOrigin, clipModel->GetAxis() );
-
+			
 			// wake up this object
 			if( flags & PUSHFL_APPLYIMPULSE )
 			{
@@ -1318,31 +1318,31 @@ float idPush::ClipTranslationalPush( trace_t& results, idEntity* pusher, const i
 				impulse.Zero();
 			}
 			check->ApplyImpulse( clipModel->GetEntity(), clipModel->GetId(), clipModel->GetOrigin(), impulse );
-
+			
 			// add mass of pushed entity
 			totalMass += physics->GetMass();
 		}
-
+		
 		// if the entity is not blocking
 		if( res != PUSH_BLOCKED )
 		{
 			continue;
 		}
-
+		
 		// if the blocking entity is a projectile
 		if( check->IsType( idProjectile::Type ) )
 		{
 			check->ProcessEvent( &EV_Explode );
 			continue;
 		}
-
+		
 		// if blocking entities should be crushed
 		if( flags & PUSHFL_CRUSH )
 		{
 			check->Damage( clipModel->GetEntity(), clipModel->GetEntity(), vec3_origin, "damage_crush", 1.0f, CLIPMODEL_ID_TO_JOINT_HANDLE( pushResults.c.id ) );
 			continue;
 		}
-
+		
 		// if the entity is an active articulated figure and gibs
 		if( check->IsType( idAFEntity_Base::Type ) && check->spawnArgs.GetBool( "gib" ) )
 		{
@@ -1351,13 +1351,13 @@ float idPush::ClipTranslationalPush( trace_t& results, idEntity* pusher, const i
 				check->ProcessEvent( &EV_Gib, "damage_Gib" );
 			}
 		}
-
+		
 		// if the entity is a moveable item and gibs
 		if( check->IsType( idMoveableItem::Type ) && check->spawnArgs.GetBool( "gib" ) )
 		{
 			check->ProcessEvent( &EV_Gib, "damage_Gib" );
 		}
-
+		
 		// blocked
 		results = pushResults;
 		results.fraction = 0.0f;
@@ -1365,20 +1365,20 @@ float idPush::ClipTranslationalPush( trace_t& results, idEntity* pusher, const i
 		results.endpos = clipModel->GetOrigin();
 		results.c.entityNum = check->entityNumber;
 		results.c.id = 0;
-
+		
 		if( !wasEnabled )
 		{
 			clipModel->Disable();
 		}
-
+		
 		return totalMass;
 	}
-
+	
 	if( !wasEnabled )
 	{
 		clipModel->Disable();
 	}
-
+	
 	return totalMass;
 }
 
@@ -1401,21 +1401,21 @@ float idPush::ClipRotationalPush( trace_t& results, idEntity* pusher, const int 
 	bool		wasEnabled;
 	float		totalMass;
 	idClipModel* clipModel;
-
+	
 	clipModel = pusher->GetPhysics()->GetClipModel();
-
+	
 	totalMass = 0.0f;
-
+	
 	results.fraction = 1.0f;
 	results.endpos = clipModel->GetOrigin();
 	results.endAxis = newAxis;
 	memset( &results.c, 0, sizeof( results.c ) );
-
+	
 	if( !rotation.GetAngle() )
 	{
 		return totalMass;
 	}
-
+	
 	// get bounds for the whole movement
 	bounds = clipModel->GetBounds();
 	if( bounds[0].x >= bounds[1].x )
@@ -1423,37 +1423,37 @@ float idPush::ClipRotationalPush( trace_t& results, idEntity* pusher, const int 
 		return totalMass;
 	}
 	pushBounds.FromBoundsRotation( bounds, clipModel->GetOrigin(), clipModel->GetAxis(), rotation );
-
+	
 	wasEnabled = clipModel->IsEnabled();
-
+	
 	// make sure we don't get the pushing clip model in the list
 	clipModel->Disable();
-
+	
 	listedEntities = gameLocal.clip.EntitiesTouchingBounds( pushBounds, -1, entityList, MAX_GENTITIES );
-
+	
 	// discard entities we cannot or should not push
 	listedEntities = DiscardEntities( entityList, listedEntities, flags, pusher );
-
+	
 	if( flags & PUSHFL_CLIP )
 	{
-
+	
 		// can only clip movement of a trace model
 		assert( clipModel->IsTraceModel() );
-
+		
 		// disable to be pushed entities for collision detection
 		for( i = 0; i < listedEntities; i++ )
 		{
 			entityList[i]->GetPhysics()->DisableClip();
 		}
-
+		
 		gameLocal.clip.Rotation( results, clipModel->GetOrigin(), rotation, clipModel, clipModel->GetAxis(), pusher->GetPhysics()->GetClipMask(), NULL );
-
+		
 		// enable to be pushed entities for collision detection
 		for( i = 0; i < listedEntities; i++ )
 		{
 			entityList[i]->GetPhysics()->EnableClip();
 		}
-
+		
 		if( results.fraction == 0.0f )
 		{
 			if( wasEnabled )
@@ -1462,39 +1462,39 @@ float idPush::ClipRotationalPush( trace_t& results, idEntity* pusher, const int 
 			}
 			return totalMass;
 		}
-
+		
 		clipRotation = rotation * results.fraction;
 		clipAxis = results.endAxis;
 	}
 	else
 	{
-
+	
 		clipRotation = rotation;
 		clipAxis = newAxis;
 	}
-
+	
 	// we have to enable the clip model because we use it during pushing
 	clipModel->Enable();
-
+	
 	// save pusher old position
 	oldAxis = clipModel->GetAxis();
-
+	
 	// try to push all the entities
 	for( i = 0; i < listedEntities; i++ )
 	{
-
+	
 		check = entityList[ i ];
-
+		
 		idPhysics* physics = check->GetPhysics();
-
+		
 		// disable the entity for collision detection
 		physics->DisableClip();
-
+		
 		res = TryRotatePushEntity( pushResults, check, clipModel, flags, clipAxis, clipRotation );
-
+		
 		// enable the entity for collision detection
 		physics->EnableClip();
-
+		
 		// if the entity is pushed
 		if( res == PUSH_OK )
 		{
@@ -1504,34 +1504,34 @@ float idPush::ClipRotationalPush( trace_t& results, idEntity* pusher, const int 
 			physics->EvaluateContacts();
 			// put pusher back in old position
 			clipModel->Link( gameLocal.clip, clipModel->GetEntity(), clipModel->GetId(), clipModel->GetOrigin(), oldAxis );
-
+			
 			// wake up this object
 			check->ApplyImpulse( clipModel->GetEntity(), clipModel->GetId(), clipModel->GetOrigin(), vec3_origin );
-
+			
 			// add mass of pushed entity
 			totalMass += physics->GetMass();
 		}
-
+		
 		// if the entity is not blocking
 		if( res != PUSH_BLOCKED )
 		{
 			continue;
 		}
-
+		
 		// if the blocking entity is a projectile
 		if( check->IsType( idProjectile::Type ) )
 		{
 			check->ProcessEvent( &EV_Explode );
 			continue;
 		}
-
+		
 		// if blocking entities should be crushed
 		if( flags & PUSHFL_CRUSH )
 		{
 			check->Damage( clipModel->GetEntity(), clipModel->GetEntity(), vec3_origin, "damage_crush", 1.0f, CLIPMODEL_ID_TO_JOINT_HANDLE( pushResults.c.id ) );
 			continue;
 		}
-
+		
 		// if the entity is an active articulated figure and gibs
 		if( check->IsType( idAFEntity_Base::Type ) && check->spawnArgs.GetBool( "gib" ) )
 		{
@@ -1540,7 +1540,7 @@ float idPush::ClipRotationalPush( trace_t& results, idEntity* pusher, const int 
 				check->ProcessEvent( &EV_Gib, "damage_Gib" );
 			}
 		}
-
+		
 		// blocked
 		results = pushResults;
 		results.fraction = 0.0f;
@@ -1548,20 +1548,20 @@ float idPush::ClipRotationalPush( trace_t& results, idEntity* pusher, const int 
 		results.endpos = clipModel->GetOrigin();
 		results.c.entityNum = check->entityNumber;
 		results.c.id = 0;
-
+		
 		if( !wasEnabled )
 		{
 			clipModel->Disable();
 		}
-
+		
 		return totalMass;
 	}
-
+	
 	if( !wasEnabled )
 	{
 		clipModel->Disable();
 	}
-
+	
 	return totalMass;
 }
 

@@ -152,6 +152,8 @@ target_link_libraries(OpenTechEngine
   glu32
   ${OPENAL_LIBRARY}
   ${FFMPEG_LIBRARIES}
+  ${CEGUI_LIBRARY}
+  ${CEGUIGLR_LIBRARY}
   )
 
 #CMAKE_BINARY_DIR

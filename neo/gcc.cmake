@@ -1,6 +1,7 @@
 
 add_definitions(-pipe)
 add_definitions(-std=c++03)
+
 #add_definitions(-pedantic) 
 add_definitions(-mmmx -msse -msse2)
 
@@ -72,10 +73,11 @@ if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
   add_definitions(-Wno-unused-private-field)
 endif()
 
-if(WIN32) # MinGW, 32 and 64bit
+if(MINGW) # MinGW, 32 and 64bit
   # require msvcr70.dll or newer for _aligned_malloc etc
   # I think it is from Visual C++ .NET 2002, so it should be available on any remotely modern system.
   add_definitions(-D__MSVCRT_VERSION__=0x0700)
+  add_definitions(-D__USE_MINGW_ANSI_STDIO=1)
 endif()	# WIN32
 
 #if(NOT ANDROID)

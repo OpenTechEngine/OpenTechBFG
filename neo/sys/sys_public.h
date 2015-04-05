@@ -106,11 +106,11 @@ enum sysEventType_t
 {
 	SE_NONE,				// evTime is still valid
 	SE_KEY,					// evValue is a key code, evValue2 is the down flag
-	SE_CHAR,				// evValue is an ascii char FIXME: not really ascii, supports umlauts...
-	SE_MOUSE,				// evValue and evValue2 are reletive signed x / y moves
+	SE_CHAR,				// evValue is an Unicode UTF-32 char (or non-surrogate UTF-16)
+	SE_MOUSE,				// evValue and evValue2 are relative signed x / y moves
 	SE_MOUSE_ABSOLUTE,		// evValue and evValue2 are absolute coordinates in the window's client area.
 	SE_MOUSE_LEAVE,			// evValue and evValue2 are meaninless, this indicates the mouse has left the client area.
-	SE_JOYSTICK,		// evValue is an axis number and evValue2 is the current state (-127 to 127)
+	SE_JOYSTICK,			// evValue is an axis number and evValue2 is the current state (-127 to 127)
 	SE_CONSOLE				// evPtr is a char*, from typing something at a non-game console
 };
 
@@ -124,6 +124,16 @@ enum sys_mEvents
 	M_ACTION6,
 	M_ACTION7,
 	M_ACTION8,
+	// DG: support some more mouse buttons
+	M_ACTION9,
+	M_ACTION10,
+	M_ACTION11,
+	M_ACTION12,
+	M_ACTION13,
+	M_ACTION14,
+	M_ACTION15,
+	M_ACTION16,
+	// DG end
 	M_DELTAX,
 	M_DELTAY,
 	M_DELTAZ,
@@ -309,7 +319,7 @@ enum keyNum_t
 	K_VOLUMEDOWN    = 0xAE,
 	K_VOLUMEUP      = 0xB0,
 	K_WEBHOME       = 0xB2,
-
+	
 	K_KP_COMMA		= 0xB3,
 	K_KP_SLASH		= 0xB5,
 	K_PRINTSCREEN	= 0xB7, // aka SysRq
@@ -342,7 +352,7 @@ enum keyNum_t
 	K_MYCOMPUTER	= 0xEB,
 	K_MAIL			= 0xEC,
 	K_MEDIASELECT	= 0xED,
-
+	
 	//------------------------
 	// K_JOY codes must be contiguous, too
 	//------------------------
@@ -386,14 +396,25 @@ enum keyNum_t
 	// K_MOUSE enums must be contiguous (no char codes in the middle)
 	//------------------------
 	
-	K_MOUSE1,
-	K_MOUSE2,
-	K_MOUSE3,
-	K_MOUSE4,
-	K_MOUSE5,
+	K_MOUSE1, // left
+	K_MOUSE2, // right
+	K_MOUSE3, // middle
+	K_MOUSE4, // X1
+	K_MOUSE5, // X2
 	K_MOUSE6,
 	K_MOUSE7,
 	K_MOUSE8,
+	
+	// DG: add some more mouse buttons
+	K_MOUSE9,
+	K_MOUSE10,
+	K_MOUSE11,
+	K_MOUSE12,
+	K_MOUSE13,
+	K_MOUSE14,
+	K_MOUSE15,
+	K_MOUSE16,
+	// DG end
 	
 	K_MWHEELDOWN,
 	K_MWHEELUP,
@@ -818,7 +839,7 @@ public:
 	
 	virtual void			OpenURL( const char* url, bool quit ) = 0;
 	virtual void			StartProcess( const char* exePath, bool quit ) = 0;
-
+	
 	virtual ~idSys() {}
 };
 

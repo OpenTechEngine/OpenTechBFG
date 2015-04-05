@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 #include <stddef.h>
 
-#include "../d3xp/menus/MenuHandler.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -630,7 +630,7 @@ idSWFScriptVar idMenuScreen_Shell_SystemOptions::idMenuDataSource_SystemSettings
 				return "#str_swf_disabled";
 			}
 			return va( "%dx", idMath::IPow( 2, r_motionBlur.GetInteger() ) );
-			// RB begin
+		// RB begin
 		case SYSTEM_FIELD_SHADOWMAPPING:
 			if( r_useShadowMapping.GetInteger() == 1 )
 			{
@@ -640,9 +640,9 @@ idSWFScriptVar idMenuScreen_Shell_SystemOptions::idMenuDataSource_SystemSettings
 			{
 				return "#str_swf_disabled";
 			}
-			//case SYSTEM_FIELD_LODBIAS:
-			//	return LinearAdjust( r_lodBias.GetFloat(), -1.0f, 1.0f, 0.0f, 100.0f );
-			// RB end
+		//case SYSTEM_FIELD_LODBIAS:
+		//	return LinearAdjust( r_lodBias.GetFloat(), -1.0f, 1.0f, 0.0f, 100.0f );
+		// RB end
 		case SYSTEM_FIELD_BRIGHTNESS:
 			return LinearAdjust( r_lightScale.GetFloat(), 2.0f, 4.0f, 0.0f, 100.0f );
 		case SYSTEM_FIELD_VOLUME:
@@ -692,3 +692,4 @@ bool idMenuScreen_Shell_SystemOptions::idMenuDataSource_SystemSettings::IsDataCh
 	// RB end
 	return false;
 }
+

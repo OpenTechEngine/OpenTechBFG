@@ -321,7 +321,7 @@ public:
 	}
 	
 	virtual ~idLobbyBackend() {};
-
+	
 protected:
 	lobbyBackendType_t		type;
 	idMatchParameters		parms;
@@ -336,7 +336,7 @@ public:
 	virtual bool								CanJoinLocalHost() const = 0;
 	
 	virtual ~idLobbyToSessionCB() {};
-
+	
 	// Ugh, hate having to ifdef these, but we're doing some fairly platform specific callbacks
 };
 

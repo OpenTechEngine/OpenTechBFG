@@ -353,7 +353,7 @@ const char* GetSwfActionName( swfAction_t code )
 		case Action_End:
 			return "Action_End";
 			
-			// swf 3
+		// swf 3
 		case Action_NextFrame:
 			return "Action_NextFrame";
 		case Action_PrevFrame:
@@ -378,7 +378,7 @@ const char* GetSwfActionName( swfAction_t code )
 		case Action_GoToLabel:
 			return "Action_GoToLabel";
 			
-			// swf 4
+		// swf 4
 		case Action_Add:
 			return "Action_Add";
 		case Action_Subtract:
@@ -463,7 +463,7 @@ const char* GetSwfActionName( swfAction_t code )
 		case Action_GotoFrame2:
 			return "Action_GotoFrame2";
 			
-			// swf 5
+		// swf 5
 		case Action_Delete:
 			return "Action_Delete";
 		case Action_Delete2:
@@ -538,7 +538,7 @@ const char* GetSwfActionName( swfAction_t code )
 		case Action_DefineFunction:
 			return "Action_DefineFunction";
 			
-			// swf 6
+		// swf 6
 		case Action_InstanceOf:
 			return "Action_InstanceOf";
 		case Action_Enumerate2:
@@ -550,7 +550,7 @@ const char* GetSwfActionName( swfAction_t code )
 		case Action_StringGreater:
 			return "Action_StringGreater";
 			
-			// swf 7
+		// swf 7
 		case Action_Extends:
 			return "Action_Extends";
 		case Action_CastOp:

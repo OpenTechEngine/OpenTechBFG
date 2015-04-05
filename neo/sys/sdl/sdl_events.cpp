@@ -5,7 +5,7 @@ Doom 3 GPL Source Code
 Copyright (C) 1999-2011 id Software LLC, a ZeniMax Media company.
 Copyright (C) 2012 dhewg (dhewm3)
 Copyright (C) 2012 Robert Beckebans
-Copyright (C) 2013 Daniel Gibson
+Copyright (C) 2013-2015 Daniel Gibson
 
 This file is part of the Doom 3 GPL Source Code ("Doom 3 Source Code").
 
@@ -54,7 +54,15 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderSystem.h"
 #include "../sys/sys_public.h"
 #include "renderer/tr_local.h"
+#include "framework/Console.h" // TODO remove once L1173 is done
 #include "sdl_local.h"
+
+#ifdef USE_CEGUI
+// DG: we need to tell cegui when the window size changes.
+//     unfortunately there doesn't seem to be a good way to do this outside the backends :-/
+#include "../../cegui/CEGUI_Hooks.h"
+#endif // USE_CEGUI
+
 
 #if !SDL_VERSION_ATLEAST(2, 0, 0)
 #define SDL_Keycode SDLKey
@@ -152,27 +160,63 @@ int SDL_joystick_has_hat = 0;
 
 #include "sdl2_scancode_mappings.h"
 
-static int SDLScanCodeToKeyNum(SDL_Scancode sc)
+static int SDLScanCodeToKeyNum( SDL_Scancode sc )
 {
-	int idx = int(sc);
-	assert(idx >= 0 && idx < SDL_NUM_SCANCODES);
-
+	int idx = int( sc );
+	assert( idx >= 0 && idx < SDL_NUM_SCANCODES );
+	
 	return scanCodeToKeyNum[idx];
 }
 
-static SDL_Scancode KeyNumToSDLScanCode(int keyNum)
+static SDL_Scancode KeyNumToSDLScanCode( int keyNum )
 {
-	if(keyNum < K_JOY1)
+	if( keyNum < K_JOY1 )
 	{
-		for(int i=0; i<SDL_NUM_SCANCODES; ++i)
+		for( int i = 0; i < SDL_NUM_SCANCODES; ++i )
 		{
-			if(scanCodeToKeyNum[i] == keyNum)
+			if( scanCodeToKeyNum[i] == keyNum )
 			{
-				return SDL_Scancode(i);
+				return SDL_Scancode( i );
 			}
 		}
 	}
 	return SDL_SCANCODE_UNKNOWN;
+}
+
+// both strings are expected to have at most SDL_TEXTINPUTEVENT_TEXT_SIZE chars/ints (including terminating null)
+static void ConvertUTF8toUTF32( const char* utf8str, int32* utf32buf )
+{
+	static SDL_iconv_t cd = SDL_iconv_t( -1 );
+	
+	if( cd == SDL_iconv_t( -1 ) )
+	{
+		const char* toFormat = "UTF-32LE"; // TODO: what does CEGUI expect on big endian machines?
+		cd = SDL_iconv_open( toFormat, "UTF-8" );
+		if( cd == SDL_iconv_t( -1 ) )
+		{
+			common->Warning( "Couldn't initialize SDL_iconv for UTF-8 to UTF-32!" ); // TODO: or error?
+			return;
+		}
+	}
+	
+	size_t len = strlen( utf8str );
+	
+	size_t inbytesleft = len;
+	size_t outbytesleft = 4 * SDL_TEXTINPUTEVENT_TEXT_SIZE; // *4 because utf-32 needs 4x as much space as utf-8
+	char* outbuf = ( char* )utf32buf;
+	size_t n = SDL_iconv( cd, &utf8str, &inbytesleft, &outbuf, &outbytesleft );
+	
+	if( n == size_t( -1 ) ) // some error occured during iconv
+	{
+		common->Warning( "Converting UTF-8 string \"%s\" from SDL_TEXTINPUT to UTF-32 failed!", utf8str );
+		
+		// clear utf32-buffer, just to be sure there's no garbage..
+		memset( utf32buf, 0, SDL_TEXTINPUTEVENT_TEXT_SIZE * sizeof( int32 ) );
+	}
+	
+	// reset cd so it can be used again
+	SDL_iconv( cd, NULL, &inbytesleft, NULL, &outbytesleft );
+	
 }
 
 #else // SDL1.2
@@ -194,22 +238,22 @@ static int SDL_KeyToDoom3Key( SDL_Keycode key, bool& isChar )
 		case SDLK_SPACE:
 			return K_SPACE;
 			
-			//case SDLK_EXCLAIM:
-			/*
-			SDLK_QUOTEDBL:
-			SDLK_HASH:
-			SDLK_DOLLAR:
-			SDLK_AMPERSAND:
-			SDLK_QUOTE		= 39,
-			SDLK_LEFTPAREN		= 40,
-			SDLK_RIGHTPAREN		= 41,
-			SDLK_ASTERISK		= 42,
-			SDLK_PLUS		= 43,
-			SDLK_COMMA		= 44,
-			SDLK_MINUS		= 45,
-			SDLK_PERIOD		= 46,
-			SDLK_SLASH		= 47,
-			*/
+		//case SDLK_EXCLAIM:
+		/*
+		SDLK_QUOTEDBL:
+		SDLK_HASH:
+		SDLK_DOLLAR:
+		SDLK_AMPERSAND:
+		SDLK_QUOTE		= 39,
+		SDLK_LEFTPAREN		= 40,
+		SDLK_RIGHTPAREN		= 41,
+		SDLK_ASTERISK		= 42,
+		SDLK_PLUS		= 43,
+		SDLK_COMMA		= 44,
+		SDLK_MINUS		= 45,
+		SDLK_PERIOD		= 46,
+		SDLK_SLASH		= 47,
+		*/
 		case SDLK_0:
 			return K_0;
 			
@@ -240,7 +284,7 @@ static int SDL_KeyToDoom3Key( SDL_Keycode key, bool& isChar )
 		case SDLK_9:
 			return K_9;
 			
-			// DG: add some missing keys..
+		// DG: add some missing keys..
 		case SDLK_UNDERSCORE:
 			return K_UNDERLINE;
 			
@@ -264,29 +308,29 @@ static int SDL_KeyToDoom3Key( SDL_Keycode key, bool& isChar )
 			
 		case SDLK_EQUALS:
 			return K_EQUALS;
-			// DG end
-			
-			/*
-			SDLK_COLON		= 58,
-			SDLK_SEMICOLON		= 59,
-			SDLK_LESS		= 60,
-			SDLK_EQUALS		= 61,
-			SDLK_GREATER		= 62,
-			SDLK_QUESTION		= 63,
-			SDLK_AT			= 64,
-			*/
-			/*
-			   Skip uppercase letters
-			 */
-			/*
-			SDLK_LEFTBRACKET	= 91,
-			SDLK_BACKSLASH		= 92,
-			SDLK_RIGHTBRACKET	= 93,
-			SDLK_CARET		= 94,
-			SDLK_UNDERSCORE		= 95,
-			SDLK_BACKQUOTE		= 96,
-			*/
-			
+		// DG end
+		
+		/*
+		SDLK_COLON		= 58,
+		SDLK_SEMICOLON		= 59,
+		SDLK_LESS		= 60,
+		SDLK_EQUALS		= 61,
+		SDLK_GREATER		= 62,
+		SDLK_QUESTION		= 63,
+		SDLK_AT			= 64,
+		*/
+		/*
+		   Skip uppercase letters
+		 */
+		/*
+		SDLK_LEFTBRACKET	= 91,
+		SDLK_BACKSLASH		= 92,
+		SDLK_RIGHTBRACKET	= 93,
+		SDLK_CARET		= 94,
+		SDLK_UNDERSCORE		= 95,
+		SDLK_BACKQUOTE		= 96,
+		*/
+		
 		case SDLK_a:
 			return K_A;
 			
@@ -374,13 +418,13 @@ static int SDL_KeyToDoom3Key( SDL_Keycode key, bool& isChar )
 		case SDLK_PAUSE:
 			return K_PAUSE;
 			
-			// DG: add tab key support
+		// DG: add tab key support
 		case SDLK_TAB:
 			return K_TAB;
-			// DG end
-			
-			//case SDLK_APPLICATION:
-			//	return K_COMMAND;
+		// DG end
+		
+		//case SDLK_APPLICATION:
+		//	return K_COMMAND;
 		case SDLK_CAPSLOCK:
 			return K_CAPSLOCK;
 			
@@ -407,9 +451,9 @@ static int SDL_KeyToDoom3Key( SDL_Keycode key, bool& isChar )
 			
 		case SDLK_RGUI:
 			return K_RWIN;
-			//case SDLK_MENU:
-			//	return K_MENU;
-			
+		//case SDLK_MENU:
+		//	return K_MENU;
+		
 		case SDLK_LALT:
 			return K_LALT;
 			
@@ -481,8 +525,8 @@ static int SDL_KeyToDoom3Key( SDL_Keycode key, bool& isChar )
 			
 		case SDLK_F12:
 			return K_F12;
-			// K_INVERTED_EXCLAMATION;
-			
+		// K_INVERTED_EXCLAMATION;
+		
 		case SDLK_F13:
 			return K_F13;
 			
@@ -530,12 +574,12 @@ static int SDL_KeyToDoom3Key( SDL_Keycode key, bool& isChar )
 			
 		case SDLK_KP_DIVIDE:
 			return K_KP_SLASH;
-			// K_SUPERSCRIPT_TWO;
-			
+		// K_SUPERSCRIPT_TWO;
+		
 		case SDLK_KP_MINUS:
 			return K_KP_MINUS;
-			// K_ACUTE_ACCENT;
-			
+		// K_ACUTE_ACCENT;
+		
 		case SDLK_KP_PLUS:
 			return K_KP_PLUS;
 			
@@ -548,31 +592,31 @@ static int SDL_KeyToDoom3Key( SDL_Keycode key, bool& isChar )
 		case SDLK_KP_EQUALS:
 			return K_KP_EQUALS;
 			
-			// K_MASCULINE_ORDINATOR;
-			// K_GRAVE_A;
-			// K_AUX1;
-			// K_CEDILLA_C;
-			// K_GRAVE_E;
-			// K_AUX2;
-			// K_AUX3;
-			// K_AUX4;
-			// K_GRAVE_I;
-			// K_AUX5;
-			// K_AUX6;
-			// K_AUX7;
-			// K_AUX8;
-			// K_TILDE_N;
-			// K_GRAVE_O;
-			// K_AUX9;
-			// K_AUX10;
-			// K_AUX11;
-			// K_AUX12;
-			// K_AUX13;
-			// K_AUX14;
-			// K_GRAVE_U;
-			// K_AUX15;
-			// K_AUX16;
-			
+		// K_MASCULINE_ORDINATOR;
+		// K_GRAVE_A;
+		// K_AUX1;
+		// K_CEDILLA_C;
+		// K_GRAVE_E;
+		// K_AUX2;
+		// K_AUX3;
+		// K_AUX4;
+		// K_GRAVE_I;
+		// K_AUX5;
+		// K_AUX6;
+		// K_AUX7;
+		// K_AUX8;
+		// K_TILDE_N;
+		// K_GRAVE_O;
+		// K_AUX9;
+		// K_AUX10;
+		// K_AUX11;
+		// K_AUX12;
+		// K_AUX13;
+		// K_AUX14;
+		// K_GRAVE_U;
+		// K_AUX15;
+		// K_AUX16;
+		
 		case SDLK_PRINTSCREEN:
 			return K_PRINTSCREEN;
 			
@@ -803,30 +847,34 @@ Sys_GetEvent
 */
 sysEvent_t Sys_GetEvent()
 {
-	SDL_Event ev;
 	sysEvent_t res = { };
+	
+	SDL_Event ev;
 	int key;
 	
 	// when this is returned, it's assumed that there are no more events!
 	static const sysEvent_t no_more_events = { SE_NONE, 0, 0, 0, NULL };
-
-	// WM0110: previous state of joystick hat
-	static int previous_hat_state = SDL_HAT_CENTERED;	
-
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-	static char str[SDL_TEXTINPUTEVENT_TEXT_SIZE] = {0};
-	static size_t str_pos = 0;
 	
-	if( str_pos != 0 )
+	// WM0110: previous state of joystick hat
+	static int previous_hat_state = SDL_HAT_CENTERED;
+	
+	// TODO: use eventLoop->PushEvent() instead of those static variables?
+#if SDL_VERSION_ATLEAST(2, 0, 0)
+	// utf-32 version of the textinput event
+	static int32 uniStr[SDL_TEXTINPUTEVENT_TEXT_SIZE] = {0};
+	static size_t uniStrPos = 0;
+	
+	if( uniStr[0] != 0 )
 	{
 		res.evType = SE_CHAR;
-		res.evValue = str[str_pos];
+		res.evValue = uniStr[uniStrPos];
 		
-		++str_pos;
-		if( !str[str_pos] )
+		++uniStrPos;
+		
+		if( !uniStr[uniStrPos] || uniStrPos == SDL_TEXTINPUTEVENT_TEXT_SIZE )
 		{
-			memset( str, 0, sizeof( str ) );
-			str_pos = 0;
+			memset( uniStr, 0, sizeof( uniStr ) );
+			uniStrPos = 0;
 		}
 		
 		return res;
@@ -844,16 +892,16 @@ sysEvent_t Sys_GetEvent()
 		return res;
 	}
 	// DG end
-#endif
+#endif // SDL2
 	
-	static byte c = 0;
+	static int32 uniChar = 0;
 	
-	if( c )
+	if( uniChar )
 	{
 		res.evType = SE_CHAR;
-		res.evValue = c;
+		res.evValue = uniChar;
 		
-		c = 0;
+		uniChar = 0;
 		
 		return res;
 	}
@@ -891,7 +939,12 @@ sysEvent_t Sys_GetEvent()
 						// DG end
 						break;
 						
-						// DG: handle resizing and moving of window
+					case SDL_WINDOWEVENT_LEAVE:
+						// mouse has left the window
+						res.evType = SE_MOUSE_LEAVE;
+						return res;
+						
+					// DG: handle resizing and moving of window
 					case SDL_WINDOWEVENT_RESIZED:
 					{
 						int w = ev.window.data1;
@@ -901,6 +954,12 @@ sysEvent_t Sys_GetEvent()
 						
 						glConfig.nativeScreenWidth = w;
 						glConfig.nativeScreenHeight = h;
+						
+#ifdef USE_CEGUI
+						// DG: cegui must know about the changed window size
+						idCEGUI::NotifyDisplaySizeChanged( glConfig.nativeScreenWidth, glConfig.nativeScreenHeight );
+#endif // USE_CEGUI
+						
 						break;
 					}
 					
@@ -912,11 +971,12 @@ sysEvent_t Sys_GetEvent()
 						r_windowY.SetInteger( y );
 						break;
 					}
-					// DG end
+					
+						// DG end
 				}
 				
 				continue; // handle next event
-#else
+#else // SDL 1.2
 			case SDL_ACTIVEEVENT:
 			{
 				// DG: (un-)pause the game when focus is gained, that also (un-)grabs the input
@@ -938,6 +998,14 @@ sysEvent_t Sys_GetEvent()
 				}
 			
 				cvarSystem->SetCVarBool( "com_pause", pause );
+			
+				if( ev.active.state == SDL_APPMOUSEFOCUS && !ev.active.gain )
+				{
+					// the mouse has left the window.
+					res.evType = SE_MOUSE_LEAVE;
+					return res;
+				}
+			
 			}
 			
 			continue; // handle next event
@@ -945,7 +1013,7 @@ sysEvent_t Sys_GetEvent()
 			case SDL_VIDEOEXPOSE:
 				continue; // handle next event
 				
-				// DG: handle resizing and moving of window
+			// DG: handle resizing and moving of window
 			case SDL_VIDEORESIZE:
 			{
 				int w = ev.resize.w;
@@ -955,12 +1023,18 @@ sysEvent_t Sys_GetEvent()
 			
 				glConfig.nativeScreenWidth = w;
 				glConfig.nativeScreenHeight = h;
+			
+#ifdef USE_CEGUI
+				// DG: cegui must know about the changed window size
+				idCEGUI::NotifyDisplaySizeChanged( glConfig.nativeScreenWidth, glConfig.nativeScreenHeight );
+#endif // USE_CEGUI
+			
 				// for some reason this needs a vid_restart in SDL1 but not SDL2 so GLimp_SetScreenParms() is called
 				PushConsoleEvent( "vid_restart" );
 				continue; // handle next event
 			}
-			// DG end
-#endif
+				// DG end
+#endif // SDL1.2
 			
 			case SDL_KEYDOWN:
 				if( ev.key.keysym.sym == SDLK_RETURN && ( ev.key.keysym.mod & KMOD_ALT ) > 0 )
@@ -991,16 +1065,15 @@ sysEvent_t Sys_GetEvent()
 				
 #if ! SDL_VERSION_ATLEAST(2, 0, 0)
 				// DG: only do this for key-down, don't care about isChar from SDL_KeyToDoom3Key.
-				//     if unicode is not 0 and is translatable to ASCII it should work..
-				if( ev.key.state == SDL_PRESSED && ( ev.key.keysym.unicode & 0xff80 ) == 0 )
+				//     if unicode is not 0  it should work..
+				if( ev.key.state == SDL_PRESSED )
 				{
-					// FIXME: can we support utf32?
-					c = ev.key.keysym.unicode & 0x7f;
+					uniChar = ev.key.keysym.unicode; // for SE_CHAR
 				}
 				// DG end
-#endif
+#endif // SDL 1.2
 				
-				// fall through
+			// fall through
 			case SDL_KEYUP:
 			{
 				bool isChar;
@@ -1009,12 +1082,12 @@ sysEvent_t Sys_GetEvent()
 				if( ev.key.keysym.scancode == SDL_SCANCODE_GRAVE )
 				{
 					key = K_GRAVE;
-					c = K_BACKSPACE; // bad hack to get empty console inputline..
+					uniChar = K_BACKSPACE; // bad hack to get empty console inputline..
 				} // DG end, the original code is in the else case
 				else
 				{
 #if SDL_VERSION_ATLEAST(2, 0, 0)
-					key = SDLScanCodeToKeyNum(ev.key.keysym.scancode);
+					key = SDLScanCodeToKeyNum( ev.key.keysym.scancode );
 					
 					if( key == 0 )
 					{
@@ -1024,9 +1097,9 @@ sysEvent_t Sys_GetEvent()
 							
 						continue; // just handle next event
 					}
-#else
+#else // SDL1.2
 					key = SDL_KeyToDoom3Key( ev.key.keysym.sym, isChar );
-
+					
 					if( key == 0 )
 					{
 						unsigned char uc = ev.key.keysym.unicode & 0xff;
@@ -1034,28 +1107,28 @@ sysEvent_t Sys_GetEvent()
 						if( uc == Sys_GetConsoleKey( false ) || uc == Sys_GetConsoleKey( true ) )
 						{
 							key = K_GRAVE;
-							c = K_BACKSPACE; // bad hack to get empty console inputline..
+							uniChar = K_BACKSPACE; // bad hack to get empty console inputline..
 						}
 						else
 						{
-							if(c)
+							if( uniChar )
 							{
 								res.evType = SE_CHAR;
-								res.evValue = c;
-
-								c = 0;
-
+								res.evValue = uniChar;
+					
+								uniChar = 0;
+					
 								return res;
 							}
-
+					
 							if( ev.type == SDL_KEYDOWN ) // FIXME: don't complain if this was an ASCII char and the console is open?
 								common->Warning( "unmapped SDL key %d (0x%x) scancode %d", ev.key.keysym.sym, ev.key.keysym.unicode, ev.key.keysym.scancode );
-							
-							
+					
+					
 							continue; // just handle next event
 						}
 					}
-#endif
+#endif // SDL 1.2
 				}
 				
 				res.evType = SE_KEY;
@@ -1065,7 +1138,7 @@ sysEvent_t Sys_GetEvent()
 				kbd_polls.Append( kbd_poll_t( key, ev.key.state == SDL_PRESSED ) );
 				
 				if( key == K_BACKSPACE && ev.key.state == SDL_PRESSED )
-					c = key;
+					uniChar = key;
 					
 				return res;
 			}
@@ -1074,25 +1147,33 @@ sysEvent_t Sys_GetEvent()
 			case SDL_TEXTINPUT:
 				if( ev.text.text[0] != '\0' )
 				{
-					// FIXME: all this really only works for ascii.. convert to unicode etc
-					if( ev.text.text[1] )
-					{
-						// more than 1 char => handle the next chars later
-						idStr::Copynz( str, ev.text.text+1, sizeof( str ) );
-					}
+					// fill uniStr array for SE_CHAR events
+					ConvertUTF8toUTF32( ev.text.text, uniStr );
+					
 					// return an event with the first/only char
 					res.evType = SE_CHAR;
-					res.evValue = ev.text.text[0];
+					res.evValue = uniStr[0];
+					
+					uniStrPos = 1;
+					
+					if( uniStr[1] == 0 )
+					{
+						// it's just this one character, clear uniStr
+						uniStr[0] = 0;
+						uniStrPos = 0;
+					}
 					return res;
 				}
 				
 				continue; // just handle next event
-#endif
+#endif // SDL2
 				
 			case SDL_MOUSEMOTION:
 				// DG: return event with absolute mouse-coordinates when in menu
 				// to fix cursor problems in windowed mode
-				if( game && game->Shell_IsActive() )
+				
+				// TODO we should have some method to tell if we want absolute or relative mouse
+				if( ( game && game->Shell_IsActive() ) || ( console && console->Active() ) )
 				{
 					res.evType = SE_MOUSE_ABSOLUTE;
 					res.evValue = ev.motion.x;
@@ -1120,25 +1201,17 @@ sysEvent_t Sys_GetEvent()
 			case SDL_MOUSEWHEEL:
 				res.evType = SE_KEY;
 				
-				if( ev.wheel.y > 0 )
-				{
-					res.evValue = K_MWHEELUP;
-					mouse_polls.Append( mouse_poll_t( M_DELTAZ, 1 ) );
-				}
-				else
-				{
-					res.evValue = K_MWHEELDOWN;
-					mouse_polls.Append( mouse_poll_t( M_DELTAZ, -1 ) );
-				}
+				res.evValue = ( ev.wheel.y > 0 ) ? K_MWHEELUP : K_MWHEELDOWN;
 				
-				// DG: remember mousewheel direction to issue a "not pressed anymore" event
+				mouse_polls.Append( mouse_poll_t( M_DELTAZ, ev.wheel.y ) );
+				
+				res.evValue2 = 1; // for "pressed"
+				
+				// remember mousewheel direction to issue a "not pressed anymore" event
 				mwheelRel = res.evValue;
-				// DG end
-				
-				res.evValue2 = 1;
 				
 				return res;
-#endif
+#endif // SDL2
 				
 			case SDL_MOUSEBUTTONDOWN:
 			case SDL_MOUSEBUTTONUP:
@@ -1170,19 +1243,32 @@ sysEvent_t Sys_GetEvent()
 						if( ev.button.state == SDL_PRESSED )
 							mouse_polls.Append( mouse_poll_t( M_DELTAZ, -1 ) );
 						break;
-#endif
+#endif // SDL1.2
+						
+					default:
+						// handle X1 button and above
+						if( ev.button.button <= 16 ) // d3bfg doesn't support more than 16 mouse buttons
+						{
+							int buttonIndex = ev.button.button - SDL_BUTTON_LEFT;
+							res.evValue = K_MOUSE1 + buttonIndex;
+							mouse_polls.Append( mouse_poll_t( M_ACTION1 + buttonIndex, ev.button.state == SDL_PRESSED ? 1 : 0 ) );
+						}
+						else // unsupported mouse button
+						{
+							continue; // just ignore
+						}
 				}
 				
 				res.evValue2 = ev.button.state == SDL_PRESSED ? 1 : 0;
 				
 				return res;
 				
-				// WM0110
-				// NOTE: it seems that the key bindings for the GUI and for the game are
-				// totally independant. I think the event returned by this function seems to work
-				// on the GUI and the event returned by Sys_ReturnJoystickInputEvent() works on
-				// the game.
-				// Also, remember that joystick keys must be binded to actions in order to work!
+			// WM0110
+			// NOTE: it seems that the key bindings for the GUI and for the game are
+			// totally independant. I think the event returned by this function seems to work
+			// on the GUI and the event returned by Sys_ReturnJoystickInputEvent() works on
+			// the game.
+			// Also, remember that joystick keys must be binded to actions in order to work!
 			case SDL_JOYBUTTONDOWN:
 			case SDL_JOYBUTTONUP:
 				// sys_public.h: evValue is an axis number and evValue2 is the current state (-127 to 127)
@@ -1245,7 +1331,7 @@ sysEvent_t Sys_GetEvent()
 						joystick_polls.Append( joystick_poll_t( J_ACTION11, ev.jbutton.state == SDL_PRESSED ? 1 : 0 ) );
 						break;
 						
-						// D-PAD left (XBox 360 wireless)
+					// D-PAD left (XBox 360 wireless)
 					case 11:
 						// If joystick has a hat, then use the hat as D-PAD. If not, D-PAD is mapped
 						// to buttons.
@@ -1261,7 +1347,7 @@ sysEvent_t Sys_GetEvent()
 						}
 						break;
 						
-						// D-PAD right
+					// D-PAD right
 					case 12:
 						if( SDL_joystick_has_hat )
 						{
@@ -1275,7 +1361,7 @@ sysEvent_t Sys_GetEvent()
 						}
 						break;
 						
-						// D-PAD up
+					// D-PAD up
 					case 13:
 						if( SDL_joystick_has_hat )
 						{
@@ -1289,7 +1375,7 @@ sysEvent_t Sys_GetEvent()
 						}
 						break;
 						
-						// D-PAD down
+					// D-PAD down
 					case 14:
 						if( SDL_joystick_has_hat )
 						{
@@ -1402,7 +1488,7 @@ sysEvent_t Sys_GetEvent()
 				{
 						int trigger_value;
 						
-						// LEFT trigger
+					// LEFT trigger
 					case 2:
 						// Convert TRIGGER value from space (-32768, 32767) to (0, 32767)
 						trigger_value = ( ev.jaxis.value + 32768 ) / 2;
@@ -1411,7 +1497,7 @@ sysEvent_t Sys_GetEvent()
 						joystick_polls.Append( joystick_poll_t( J_AXIS_LEFT_TRIG, trigger_value ) );
 						break;
 						
-						// Right trigger
+					// Right trigger
 					case 5:
 						trigger_value = ( ev.jaxis.value + 32768 ) / 2;
 						// common->Printf("Sys_GetEvent: RIGHT trigger value = %i / converted value = %i\n", ev.jaxis.value, trigger_value);
@@ -1419,25 +1505,25 @@ sysEvent_t Sys_GetEvent()
 						joystick_polls.Append( joystick_poll_t( J_AXIS_RIGHT_TRIG, trigger_value ) );
 						break;
 						
-						// LEFT X
+					// LEFT X
 					case 0:
 						res.evValue = J_AXIS_LEFT_X;
 						joystick_polls.Append( joystick_poll_t( J_AXIS_LEFT_X, ev.jaxis.value ) );
 						break;
 						
-						// LEFT Y
+					// LEFT Y
 					case 1:
 						res.evValue = J_AXIS_LEFT_Y;
 						joystick_polls.Append( joystick_poll_t( J_AXIS_LEFT_Y, ev.jaxis.value ) );
 						break;
 						
-						// RIGHT X
+					// RIGHT X
 					case 3:
 						res.evValue = J_AXIS_RIGHT_X;
 						joystick_polls.Append( joystick_poll_t( J_AXIS_RIGHT_X, ev.jaxis.value ) );
 						break;
 						
-						// RIGHT Y
+					// RIGHT Y
 					case 4:
 						res.evValue = J_AXIS_RIGHT_Y;
 						joystick_polls.Append( joystick_poll_t( J_AXIS_RIGHT_Y, ev.jaxis.value ) );
@@ -1449,11 +1535,12 @@ sysEvent_t Sys_GetEvent()
 				}
 				
 				return res;
-				// WM0110
-				
+			// WM0110
+			
 			case SDL_QUIT:
 				PushConsoleEvent( "quit" );
-				return no_more_events; // don't handle next event, just quit.
+				res = no_more_events; // don't handle next event, just quit.
+				return res;
 				
 			case SDL_USEREVENT:
 				switch( ev.user.code )
@@ -1473,7 +1560,8 @@ sysEvent_t Sys_GetEvent()
 		}
 	}
 	
-	return no_more_events;
+	res = no_more_events;
+	return res;
 }
 
 /*
@@ -1574,12 +1662,12 @@ const char* Sys_GetKeyName( keyNum_t keynum )
 	// unfortunately, in SDL1.2 there is no way to get the keycode for a scancode, so this doesn't work there.
 	// so this is SDL2-only.
 #if SDL_VERSION_ATLEAST(2, 0, 0)
-
+	
 	SDL_Scancode scancode = KeyNumToSDLScanCode( ( int )keynum );
 	SDL_Keycode keycode = SDL_GetKeyFromScancode( scancode );
-
-	const char* ret = SDL_GetKeyName(keycode);
-	if(ret != NULL && ret[0] != '\0')
+	
+	const char* ret = SDL_GetKeyName( keycode );
+	if( ret != NULL && ret[0] != '\0' )
 	{
 		return ret;
 	}

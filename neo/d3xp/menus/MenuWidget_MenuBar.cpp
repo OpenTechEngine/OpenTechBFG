@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 #include <stddef.h>
 
-#include "../d3xp/menus/MenuHandler.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../idlib/Str.h"
 #include "../idlib/containers/List.h"
@@ -176,3 +176,4 @@ bool idMenuWidget_MenuBar::PrepareListElement( idMenuWidget& widget, const int n
 	
 	return true;
 }
+

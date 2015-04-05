@@ -2162,7 +2162,7 @@ bool idFileSystemLocal::RenameFile( const char* relativePath, const char* newNam
 #else
 	const bool success = ( rename( oldOSPath.c_str(), newOSPath.c_str() ) == 0 );
 #endif
-
+	
 	if( !success )
 	{
 		idLib::Warning( "RenameFile( %s, %s ) error %s", newOSPath.c_str(), oldOSPath.c_str(), Sys_GetLastErrorString() );

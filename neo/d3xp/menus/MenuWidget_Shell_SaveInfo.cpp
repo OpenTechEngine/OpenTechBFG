@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <stddef.h>
 
 #include "../d3xp/Player.h"
-#include "../d3xp/menus/MenuScreen.h"
+#include "../d3xp/menus/MenuScreen_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/BuildVersion.h"
 #include "../idlib/LangDict.h"
@@ -213,3 +213,5 @@ void idMenuWidget_Shell_SaveInfo::ObserveEvent( const idMenuWidget& widget, cons
 		}
 	}
 }
+
+

@@ -9,11 +9,28 @@ compiler:
   - gcc
   - clang
   - CXX=g++-mingw-w64-x86-64; g++
+before_install:
+  - openssl aes-256-cbc -K $encrypted_24fdd259e571_key -iv $encrypted_24fdd259e571_iv -in .travis/id_rsa.enc -out .travis/id_rsa -d
 install:
  - if [ "$CXX" = "g++" ]; then sudo sed -i 's/precise/trusty/g' /etc/apt/sources.list; fi
  - if [ "$CXX" = "g++-mingw-w64-x86-64" ]; then sudo sed -i 's/precise/trusty/g' /etc/apt/sources.list; fi
  - sudo apt-get update -qq
  - sudo apt-get install libsdl1.2-dev libopenal-dev
  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qqy gcc g++; fi
- - if [ "$CXX" = "g++-mingw-w64-x86-64" ]; then sudo apt-get install -qqy g++-mingw-w64-x86-64; fi
-script: mkdir build && cd build &&  if [ "$CXX" = "g++-mingw-w64-x86-64" ]; then cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../scripts/mingw32.toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DSDL2=OFF ../ ;else cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DSDL2=OFF ../;fi && make -j9
+ - if [ "$CXX" = "g++-mingw-w64-x86-64" ]; then sudo apt-get install -qqy g++-mingw-w64-x86-64 cmake; fi
+script: mkdir build && cd build &&  if [ "$CXX" = "g++-mingw-w64-x86-64" ]; then cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../scripts/mingw32.toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DSDL2=OFF -DBUNDLED_FREETYPE=ON -DBUNDLED_OPENAL=ON ../ ;else cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DSDL2=OFF ../;fi && make
+after_success:
+ - cd ..
+ - chmod 600 .travis/id_rsa
+ - mkdir OpenTechEngine
+ - cp -a base OpenTechEngine/
+ - if [ "$CXX" = "g++-mingw-w64-x86-64" ]; then cp build/OpenTechEngine.exe OpenTechEngine/; find build -name \*dll -exec cp '{}' OpenTechEngine/ \; ; cp libs/openal/openal-soft/bin/Win64/soft_oal.dll OpenTechEngine/OpenAL32.dll ; cp /usr/lib/gcc/x86_64-w64-mingw32/4.8/libgcc_s_sjlj-1.dll /usr/lib/gcc/x86_64-w64-mingw32/4.8/libstdc++-6.dll /usr/x86_64-w64-mingw32/lib/libwinpthread-1.dll OpenTechEngine/ ; else cp build/OpenTechEngine OpenTechEngine/; fi
+ - tar cjf OpenTechEngine.tar.bz2 OpenTechEngine
+ - scp -B -i .travis/id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no OpenTechEngine.tar.bz2 kordex@frs.sourceforge.net:/home/frs/project/testrepositoryproject/TestRel/$(date +%s).$CXX.OpenTechEngine.tar.bz2
+after_failure:
+ - cd ..
+ - chmod 600 .travis/id_rsa
+ - find build/ > build/build.files.txt
+ - find build/ -type f -iname \*rsp -o -iname \*log -o -iname \*txt -exec tar rf OpenTechFailure.tar '{}' \;
+ - bzip2 -9 OpenTechFailure.tar
+ - scp -B -i .travis/id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no OpenTechFailure.tar.bz2 kordex@frs.sourceforge.net:/home/frs/project/testrepositoryproject/TestRel/$(date +%s).failed_build.$CXX.tar.bz2

@@ -492,7 +492,7 @@ void idCommonLocal::Frame()
 								 || ( !IsMultiplayer()
 									  && ( Dialog().IsDialogPausing() || session->IsSystemUIShowing()
 										   || ( game && game->Shell_IsActive() ) || com_pause.GetInteger() ) ) );
-		
+										   
 		// save the screenshot and audio from the last draw if needed
 		if( aviCaptureMode )
 		{
@@ -796,7 +796,7 @@ void idCommonLocal::Frame()
 			int	nowTime = Sys_Milliseconds();
 			int	com_frameMsec = nowTime - lastTime;
 			lastTime = nowTime;
-			Printf("frame:%d all:%3d gfr:%3d rf:%3" PRId64 " bk:%3" PRId64 "\n", idLib::frameNumber, com_frameMsec, time_gameFrame, time_frontend / 1000, time_backend / 1000);
+			Printf( "frame:%d all:%3d gfr:%3d rf:%3" PRId64 " bk:%3" PRId64 "\n", idLib::frameNumber, com_frameMsec, time_gameFrame, time_frontend / 1000, time_backend / 1000 );
 			time_gameFrame = 0;
 			time_gameDraw = 0;
 		}

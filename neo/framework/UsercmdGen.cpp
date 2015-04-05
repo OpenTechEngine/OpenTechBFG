@@ -45,6 +45,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "../sys/sys_public.h"
 
+#ifdef USE_CEGUI // we inject mousewheel events in idUsercmdGenLocal::Mouse()
+#include "../cegui/CEGUI_Hooks.h"
+#endif // USE_CEGUI
+
 #pragma hdrstop
 
 idCVar joy_mergedThreshold( "joy_mergedThreshold", "1", CVAR_BOOL | CVAR_ARCHIVE, "If the thresholds aren't merged, you drift more off center" );
@@ -879,9 +883,9 @@ Draws axis and threshold / range rings into an RGBA image
 void	DrawJoypadTexture(
 	const int	size,
 	byte	image[],
-
+	
 	const idVec2 raw,
-
+	
 	const float threshold,
 	const float range,
 	const transferFunction_t shape,
@@ -1378,6 +1382,16 @@ void idUsercmdGenLocal::Mouse()
 			case M_ACTION6:
 			case M_ACTION7:
 			case M_ACTION8:
+			
+			// DG: support some more mouse buttons
+			case M_ACTION9:
+			case M_ACTION10:
+			case M_ACTION11:
+			case M_ACTION12:
+			case M_ACTION13:
+			case M_ACTION14:
+			case M_ACTION15:
+			case M_ACTION16: // DG end
 				mouseButton = K_MOUSE1 + ( action - M_ACTION1 );
 				mouseDown = ( value != 0 );
 				Key( mouseButton, mouseDown );
@@ -1392,6 +1406,10 @@ void idUsercmdGenLocal::Mouse()
 				break;
 			case M_DELTAZ:	// mouse wheel, may have multiple clicks
 			{
+#ifdef USE_CEGUI // DG: this seems like a good place to inject mousewheel deltas into cegui.
+				idCEGUI::InjectMouseWheel( value );
+#endif //USE_CEGUI
+				
 				int key = value < 0 ? K_MWHEELDOWN : K_MWHEELUP;
 				value = abs( value );
 				while( value-- > 0 )

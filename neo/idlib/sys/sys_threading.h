@@ -73,7 +73,7 @@ typedef int						interlockedInt_t;
 // from reordering read and write instructions across the barrier.
 // MemoryBarrier() inserts and CPU instruction that keeps the CPU from reordering reads and writes.
 #if defined(_MSC_VER)
-extern "C" void _ReadWriteBarrier(void);
+extern "C" void _ReadWriteBarrier( void );
 #pragma intrinsic(_ReadWriteBarrier)
 #define SYS_MEMORYBARRIER		_ReadWriteBarrier(); MemoryBarrier()
 #elif defined(__GNUC__) // FIXME: what about clang?
@@ -136,29 +136,29 @@ public:
 	{
 		pthread_key_create( &key, NULL );
 	}
-
+	
 	idSysThreadLocalStorage( const ptrdiff_t& val )
 	{
 		pthread_key_create( &key, NULL );
 		pthread_setspecific( key, ( const void* ) val );
 	}
-
+	
 	~idSysThreadLocalStorage()
 	{
 		pthread_key_delete( key );
 	}
-
+	
 	operator ptrdiff_t()
 	{
 		return ( ptrdiff_t )pthread_getspecific( key );
 	}
-
+	
 	const ptrdiff_t& operator = ( const ptrdiff_t& val )
 	{
 		pthread_setspecific( key, ( const void* ) val );
 		return val;
 	}
-
+	
 	pthread_key_t	key;
 };
 #endif

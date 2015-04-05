@@ -365,8 +365,8 @@ void idGameLocal::Clear()
 	selectedGroup = 0;
 	portalSkyEnt			= NULL;
 	portalSkyActive			= false;
-    playerOldEyePos.Zero();
-    globalPortalSky         = false;
+	playerOldEyePos.Zero();
+	globalPortalSky         = false;
 	
 	ResetSlowTimeVars();
 	
@@ -707,11 +707,11 @@ void idGameLocal::SaveGame( idFile* f, idFile* strings )
 	
 	portalSkyEnt.Save( &savegame );
 	savegame.WriteBool( portalSkyActive );
-    savegame.WriteBool( globalPortalSky );
-    savegame.WriteInt( currentPortalSkyType );
-    savegame.WriteVec3( playerOldEyePos );
-    savegame.WriteVec3( portalSkyGlobalOrigin );
-    savegame.WriteVec3( portalSkyOrigin );
+	savegame.WriteBool( globalPortalSky );
+	savegame.WriteInt( currentPortalSkyType );
+	savegame.WriteVec3( playerOldEyePos );
+	savegame.WriteVec3( portalSkyGlobalOrigin );
+	savegame.WriteVec3( portalSkyOrigin );
 	
 	fast.Save( &savegame );
 	slow.Save( &savegame );
@@ -1122,8 +1122,8 @@ void idGameLocal::LoadMap( const char* mapName, int randseed )
 	
 	portalSkyEnt			= NULL;
 	portalSkyActive			= false;
-    playerOldEyePos.Zero();
-    globalPortalSky         = false;
+	playerOldEyePos.Zero();
+	globalPortalSky         = false;
 	
 	ResetSlowTimeVars();
 	
@@ -1589,11 +1589,11 @@ bool idGameLocal::InitFromSaveGame( const char* mapName, idRenderWorld* renderWo
 	
 	portalSkyEnt.Restore( &savegame );
 	savegame.ReadBool( portalSkyActive );
-    savegame.ReadBool( globalPortalSky );
-    savegame.ReadInt( currentPortalSkyType );
-    savegame.ReadVec3( playerOldEyePos );
-    savegame.ReadVec3( portalSkyGlobalOrigin );
-    savegame.ReadVec3( portalSkyOrigin );
+	savegame.ReadBool( globalPortalSky );
+	savegame.ReadInt( currentPortalSkyType );
+	savegame.ReadVec3( playerOldEyePos );
+	savegame.ReadVec3( portalSkyGlobalOrigin );
+	savegame.ReadVec3( portalSkyOrigin );
 	
 	fast.Restore( &savegame );
 	slow.Restore( &savegame );
@@ -5419,7 +5419,7 @@ idEntity* idGameLocal::SelectInitialSpawnPoint( idPlayer* player )
 			}
 			
 			// sort the list
-			qsort( ( void* )teamSpawnSpots[ team ].Ptr(), teamSpawnSpots[ team ].Num(), sizeof( spawnSpot_t ), ( int (* )( const void*, const void* ) )sortSpawnPoints );
+			qsort( ( void* )teamSpawnSpots[ team ].Ptr(), teamSpawnSpots[ team ].Num(), sizeof( spawnSpot_t ), ( int ( * )( const void*, const void* ) )sortSpawnPoints );
 			
 			// choose a random one in the top half
 			which = random.RandomInt( teamSpawnSpots[ team ].Num() / 2 );
@@ -5452,7 +5452,7 @@ idEntity* idGameLocal::SelectInitialSpawnPoint( idPlayer* player )
 		}
 		
 		// sort the list
-		qsort( ( void* )spawnSpots.Ptr(), spawnSpots.Num(), sizeof( spawnSpot_t ), ( int (* )( const void*, const void* ) )sortSpawnPoints );
+		qsort( ( void* )spawnSpots.Ptr(), spawnSpots.Num(), sizeof( spawnSpot_t ), ( int ( * )( const void*, const void* ) )sortSpawnPoints );
 		
 		// choose a random one in the top half
 		which = random.RandomInt( spawnSpots.Num() / 2 );
@@ -5517,21 +5517,26 @@ bool idGameLocal::IsPortalSkyActive()
 idGameLocal::CheckGlobalPortalSky
 =================
 */
-bool idGameLocal::CheckGlobalPortalSky() {
-    return globalPortalSky;
+bool idGameLocal::CheckGlobalPortalSky()
+{
+	return globalPortalSky;
 }
 
 /*
 =================
-idGameLocal::SetGlobalPortalSky 
+idGameLocal::SetGlobalPortalSky
 =================
 */
-void idGameLocal::SetGlobalPortalSky( const char *name ) {
-    if ( CheckGlobalPortalSky() ) {
-        Error( "more than one global portalSky:\ndelete them until you have just one.\nportalSky '%s' causes it.", name );
-    } else {
-        globalPortalSky = true;
-    }
+void idGameLocal::SetGlobalPortalSky( const char* name )
+{
+	if( CheckGlobalPortalSky() )
+	{
+		Error( "more than one global portalSky:\ndelete them until you have just one.\nportalSky '%s' causes it.", name );
+	}
+	else
+	{
+		globalPortalSky = true;
+	}
 }
 
 /*
@@ -5539,8 +5544,9 @@ void idGameLocal::SetGlobalPortalSky( const char *name ) {
 idGameLocal::SetCurrentPortalSkyType
 =================
 */
-void idGameLocal::SetCurrentPortalSkyType( int type ) {
-    currentPortalSkyType = type;
+void idGameLocal::SetCurrentPortalSkyType( int type )
+{
+	currentPortalSkyType = type;
 }
 
 /*
@@ -5548,8 +5554,9 @@ void idGameLocal::SetCurrentPortalSkyType( int type ) {
 idGameLocal::GetCurrentPortalSkyType
 =================
 */
-int idGameLocal::GetCurrentPortalSkyType() {
-    return currentPortalSkyType;
+int idGameLocal::GetCurrentPortalSkyType()
+{
+	return currentPortalSkyType;
 }
 
 /*

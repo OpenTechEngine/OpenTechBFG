@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <assert.h>
 #include <stddef.h>
 
-#include "../d3xp/menus/MenuHandler.h"
+#include "../d3xp/menus/MenuHandler_SWF.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../idlib/Heap.h"
 #include "../idlib/Str.h"
@@ -639,8 +639,4 @@ void idMenuWidget::ClearEventActions()
 		eventActionLookup[ i ] = INVALID_ACTION_INDEX;
 	}
 }
-
-
-
-
 

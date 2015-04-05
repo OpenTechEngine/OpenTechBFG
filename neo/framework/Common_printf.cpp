@@ -362,12 +362,12 @@ void idCommonLocal::Warning( const char* fmt, ... )
 {
 	va_list		argptr;
 	char		msg[MAX_PRINT_MSG_SIZE];
-
+	
 	if( !idLib::IsMainThread() ) // FIXME: make it threadsafe (add a mutex to VPrintf() or whatever)
 	{
 		return;	// not thread safe!
 	}
-
+	
 	va_start( argptr, fmt );
 	idStr::vsnPrintf( msg, sizeof( msg ), fmt, argptr );
 	va_end( argptr );

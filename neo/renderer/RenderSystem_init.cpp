@@ -89,6 +89,11 @@ class idPreloadManifest;
 #endif
 // RB end
 
+#ifdef USE_CEGUI
+// DG: we need to initialize cegui after a (new) window has been created
+#include "../cegui/CEGUI_Hooks.h"
+#endif // USE_CEGUI
+
 // DeviceContext bypasses RenderSystem to work directly with this
 idGuiModel* tr_guiModel;
 
@@ -736,6 +741,11 @@ void R_SetNewMode( const bool fullInit )
 			// create the context as well as setting up the window
 			if( GLimp_Init( parms ) )
 			{
+#ifdef USE_CEGUI
+				// DG: cegui must be initialized after the window has been created, it needs an opengl context
+				idCEGUI::Init();
+#endif // USE_CEGUI
+				
 				// it worked
 				break;
 			}
@@ -745,6 +755,11 @@ void R_SetNewMode( const bool fullInit )
 			// just rebuild the window
 			if( GLimp_SetScreenParms( parms ) )
 			{
+#ifdef USE_CEGUI
+				// DG: cegui must know about the changed window size
+				idCEGUI::NotifyDisplaySizeChanged( parms.width, parms.height );
+#endif // USE_CEGUI
+				
 				// it worked
 				break;
 			}

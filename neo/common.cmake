@@ -184,8 +184,33 @@ set(GAMED3XP_GAMESYS_SOURCES
   #d3xp/gamesys/TypeInfo.cpp
   )
 
-file(GLOB GAMED3XP_MENUS_INCLUDES d3xp/menus/*.h)
-file(GLOB GAMED3XP_MENUS_SOURCES d3xp/menus/*.cpp)
+  
+# shared menu includes only for cegui builds
+set(GAMED3XP_MENUS_SHARED_INCLUDES
+	d3xp/menus/MenuHandler_Interface.h
+	d3xp/menus/MenuScreen_Interface.h
+	d3xp/menus/MenuHandler.h
+	d3xp/menus/MenuScreen.h
+	d3xp/menus/MenuState.h
+  )
+
+if (CEGUI)
+  list(APPEND GAMED3XP_MENUS_INCLUDES
+    ${GAMED3XP_MENUS_SHARED_INCLUDES}
+  )
+else()
+  file(GLOB GAMED3XP_MENUS_SWF_INCLUDES d3xp/menus/*.h)
+  file(GLOB GAMED3XP_MENUS_SWF_SOURCES d3xp/menus/*.cpp)
+  
+  list(APPEND GAMED3XP_MENUS_INCLUDES
+    ${GAMED3XP_MENUS_SHARED_INCLUDES}
+	${GAMED3XP_MENUS_SWF_INCLUDES}
+  )
+  
+  list(APPEND GAMED3XP_MENUS_SOURCES
+	${GAMED3XP_MENUS_SWF_SOURCES}
+  )
+endif()
 
 file(GLOB GAMED3XP_PHYSICS_INCLUDES d3xp/physics/*.h)
 file(GLOB GAMED3XP_PHYSICS_SOURCES d3xp/physics/*.cpp)
@@ -461,5 +486,42 @@ if(IDTOOLS)
   
   list(APPEND OpenTechBFG_SOURCES
     ${IDTOOLS_SOURCES} 
+    )
+endif()
+
+if(CEGUI)
+  file(GLOB CEGUI_INCLUDES cegui/*.h)
+  file(GLOB CEGUI_SOURCES cegui/*.cpp)
+
+  file(GLOB CEGUI_CONSOLE_INCLUDES cegui/console/*.h)
+  file(GLOB CEGUI_CONSOLE_SOURCES cegui/console/*.cpp)
+
+  file(GLOB CEGUI_MENU_INCLUDES cegui/menu/*.h)
+  file(GLOB CEGUI_MENU_SOURCES cegui/menu/*.cpp)
+
+  list(APPEND CEGUI_INCLUDES
+    ${CEGUI_CONSOLE_INCLUDES}
+    )
+  
+  list(APPEND CEGUI_SOURCES
+    ${CEGUI_CONSOLE_SOURCES}
+    )
+
+	 list(APPEND CEGUI_INCLUDES
+    ${CEGUI_MENU_INCLUDES}
+    )
+  
+  list(APPEND CEGUI_SOURCES
+    ${CEGUI_MENU_SOURCES}
+    )
+	
+  source_group("cegui" FILES ${CEGUI_INCLUDES})
+  source_group("cegui" FILES ${CEGUI_SOURCES})
+
+  list(APPEND OpenTechBFG_INCLUDES
+    ${CEGUI_INCLUDES}
+    )
+  list(APPEND OpenTechBFG_SOURCES
+    ${CEGUI_SOURCES}
     )
 endif()

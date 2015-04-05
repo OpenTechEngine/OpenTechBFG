@@ -34,6 +34,9 @@ option(FFMPEG
 option(IDTOOLS
   "Compile the built-in game tools" ON)
 
+option(CEGUI
+  "Use cegui" ON)
+
 #options########################################################################
 
 
@@ -60,16 +63,19 @@ option(BUNDLED_GLEW
   "Use bundled glew" ON)
 
 option(BUNDLED_FREETYPE
-  "Use bundled freetype" OFF)
+  "Use bundled freetype")
 
 option(BUNDLED_OGGVORBIS
   "Use bundled oggvorbis" OFF)
   
 option(BUNDLED_OPENAL
-  "Use bundled openal" OFF)
+  "Use bundled openal")
 
 option(BUNDLED_SDL
   "Use bundled SDL" OFF)
+
+option(BUNDLED_CEGUI
+  "Use bundled CEGUI" ON)
 
   
 ################################################################################
@@ -98,15 +104,35 @@ if(BUNDLED_GLEW)
   add_subdirectory(libs/glew)
 endif()
 
-# openal
-if(BUNDLED_OPENAL)
-  add_subdirectory(libs/openal)
+# freetype
+if(BUNDLED_FREETYPE)
+  add_subdirectory(libs/freetype)
 endif()
 
 # openal
-if(BUNDLED_SDL)
-  add_subdirectory(libs/sdl)
+if(BUNDLED_OPENAL)
+#  add_subdirectory(libs/openal)
 endif()
+
+# sdl
+if(BUNDLED_SDL)
+#  add_subdirectory(libs/sdl)
+endif()
+
+# cegui
+if(BUNDLED_CEGUI)
+  # set RPATH for Unix-y systems (except for OS X), so they can find the cegui libs.
+  # must be done here so it's used for both the OpenTech executable and the cegui libs
+  if(UNIX AND NOT APPLE AND NOT WIN32)
+    # use $ORIGIN/lib as RPATH to have a relative rpath (lib/ should always be next to the executable)
+    set(CMAKE_INSTALL_RPATH "\$ORIGIN/lib")
+    # this RPATH should be used immediately, not only after installing
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
+  endif()
+
+  add_subdirectory(libs/cegui)
+endif()
+
 ####
 
 add_subdirectory(neo)

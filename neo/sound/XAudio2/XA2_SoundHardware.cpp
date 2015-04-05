@@ -495,27 +495,31 @@ void idSoundHardware_XAudio2::Init()
 	
 	vuMeterRMS = console->CreateGraph( outputChannels );
 	vuMeterPeak = console->CreateGraph( outputChannels );
-	vuMeterRMS->Enable( false );
-	vuMeterPeak->Enable( false );
-	
-	memset( vuMeterPeakTimes, 0, sizeof( vuMeterPeakTimes ) );
-	
-	vuMeterPeak->SetFillMode( idDebugGraph::GRAPH_LINE );
-	vuMeterPeak->SetBackgroundColor( idVec4( 0.0f, 0.0f, 0.0f, 0.0f ) );
-	
-	vuMeterRMS->AddGridLine( 0.500f, idVec4( 0.5f, 0.5f, 0.5f, 1.0f ) );
-	vuMeterRMS->AddGridLine( 0.250f, idVec4( 0.5f, 0.5f, 0.5f, 1.0f ) );
-	vuMeterRMS->AddGridLine( 0.125f, idVec4( 0.5f, 0.5f, 0.5f, 1.0f ) );
-	
-	const char* channelNames[] = { "L", "R", "C", "S", "Lb", "Rb", "Lf", "Rf", "Cb", "Ls", "Rs" };
-	for( int i = 0, ci = 0; ci < sizeof( channelNames ) / sizeof( channelNames[0] ); ci++ )
+	// DG: make sure they're not NULL (as it's currently the case with the cegui-based console)
+	if( vuMeterRMS && vuMeterPeak )
 	{
-		if( ( channelMask & BIT( ci ) ) == 0 )
+		vuMeterRMS->Enable( false );
+		vuMeterPeak->Enable( false );
+		
+		memset( vuMeterPeakTimes, 0, sizeof( vuMeterPeakTimes ) );
+		
+		vuMeterPeak->SetFillMode( idDebugGraph::GRAPH_LINE );
+		vuMeterPeak->SetBackgroundColor( idVec4( 0.0f, 0.0f, 0.0f, 0.0f ) );
+		
+		vuMeterRMS->AddGridLine( 0.500f, idVec4( 0.5f, 0.5f, 0.5f, 1.0f ) );
+		vuMeterRMS->AddGridLine( 0.250f, idVec4( 0.5f, 0.5f, 0.5f, 1.0f ) );
+		vuMeterRMS->AddGridLine( 0.125f, idVec4( 0.5f, 0.5f, 0.5f, 1.0f ) );
+		
+		const char* channelNames[] = { "L", "R", "C", "S", "Lb", "Rb", "Lf", "Rf", "Cb", "Ls", "Rs" };
+		for( int i = 0, ci = 0; ci < sizeof( channelNames ) / sizeof( channelNames[0] ); ci++ )
 		{
-			continue;
+			if( ( channelMask & BIT( ci ) ) == 0 )
+			{
+				continue;
+			}
+			vuMeterRMS->SetLabel( i, channelNames[ci] );
+			i++;
 		}
-		vuMeterRMS->SetLabel( i, channelNames[ ci ] );
-		i++;
 	}
 	
 	// ---------------------

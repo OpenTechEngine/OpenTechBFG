@@ -1015,11 +1015,11 @@ void Posix_LateInit()
 	common->Printf( "pid: %d\n", com_pid.GetInteger() );
 	
 //	common->Printf( "%d MB System Memory\n", Sys_GetSystemRam() );
-	
+
 //#ifndef ID_DEDICATED
 	//common->Printf( "%d MB Video Memory\n", Sys_GetVideoRam() );
 //#endif
-	
+
 	//Posix_StartAsyncThread( );
 }
 
@@ -1652,7 +1652,7 @@ void idSysLocal::OpenURL( const char* url, bool quit )
 	}
 	
 	// FIXME: this could use xdg-open
-
+	
 	common->Printf( "Open URL: %s\n", url );
 	// opening an URL on *nix can mean a lot of things ..
 	// just spawn a script instead of deciding for the user :-)
@@ -1694,7 +1694,7 @@ const char* Sys_GetLastErrorString()
 {
 	int errorCode = errno;
 	memset( lastErrorBuf, 0, 256 );
-
+	
 #ifdef _GNU_SOURCE
 	// use the GNU version of strerror_r which is not guaranteed to write into the buffer
 	// but returns a threadsafe string
@@ -1704,6 +1704,6 @@ const char* Sys_GetLastErrorString()
 	strerror_r( errorCode, lastErrorBuf, 256 );
 	return lastErrorBuf;
 #endif
-
+	
 }
 // DG end

@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 #include "../tools/compilers/dmap/dmap.h"
-         
+
 #include "../tools/compilers/compiler_public.h"
 
 dmapGlobals_t	dmapGlobals;

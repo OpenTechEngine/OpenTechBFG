@@ -177,7 +177,10 @@ private:
 };
 
 static idConsoleLocal localConsole;
+
+#ifndef USE_CEGUI
 idConsole* console = &localConsole;
+#endif
 
 idCVar idConsoleLocal::con_speed( "con_speed", "3", CVAR_SYSTEM, "speed at which the console moves up and down" );
 idCVar idConsoleLocal::con_notifyTime( "con_notifyTime", "3", CVAR_SYSTEM, "time messages are displayed onscreen when console is pulled up" );
@@ -971,6 +974,7 @@ Handles cursor positioning, line wrapping, etc
 */
 void idConsoleLocal::Print( const char* txt )
 {
+
 	int		y;
 	int		c, l;
 	int		color;

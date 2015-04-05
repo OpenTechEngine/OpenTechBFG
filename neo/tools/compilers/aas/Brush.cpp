@@ -31,7 +31,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/MapFile.h"
 #include "../framework/Common.h"
 #include "../framework/FileSystem.h"
-         
+
 #include "../tools/compilers/aas/Brush.h"
 
 

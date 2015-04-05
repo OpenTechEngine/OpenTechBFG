@@ -52,7 +52,7 @@ public:
 	
 	static void InitSurround( int outputChannels, int channelMask );
 	
-	void		CalculateSurround( int srcChannels, float pLevelMatrix[ MAX_CHANNELS_PER_VOICE* MAX_CHANNELS_PER_VOICE ], float scale );
+	void		CalculateSurround( int srcChannels, float pLevelMatrix[ MAX_CHANNELS_PER_VOICE * MAX_CHANNELS_PER_VOICE ], float scale );
 	
 	// RB begin
 	virtual void	SetPosition( const idVec3& p )
@@ -101,7 +101,7 @@ public:
 	{
 		return pitch;
 	}
-
+	
 	virtual ~idSoundVoice_Base() {}
 	
 protected:

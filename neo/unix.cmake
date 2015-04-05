@@ -88,5 +88,7 @@ target_link_libraries(OpenTechEngine
   ${SDLx_LIBRARY}
   ${OPENAL_LIBRARY}
   ${FFMPEG_LIBRARIES}
+  ${CEGUI_LIBRARY}
+  ${CEGUIGLR_LIBRARY}
   )
 #endif()

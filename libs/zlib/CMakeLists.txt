@@ -2,6 +2,13 @@ cmake_minimum_required(VERSION 2.8)
 
 project(zlib)
 
+# cegui mandates -fPIC
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
+  if (NOT MINGW)
+    add_definitions(-fPIC)
+  endif()
+endif()
+
 message(STATUS CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE})
 
 ## Compiler specific options

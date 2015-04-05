@@ -207,7 +207,7 @@ keyname_t keynames[] =
 	NAMEKEY2( MAIL ),
 	NAMEKEY2( MEDIASELECT ),
 	// DG end
-
+	
 	// --
 	
 	NAMEKEY( MOUSE1, "#str_07054" ),
@@ -218,6 +218,17 @@ keyname_t keynames[] =
 	NAMEKEY( MOUSE6, "#str_07059" ),
 	NAMEKEY( MOUSE7, "#str_07060" ),
 	NAMEKEY( MOUSE8, "#str_07061" ),
+	
+	// DG: some more mouse buttons
+	NAMEKEY2( MOUSE9 ),
+	NAMEKEY2( MOUSE10 ),
+	NAMEKEY2( MOUSE11 ),
+	NAMEKEY2( MOUSE12 ),
+	NAMEKEY2( MOUSE13 ),
+	NAMEKEY2( MOUSE14 ),
+	NAMEKEY2( MOUSE15 ),
+	NAMEKEY2( MOUSE16 ),
+	// DG end
 	
 	NAMEKEY( MWHEELDOWN, "#str_07132" ),
 	NAMEKEY( MWHEELUP, "#str_07131" ),
@@ -434,9 +445,9 @@ const char* idKeyInput::LocalizedKeyName( keyNum_t keynum )
 		}
 	}
 #else // DG: for !Windows I introduced Sys_GetKeyName() to get key label for current keyboard layout
-
+	
 	const char* ret = nullptr;
-
+	
 	if( keynum < K_JOY1 ) // only for keyboard keys, not joystick or mouse
 	{
 		ret = Sys_GetKeyName( keynum );
@@ -447,7 +458,7 @@ const char* idKeyInput::LocalizedKeyName( keyNum_t keynum )
 		return ret;
 	}
 #endif
-
+	
 	// check for a key string
 	for( keyname_t* kn = keynames; kn->name; kn++ )
 	{

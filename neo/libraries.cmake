@@ -55,3 +55,20 @@ if(BUNDLED_SDL)
 else()
 # TODO: OS specific code handles currently, should we have it here?
 endif()
+
+if(CEGUI)
+  add_definitions(-DUSE_CEGUI)
+
+  if(BUNDLED_CEGUI)
+    set(CEGUI_LIBRARY CEGUIBase-0)
+    set(CEGUIGLR_LIBRARY CEGUIOpenGLRenderer-0)
+    include_directories(${CMAKE_BINARY_DIR}/libs/cegui/CEGUI.git/cegui/include) # cegui installs Config here
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/cegui/CEGUI.git/cegui/include)
+    link_directories(${CMAKE_BINARY_DIR}/lib) # cegui installs libs here
+  else()
+    find_package(CEGUI REQUIRED)
+    include_directories(${CEGUI_INCLUDE_DIRS})
+    set(CEGUI_LIBRARY CEGUIBase)
+    set(CEGUIGLR_LIBRARY CEGUIOpenGLRenderer)
+  endif()
+endif()

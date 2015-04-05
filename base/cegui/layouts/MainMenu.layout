@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="MainMenu" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="TaharezLook/Label" name="MainMenuLabel" >
+            <Property name="Area" value="{{0,0},{0,66},{0,1880},{0,98}}" />
+            <Property name="Font" value="DejaVuSans-12" />
+            <Property name="Text" value="Main Menu" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Property name="AlwaysOnTop" value="true" />
+        </Window>
+        <Window type="DefaultWindow" name="DemoMapClickArea" >
+            <Property name="Area" value="{{0,188},{0,298},{1,-1398},{1,-688}}" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Window type="TaharezLook/Label" name="DemoMapLabel" >
+                <Property name="Area" value="{{0,50},{0,12},{0,284},{0,80}}" />
+                <Property name="Text" value="Demo Map" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="AlwaysOnTop" value="true" />
+            </Window>
+        </Window>
+        <Window type="DefaultWindow" name="QuitClickArea" >
+            <Property name="Area" value="{{0,1185},{0,741},{1,-421},{1,-270}}" />
+            <Property name="MaxSize" value="{{1,0},{1,0}}" />
+            <Window type="TaharezLook/Label" name="QuitLabel" >
+                <Property name="Area" value="{{0,89},{0,20},{0,217},{0,52}}" />
+                <Property name="Text" value="Quit" />
+                <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                <Property name="AlwaysOnTop" value="true" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

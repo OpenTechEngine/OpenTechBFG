@@ -130,7 +130,7 @@ struct Win32Vars_t
 	CRITICAL_SECTION criticalSections[MAX_CRITICAL_SECTIONS];
 	
 	HINSTANCE		hInstDI;			// direct input
-
+	
 	LPDIRECTINPUT8			g_pdi;
 	LPDIRECTINPUTDEVICE8	g_pMouse;
 	LPDIRECTINPUTDEVICE8	g_pKeyboard;
