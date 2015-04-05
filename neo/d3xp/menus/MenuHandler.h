@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #define __MENUHANDLER_H__
 
 #ifdef USE_CEGUI
-#include "../cegui/menu/MenuHandler_CEGUI.h"
+#include "../cegui/MenuHandler_CEGUI.h"
 #else
 #include "../d3xp/menus/MenuHandler_SWF.h"
 #endif
