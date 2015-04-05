@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #define __MENUSCREEN_H__
 
 #ifdef USE_CEGUI
-#include "../cegui/menu/MenuScreen_CEGUI.h"
+#include "../cegui/MenuScreen_CEGUI.h"
 #else
 #include "../d3xp/menus/MenuScreen_SWF.h"
 #endif
