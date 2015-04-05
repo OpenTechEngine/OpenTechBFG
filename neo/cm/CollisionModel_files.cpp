@@ -623,6 +623,75 @@ cm_model_t* idCollisionModelManagerLocal::ParseCollisionModel( idLexer* src )
 
 /*
 ================
+idCollisionModelManagerLocal::OldLoadCollisionModelFile
+================
+*/
+bool idCollisionModelManagerLocal::OldLoadCollisionModelFile( const char *name, unsigned int mapFileCRC ) {
+	idStr fileName;
+	idToken token;
+	idLexer *src;
+	unsigned int crc;
+
+	// load it
+	fileName = name;
+	fileName.SetFileExtension( CM_FILE_EXT );
+	src = new idLexer( fileName );
+	src->SetFlags( LEXFL_NOSTRINGCONCAT | LEXFL_NODOLLARPRECOMPILE );
+	if ( !src->IsLoaded() ) {
+		delete src;
+		return false;
+	}
+
+	if ( !src->ExpectTokenString( CM_FILEID ) ) {
+		common->Warning( "%s is not an CM file.", fileName.c_str() );
+		delete src;
+		return false;
+	}
+
+	if ( !src->ReadToken( &token ) || token != CM_FILEVERSION ) {
+		common->Warning( "%s has version %s instead of %s", fileName.c_str(), token.c_str(), CM_FILEVERSION );
+		delete src;
+		return false;
+	}
+
+	if ( !src->ExpectTokenType( TT_NUMBER, TT_INTEGER, &token ) ) {
+		common->Warning( "%s has no map file CRC", fileName.c_str() );
+		delete src;
+		return false;
+	}
+
+        crc = token.GetUnsignedLongValue();
+	if ( mapFileCRC && crc != mapFileCRC ) {
+		common->Printf( "%s is out of date\n", fileName.c_str() );
+		delete src;
+		return false;
+	}
+
+	// parse the file
+	while ( 1 ) {
+		if ( !src->ReadToken( &token ) ) {
+			break;
+		}
+
+		if ( token == "collisionModel" ) {
+			if ( !ParseCollisionModel( src ) ) {
+				delete src;
+				return false;
+			}
+			continue;
+		}
+
+		src->Error( "idCollisionModelManagerLocal::LoadCollisionModelFile: bad token \"%s\"", token.c_str() );
+	}
+
+	delete src;
+
+	return true;
+}
+
+
+/*
+================
 idCollisionModelManagerLocal::LoadCollisionModelFile
 ================
 */

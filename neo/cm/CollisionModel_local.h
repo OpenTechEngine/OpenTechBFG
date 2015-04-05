@@ -528,6 +528,7 @@ private:			// CollisionMap_files.cpp
 	void			ParseBrushes( idLexer* src, cm_model_t* model );
 	cm_model_t* 	ParseCollisionModel( idLexer* src );
 	bool			LoadCollisionModelFile( const char* name, unsigned int mapFileCRC );
+	bool                    OldLoadCollisionModelFile( const char *name, unsigned int mapFileCRC );
 	
 private:			// CollisionMap_debug
 	int				ContentsFromString( const char* string ) const;
