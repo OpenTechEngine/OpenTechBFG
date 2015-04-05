@@ -40,6 +40,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "console/Console.h"
 
+#include "menu/MenuSystem.h"
+
 namespace // anon. namespace for helper functions and global state
 {
 CEGUI::System* ceguiSys = NULL; // the CEGUI System Singleton, available after Init()
@@ -203,17 +205,27 @@ bool HandleKeyEvent( const sysEvent_t& keyEvent )
 	return false;
 }
 
+CEGUIMenu::MenuSystem *ourMenuSystem;
+
 void Startup()
 {
 	// all functions for console/menu/etc should be here
 	// this will create a cegui console for idConsole to use
 	console->Init();
+
+	// MenuSystem
+	ourMenuSystem = new CEGUIMenu::MenuSystem();
+	ourMenuSystem->Init();
 }
 
 void Shutdown()
 {
 	// all functions for console/menu/etc should be here
 	console->Shutdown();
+
+	// MenuSystem
+	ourMenuSystem->Destroy();
+	delete ourMenuSystem;
 }
 
 } //anon namespace

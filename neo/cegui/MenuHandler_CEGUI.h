@@ -49,6 +49,10 @@ public:
 	virtual bool IsActive();
 	virtual void ClearWidgetActionRepeater();
 	virtual bool HandleGuiEvent( const sysEvent_t* sev );
+
+protected:
+	struct MenuVars;
+	MenuVars* ourVars;
 };
 
 /*
@@ -89,6 +93,9 @@ public:
 	virtual void SetGameComplete();
 	virtual bool GetGameComplete();
 	virtual void SetTimeRemaining( int time );
+
+private:
+	shellState_t state;
 };
 
 /*
