@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="TaharezLook/FrameWindow" name="Settings" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="Font" value="DejaVuSans-12" />
+        <Property name="Text" value="Settings" />
+        <Property name="AlwaysOnTop" value="true" />
+        <Window type="TaharezLook/TabControl" name="TabScreen" >
+            <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+            <Property name="TabHeight" value="{0,-1}" />
+        </Window>
+    </Window>
+</GUILayout>

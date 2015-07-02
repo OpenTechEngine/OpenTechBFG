@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="MainMenu" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="Font" value="DejaVuSans-12" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="VerticalLayoutContainer" name="MenuVertical" >
+            <Property name="Area" value="{{0,0},{0,0},{0,1920},{0,185}}" />
+            <Window type="HorizontalLayoutContainer" name="TopSelect" >
+                <Property name="Area" value="{{0,0},{0,0},{0,1250},{0,90}}" />
+                <Property name="HorizontalAlignment" value="Centre" />
+                <Window type="TaharezLook/Button" name="Campaign" >
+                    <Property name="Area" value="{{0,0},{0,0},{0.080208,96},{0.0537037,32}}" />
+                    <Property name="Text" value="Campaign" />
+                </Window>
+                <Window type="TaharezLook/Button" name="Multiplayer" >
+                    <Property name="Area" value="{{0,250},{0,0},{0.080208,346},{0.053704,32}}" />
+                    <Property name="Text" value="Multiplayer" />
+                </Window>
+                <Window type="TaharezLook/Button" name="Settings" >
+                    <Property name="Area" value="{{0,500},{0,0},{0.080208,596},{0.0537039,32}}" />
+                    <Property name="Text" value="Settings" />
+                </Window>
+                <Window type="TaharezLook/Button" name="Credits" >
+                    <Property name="Area" value="{{0,750},{0,0},{0.080208,846},{0.053704,32}}" />
+                    <Property name="Text" value="Credits" />
+                </Window>
+                <Window type="TaharezLook/Button" name="Quit" >
+                    <Property name="Area" value="{{0,1000},{0,0},{0.080208,1096},{0.0537041,32}}" />
+                    <Property name="Text" value="Quit" />
+                </Window>
+            </Window>
+            <Window type="HorizontalLayoutContainer" name="Banner" >
+                <Property name="Area" value="{{0,0},{0,90},{0,1920},{0,185}}" />
+                <Window type="TaharezLook/StaticText" name="Message" >
+                    <Property name="Area" value="{{0,0},{0,0},{0.866667,256},{-0.0303706,128}}" />
+                    <Property name="Text" value="Welcome To OpenTechEngine. This is the Main Menu. Find out more at https://github.com/OpenTechEngine" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="HorzScrollPageSize" value="1902" />
+                    <Property name="VertScrollPageSize" value="77" />
+                    <Property name="HorzScrollDocumentSize" value="1294" />
+                    <Property name="VertScrollDocumentSize" value="27.9375" />
+                </Window>
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>
