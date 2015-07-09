@@ -61,9 +61,10 @@ namespace BFG
 */
 
 // default scripts
-#define SCRIPT_DEFAULTDEFS			"script/doom_defs.script"
-#define SCRIPT_DEFAULT				"script/doom_main.script"
-#define SCRIPT_DEFAULTFUNC			"doom_main"
+#define SCRIPT_DEFAULTDEFS			"script/defs.globals"
+#define SCRIPT_DEFAULT				"script/main.script"
+#define SCRIPT_DEFAULTNAME			"main.script"
+#define SCRIPT_DEFAULTFUNC			"default_func"
 
 struct gameReturn_t
 {
