@@ -36,16 +36,19 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/EditField.h"
 #include "../framework/Licensee.h"
 
-#include <errno.h>
-#include <float.h>
+#include <cerrno>
+#include <cfloat>
 #include <fcntl.h>
-#include <stdio.h>
+#include <cstdio>
 #include <direct.h>
 #include <io.h>
 #include <conio.h>
 
 #include "win_local.h"
 #include "rc/doom_resource.h"
+
+namespace BFG
+{
 
 #define COPY_ID			1
 #define QUIT_ID			2
@@ -626,3 +629,5 @@ void Win_SetErrorText( const char* buf )
 		s_wcd.hwndInputLine = NULL;
 	}
 }
+
+} // namespace BFG

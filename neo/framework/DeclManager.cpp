@@ -27,10 +27,10 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdarg.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <string.h>
+#include <cstdarg>
+#include <cstddef>
+#include <cstdio>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -61,6 +61,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "../renderer/Material.h"
 #include "../sound/sound.h"
+
+namespace BFG
+{
 
 class idDeclAF;
 class idDeclEntityDef;
@@ -1768,7 +1771,7 @@ void idDeclManagerLocal::WritePrecacheCommands( idFile* f )
 			}
 			
 			char	str[1024];
-			sprintf( str, "touch %s %s\n", declTypes[i]->typeName.c_str(), decl->GetName() );
+			std::sprintf( str, "touch %s %s\n", declTypes[i]->typeName.c_str(), decl->GetName() );
 			common->Printf( "%s", str );
 			f->Printf( "%s", str );
 		}
@@ -2761,3 +2764,5 @@ bool idDeclLocal::EverReferenced() const
 {
 	return everReferenced;
 }
+
+} // namespace BFG

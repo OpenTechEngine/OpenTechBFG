@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 #include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"
@@ -50,6 +50,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderWorld_local.h"
 #include "../renderer/ScreenRect.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 // if we hit this many planes, we will just stop cropping the
 // view down, which is still correct, just conservative
@@ -1230,3 +1233,5 @@ void idRenderWorldLocal::ShowPortals()
 		}
 	}
 }
+
+} // namespace BFG

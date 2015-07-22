@@ -31,11 +31,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/Heap.h"
 #include "../idlib/containers/List.h"
 
-class idPhysics;
-
 #pragma hdrstop
 
+namespace BFG
+{
 
+class idPhysics;
 
 CLASS_DECLARATION( idClass, idForce )
 END_CLASS
@@ -104,3 +105,5 @@ idForce::RemovePhysics
 void idForce::RemovePhysics( const idPhysics* phys )
 {
 }
+
+} // namespace BFG

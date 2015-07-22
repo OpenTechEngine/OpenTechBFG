@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <string.h>
+#include <cstring>
 #include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"
@@ -40,6 +40,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderSystem.h"
 #include "Framebuffer.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 class idCmdArgs;
 
@@ -261,3 +264,5 @@ void Framebuffer::Check()
 	
 	glBindFramebuffer( GL_FRAMEBUFFER, prev );
 }
+
+} // namespace BFG

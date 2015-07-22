@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 
 #include "../framework/Common.h"
 #include "../idlib/Lib.h"
@@ -39,6 +39,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "containers/Sort.h"
 #include "sys/sys_assert.h"
 #include "sys/sys_types.h"
+
+namespace BFG
+{
 
 /*
 ============
@@ -910,3 +913,5 @@ bool idWinding2D::RayIntersection( const idVec2& start, const idVec2& dir, float
 	}
 	return true;
 }
+
+} // namespace BFG

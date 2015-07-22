@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <memory>
 
 #include "../d3xp/Game.h"
@@ -55,6 +55,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h"
 #include "../sys/sys_session_savegames.h"
 #include "sys_profile.h"
+
+namespace BFG
+{
 
 #define SAVEGAME_PROFILE_FILENAME			"profile.bin"
 
@@ -517,3 +520,5 @@ bool Sys_SaveGameProfileCheck()
 	
 	return exists;
 }
+
+} // namespace BFG

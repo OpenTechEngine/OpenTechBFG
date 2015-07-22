@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <string.h>
+#include <cstring>
 
 #include "../idlib/Heap.h"
 #include "../idlib/Str.h"
@@ -38,6 +38,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
+namespace BFG
+{
+
 #define NBM( x ) (int32)( ( 1LL << x ) - 1 )
 int maskForNumBits[33] = {	NBM( 0x00 ), NBM( 0x01 ), NBM( 0x02 ), NBM( 0x03 ),
 							NBM( 0x04 ), NBM( 0x05 ), NBM( 0x06 ), NBM( 0x07 ),
@@ -48,7 +51,7 @@ int maskForNumBits[33] = {	NBM( 0x00 ), NBM( 0x01 ), NBM( 0x02 ), NBM( 0x03 ),
 							NBM( 0x18 ), NBM( 0x19 ), NBM( 0x1A ), NBM( 0x1B ),
 							NBM( 0x1C ), NBM( 0x1D ), NBM( 0x1E ), NBM( 0x1F ), -1
 						 };
-
+						 
 #define NBS( x ) (int32)( (-1) << ( x - 1 ) )
 int signForNumBits[33] = {	NBS( 0x01 ), NBS( 0x01 ), NBS( 0x02 ), NBS( 0x03 ),
 							NBS( 0x04 ), NBS( 0x05 ), NBS( 0x06 ), NBS( 0x07 ),
@@ -59,7 +62,7 @@ int signForNumBits[33] = {	NBS( 0x01 ), NBS( 0x01 ), NBS( 0x02 ), NBS( 0x03 ),
 							NBS( 0x18 ), NBS( 0x19 ), NBS( 0x1A ), NBS( 0x1B ),
 							NBS( 0x1C ), NBS( 0x1D ), NBS( 0x1E ), NBS( 0x1F ), NBS( 0x20 )
 						 };
-
+						 
 /*
 ========================
 idSWFBitStream::idSWFBitStream
@@ -461,3 +464,5 @@ void idSWFBitStream::ReadMorphGradient( swfGradient_t& grad )
 		ReadColorRGBA( grad.gradientRecords[i].endColor );
 	}
 }
+
+} // namespace BFG

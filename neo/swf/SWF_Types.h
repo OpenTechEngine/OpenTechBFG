@@ -30,6 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../renderer/RenderSystem.h"   // for stereoDepthType_t
 
+namespace BFG
+{
+
 ID_INLINE float SWFTWIP( int twip )
 {
 	return twip * ( 1.0f / 20.0f );
@@ -464,5 +467,7 @@ ID_INLINE swfGlyphEntry_t::swfGlyphEntry_t() :
 	advance( 0 )
 {
 }
+
+} // namespace BFG
 
 #endif // !__SWF_TYPES1_H__

@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <string.h>
+#include <cstring>
 
 #include "../d3xp/Entity.h"
 #include "../d3xp/Game.h"
@@ -62,6 +62,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderWorld.h"
 #include "../sound/sound.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -1346,3 +1349,5 @@ bool idLight::ClientReceiveEvent( int event, int time, const idBitMsg& msg )
 		}
 	}
 }
+
+} // namespace BFG

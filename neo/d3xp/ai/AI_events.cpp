@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 
 #include "../Game_local.h"
 #include "../aas/AASFile.h"
@@ -70,6 +70,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Material.h"
 #include "../renderer/Model.h"
 #include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
 
 /***********************************************************************
 
@@ -3440,3 +3443,5 @@ void idAI::Event_SetHomingMissileGoal()
 	
 	homingMissileGoal = enemy->GetPhysics()->GetOrigin();
 }
+
+} // namespace BFG

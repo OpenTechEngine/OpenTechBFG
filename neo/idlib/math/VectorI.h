@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_assert.h"
 
+namespace BFG
+{
+
 static ID_INLINE int MinInt( int a, int b )
 {
 	return ( a ) < ( b ) ? ( a ) : ( b );
@@ -283,4 +286,6 @@ public:
 	}
 };
 
-#endif
+} // namespace BFG
+
+#endif // __MATH_VECTORI_H__

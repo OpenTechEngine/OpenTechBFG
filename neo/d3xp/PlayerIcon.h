@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Model.h"
 #include "../renderer/RenderWorld.h"
 
+namespace BFG
+{
+
 class idMat3;
 class idPlayer;
 class idVec3;
@@ -70,6 +73,6 @@ public:
 	
 };
 
+} // namespace BFG
 
 #endif	/* !_PLAYERICON_H_ */
-

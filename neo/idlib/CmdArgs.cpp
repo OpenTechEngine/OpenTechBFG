@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../idlib/CmdArgs.h"
@@ -36,6 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/Str.h"
 #include "../idlib/Token.h"
 #include "sys/sys_assert.h"
+
+namespace BFG
+{
 
 /*
 ============
@@ -247,3 +250,4 @@ const char* const* idCmdArgs::GetArgs( int* _argc )
 	return ( const char** )&argv[0];
 }
 
+} // namespace BFG

@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/File.h"
 #include "../idlib/Heap.h"
@@ -39,6 +39,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "SWF_Sprites.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 /*
 ========================
@@ -299,3 +302,5 @@ void idSWFSprite::Write( idFile* f )
 		f->WriteBig( doInitActions[i].Length() );
 	}
 }
+
+} // namespace BFG

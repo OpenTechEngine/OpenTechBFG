@@ -36,9 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 #undef vsnprintf
 // DG end
 
-#include <stddef.h>
+#include <cstddef>
 #include <stdint.h>
-#include <string.h>
+#include <cstring>
 
 #include <SDL.h>
 
@@ -63,7 +63,6 @@ If you have questions concerning this license or the applicable additional terms
 #include "../../cegui/CEGUI_Hooks.h"
 #endif // USE_CEGUI
 
-
 #if !SDL_VERSION_ATLEAST(2, 0, 0)
 #define SDL_Keycode SDLKey
 #define SDLK_APPLICATION SDLK_COMPOSE
@@ -85,7 +84,13 @@ If you have questions concerning this license or the applicable additional terms
 // DG: SDL1 doesn't seem to have defines for scancodes.. add the (only) one we need
 #define SDL_SCANCODE_GRAVE 49 // in SDL2 this is 53.. but according to two different systems and keyboards this works for SDL1
 // DG end
+#else
+// SDL2 scancodes
+#include "sdl2_scancode_mappings.h"
 #endif
+
+namespace BFG
+{
 
 // DG: those are needed for moving/resizing windows
 extern idCVar r_windowX;
@@ -158,8 +163,6 @@ int SDL_joystick_has_hat = 0;
 
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 
-#include "sdl2_scancode_mappings.h"
-
 static int SDLScanCodeToKeyNum( SDL_Scancode sc )
 {
 	int idx = int( sc );
@@ -223,21 +226,21 @@ static void ConvertUTF8toUTF32( const char* utf8str, int32* utf32buf )
 static int SDL_KeyToDoom3Key( SDL_Keycode key, bool& isChar )
 {
 	isChar = false;
-	
+
 	if( key >= SDLK_SPACE && key < SDLK_DELETE )
 	{
 		isChar = true;
 		//return key;// & 0xff;
 	}
-	
+
 	switch( key )
 	{
 		case SDLK_ESCAPE:
 			return K_ESCAPE;
-			
+
 		case SDLK_SPACE:
 			return K_SPACE;
-			
+
 		//case SDLK_EXCLAIM:
 		/*
 		SDLK_QUOTEDBL:
@@ -256,60 +259,60 @@ static int SDL_KeyToDoom3Key( SDL_Keycode key, bool& isChar )
 		*/
 		case SDLK_0:
 			return K_0;
-			
+
 		case SDLK_1:
 			return K_1;
-			
+
 		case SDLK_2:
 			return K_2;
-			
+
 		case SDLK_3:
 			return K_3;
-			
+
 		case SDLK_4:
 			return K_4;
-			
+
 		case SDLK_5:
 			return K_5;
-			
+
 		case SDLK_6:
 			return K_6;
-			
+
 		case SDLK_7:
 			return K_7;
-			
+
 		case SDLK_8:
 			return K_8;
-			
+
 		case SDLK_9:
 			return K_9;
-			
+
 		// DG: add some missing keys..
 		case SDLK_UNDERSCORE:
 			return K_UNDERLINE;
-			
+
 		case SDLK_MINUS:
 			return K_MINUS;
-			
+
 		case SDLK_COMMA:
 			return K_COMMA;
-			
+
 		case SDLK_COLON:
 			return K_COLON;
-			
+
 		case SDLK_SEMICOLON:
 			return K_SEMICOLON;
-			
+
 		case SDLK_PERIOD:
 			return K_PERIOD;
-			
+
 		case SDLK_AT:
 			return K_AT;
-			
+
 		case SDLK_EQUALS:
 			return K_EQUALS;
 		// DG end
-		
+
 		/*
 		SDLK_COLON		= 58,
 		SDLK_SEMICOLON		= 59,
@@ -330,268 +333,268 @@ static int SDL_KeyToDoom3Key( SDL_Keycode key, bool& isChar )
 		SDLK_UNDERSCORE		= 95,
 		SDLK_BACKQUOTE		= 96,
 		*/
-		
+
 		case SDLK_a:
 			return K_A;
-			
+
 		case SDLK_b:
 			return K_B;
-			
+
 		case SDLK_c:
 			return K_C;
-			
+
 		case SDLK_d:
 			return K_D;
-			
+
 		case SDLK_e:
 			return K_E;
-			
+
 		case SDLK_f:
 			return K_F;
-			
+
 		case SDLK_g:
 			return K_G;
-			
+
 		case SDLK_h:
 			return K_H;
-			
+
 		case SDLK_i:
 			return K_I;
-			
+
 		case SDLK_j:
 			return K_J;
-			
+
 		case SDLK_k:
 			return K_K;
-			
+
 		case SDLK_l:
 			return K_L;
-			
+
 		case SDLK_m:
 			return K_M;
-			
+
 		case SDLK_n:
 			return K_N;
-			
+
 		case SDLK_o:
 			return K_O;
-			
+
 		case SDLK_p:
 			return K_P;
-			
+
 		case SDLK_q:
 			return K_Q;
-			
+
 		case SDLK_r:
 			return K_R;
-			
+
 		case SDLK_s:
 			return K_S;
-			
+
 		case SDLK_t:
 			return K_T;
-			
+
 		case SDLK_u:
 			return K_U;
-			
+
 		case SDLK_v:
 			return K_V;
-			
+
 		case SDLK_w:
 			return K_W;
-			
+
 		case SDLK_x:
 			return K_X;
-			
+
 		case SDLK_y:
 			return K_Y;
-			
+
 		case SDLK_z:
 			return K_Z;
-			
+
 		case SDLK_RETURN:
 			return K_ENTER;
-			
+
 		case SDLK_BACKSPACE:
 			return K_BACKSPACE;
-			
+
 		case SDLK_PAUSE:
 			return K_PAUSE;
-			
+
 		// DG: add tab key support
 		case SDLK_TAB:
 			return K_TAB;
 		// DG end
-		
+
 		//case SDLK_APPLICATION:
 		//	return K_COMMAND;
 		case SDLK_CAPSLOCK:
 			return K_CAPSLOCK;
-			
+
 		case SDLK_SCROLLLOCK:
 			return K_SCROLL;
-			
+
 		case SDLK_POWER:
 			return K_POWER;
-			
+
 		case SDLK_UP:
 			return K_UPARROW;
-			
+
 		case SDLK_DOWN:
 			return K_DOWNARROW;
-			
+
 		case SDLK_LEFT:
 			return K_LEFTARROW;
-			
+
 		case SDLK_RIGHT:
 			return K_RIGHTARROW;
-			
+
 		case SDLK_LGUI:
 			return K_LWIN;
-			
+
 		case SDLK_RGUI:
 			return K_RWIN;
 		//case SDLK_MENU:
 		//	return K_MENU;
-		
+
 		case SDLK_LALT:
 			return K_LALT;
-			
+
 		case SDLK_RALT:
 			return K_RALT;
-			
+
 		case SDLK_RCTRL:
 			return K_RCTRL;
-			
+
 		case SDLK_LCTRL:
 			return K_LCTRL;
-			
+
 		case SDLK_RSHIFT:
 			return K_RSHIFT;
-			
+
 		case SDLK_LSHIFT:
 			return K_LSHIFT;
-			
+
 		case SDLK_INSERT:
 			return K_INS;
-			
+
 		case SDLK_DELETE:
 			return K_DEL;
-			
+
 		case SDLK_PAGEDOWN:
 			return K_PGDN;
-			
+
 		case SDLK_PAGEUP:
 			return K_PGUP;
-			
+
 		case SDLK_HOME:
 			return K_HOME;
-			
+
 		case SDLK_END:
 			return K_END;
-			
+
 		case SDLK_F1:
 			return K_F1;
-			
+
 		case SDLK_F2:
 			return K_F2;
-			
+
 		case SDLK_F3:
 			return K_F3;
-			
+
 		case SDLK_F4:
 			return K_F4;
-			
+
 		case SDLK_F5:
 			return K_F5;
-			
+
 		case SDLK_F6:
 			return K_F6;
-			
+
 		case SDLK_F7:
 			return K_F7;
-			
+
 		case SDLK_F8:
 			return K_F8;
-			
+
 		case SDLK_F9:
 			return K_F9;
-			
+
 		case SDLK_F10:
 			return K_F10;
-			
+
 		case SDLK_F11:
 			return K_F11;
-			
+
 		case SDLK_F12:
 			return K_F12;
 		// K_INVERTED_EXCLAMATION;
-		
+
 		case SDLK_F13:
 			return K_F13;
-			
+
 		case SDLK_F14:
 			return K_F14;
-			
+
 		case SDLK_F15:
 			return K_F15;
-			
+
 		case SDLK_KP_7:
 			return K_KP_7;
-			
+
 		case SDLK_KP_8:
 			return K_KP_8;
-			
+
 		case SDLK_KP_9:
 			return K_KP_9;
-			
+
 		case SDLK_KP_4:
 			return K_KP_4;
-			
+
 		case SDLK_KP_5:
 			return K_KP_5;
-			
+
 		case SDLK_KP_6:
 			return K_KP_6;
-			
+
 		case SDLK_KP_1:
 			return K_KP_1;
-			
+
 		case SDLK_KP_2:
 			return K_KP_2;
-			
+
 		case SDLK_KP_3:
 			return K_KP_3;
-			
+
 		case SDLK_KP_ENTER:
 			return K_KP_ENTER;
-			
+
 		case SDLK_KP_0:
 			return K_KP_0;
-			
+
 		case SDLK_KP_PERIOD:
 			return K_KP_DOT;
-			
+
 		case SDLK_KP_DIVIDE:
 			return K_KP_SLASH;
 		// K_SUPERSCRIPT_TWO;
-		
+
 		case SDLK_KP_MINUS:
 			return K_KP_MINUS;
 		// K_ACUTE_ACCENT;
-		
+
 		case SDLK_KP_PLUS:
 			return K_KP_PLUS;
-			
+
 		case SDLK_NUMLOCKCLEAR:
 			return K_NUMLOCK;
-			
+
 		case SDLK_KP_MULTIPLY:
 			return K_KP_STAR;
-			
+
 		case SDLK_KP_EQUALS:
 			return K_KP_EQUALS;
-			
+
 		// K_MASCULINE_ORDINATOR;
 		// K_GRAVE_A;
 		// K_AUX1;
@@ -616,14 +619,14 @@ static int SDL_KeyToDoom3Key( SDL_Keycode key, bool& isChar )
 		// K_GRAVE_U;
 		// K_AUX15;
 		// K_AUX16;
-		
+
 		case SDLK_PRINTSCREEN:
 			return K_PRINTSCREEN;
-			
+
 		case SDLK_MODE:
 			return K_RALT;
 	}
-	
+
 	return 0;
 }
 #endif // SDL2
@@ -1717,3 +1720,5 @@ void Sys_EndJoystickInputEvents()
 	// all joystick events have been read using Sys_ReturnJoystickInputEvent()
 	joystick_polls.SetNum( 0 );
 }
+
+} // namespace BFG

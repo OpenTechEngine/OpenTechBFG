@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../d3xp/physics/Force.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -104,5 +107,7 @@ private:
 	bool				monsterOnly;
 	idClipModel* 		clipModel;
 };
+
+} // namespace BFG
 
 #endif /* !__FORCE_FIELD_H__ */

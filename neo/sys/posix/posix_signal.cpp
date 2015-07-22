@@ -25,13 +25,16 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <errno.h>
-#include <signal.h>
-#include <string.h>
+#include <cerrno>
+#include <csignal>
+#include <cstring>
 
 #include "../framework/Common.h"
 #include "../sys/sys_public.h"
 #include "posix_public.h"
+
+namespace BFG
+{
 
 const int siglist[] =
 {
@@ -177,3 +180,5 @@ void Sys_SetFatalError( const char* error )
 {
 	strncpy( fatalError, error, sizeof( fatalError ) );
 }
+
+} // namespace BFG

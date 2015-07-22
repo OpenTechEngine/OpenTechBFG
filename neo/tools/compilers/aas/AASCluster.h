@@ -29,6 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __AASCLUSTER_H__
 #define __AASCLUSTER_H__
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -59,5 +62,7 @@ private:
 	void					ReportEfficiency();
 	void					RemoveInvalidPortals();
 };
+
+} // namespace BFG
 
 #endif /* !__AASCLUSTER_H__ */

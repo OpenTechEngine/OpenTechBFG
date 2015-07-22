@@ -27,9 +27,9 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
+#include <cassert>
 #include <emmintrin.h>
-#include <stddef.h>
+#include <cstddef>
 #include <xmmintrin.h>
 
 #include "../framework/Common.h"
@@ -53,6 +53,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "SoftwareCache.h"
 #include "sys/sys_intrinsics.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 class idDemoFile;
 
@@ -916,3 +919,5 @@ void idRenderModelDecal::WriteToDemoFile( idDemoFile* f ) const
 {
 	// FIXME: implement
 }
+
+} // namespace BFG

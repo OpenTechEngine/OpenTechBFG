@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Model.h"          // for idRenderModel
 #include "../framework/File_Manifest.h"  // for idPreloadManifest, etc
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -102,5 +105,7 @@ public:
 
 // this will be statically pointed at a private implementation
 extern	idRenderModelManager*	renderModelManager;
+
+} // namespace BFG
 
 #endif /* !__MODELMANAGER_H__ */

@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_PLAYERVIEW_H__
 #define __GAME_PLAYERVIEW_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Heap.h"
 #include "../idlib/Str.h"
@@ -38,6 +38,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Matrix.h"
 #include "../idlib/math/Vector.h"
 #include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
 
 class idDict;
 class idMaterial;
@@ -503,5 +506,7 @@ public:
 
 // the crosshair is swapped for a laser sight in stereo rendering
 bool	IsGameStereoRendered();
+
+} // namespace BFG
 
 #endif /* !__GAME_PLAYERVIEW_H__ */

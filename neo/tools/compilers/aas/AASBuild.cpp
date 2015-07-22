@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "AASBuild_local.h"
 
+namespace BFG
+{
+
 #define BFL_PATCH		0x1000
 
 //===============================================================
@@ -1174,3 +1177,5 @@ void RunReach_f( const idCmdArgs& args )
 	common->SetRefreshOnPrint( false );
 	common->PrintWarnings();
 }
+
+} // namespace BFG

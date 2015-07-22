@@ -37,6 +37,9 @@ If you have questions concerning this license or the applicable additional terms
 #include <GL/gl.h>
 #endif
 
+namespace BFG
+{
+
 /*
 
   New vertexes will be created where edges cross.
@@ -2221,3 +2224,5 @@ void	OptimizeEntity( uEntity_t* e )
 		OptimizeGroupList( e->areas[i].groups );
 	}
 }
+
+} // namespace BFG

@@ -29,13 +29,16 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SLIDERWINDOW_H__
 #define __SLIDERWINDOW_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Str.h"
 #include "../ui/Rectangle.h"
 #include "../ui/SimpleWindow.h"
 #include "../ui/Window.h"
 #include "../ui/Winvar.h"
+
+namespace BFG
+{
 
 class idCVar;
 class idMaterial;
@@ -114,5 +117,6 @@ private:
 	idWinStr			cvarGroup;
 };
 
-#endif /* !__SLIDERWINDOW_H__ */
+} // namespace BFG
 
+#endif /* !__SLIDERWINDOW_H__ */

@@ -39,6 +39,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "geometry/Surface.h"
 #include "sys/sys_types.h"
 
+namespace BFG
+{
+
 /*
 ====================
 idSurface_SweptSpline::SetSpline
@@ -245,3 +248,5 @@ void idSurface_SweptSpline::Tessellate( const int splineSubdivisions, const int 
 	
 	GenerateEdgeIndexes();
 }
+
+} // namespace BFG

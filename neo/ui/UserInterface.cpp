@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stddef.h>
-#include <stdio.h>
+#include <cstddef>
+#include <cstdio>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -58,6 +58,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "ListGUILocal.h"
 #include "UserInterfaceLocal.h"
 #include "Window.h"
+
+namespace BFG
+{
 
 extern idCVar r_skipGuiShaders;		// 1 = don't render any gui elements on surfaces
 
@@ -135,7 +138,7 @@ void idUserInterfaceManagerLocal::WritePrecacheCommands( idFile* f )
 	for( int i = 0; i < c; i++ )
 	{
 		char	str[1024];
-		sprintf( str, "touchGui %s\n", guis[i]->Name() );
+		std::sprintf( str, "touchGui %s\n", guis[i]->Name() );
 		common->Printf( "%s", str );
 		f->Printf( "%s", str );
 	}
@@ -854,3 +857,4 @@ void idUserInterfaceLocal::SetCursor( float x, float y )
 	cursorY = y;
 }
 
+} // namespace BFG

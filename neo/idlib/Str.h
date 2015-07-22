@@ -30,11 +30,21 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __STR_H__
 #define __STR_H__
 
-#include <stdio.h>
-#include <stdarg.h>
+#include <cstdio>
+#include <cstdarg>
+#include <cstring>
 
 #include "../idlib/containers/Sort.h"            // for idSort_Quick
-#include "../idlib/CmdArgs.h"
+
+#ifdef _WIN32
+// macro collision
+#undef FindText
+#endif
+
+namespace BFG
+{
+
+class idCmdArgs;
 
 /*
 ===============================================================================
@@ -56,7 +66,7 @@ enum utf8Encoding_t
 };
 
 // these library functions should not be used for cross platform compatibility
-#define strcmp			idStr::Cmp		// use_idStr_Cmp
+#define strcmp			use_idStr_Cmp
 #define strncmp			use_idStr_Cmpn
 
 #if defined( StrCmpN )
@@ -79,7 +89,7 @@ enum utf8Encoding_t
 #endif
 #define StrCmpNI		use_idStr_Icmpn
 
-#define stricmp			idStr::Icmp		// use_idStr_Icmp
+#define stricmp			use_idStr_Icmp
 
 #undef strcasecmp // DG: redefining this without undefining it causes tons of compiler warnings
 
@@ -444,7 +454,7 @@ ID_INLINE void idStr::Construct()
 	len = 0;
 	data[ 0 ] = '\0';
 #ifdef ID_DEBUG_UNINITIALIZED_MEMORY
-	memset( baseBuffer, 0, sizeof( baseBuffer ) );
+	std::memset( baseBuffer, 0, sizeof( baseBuffer ) );
 #endif
 }
 
@@ -490,7 +500,7 @@ ID_INLINE idStr::idStr( const idStr& text )
 	
 	l = text.Length();
 	EnsureAlloced( l + 1 );
-	strcpy( data, text.data );
+	std::strcpy( data, text.data );
 	len = l;
 }
 
@@ -538,10 +548,10 @@ ID_INLINE idStr::idStr( const char* text )
 	if( text )
 	{
 		// RB: 64 bit fixes,  conversion from 'size_t' to 'int', possible loss of data
-		l = ( int )strlen( text );
+		l = ( int )std::strlen( text );
 		// RB end
 		EnsureAlloced( l + 1 );
-		strcpy( data, text );
+		std::strcpy( data, text );
 		len = l;
 	}
 }
@@ -551,7 +561,7 @@ ID_INLINE idStr::idStr( const char* text, int start, int end )
 	Construct();
 	int i;
 	// RB: 64 bit fixes,  conversion from 'size_t' to 'int', possible loss of data
-	int l = ( int )strlen( text );
+	int l = ( int )std::strlen( text );
 	// RB end
 	
 	if( end > l )
@@ -608,9 +618,9 @@ ID_INLINE idStr::idStr( const int i )
 	char text[ 64 ];
 	int l;
 	
-	l = sprintf( text, "%d", i );
+	l = std::sprintf( text, "%d", i );
 	EnsureAlloced( l + 1 );
-	strcpy( data, text );
+	std::strcpy( data, text );
 	len = l;
 }
 
@@ -620,9 +630,9 @@ ID_INLINE idStr::idStr( const unsigned u )
 	char text[ 64 ];
 	int l;
 	
-	l = sprintf( text, "%u", u );
+	l = std::sprintf( text, "%u", u );
 	EnsureAlloced( l + 1 );
-	strcpy( data, text );
+	std::strcpy( data, text );
 	len = l;
 }
 
@@ -636,7 +646,7 @@ ID_INLINE idStr::idStr( const float f )
 	while( l > 0 && text[l - 1] == '0' ) text[--l] = '\0';
 	while( l > 0 && text[l - 1] == '.' ) text[--l] = '\0';
 	EnsureAlloced( l + 1 );
-	strcpy( data, text );
+	std::strcpy( data, text );
 	len = l;
 }
 
@@ -683,7 +693,7 @@ ID_INLINE void idStr::operator=( const idStr& text )
 	
 	l = text.Length();
 	EnsureAlloced( l + 1, false );
-	memcpy( data, text.data, l );
+	std::memcpy( data, text.data, l );
 	data[l] = '\0';
 	len = l;
 }
@@ -728,7 +738,7 @@ ID_INLINE idStr operator+( const idStr& a, const float b )
 	char	text[ 64 ];
 	idStr	result( a );
 	
-	sprintf( text, "%f", b );
+	std::sprintf( text, "%f", b );
 	result.Append( text );
 	
 	return result;
@@ -739,7 +749,7 @@ ID_INLINE idStr operator+( const idStr& a, const int b )
 	char	text[ 64 ];
 	idStr	result( a );
 	
-	sprintf( text, "%d", b );
+	std::sprintf( text, "%d", b );
 	result.Append( text );
 	
 	return result;
@@ -750,7 +760,7 @@ ID_INLINE idStr operator+( const idStr& a, const unsigned b )
 	char	text[ 64 ];
 	idStr	result( a );
 	
-	sprintf( text, "%u", b );
+	std::sprintf( text, "%u", b );
 	result.Append( text );
 	
 	return result;
@@ -760,7 +770,7 @@ ID_INLINE idStr& idStr::operator+=( const float a )
 {
 	char text[ 64 ];
 	
-	sprintf( text, "%f", a );
+	std::sprintf( text, "%f", a );
 	Append( text );
 	
 	return *this;
@@ -770,7 +780,7 @@ ID_INLINE idStr& idStr::operator+=( const int a )
 {
 	char text[ 64 ];
 	
-	sprintf( text, "%d", a );
+	std::sprintf( text, "%d", a );
 	Append( text );
 	
 	return *this;
@@ -780,7 +790,7 @@ ID_INLINE idStr& idStr::operator+=( const unsigned a )
 {
 	char text[ 64 ];
 	
-	sprintf( text, "%u", a );
+	std::sprintf( text, "%u", a );
 	Append( text );
 	
 	return *this;
@@ -858,7 +868,7 @@ ID_INLINE int idStr::CmpPrefix( const char* text ) const
 {
 	assert( text );
 	// RB: 64 bit fixes,  conversion from 'size_t' to 'int', possible loss of data
-	return idStr::Cmpn( data, text, ( int )strlen( text ) );
+	return idStr::Cmpn( data, text, ( int )std::strlen( text ) );
 	// RB end
 }
 
@@ -878,7 +888,7 @@ ID_INLINE int idStr::IcmpPrefix( const char* text ) const
 {
 	assert( text );
 	// RB: 64 bit fixes,  conversion from 'size_t' to 'int', possible loss of data
-	return idStr::Icmpn( data, text, ( int )strlen( text ) );
+	return idStr::Icmpn( data, text, ( int )std::strlen( text ) );
 	// RB end
 }
 
@@ -904,7 +914,7 @@ ID_INLINE int idStr::IcmpPrefixPath( const char* text ) const
 {
 	assert( text );
 	// RB: 64 bit fixes,  conversion from 'size_t' to 'int', possible loss of data
-	return idStr::IcmpnPath( data, text, ( int )strlen( text ) );
+	return idStr::IcmpnPath( data, text, ( int )std::strlen( text ) );
 	// RB end
 }
 
@@ -980,7 +990,7 @@ ID_INLINE void idStr::Append( const char* text )
 	if( text )
 	{
 		// RB: 64 bit fixes,  conversion from 'size_t' to 'int', possible loss of data
-		newLen = len + ( int )strlen( text );
+		newLen = len + ( int )std::strlen( text );
 		// RB end
 		EnsureAlloced( newLen + 1 );
 		for( i = 0; text[ i ]; i++ )
@@ -1047,7 +1057,7 @@ ID_INLINE void idStr::Insert( const char* text, int index )
 	}
 	
 	// RB: 64 bit fixes,  conversion from 'size_t' to 'int', possible loss of data
-	l = ( int )strlen( text );
+	l = ( int )std::strlen( text );
 	// RB end
 	EnsureAlloced( len + l + 1 );
 	for( i = len; i >= index; i-- )
@@ -1129,7 +1139,7 @@ ID_INLINE void idStr::Fill( const char ch, int newlen )
 {
 	EnsureAlloced( newlen + 1 );
 	len = newlen;
-	memset( data, ch, len );
+	std::memset( data, ch, len );
 	data[ len ] = 0;
 }
 
@@ -1425,5 +1435,7 @@ ID_INLINE void idStr::CopyRange( const char* text, int start, int end )
 	data[ l ] = '\0';
 	len = l;
 }
+
+} // namespace BFG
 
 #endif /* !__STR_H__ */

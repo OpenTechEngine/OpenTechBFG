@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cstdlib>
+#include <cstring>
 
 #include "../d3xp/Game.h"
 #include "../framework/BuildVersion.h"
@@ -74,6 +74,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../ui/UserInterface.h"
 #include "Common_local.h"
 #include "sys/sys_savegame.h"
+
+namespace BFG
+{
 
 class idSWFScriptFunction;
 
@@ -1375,3 +1378,5 @@ CONSOLE_COMMAND( testmap, "tests a map", idCmdSystem::ArgCompletion_MapName )
 	sprintf( string, "devmap %s", map.c_str() );
 	cmdSystem->BufferCommandText( CMD_EXEC_NOW, string );
 }
+
+} // namespace BFG

@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/math/Math.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -176,5 +179,7 @@ ID_INLINE float idRandom2::CRandomFloat()
 	return ( 2.0f * ( *( float* )&i ) - 3.0f );
 }
 // DG end
+
+} // namespace BFG
 
 #endif /* !__MATH_RANDOM_H__ */

@@ -33,7 +33,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <lmerr.h>
 #include <lmcons.h>
 #include <lmwksta.h>
-#include <errno.h>
+#include <cerrno>
 #include <fcntl.h>
 #include <direct.h>
 #include <io.h>
@@ -62,6 +62,9 @@ If you have questions concerning this license or the applicable additional terms
 #pragma comment (lib, "wbemuuid.lib")
 
 #pragma warning(disable:4740)	// warning C4740: flow in or out of inline asm code suppresses global optimization
+
+namespace BFG
+{
 
 /*
 ================
@@ -227,3 +230,4 @@ char* Sys_GetCurrentUser()
 	return s_userName;
 }
 
+} // namespace BFG

@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __FILE_SAVEGAME_H__
 #define __FILE_SAVEGAME_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <zlib.h>
 
 #include "../idlib/Str.h"
@@ -38,6 +38,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "../framework/File.h"
 #include "../idlib/StrStatic.h"
+
+namespace BFG
+{
 
 // Listing of the types of files within a savegame package
 enum saveGameType_t
@@ -302,5 +305,7 @@ private:
 	void					DecompressBlock();
 	void					ReadBlock();
 };
+
+} // namespace BFG
 
 #endif // !__FILE_SAVEGAME_H__

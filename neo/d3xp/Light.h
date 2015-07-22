@@ -38,6 +38,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../renderer/RenderWorld.h"
 
+namespace BFG
+{
+
 class idBitMsg;
 class idDict;
 class idRestoreGame;
@@ -162,5 +165,7 @@ private:
 	void			Event_FadeOut( float time );
 	void			Event_FadeIn( float time );
 };
+
+} // namespace BFG
 
 #endif /* !__GAME_LIGHT_H__ */

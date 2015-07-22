@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../d3xp/Game.h"
 #include "../framework/DeclEntityDef.h"
@@ -39,6 +39,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
+namespace BFG
+{
 
 /*
 =================
@@ -174,3 +176,5 @@ void idDeclEntityDef::Print() const
 {
 	dict.Print();
 }
+
+} // namespace BFG

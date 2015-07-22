@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/File.h"
@@ -42,6 +42,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_assert.h"
 #include "../idlib/sys/sys_types.h"
 
+namespace BFG
+{
 
 // This is the default language dict that the entire system uses, but you can instantiate your own idLangDict classes to manipulate a language dictionary in a tool
 idLangDict	idLocalization::languageDict;
@@ -734,3 +736,4 @@ const char* idStrId::GetLocalizedString() const
 	return idLocalization::languageDict.GetLocalizedString( *this );
 }
 
+} // namespace BFG

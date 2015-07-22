@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 
-#include <assert.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstdlib>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -49,6 +49,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_ScriptVar.h"
 #include "../sys/sys_public.h"
 #include "Common_dialog.h"
+
+namespace BFG
+{
 
 class idSWFScriptObject;
 
@@ -1673,3 +1676,5 @@ CONSOLE_COMMAND( testShowDialogBug, "show a dynamic dialog", 0 )
 	int dialogId = atoi( args.Argv( 1 ) );
 	common->Dialog().AddDialog( ( gameDialogMessages_t )dialogId, DIALOG_ACCEPT, NULL, NULL, true );
 }
+
+} // namespace BFG

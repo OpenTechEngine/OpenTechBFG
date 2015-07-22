@@ -29,10 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
 #include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"
@@ -67,6 +67,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "Framebuffer.h"
 #include "sys/sys_threading.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 idCVar r_drawEyeColor( "r_drawEyeColor", "0", CVAR_RENDERER | CVAR_BOOL, "Draw a colored box, red = left eye, blue = right eye, grey = non-stereo" );
 idCVar r_motionBlur( "r_motionBlur", "0", CVAR_RENDERER | CVAR_INTEGER | CVAR_ARCHIVE, "1 - 5, log2 of the number of motion blur samples" );
@@ -4286,3 +4289,5 @@ void RB_PostProcess( const void* data )
 	
 	renderLog.CloseBlock();
 }
+
+} // namespace BFG

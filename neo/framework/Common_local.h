@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../d3xp/Game.h"               // for gameReturn_t (ptr only), etc
 #include "../framework/UsercmdGen.h"    // for idUserCmdMgr, idUsercmdGen, etc
 
+namespace BFG
+{
+
 static const int MAX_USERCMD_BACKUP = 256;
 static const int NUM_USERCMD_RELAY = 10;
 static const int NUM_USERCMD_SEND = 8;
@@ -581,3 +584,5 @@ private:
 };
 
 extern idCommonLocal commonLocal;
+
+} // namespace BFG

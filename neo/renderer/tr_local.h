@@ -39,6 +39,13 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderWorld.h"    // for renderLight_t, etc
 #include "../renderer/RenderSystem.h"   // for idRenderSystem, etc
 
+#include "ModelDecal.h"
+#include "ModelOverlay.h"
+#include "Interaction.h"
+
+namespace BFG
+{
+
 // everything that is needed by the backend needs
 // to be double buffered to allow it to run in
 // parallel on a dual cpu machine
@@ -81,10 +88,6 @@ SURFACES
 
 ==============================================================================
 */
-
-#include "ModelDecal.h"
-#include "ModelOverlay.h"
-#include "Interaction.h"
 
 class idRenderWorldLocal;
 struct viewEntity_t;
@@ -1161,9 +1164,9 @@ void		GLimp_Shutdown();
 void		GLimp_SetGamma( unsigned short red[256],
 							unsigned short green[256],
 							unsigned short blue[256] );
-
-
-
+							
+							
+							
 /*
 ============================================================
 
@@ -1464,6 +1467,10 @@ void RB_RenderDebugTools( drawSurf_t** drawSurfs, int numDrawSurfs );
 void RB_ShutdownDebugTools();
 
 //=============================================
+
+} // namespace BFG
+
+// FIXME remove these from here
 
 #include "ResolutionScale.h"
 #include "RenderLog.h"

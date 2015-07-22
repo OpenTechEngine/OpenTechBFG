@@ -1,0 +1,29 @@
+entityDef weapon_flashlight_new {
+/*
+this is just to bootup up the engine
+not a real flashlight
+*/
+
+	"joint_attach"				"Legs"
+	"inv_name"		"FlashBang"
+	"inv_weapon"		"weapon_kick"
+	"weapon_scriptobject"	"weapon_kick"
+	"def_melee"		"damage_kick"
+	"melee_distance"	"64"
+	"ammoType"		""
+	"ammoRequired"		"0"
+	"clipSize"		"0"
+	"mtr_flashShader"	""
+	"flashColor"		""
+	"flashRadius"		"0"
+	"silent_fire"		"1"
+
+	"hide_time"		"0.3"	// how long it takes to widthdraw the weapon from hud
+	"hide_distance"		"-15"	// how far should we pull/push it before hiding
+
+	"impact_damage_effect"	"1"
+
+	"stealing"		"0"	// kicks don't steal other players weapons
+
+}
+

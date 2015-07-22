@@ -39,11 +39,11 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "sys/sys_defines.h"
 
-#include <stddef.h>					// for offsetof
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
+#include <cstddef>					// for offsetof
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include <cstring>
 
 // RB: added <stdint.h> for missing uintptr_t
 #include <stdint.h>
@@ -59,11 +59,11 @@ If you have questions concerning this license or the applicable additional terms
 
 #elif defined(__linux__)
 #include <malloc.h> // DG: _alloca16 needs that
-#include <signal.h>
+#include <csignal>
 // RB end
 // Yamagi begin
 #elif defined(__FreeBSD__)
-#include <signal.h>
+#include <csignal>
 #endif
 // Yamagi end
 
@@ -73,17 +73,20 @@ If you have questions concerning this license or the applicable additional terms
 #pragma warning( disable : 4127 )	// conditional expression is constant
 #endif
 
-
-
 #include "sys/sys_assert.h"
 #include "sys/sys_types.h"
 #include "sys/sys_intrinsics.h"
 #include "math/Math.h"
 #include "ParallelJobList.h"
 
+namespace BFG
+{
+
 #if defined(_MSC_VER) && _MSC_VER >= 1600
 #undef NULL
 #define NULL 0 // DG: TODO: really necessary? maybe use std::nullptr if available?
 #endif
+
+} // namespace BFG
 
 #endif // !__PARALLELJOBLIST_JOBHEADERS_H__

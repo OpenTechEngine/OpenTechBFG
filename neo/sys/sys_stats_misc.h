@@ -28,6 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_STATS_MISC_H__
 #define __SYS_STATS_MISC_H__
 
+namespace BFG
+{
+
 /*
 ================================================================================================
 
@@ -152,5 +155,7 @@ public:
 const leaderboardDefinition_t* Sys_FindLeaderboardDef( int id );
 leaderboardDefinition_t* 		Sys_CreateLeaderboardDef( int id_, int numColumns_, const columnDef_t* columnDefs_, rankOrder_t rankOrder_, bool supportsAttachments_, bool checkAgainstCurrent_ );
 void							Sys_DestroyLeaderboardDefs();
+
+} // namespace BFG
 
 #endif // !__SYS_STATS_MISC_H__

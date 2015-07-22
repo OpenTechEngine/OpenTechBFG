@@ -55,7 +55,7 @@ Manager
 
 // tr_imageprogram.c
 
-#include <string.h>
+#include <cstring>
 
 #include "../idlib/Heap.h"
 #include "../idlib/Lexer.h"
@@ -67,6 +67,9 @@ Manager
 #include "../idlib/sys/sys_types.h"
 #include "../renderer/Image.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 /*
 
@@ -749,3 +752,4 @@ const char* R_ParsePastImageProgram( idLexer& src )
 	return parseBuffer;
 }
 
+} // namespace BFG

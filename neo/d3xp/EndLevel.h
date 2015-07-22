@@ -26,6 +26,9 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
+namespace BFG
+{
+
 class idTarget_EndLevel : public idEntity
 {
 public:
@@ -65,3 +68,4 @@ private:
 	void	Event_Trigger( idEntity* activator );
 };
 
+} // namespace BFG

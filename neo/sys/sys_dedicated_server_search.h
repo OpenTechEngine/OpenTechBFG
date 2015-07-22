@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 #include "../sys/sys_session.h"
 
+namespace BFG
+{
+
 class idBitMsg;
 class idCallback;
 
@@ -72,5 +75,7 @@ private:
 	idList< serverInfoDedicated_t >	list;
 	idCallback* 		callback;
 };
+
+} // namespace BFG
 
 #endif	// __DEDICATEDSERVERSEARCH_H__ 

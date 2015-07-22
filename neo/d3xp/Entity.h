@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_ENTITY_H__
 #define __GAME_ENTITY_H__
 
-#include <assert.h>
+#include <cassert>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/Game.h"
@@ -60,6 +60,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h"
 
 #include "../d3xp/Game_local.h"
+
+namespace BFG
+{
 
 class idAngles;
 class idDeclEntityDef;
@@ -820,5 +823,7 @@ ID_INLINE SetTimeState::~SetTimeState()
 		gameLocal.SelectTimeGroup( previousFast );
 	}
 }
+
+} // namespace BFG
 
 #endif /* !__GAME_ENTITY_H__ */

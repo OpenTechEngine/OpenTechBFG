@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../sys/sys_session.h"  // for lobbyUserID_t
 
+namespace BFG
+{
+
 extern idCVar net_verboseResource;
 #define NET_VERBOSERESOURCE_PRINT if ( net_verboseResource.GetBool() ) idLib::Printf
 
@@ -339,5 +342,7 @@ public:
 	
 	// Ugh, hate having to ifdef these, but we're doing some fairly platform specific callbacks
 };
+
+} // namespace BFG
 
 #endif	// __SYS_LOBBY_BACKEND_H__ 

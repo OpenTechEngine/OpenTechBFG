@@ -30,6 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/containers/List.h"   // for idList
 
+namespace BFG
+{
+
 void			Sys_Mkdir( const char* path );
 bool			Sys_Rmdir( const char* path );
 bool			Sys_IsFileWritable( const char* path );
@@ -53,4 +56,6 @@ const char* 	Sys_CWD();
 
 const char* 	Sys_LaunchPath();
 
-#endif
+} // namespace BFG
+
+#endif // SYS_FILESYSTEM_H

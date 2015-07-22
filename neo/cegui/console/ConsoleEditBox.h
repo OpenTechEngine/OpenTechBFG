@@ -8,7 +8,7 @@
 #ifndef CONSOLEEDITBOX_H_
 #define CONSOLEEDITBOX_H_
 
-#include <CEGUI/widgets/Editbox.h>
+#include "../wrap_cegui.h"
 
 namespace CEGUIConsole
 {

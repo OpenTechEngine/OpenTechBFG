@@ -30,12 +30,15 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_PUBLIC__
 #define __SYS_PUBLIC__
 
-#include <stdarg.h>
+#include <cstdarg>
 #include <stdint.h>
-#include <stdio.h>
+#include <cstdio>
 
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/CmdArgs.h"
+
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -652,7 +655,7 @@ typedef void ( *execOutputFunction_t )( const char* text );
 bool Sys_Exec(	const char* appPath, const char* workingPath, const char* args,
 				execProcessWorkFunction_t workFn, execOutputFunction_t outputFn, const int waitMS,
 				unsigned int& exitCode );
-
+				
 // localization
 
 #define ID_LANG_ENGLISH		"english"
@@ -848,5 +851,6 @@ extern idSys* 				sys;
 bool Sys_LoadOpenAL();
 void Sys_FreeOpenAL();
 
+} // namespace BFG
 
 #endif /* !__SYS_PUBLIC__ */

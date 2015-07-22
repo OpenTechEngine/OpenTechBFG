@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../Game_local.h"
 #include "../d3xp/Player.h"
@@ -41,6 +41,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_SpriteInstance.h"
 #include "../swf/SWF_TextInstance.h"
 #include "../sys/sys_session.h"
+
+namespace BFG
+{
 
 class idMenuHandler;
 
@@ -220,3 +223,4 @@ void idMenuWidget_PDA_EmailInbox::ObserveEvent( const idMenuWidget& widget, cons
 	}
 }
 
+} // namespace BFG

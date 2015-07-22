@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <assert.h>
+#include <cassert>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -54,12 +54,14 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys/sys_threading.h"
 #include "sys_savegame.h"
 
+#pragma hdrstop
+
+namespace BFG
+{
+
 class idFile;
 class idSWFParmList;
 class idSWFScriptObject;
-
-#pragma hdrstop
-
 
 idCVar saveGame_verbose( "saveGame_verbose", "0", CVAR_BOOL | CVAR_ARCHIVE, "debug spam" );
 idCVar saveGame_checksum( "saveGame_checksum", "1", CVAR_BOOL, "data integrity check" );
@@ -1049,3 +1051,5 @@ void idSaveGameManager::Pump()
 		common->Dialog().AddDynamicDialog( GDM_ERROR_SAVING_SAVEGAME, callbacks, optionText, true, "" );
 	}
 }
+
+} // namespace BFG

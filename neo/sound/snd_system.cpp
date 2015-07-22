@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -59,6 +59,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 #include "../sound/snd_defines.h"
 #include "snd_local.h"
+
+namespace BFG
+{
 
 class idDecl;
 class idRenderWorld;
@@ -729,3 +732,5 @@ idSoundSystemLocal::FreeVoice
 void idSoundSystemLocal::PrintMemInfo( MemInfo_t* mi )
 {
 }
+
+} // namespace BFG

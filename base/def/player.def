@@ -1,0 +1,25 @@
+model model_player {
+	mesh                    "models/joint.md5mesh" // TODO!
+}
+
+entityDef player_doommarine {
+   "spawnclass"   "idPlayer"
+   "scriptobject" "player"
+
+   "hud"                "guis/hud.gui"
+   "def_weapon0"		"weapon_kick"
+   "def_weapon1"		"weapon_kick"
+
+   "bone_hips"	  "Legs"
+   "bone_chest"	  "Torso"
+   "bone_head"	  "Head"
+   
+   "model"	"model_player"
+
+   "snd_heartbeat"	"electrical_sparks"
+   "snd_heartbeat_dying" "electrical_sparks"
+}
+
+entityDef player_doommarine_mp {
+  "inherit" "player_doommarine"
+}

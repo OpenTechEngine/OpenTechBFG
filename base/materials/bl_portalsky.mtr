@@ -1,10 +1,11 @@
-// this file is GPLv3
+// this file is under WTFPLv2, see 
+// https://github.com/OpenTechEngine/OpenTechBFG/pull/25#issuecomment-69375861
 
 textures/common/portal_sky
 {   //CAUTION! this material requires to use a modified engine in order to 
     //function as a portal sky texture!
 
-    qer_editorimage             textures/editor/portal_sky.tga
+    qer_editorimage             textures/common/portal_sky.tga
     forceOpaque // purpose is twofold, seal the level and transparency overdraw.
     noshadows
     noimpact

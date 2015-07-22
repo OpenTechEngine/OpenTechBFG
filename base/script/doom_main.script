@@ -1,0 +1,17 @@
+// this script is the entry point for the rest of the scripts
+// if something is not loaded here or via the scripts loaded here
+// it's not loaded at all
+
+#include "script/doom_defs.script"
+#include "script/doom_util.script"
+#include "script/doom_events.script"
+#include "script/weapon_base.script"
+
+#include "script/player.script"
+#include "script/weapon_kick.script"
+
+void doom_main() {
+	sys.print( "Executing doom_main()\n");
+	// init your stuff here
+	sys.print( "Executed doom_main()\n" );
+}

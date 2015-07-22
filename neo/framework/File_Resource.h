@@ -34,6 +34,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "../framework/File.h"          // for idFileLocal, idFile
 
+namespace BFG
+{
+
 /*
 ==============================================================
 
@@ -122,5 +125,6 @@ private:
 	idHashIndex	cacheHash;
 };
 
+} // namespace BFG
 
 #endif /* !__FILE_RESOURCE_H__ */

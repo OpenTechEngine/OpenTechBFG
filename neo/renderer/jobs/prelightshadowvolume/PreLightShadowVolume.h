@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/jobs/prelightshadowvolume/../../../idlib/math/Vector.h"
 #include "../renderer/jobs/prelightshadowvolume/../ShadowShared.h"
 
+namespace BFG
+{
+
 class idShadowVert;
 struct CellSpursJob128;
 
@@ -91,5 +94,7 @@ struct preLightShadowVolumeParms_t
 
 void PreLightShadowVolumeJob( const preLightShadowVolumeParms_t* parms );
 void PreLightShadowVolume_SetupSPURSHeader( CellSpursJob128* job, const preLightShadowVolumeParms_t* parms );
+
+} // namespace BFG
 
 #endif // !__PRELIGHTSHADOWVOLUME_H__

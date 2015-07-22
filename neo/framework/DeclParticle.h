@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/bv/Bounds.h"         // for idBounds
 #include "../renderer/Material.h"       // for idMaterial
 
+namespace BFG
+{
+
 class idDeclTable;
 
 /*
@@ -238,5 +241,7 @@ private:
 	void					WriteStage( idFile* f, idParticleStage* stage );
 	void					WriteParticleParm( idFile* f, idParticleParm* parm, const char* name );
 };
+
+} // namespace BFG
 
 #endif /* !__DECLPARTICLE_H__ */

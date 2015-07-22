@@ -30,6 +30,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SND_DEFINES_H__
 #define __SND_DEFINES_H__
 
+namespace BFG
+{
 
 // Maximum number of voices we can have allocated
 #define MAX_HARDWARE_VOICES 48
@@ -74,5 +76,7 @@ ID_INLINE_EXTERN float LinearToDB( float linear )
 {
 	return ( linear > 0.0f ) ? ( idMath::Log( linear ) * ( 6.0f / 0.693147181f ) ) : -999.0f;
 }
+
+} // namespace BFG
 
 #endif /* __SND_DEFINES_H__ */

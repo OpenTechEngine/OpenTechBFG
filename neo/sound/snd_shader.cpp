@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -46,6 +46,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../sound/sound.h"
 #include "snd_local.h"
+
+namespace BFG
+{
 
 extern idCVar s_maxSamples;
 
@@ -508,3 +511,5 @@ const char* idSoundShader::GetSound( int index ) const
 	}
 	return "";
 }
+
+} // namespace BFG

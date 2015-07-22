@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 #include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"
@@ -46,6 +46,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderSystem.h"
 #include "../renderer/ScreenRect.h"
 #include "../tr_local.h"
+
+namespace BFG
+{
 
 /*
 ====================
@@ -721,3 +724,5 @@ uint64 GL_GetCurrentStateMinusStencil()
 {
 	return GL_GetCurrentState() & ~( GLS_STENCIL_OP_BITS | GLS_STENCIL_FUNC_BITS | GLS_STENCIL_FUNC_REF_BITS | GLS_STENCIL_FUNC_MASK_BITS );
 }
+
+} // namespace BFG

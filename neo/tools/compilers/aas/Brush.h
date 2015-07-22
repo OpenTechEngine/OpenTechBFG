@@ -39,7 +39,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/Str.h"
 #include "../framework/File.h"
 
-
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -328,5 +329,7 @@ private:
 	idStr					texture;
 	int						brushCount;
 };
+
+} // namespace BFG
 
 #endif /* !__BRUSH_H__ */

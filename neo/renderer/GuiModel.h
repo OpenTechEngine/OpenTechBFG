@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderSystem.h"
 #include "../renderer/VertexCache.h"
 
+namespace BFG
+{
+
 struct guiModelSurface_t
 {
 	const idMaterial* 	material;
@@ -97,5 +100,7 @@ private:
 	
 	idList<guiModelSurface_t, TAG_MODEL>	surfaces;
 };
+
+} // namespace BFG
 
 #endif /* !__GUIMODEL_H__ */

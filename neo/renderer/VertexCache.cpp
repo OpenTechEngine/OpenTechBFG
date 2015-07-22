@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stddef.h>
+#include <cstddef>
 #include <stdint.h>
 
 #include "../framework/CVarSystem.h"
@@ -42,6 +42,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
+namespace BFG
+{
 
 idVertexCache vertexCache;
 
@@ -396,3 +398,4 @@ void idVertexCache::BeginBackEnd()
 	
 }
 
+} // namespace BFG

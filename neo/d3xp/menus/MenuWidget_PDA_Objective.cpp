@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../Game_local.h"
 #include "../d3xp/Player.h"
@@ -40,6 +40,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_ScriptObject.h"
 #include "../swf/SWF_SpriteInstance.h"
 #include "../swf/SWF_TextInstance.h"
+
+namespace BFG
+{
 
 /*
 ========================
@@ -202,4 +205,4 @@ void idMenuWidget_PDA_Objective::ObserveEvent( const idMenuWidget& widget, const
 	}
 }
 
-
+} // namespace BFG

@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "idlib/sys/sys_defines.h"
 #include "idlib/sys/sys_types.h"
 
+namespace BFG
+{
+
 /*
 ================================================================================================
 Contains the generic templated sort algorithms for quick-sort, heap-sort and insertion-sort.
@@ -397,5 +400,7 @@ public:
 		return a - b;
 	}
 };
+
+} // namespace BFG
 
 #endif // !__SORT_H__

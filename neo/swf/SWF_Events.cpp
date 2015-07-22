@@ -25,8 +25,8 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <math.h>
-#include <stddef.h>
+#include <cmath>
+#include <cstddef>
 
 #include "../framework/KeyInput.h"
 #include "../idlib/Lib.h"
@@ -49,6 +49,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 /*
 ===================
@@ -573,3 +576,5 @@ bool idSWF::HandleEvent( const sysEvent_t* event )
 	}
 	return false;
 }
+
+} // namespace BFG

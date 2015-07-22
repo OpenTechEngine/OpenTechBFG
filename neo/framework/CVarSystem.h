@@ -35,6 +35,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/CmdArgs.h"
 #include "../framework/CmdSystem.h"
 
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -395,5 +397,7 @@ ID_INLINE void idCVar::RegisterStaticVars()
 		staticVars = ( idCVar* )0xFFFFFFFF;
 	}
 }
+
+} // namespace BFG
 
 #endif /* !__CVARSYSTEM_H__ */

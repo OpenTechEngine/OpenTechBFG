@@ -27,10 +27,10 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <stddef.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cmath>
+#include <cstddef>
+#include <cstdlib>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -57,6 +57,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "../renderer/Material.h"
 #include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
 
 idCVar binaryLoadParticles( "binaryLoadParticles", "1", 0, "enable binary load/write of particle decls" );
 
@@ -1913,3 +1916,5 @@ void idParticleStage::operator=( const idParticleStage& src )
 	boundsExpansion = src.boundsExpansion;
 	bounds = src.bounds;
 }
+
+} // namespace BFG

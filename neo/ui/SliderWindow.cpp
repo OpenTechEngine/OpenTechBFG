@@ -43,6 +43,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "UserInterfaceLocal.h"
 #include "Window.h"
 
+namespace BFG
+{
+
 /*
 ============
 idSliderWindow::CommonInit
@@ -513,3 +516,4 @@ void idSliderWindow::RunNamedEvent( const char* eventName )
 	}
 }
 
+} // namespace BFG

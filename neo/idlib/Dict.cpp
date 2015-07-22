@@ -27,10 +27,10 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstddef>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #include "../framework/../framework/CmdSystem.h"
 #include "../framework/Common.h"
@@ -57,6 +57,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "containers/List.h"
 #include "sys/sys_assert.h"
 #include "sys/sys_defines.h"
+
+namespace BFG
+{
 
 class idCmdArgs;
 
@@ -1102,3 +1105,5 @@ void idDict::ListValues_f( const idCmdArgs& args )
 	//}
 	//idLib::common->Printf( "%5d values\n", valueStrings.Num() );
 }
+
+} // namespace BFG

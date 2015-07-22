@@ -43,6 +43,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Matrix.h"
 #include "../idlib/math/Vector.h"
 #include "../renderer/Model.h"
+
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -979,5 +983,6 @@ public:
 	void				Event_Activate( idEntity* activator );
 };
 
+} // namespace BFG
 
 #endif /* !__GAME_MISC_H__ */

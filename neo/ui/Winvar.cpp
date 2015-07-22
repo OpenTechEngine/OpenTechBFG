@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Heap.h"
 #include "../idlib/containers/List.h"
@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "UserInterfaceLocal.h"
 #include "Window.h"
 #include "Winvar.h"
+
+namespace BFG
+{
 
 class idDict;
 
@@ -99,3 +102,4 @@ void idMultiWinVar::SetGuiInfo( idDict* dict )
 	}
 }
 
+} // namespace BFG

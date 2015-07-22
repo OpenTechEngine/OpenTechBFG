@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/Callback.h"                   // for idCallback
 #include "../sys/sys_stats_misc.h"
 
+namespace BFG
+{
+
 //------------------------
 // leaderboardError_t
 //------------------------
@@ -131,5 +134,7 @@ protected:
 	int								numRowsInLeaderboard;	// total number of rows in the online leaderboard
 	leaderboardError_t				errorCode;				// error, if any, that occurred during last operation
 };
+
+} // namespace BFG
 
 #endif // !__SYS_STATS_H__

@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/AFEntity.h"
@@ -83,6 +83,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderWorld.h"
 #include "../sys/sys_session.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -3453,3 +3456,5 @@ void idHomingProjectile::Event_SetEnemy( idEntity* ent )
 {
 	SetEnemy( ent );
 }
+
+} // namespace BFG

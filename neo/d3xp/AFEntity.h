@@ -47,6 +47,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Model.h"
 #include "../renderer/RenderWorld.h"
 
+namespace BFG
+{
+
 class idBounds;
 class idClipModel;
 class idDeclParticle;
@@ -650,5 +653,7 @@ protected:
 	void					Event_SpawnHarvestEntity();
 	
 };
+
+} // namespace BFG
 
 #endif /* !__GAME_AFENTITY_H__ */

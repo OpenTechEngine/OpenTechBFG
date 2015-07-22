@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "dmap.h"
 
+namespace BFG
+{
+
 /*
 
   After parsing, there will be a list of entities that each has
@@ -684,3 +687,5 @@ void FreeDMapFile()
 	}
 	dmapGlobals.mapLights.DeleteContents( true );
 }
+
+} // namespace BFG

@@ -34,6 +34,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../tools/compilers/aas/Brush.h"
 
+namespace BFG
+{
 
 #define BRUSH_EPSILON					0.1f
 #define BRUSH_PLANE_NORMAL_EPSILON		0.00001f
@@ -59,7 +61,7 @@ void DisplayRealTimeString( const char* string, ... )
 	if( time > lastUpdateTime + OUTPUT_UPDATE_TIME )
 	{
 		va_start( argPtr, string );
-		vsprintf( buf, string, argPtr );
+		std::vsprintf( buf, string, argPtr );
 		va_end( argPtr );
 		common->Printf( buf );
 		lastUpdateTime = time;
@@ -1847,3 +1849,5 @@ void idBrushMap::WriteBrushList( const idBrushList& brushList )
 		WriteBrush( b );
 	}
 }
+
+} // namespace BFG

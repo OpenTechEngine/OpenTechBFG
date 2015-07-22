@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -56,6 +56,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "Model_lwo.h"
 #include "Model_ma.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 class idJointQuat;
 
@@ -2883,3 +2886,5 @@ bool idRenderModelStatic::FindSurfaceWithId( int id, int& surfaceNum ) const
 	}
 	return false;
 }
+
+} // namespace BFG

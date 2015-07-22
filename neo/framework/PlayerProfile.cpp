@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -45,6 +45,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_signin.h"
 #include "PlayerProfile.h"
 #include "sys/sys_localuser.h"
+
+namespace BFG
+{
 
 // After releasing a version to the market, here are limitations for compatibility:
 //	- the major version should not ever change
@@ -483,3 +486,5 @@ CONSOLE_COMMAND( setProfileDefaults, "sets profile settings to default and saves
 		profile->SaveSettings( true );
 	}
 }
+
+} // namespace BFG

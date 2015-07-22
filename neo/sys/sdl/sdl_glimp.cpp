@@ -37,8 +37,8 @@ If you have questions concerning this license or the applicable additional terms
 // DG end
 
 #include <SDL.h>
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"
@@ -49,6 +49,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderSystem.h"
 #include "renderer/tr_local.h"
 #include "sdl_local.h"
+
+namespace BFG
+{
 
 idCVar in_nograb( "in_nograb", "0", CVAR_SYSTEM | CVAR_NOCHEAT, "prevents input grabbing" );
 
@@ -778,3 +781,5 @@ bool R_GetModeListForDisplay( const int requestedDisplayNum, idList<vidMode_t>& 
 	return false;
 #endif
 }
+
+} // namespace BFG

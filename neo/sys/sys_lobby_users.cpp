@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 #include "../framework/PlayerProfile.h"
 #include "../idlib/BitMsg.h"
@@ -46,8 +46,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys_lobby.h"
 #include "sys_voicechat.h"
 
-
-
+namespace BFG
+{
 
 /*
 ========================
@@ -1641,3 +1641,5 @@ int idLobby::GetNumConnectedUsers() const
 	
 	return numConnectectUsers;
 }
+
+} // namespace BFG

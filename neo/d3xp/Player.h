@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_PLAYER_H__
 #define __GAME_PLAYER_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/Actor.h"
@@ -66,6 +66,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../d3xp/Achievements.h"       // for idAchievementManager
 
 #include "../idlib/containers/HashTable.h"       // for idHashTable
+
+namespace BFG
+{
 
 class idAAS;
 class idAFEntity_Vehicle;
@@ -1097,5 +1100,6 @@ ID_INLINE void idPlayer::SetSelfSmooth( bool b )
 
 extern idCVar g_infiniteAmmo;
 
-#endif /* !__GAME_PLAYER_H__ */
+} // namespace BFG
 
+#endif /* !__GAME_PLAYER_H__ */

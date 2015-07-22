@@ -29,6 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SCREENRECT_H__
 #define __SCREENRECT_H__
 
+namespace BFG
+{
+
 /*
 ================================================================================================
 
@@ -80,5 +83,7 @@ public:
 };
 
 void R_ShowColoredScreenRect( const idScreenRect& rect, int colorIndex );
+
+} // namespace BFG
 
 #endif /* !__SCREENRECT_H__ */

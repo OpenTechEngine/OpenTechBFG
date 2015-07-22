@@ -32,6 +32,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/geometry/Surface.h"
 #include "../framework/Common.h"
 
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -153,5 +155,7 @@ ID_INLINE int idSurface_Patch::GetHeight() const
 {
 	return height;
 }
+
+} // namespace BFG
 
 #endif /* !__SURFACE_PATCH_H__ */

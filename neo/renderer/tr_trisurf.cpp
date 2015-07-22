@@ -27,10 +27,10 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
 #include <algorithm>
 
 #include "../framework/CVarSystem.h"
@@ -56,6 +56,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifdef _WIN32
 #undef min
 #endif
+
+namespace BFG
+{
 
 /*
 ==============================================================================
@@ -2233,3 +2236,5 @@ void R_CreateStaticBuffersForTri( srfTriangles_t& tri )
 #endif
 	}
 }
+
+} // namespace BFG

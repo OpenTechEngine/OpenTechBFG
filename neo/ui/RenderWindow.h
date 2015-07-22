@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERWINDOW_H
 #define __RENDERWINDOW_H
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Lib.h"
 #include "../idlib/Str.h"
@@ -36,6 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../ui/SimpleWindow.h"
 #include "../ui/Window.h"
 #include "../ui/Winvar.h"
+
+namespace BFG
+{
 
 class idMD5Anim;
 class idTokenParser;
@@ -86,5 +89,7 @@ private:
 	int animEndTime;
 	bool updateAnimation;
 };
+
+} // namespace BFG
 
 #endif // __RENDERWINDOW_H

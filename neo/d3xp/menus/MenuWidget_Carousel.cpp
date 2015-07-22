@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
 #include "../d3xp/menus/MenuWidget.h"
 #include "../idlib/Heap.h"
@@ -36,6 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_ScriptFunction.h"
 #include "../swf/SWF_ScriptVar.h"
 #include "../swf/SWF_SpriteInstance.h"
+
+namespace BFG
+{
 
 class idMaterial;
 class idMenuHandler;
@@ -337,3 +340,4 @@ void idMenuWidget_Carousel::MoveToIndex( int index, bool instant )
 	idLib::Printf( "moveDiff = %i\n", moveDiff );
 }
 
+} // namespace BFG

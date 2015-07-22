@@ -44,6 +44,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "SWF_ShapeParser.h"
 #include "SWF_TextInstance.h"
 
+namespace BFG
+{
+
 class idSWFDictionaryEntry
 {
 public:
@@ -503,5 +506,7 @@ public:
 	static const char* GetActionName( swfAction_t action );
 	
 };
+
+} // namespace BFG
 
 #endif // !__SWF_H__

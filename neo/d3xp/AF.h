@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #define __GAME_AF_H__
 
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../d3xp/anim/Anim.h"
 //#include "../d3xp/physics/Physics.h"
@@ -42,6 +42,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Matrix.h"
 #include "../idlib/math/Vector.h"
 #include "../renderer/Model.h"
+
+namespace BFG
+{
 
 class idClipModel;
 class idDeclAF_Body;
@@ -158,5 +161,7 @@ protected:
 	
 	bool					TestSolid() const;
 };
+
+} // namespace BFG
 
 #endif /* !__GAME_AF_H__ */

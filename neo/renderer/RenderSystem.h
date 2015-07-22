@@ -38,6 +38,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/CVarSystem.h"  // for idCVar, etc
 #include "../framework/Common.h"        // for MemInfo_t
 
+namespace BFG
+{
+
+extern idCVar stereoRender_warp;
+extern idCVar stereoRender_swapEyes;
+
 /*
 ===============================================================================
 
@@ -378,5 +384,7 @@ void R_LightProjectionMatrix( const idVec3& origin, const idPlane& rearPlane, id
 
 // used by the view shot taker
 void R_ScreenshotFilename( int& lastNumber, const char* base, idStr& fileName );
+
+} // namespace BFG
 
 #endif /* !__RENDERER_H__ */

@@ -51,6 +51,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h"
 #include "sys_lobby.h"
 
+namespace BFG
+{
+
 class idPlayerProfile;
 
 extern idCVar net_connectTimeoutInSeconds;
@@ -4849,3 +4852,5 @@ idLobby::connectionState_t idLobby::peer_t::GetConnectionState() const
 {
 	return connectionState;
 }
+
+} // namespace BFG

@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <string.h>                     // for memcpy, NULL
+#include <cstring>                     // for memcpy, NULL
 #include "../idlib/BitMsg.h"            // for idBitMsg
 #include "../idlib/Dict.h"              // for idDict, idKeyValue
 #include "../idlib/Lib.h"               // for idLib, MAX_STRING_CHARS
@@ -37,6 +37,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_assert.h"             // for assert
 #include "../idlib/sys/sys_types.h"              // for uint64, byte, int64
 
+namespace BFG
+{
 /*
 ================================================================================================
 
@@ -106,7 +108,7 @@ static uint64 maskForNumBits64[33] = {	NBM( 0x00 ), NBM( 0x01 ), NBM( 0x02 ), NB
 										NBM( 0x18 ), NBM( 0x19 ), NBM( 0x1A ), NBM( 0x1B ),
 										NBM( 0x1C ), NBM( 0x1D ), NBM( 0x1E ), NBM( 0x1F ), 0xFFFFFFFF
 									 };
-
+									 
 /*
 ========================
 idBitMsg::WriteBits
@@ -602,3 +604,5 @@ idVec3 idBitMsg::BitsToDir( int bits, int numBits )
 	dir.NormalizeFast();
 	return dir;
 }
+
+} // namespace BFG

@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../d3xp/menus/mpScoreboardInfo.h"
 
+namespace BFG
+{
+
 /*
 ================================================
 idMenuHandler
@@ -196,5 +199,6 @@ public:
 	virtual void UpdateScoreboardSelection();
 };
 
+} // namespace BFG
 
 #endif //__MENUHANDLERCEGUI_H__

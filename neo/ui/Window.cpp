@@ -28,12 +28,12 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -78,6 +78,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "SliderWindow.h"
 #include "UserInterfaceLocal.h"
 #include "Window.h"
+
+namespace BFG
+{
 
 bool idWindow::registerIsTemporary[MAX_EXPRESSION_REGISTERS];		// statics to assist during parsing
 //float idWindow::shaderRegisters[MAX_EXPRESSION_REGISTERS];
@@ -1172,16 +1175,16 @@ void idWindow::DebugDraw( int time, float x, float y )
 			
 			if( str.Length() )
 			{
-				sprintf( buff, "%s\n", str.c_str() );
+				std::sprintf( buff, "%s\n", str.c_str() );
 			}
 			
-			sprintf( out, "Rect: %0.1f, %0.1f, %0.1f, %0.1f\n", rect.x(), rect.y(), rect.w(), rect.h() );
+			std::sprintf( out, "Rect: %0.1f, %0.1f, %0.1f, %0.1f\n", rect.x(), rect.y(), rect.w(), rect.h() );
 			strcat( buff, out );
-			sprintf( out, "Draw Rect: %0.1f, %0.1f, %0.1f, %0.1f\n", drawRect.x, drawRect.y, drawRect.w, drawRect.h );
+			std::sprintf( out, "Draw Rect: %0.1f, %0.1f, %0.1f, %0.1f\n", drawRect.x, drawRect.y, drawRect.w, drawRect.h );
 			strcat( buff, out );
-			sprintf( out, "Client Rect: %0.1f, %0.1f, %0.1f, %0.1f\n", clientRect.x, clientRect.y, clientRect.w, clientRect.h );
+			std::sprintf( out, "Client Rect: %0.1f, %0.1f, %0.1f, %0.1f\n", clientRect.x, clientRect.y, clientRect.w, clientRect.h );
 			strcat( buff, out );
-			sprintf( out, "Cursor: %0.1f : %0.1f\n", gui->CursorX(), gui->CursorY() );
+			std::sprintf( out, "Cursor: %0.1f : %0.1f\n", gui->CursorX(), gui->CursorY() );
 			strcat( buff, out );
 			
 			
@@ -4909,3 +4912,5 @@ bool idWindow::UpdateFromDictionary( idDict& dict )
 	
 	return true;
 }
+
+} // namespace BFG

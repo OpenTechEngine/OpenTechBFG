@@ -25,9 +25,9 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
-#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuHandler.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../idlib/Heap.h"
 #include "../idlib/Str.h"
@@ -36,6 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_TextInstance.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 /*
 ========================
@@ -213,3 +216,4 @@ void idMenuWidget_MenuButton::Update()
 	}
 }
 
+} // namespace BFG

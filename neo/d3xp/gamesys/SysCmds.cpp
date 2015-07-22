@@ -27,12 +27,12 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <math.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cmath>
+#include <cstddef>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../cm/CollisionModel.h"
@@ -93,6 +93,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Model.h"
 #include "../renderer/RenderWorld.h"
 #include "../sys/sys_session.h"
+
+namespace BFG
+{
 
 /*
 ==================
@@ -1486,7 +1489,7 @@ static void PrintFloat( float f )
 	char buf[128];
 	int i;
 	
-	for( i = sprintf( buf, "%3.2f", f ); i < 7; i++ )
+	for( i = std::sprintf( buf, "%3.2f", f ); i < 7; i++ )
 	{
 		buf[i] = ' ';
 	}
@@ -2827,3 +2830,5 @@ void idGameLocal::ShutdownConsoleCommands()
 {
 	cmdSystem->RemoveFlaggedCommands( CMD_FL_GAME );
 }
+
+} // namespace BFG

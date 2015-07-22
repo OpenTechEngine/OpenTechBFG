@@ -34,6 +34,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../d3xp/physics/Physics_Base.h"
 
+namespace BFG
+{
+
 /*
 ===================================================================================
 
@@ -183,5 +186,7 @@ private:
 	bool					TestIfAtRest() const;
 	void					Rest();
 };
+
+} // namespace BFG
 
 #endif /* !__PHYSICS_PARAMETRIC_H__ */

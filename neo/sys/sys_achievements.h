@@ -30,6 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../sys/sys_session.h"
 
+namespace BFG
+{
+
 class idLocalUser;
 
 // data structure for online achievement entry descriptions
@@ -143,5 +146,7 @@ protected:
 	
 	idStaticList< idLocalUser*, MAX_LOCAL_PLAYERS > users;
 };
+
+} // namespace BFG
 
 #endif // __SYS_ACHIEVEMENTS_H__

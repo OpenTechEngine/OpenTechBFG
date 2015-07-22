@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stdio.h>
+#include <cassert>
+#include <cstdio>
 #include <GL/glew.h>
 
 #include "../../framework/Common_local.h"
@@ -50,6 +50,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/ResolutionScale.h"
 #include "../sys/sys_public.h"
 #include "../tr_local.h"
+
+namespace BFG
+{
 
 idCVar r_drawFlickerBox( "r_drawFlickerBox", "0", CVAR_RENDERER | CVAR_BOOL, "visual test for dropping frames" );
 idCVar stereoRender_warp( "stereoRender_warp", "0", CVAR_RENDERER | CVAR_ARCHIVE | CVAR_BOOL, "use the optical warping renderprog instead of stereoDeGhost" );
@@ -647,3 +650,5 @@ void RB_ExecuteBackEndCommands( const emptyCommand_t* cmds )
 	}
 	renderLog.EndFrame();
 }
+
+} // namespace BFG

@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <stdio.h>
-#include <string.h>
+#include <cassert>
+#include <cstdio>
+#include <cstring>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/AF.h"
@@ -83,8 +83,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderWorld.h"
 #include "Game_local.h"
 
-class idDeclSkin;
+namespace BFG
+{
 
+class idDeclSkin;
 
 /*
 ===============================================================================
@@ -4233,3 +4235,4 @@ void idAFEntity_Harvest::Gib( const idVec3& dir, const char* damageDefName )
 	idAFEntity_WithAttachedHead::Gib( dir, damageDefName );
 }
 
+} // namespace BFG

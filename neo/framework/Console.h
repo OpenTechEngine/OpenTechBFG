@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../framework/DebugGraph.h"    // for idDebugGraph, etc
 
+namespace BFG
+{
+
 enum justify_t
 {
 	JUSTIFY_LEFT,
@@ -94,5 +97,7 @@ public:
 };
 
 extern idConsole* 	console;	// statically initialized to an idConsoleLocal
+
+} // namespace BFG
 
 #endif /* !__CONSOLE_H__ */

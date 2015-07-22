@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../framework/CVarSystem.h"
 
+namespace BFG
+{
+
 class idGame;
 class idRenderWorld;
 class idSoundWorld;
@@ -57,6 +60,7 @@ struct lobbyConnectInfo_t;
 */
 
 extern idCVar com_engineHz;
+extern idCVar com_fixedTic;
 extern float com_engineHz_latched;
 extern int64 com_engineHz_numerator;
 extern int64 com_engineHz_denominator;
@@ -333,5 +337,7 @@ public:
 };
 
 extern idCommon* 		common;
+
+} // namespace BFG
 
 #endif /* !__COMMON_H__ */

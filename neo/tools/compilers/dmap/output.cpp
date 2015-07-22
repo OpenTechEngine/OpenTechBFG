@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "dmap.h"
 
+namespace BFG
+{
+
 //=================================================================================
 
 
@@ -48,7 +51,7 @@ should we try and snap values very close to 0.5, 0.25, 0.125, etc ?
 #endif
 		
 			static	idFile*	procFile;
-
+			
 #define	AREANUM_DIFFERENT	-2
 /*
 =============
@@ -708,3 +711,5 @@ void WriteOutputFile()
 	
 	fileSystem->CloseFile( procFile );
 }
+
+} // namespace BFG

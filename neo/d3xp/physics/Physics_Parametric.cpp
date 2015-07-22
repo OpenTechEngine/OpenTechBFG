@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../cm/CollisionModel.h"
@@ -51,11 +51,13 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Rotation.h"
 #include "../idlib/math/Vector.h"
 
+namespace BFG
+{
+
 class idBounds;
 
 CLASS_DECLARATION( idPhysics_Base, idPhysics_Parametric )
 END_CLASS
-
 
 /*
 ================
@@ -1236,3 +1238,5 @@ void idPhysics_Parametric::ReadFromSnapshot( const idBitMsg& msg )
 		previous.axis = next.axis;
 	}
 }
+
+} // namespace BFG

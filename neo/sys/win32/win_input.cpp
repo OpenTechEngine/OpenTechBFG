@@ -29,12 +29,15 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <string.h> // for memset
+#include <cstring> // for memset
 
 #include "../framework/UsercmdGen.h"
 #include "../sys_session_local.h"
 
 #include "win_local.h"
+
+namespace BFG
+{
 
 #define DINPUT_BUFFERSIZE           256
 
@@ -559,12 +562,12 @@ and checking transitions
 int Sys_PollKeyboardInputEvents()
 {
 	HRESULT            hr;
-	
+
 	if( win32.g_pKeyboard == NULL )
 	{
 		return 0;
 	}
-	
+
 	hr = win32.g_pKeyboard->GetDeviceState( sizeof( toggleFetch[ diFetch ] ), toggleFetch[ diFetch ] );
 	if( hr != DI_OK )
 	{
@@ -575,7 +578,7 @@ int Sys_PollKeyboardInputEvents()
 		// interruption, or because the buffer overflowed
 		// and some events were lost.
 		hr = win32.g_pKeyboard->Acquire();
-		
+
 		// nuke the garbage
 		if( !FAILED( hr ) )
 		{
@@ -585,15 +588,15 @@ int Sys_PollKeyboardInputEvents()
 		// may occur when the app is minimized or in the process of
 		// switching, so just try again later
 	}
-	
+
 	if( FAILED( hr ) )
 	{
 		return 0;
 	}
-	
+
 	// build faked events
 	int		numChanges = 0;
-	
+
 	for( int i = 0 ; i < 256 ; i++ )
 	{
 		if( toggleFetch[0][i] != toggleFetch[1][i] )
@@ -603,9 +606,9 @@ int Sys_PollKeyboardInputEvents()
 			numChanges++;
 		}
 	}
-	
+
 	diFetch ^= 1;
-	
+
 	return numChanges;
 }
 
@@ -903,7 +906,7 @@ void idJoystickWin32::SetRumble( int inputDeviceNum, int rumbleLow, int rumbleHi
 	if( err != ERROR_SUCCESS )
 	{
 	
-		idLib::Warning( "XInputSetState error: 0x%" PRIxSIZE "", ( size_t )err );
+		idLib::Warning( "XInputSetState error: 0x%" BFG_PRIxSIZE "", ( size_t )err );
 		
 	}
 }
@@ -1112,3 +1115,5 @@ void idJoystickWin32::PushButton( int inputDeviceNum, int key, bool value )
 		Sys_QueEvent( SE_KEY, key, value, 0, NULL, inputDeviceNum );
 	}
 }
+
+} // namespace BFG

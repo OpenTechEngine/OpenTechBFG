@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../d3xp/physics/Physics_Actor.h"  // for idPhysics_Actor
 
+namespace BFG
+{
+
 /*
 ===================================================================================
 
@@ -224,5 +227,7 @@ private:
 	void					DropTimers();
 	void					MovePlayer( int msec );
 };
+
+} // namespace BFG
 
 #endif /* !__PHYSICS_PLAYER_H__ */

@@ -38,6 +38,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/containers/Sort.h"
 #include "../idlib/math/Random.h"       // for idRandom
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -1788,5 +1791,7 @@ ID_INLINE float* idMatX::ToFloatPtr()
 {
 	return mat;
 }
+
+} // namespace BFG
 
 #endif // !__MATH_MATRIXX_H__

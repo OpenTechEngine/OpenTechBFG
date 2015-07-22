@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/MapFile.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -66,5 +69,7 @@ private:	// reachability
 	void					Reachability_WalkOffLedge( int areaNum );
 	
 };
+
+} // namespace BFG
 
 #endif /* !__AASREACH_H__ */

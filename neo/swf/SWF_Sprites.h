@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_Bitstream.h"
 #include "../swf/SWF_Enums.h"
 
+namespace BFG
+{
+
 class idFile;
 
 /*
@@ -92,5 +95,7 @@ private:
 	byte* commandBuffer;
 	
 };
+
+} // namespace BFG
 
 #endif // !__SWF_SPRITES_H__

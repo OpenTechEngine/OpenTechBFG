@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/math/Math.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -414,5 +417,7 @@ ID_INLINE float* idComplex::ToFloatPtr()
 {
 	return &r;
 }
+
+} // namespace BFG
 
 #endif /* !__MATH_COMPLEX_H__ */

@@ -29,8 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "../idlib/geometry/Surface_Polytope.h"
 
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 #include "../idlib/bv/Bounds.h"
 #include "../idlib/math/Math.h"
@@ -43,6 +43,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "geometry/Surface.h"
 #include "geometry/Winding.h"
 #include "sys/sys_defines.h"
+
+namespace BFG
+{
 
 #define POLYTOPE_VERTEX_EPSILON		0.1f
 
@@ -374,3 +377,5 @@ int idSurface_Polytope::SplitPolytope( const idPlane& plane, const float epsilon
 	
 	return side;
 }
+
+} // namespace BFG

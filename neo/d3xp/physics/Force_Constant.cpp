@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../d3xp/gamesys/Class.h"
 #include "../d3xp/gamesys/SaveGame.h"
@@ -37,6 +37,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
+namespace BFG
+{
 
 CLASS_DECLARATION( idForce, idForce_Constant )
 END_CLASS
@@ -151,3 +153,5 @@ void idForce_Constant::RemovePhysics( const idPhysics* phys )
 		physics = NULL;
 	}
 }
+
+} // namespace BFG

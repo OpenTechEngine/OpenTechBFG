@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 
 #include "../d3xp/Game.h"
 #include "../framework/Common.h"
@@ -48,6 +48,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "RenderWindow.h"
 #include "UserInterfaceLocal.h"
 #include "Window.h"
+
+namespace BFG
+{
 
 class idTokenParser;
 
@@ -253,3 +256,5 @@ bool idRenderWindow::ParseInternalVar( const char* _name, idTokenParser* src )
 	}
 	return idWindow::ParseInternalVar( _name, src );
 }
+
+} // namespace BFG

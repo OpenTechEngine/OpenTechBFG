@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 
 #include "../framework/DeclManager.h"
 #include "../framework/File.h"
@@ -40,6 +40,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Material.h"
 #include "../renderer/RenderSystem.h"
 #include "Font.h"
+
+namespace BFG
+{
 
 const char* DEFAULT_FONT = "Arial_Narrow";
 
@@ -489,3 +492,5 @@ void idFont::Touch()
 		fontInfo->material->SetSort( SS_GUI );
 	}
 }
+
+} // namespace BFG

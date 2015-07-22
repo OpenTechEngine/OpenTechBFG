@@ -28,10 +28,10 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
+#include <cstdarg>
+#include <cstdio>
+#include <cstring>
+#include <ctime>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -46,6 +46,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderSystem.h"
 #include "../sys/sys_public.h"
 #include "Common_local.h"
+
+namespace BFG
+{
 
 idCVar com_logFile( "logFile", "0", CVAR_SYSTEM | CVAR_NOCHEAT, "1 = buffer log, 2 = flush after each print", 0, 2, idCmdSystem::ArgCompletion_Integer<0, 2> );
 idCVar com_logFileName( "logFileName", "qconsole.log", CVAR_SYSTEM | CVAR_NOCHEAT, "name of log file, if empty, qconsole.log will be used" );
@@ -141,11 +144,11 @@ void idCommonLocal::VPrintf( const char* fmt, va_list args )
 		int	t = Sys_Milliseconds();
 		if( com_timestampPrints.GetInteger() == 1 )
 		{
-			sprintf( msg, "[%5.2f]", t * 0.001f );
+			std::sprintf( msg, "[%5.2f]", t * 0.001f );
 		}
 		else
 		{
-			sprintf( msg, "[%i]", t );
+			std::sprintf( msg, "[%i]", t );
 		}
 	}
 	timeLength = strlen( msg );
@@ -643,3 +646,5 @@ void idCommonLocal::FatalError( const char* fmt, ... )
 	Sys_Error( "%s", errorMessage );
 	
 }
+
+} // namespace BFG

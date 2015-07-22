@@ -28,6 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SWF_ENUMS_H__
 #define __SWF_ENUMS_H__
 
+namespace BFG
+{
+
 enum swfDictType_t
 {
 	SWF_DICT_NULL,
@@ -221,5 +224,7 @@ enum swfAction_t
 	
 	Action_DefineFunction2 = 0x8E,
 };
+
+} // namespace BFG
 
 #endif // !__SWF_ENUMS_H__

@@ -46,8 +46,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 #include "../cm/CollisionModel.h"
 #include "../framework/CVarSystem.h"
@@ -85,6 +85,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 #include "CollisionModel_local.h"
 #include "Timer.h"
+
+namespace BFG
+{
 
 #define CMODEL_BINARYFILE_EXT	"bcmodel"
 
@@ -4712,3 +4715,5 @@ bool idCollisionModelManagerLocal::TrmFromModel( const char* modelName, idTraceM
 	
 	return TrmFromModel( models[ handle ], trm );
 }
+
+} // namespace BFG

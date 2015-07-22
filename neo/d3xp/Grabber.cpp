@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/AFEntity.h"
@@ -68,6 +68,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderSystem.h"
 #include "Game_local.h"
 #include "Misc.h"
+
+namespace BFG
+{
 
 #define MAX_DRAG_TRACE_DISTANCE			384.0f
 #define TRACE_BOUNDS_SIZE				3.f
@@ -876,3 +879,4 @@ bool idGrabber::grabbableAI( const char* aiName )
 	return false;
 }
 
+} // namespace BFG

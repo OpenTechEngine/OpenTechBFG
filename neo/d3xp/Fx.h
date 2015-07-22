@@ -38,6 +38,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/containers/List.h"
 #include "../renderer/RenderWorld.h"
 
+namespace BFG
+{
+
 class idBitMsg;
 class idMat3;
 class idRestoreGame;
@@ -120,5 +123,7 @@ private:
 	// teleporters to this location
 	void					Event_DoAction( idEntity* activator );
 };
+
+} // namespace BFG
 
 #endif /* !__GAME_FX_H__ */

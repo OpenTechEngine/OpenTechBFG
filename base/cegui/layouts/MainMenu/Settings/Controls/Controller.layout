@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window type="DefaultWindow" name="Controller" >
+        <Property name="Area" value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Property name="MaxSize" value="{{1,0},{1,0}}" />
+        <Window type="VerticalLayoutContainer" name="Row0" >
+            <Window type="HorizontalLayoutContainer" name="Left" >
+                <Window type="TaharezLook/StaticText" name="StaticText" >
+                    <Property name="Area" value="{{0,0},{0,0},{0.5,0},{0.05,0}}" />
+                    <Property name="Text" value="Southpaw" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="HorzFormatting" value="CentreAligned" />
+                    <Property name="HorzScrollPageSize" value="942" />
+                    <Property name="VertScrollPageSize" value="36" />
+                    <Property name="HorzScrollDocumentSize" value="118" />
+                    <Property name="VertScrollDocumentSize" value="27.9375" />
+                </Window>
+                <Window type="TaharezLook/Checkbox" name="Checkbox" >
+                    <Property name="Area" value="{{0,960},{0,0},{1,560},{0.05,0}}" />
+                </Window>
+            </Window>
+        </Window>
+        <Window type="VerticalLayoutContainer" name="Row1" >
+            <Property name="Area" value="{{0,0},{0.05,0},{0,0},{0.05,0}}" />
+            <Window type="HorizontalLayoutContainer" name="Left" >
+                <Window type="TaharezLook/StaticText" name="StaticText" >
+                    <Property name="Area" value="{{0,0},{0,0},{0.5,0},{0.05,0}}" />
+                    <Property name="Text" value="Invert Look" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="HorzFormatting" value="CentreAligned" />
+                    <Property name="HorzScrollPageSize" value="942" />
+                    <Property name="VertScrollPageSize" value="36" />
+                    <Property name="HorzScrollDocumentSize" value="135" />
+                    <Property name="VertScrollDocumentSize" value="27.9375" />
+                </Window>
+                <Window type="TaharezLook/Checkbox" name="Checkbox" >
+                    <Property name="Area" value="{{0,960},{0,0},{1,560},{0.05,0}}" />
+                </Window>
+            </Window>
+        </Window>
+        <Window type="VerticalLayoutContainer" name="Row2" >
+            <Property name="Area" value="{{0,0},{0.1,0},{0,0},{0.1,0}}" />
+            <Window type="HorizontalLayoutContainer" name="Left" >
+                <Window type="TaharezLook/StaticText" name="StaticText" >
+                    <Property name="Area" value="{{0,0},{0,0},{0.5,0},{0.05,0}}" />
+                    <Property name="Text" value="Vibration" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="HorzFormatting" value="CentreAligned" />
+                    <Property name="HorzScrollPageSize" value="942" />
+                    <Property name="VertScrollPageSize" value="36" />
+                    <Property name="HorzScrollDocumentSize" value="108" />
+                    <Property name="VertScrollDocumentSize" value="27.9375" />
+                </Window>
+                <Window type="TaharezLook/Checkbox" name="Checkbox" >
+                    <Property name="Area" value="{{0,960},{0,0},{1,560},{0.05,0}}" />
+                </Window>
+            </Window>
+        </Window>
+        <Window type="VerticalLayoutContainer" name="Row3" >
+            <Property name="Area" value="{{0,0},{0.15,0},{0,0},{0.15,0}}" />
+            <Window type="HorizontalLayoutContainer" name="Left" >
+                <Window type="TaharezLook/StaticText" name="StaticText" >
+                    <Property name="Area" value="{{0,0},{0,0},{0.5,0},{0.05,0}}" />
+                    <Property name="Text" value="Horizontal Sensitivity" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="HorzFormatting" value="CentreAligned" />
+                    <Property name="HorzScrollPageSize" value="942" />
+                    <Property name="VertScrollPageSize" value="36" />
+                    <Property name="HorzScrollDocumentSize" value="255" />
+                    <Property name="VertScrollDocumentSize" value="27.9375" />
+                </Window>
+                <Window type="TaharezLook/Spinner" name="Spinner" >
+                    <Property name="Area" value="{{0,960},{0,0},{1,560},{0.05,0}}" />
+                    <Property name="Text" value="0" />
+                    <Property name="StepSize" value="5" />
+                    <Property name="MaximumValue" value="100" />
+                    <Property name="MinimumValue" value="0" />
+                </Window>
+            </Window>
+        </Window>
+        <Window type="VerticalLayoutContainer" name="Row4" >
+            <Property name="Area" value="{{0,0},{0.2,0},{0,0},{0.2,0}}" />
+            <Window type="HorizontalLayoutContainer" name="Left" >
+                <Window type="TaharezLook/StaticText" name="StaticText" >
+                    <Property name="Area" value="{{0,0},{0,0},{0.5,0},{0.05,0}}" />
+                    <Property name="Text" value="Vertical Sensitivity" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="HorzFormatting" value="CentreAligned" />
+                    <Property name="HorzScrollPageSize" value="942" />
+                    <Property name="VertScrollPageSize" value="36" />
+                    <Property name="HorzScrollDocumentSize" value="226" />
+                    <Property name="VertScrollDocumentSize" value="27.9375" />
+                </Window>
+                <Window type="TaharezLook/Spinner" name="Spinner" >
+                    <Property name="Area" value="{{0,960},{0,0},{1,560},{0.05,0}}" />
+                    <Property name="Text" value="0" />
+                    <Property name="StepSize" value="5" />
+                    <Property name="MaximumValue" value="100" />
+                    <Property name="MinimumValue" value="0" />
+                </Window>
+            </Window>
+        </Window>
+        <Window type="VerticalLayoutContainer" name="Row5" >
+            <Property name="Area" value="{{0,0},{0.25,0},{0,0},{0.25,0}}" />
+            <Window type="HorizontalLayoutContainer" name="Left" >
+                <Window type="TaharezLook/StaticText" name="StaticText" >
+                    <Property name="Area" value="{{0,0},{0,0},{0.5,0},{0.05,0}}" />
+                    <Property name="Text" value="Look Acceleration" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="HorzFormatting" value="CentreAligned" />
+                    <Property name="HorzScrollPageSize" value="942" />
+                    <Property name="VertScrollPageSize" value="36" />
+                    <Property name="HorzScrollDocumentSize" value="213" />
+                    <Property name="VertScrollDocumentSize" value="27.9375" />
+                </Window>
+                <Window type="TaharezLook/Checkbox" name="Checkbox" >
+                    <Property name="Area" value="{{0,960},{0,0},{1,560},{0.05,0}}" />
+                </Window>
+            </Window>
+        </Window>
+        <Window type="VerticalLayoutContainer" name="Row6" >
+            <Property name="Area" value="{{0,0},{0.3,0},{0,0},{0.3,0}}" />
+            <Window type="HorizontalLayoutContainer" name="Left" >
+                <Window type="TaharezLook/StaticText" name="StaticText" >
+                    <Property name="Area" value="{{0,0},{0,0},{0.5,0},{0.05,0}}" />
+                    <Property name="Text" value="Merged Threshold" />
+                    <Property name="MaxSize" value="{{1,0},{1,0}}" />
+                    <Property name="HorzFormatting" value="CentreAligned" />
+                    <Property name="HorzScrollPageSize" value="942" />
+                    <Property name="VertScrollPageSize" value="36" />
+                    <Property name="HorzScrollDocumentSize" value="216" />
+                    <Property name="VertScrollDocumentSize" value="27.9375" />
+                </Window>
+                <Window type="TaharezLook/Checkbox" name="Checkbox" >
+                    <Property name="Area" value="{{0,960},{0,0},{1,560},{0.05,0}}" />
+                </Window>
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

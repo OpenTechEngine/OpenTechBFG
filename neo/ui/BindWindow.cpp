@@ -38,6 +38,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "UserInterfaceLocal.h"
 #include "Window.h"
 
+namespace BFG
+{
 
 void idBindWindow::CommonInit()
 {
@@ -149,3 +151,5 @@ void idBindWindow::Activate( bool activate, idStr& act )
 	idWindow::Activate( activate, act );
 	bindName.Update();
 }
+
+} // namespace BFG

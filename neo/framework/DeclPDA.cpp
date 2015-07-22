@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -39,6 +39,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/containers/List.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 idCVar g_useOldPDAStrings( "g_useOldPDAStrings", "0", CVAR_BOOL, "Read strings from the .pda files rather than from the .lang file" );
 
@@ -732,3 +735,5 @@ idDeclAudio::FreeData
 void idDeclAudio::FreeData()
 {
 }
+
+} // namespace BFG

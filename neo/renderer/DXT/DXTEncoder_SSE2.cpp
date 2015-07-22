@@ -47,6 +47,9 @@ Contains the DxtEncoder implementation for SSE2.
 #include <malloc.h>
 #endif
 
+namespace BFG
+{
+
 #define INSET_COLOR_SHIFT		4		// inset the bounding box with ( range >> shift )
 #define INSET_ALPHA_SHIFT		5		// inset alpha channel
 
@@ -1633,5 +1636,7 @@ void idDxtEncoder::CompressNormalMapDXT5Fast_SSE2( const byte* inBuf, byte* outB
 	dstPadding = tmpDstPadding;
 #endif
 }
+
+} // namespace BFG
 
 #endif // #if defined(USE_INTRINSICS)

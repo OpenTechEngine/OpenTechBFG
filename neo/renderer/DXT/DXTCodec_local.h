@@ -35,4 +35,9 @@ Contains the DxtEncoder and DxtDecoder declarations.
 */
 #include "precompiled.h"
 
+namespace BFG
+{
+
+} // namespace BFG
+
 #endif // !__DXTCODEC_LOCAL_H__

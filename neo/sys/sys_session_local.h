@@ -27,10 +27,10 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-#undef private
-#undef protected
+#undef private // FIXME investigate why undef private
+#undef protected // FIXME investigate why undef protected
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/Common_dialog.h"
 #include "../framework/FileSystem.h"
@@ -56,6 +56,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "sys_lobby.h"
 #include "sys_lobby_backend.h"
+
+namespace BFG
+{
 
 class idBitMsg;
 class idCallback;
@@ -1014,3 +1017,4 @@ public:
 	idSessionLocal* sessionLocal;
 };
 
+} // namespace BFG

@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../d3xp/physics/Physics_Base.h"
 
+namespace BFG
+{
+
 /*
 ===================================================================================
 
@@ -1246,5 +1249,7 @@ private:
 	void					AddPushVelocity( const idVec6& pushVelocity );
 	void					DebugDraw();
 };
+
+} // namespace BFG
 
 #endif /* !__PHYSICS_AF_H__ */

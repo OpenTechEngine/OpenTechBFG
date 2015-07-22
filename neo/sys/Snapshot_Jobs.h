@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "LightweightCompression.h"
 
+namespace BFG
+{
+
 struct lzwCompressionData_t;
 
 //#define SNAPSHOT_CHECKSUMS
@@ -133,5 +136,7 @@ struct ALIGNTYPE16 lzwParm_t
 
 extern void SnapshotObjectJob( objParms_t* parms );
 extern void LZWJob( lzwParm_t* parm );
+
+} // namespace BFG
 
 #endif // __SNAPSHOT_JOBS_H__

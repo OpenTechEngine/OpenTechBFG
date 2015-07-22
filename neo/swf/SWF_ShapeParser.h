@@ -34,6 +34,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "../swf/SWF_Types.h"
 
+namespace BFG
+{
+
 class idSWFBitStream;
 
 /*
@@ -99,5 +102,7 @@ private:
 	void AddUniqueVert( idSWFShapeDrawFill& drawFill, const idVec2& start, const idVec2& end );
 	
 };
+
+} // namespace BFG
 
 #endif // !__SWF_SHAPEPARSER_H__

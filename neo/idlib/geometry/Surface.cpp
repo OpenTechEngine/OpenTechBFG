@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 #include "../idlib/geometry/Surface.h"
 #include "../idlib/math/Math.h"
@@ -42,6 +42,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys/sys_defines.h"
 #include "sys/sys_types.h"
 
+namespace BFG
+{
 
 /*
 =================
@@ -1082,3 +1084,5 @@ int idSurface::FindEdge( int v1, int v2 ) const
 	}
 	return 0;
 }
+
+} // namespace BFG

@@ -27,12 +27,14 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "../idlib/containers/List.h"
 #include "AASFile.h"
 #include "AASFile_local.h"
 
+namespace BFG
+{
 
 //===============================================================
 //
@@ -170,3 +172,5 @@ void idAASFileLocal::Optimize()
 	faces = newFaces;
 	faceIndex = newFaceIndex;
 }
+
+} // namespace BFG

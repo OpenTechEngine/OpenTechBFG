@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <stdio.h>
+#include <cstdio>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/AFEntity.h"
@@ -75,6 +75,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "Game_local.h"
 #include "bv/Box.h"
 
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -1359,3 +1361,5 @@ void idGameEdit::MapEntityTranslate( const char* name, const idVec3& v ) const
 		}
 	}
 }
+
+} // namespace BFG

@@ -29,8 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_ITEM_H__
 #define __GAME_ITEM_H__
 
-
-#include <stddef.h>
+#include <cstddef>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/Entity.h"
@@ -41,6 +40,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../idlib/sys/sys_types.h"
 #include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
 
 class function_t;
 class idBitMsg;
@@ -357,5 +359,7 @@ private:
 	void					Event_HideObjective( idEntity* e );
 	void					Event_GetPlayerPos();
 };
+
+} // namespace BFG
 
 #endif /* !__GAME_ITEM_H__ */

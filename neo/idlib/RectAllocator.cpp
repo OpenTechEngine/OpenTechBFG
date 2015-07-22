@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
+namespace BFG
+{
+
 /*
 
 This routine performs a tight packing of a list of rectangles, attempting to minimize the area
@@ -194,3 +197,4 @@ void RectAllocator( const idList<idVec2i>& inputSizes, idList<idVec2i>& outputPo
 	}
 }
 
+} // namespace BFG

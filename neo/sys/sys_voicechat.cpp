@@ -36,6 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys/sys_types.h"
 #include "sys_voicechat.h"
 
+namespace BFG
+{
+
 /*
 ================================================
 idVoiceChatMgr::Init
@@ -675,3 +678,5 @@ bool idVoiceChatMgr::HasHeadsetStateChanged( int talkerIndex )
 	
 	return ret;
 }
+
+} // namespace BFG

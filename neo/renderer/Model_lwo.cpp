@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 
 #include "../framework/File.h"
 #include "../framework/FileSystem.h"
@@ -38,6 +38,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_assert.h"
 #include "../idlib/sys/sys_types.h"
 #include "Model_lwo.h"
+
+namespace BFG
+{
 
 /*
 ======================================================================
@@ -2854,7 +2857,7 @@ int lwResolvePolySurfaces( lwPolygonList* polygon, lwTagList* tlist,
 		st = *surf;
 		while( st )
 		{
-			if( !strcmp( st->name, tlist->tag[ i ] ) )
+			if( !idStr::Cmp( st->name, tlist->tag[ i ] ) )
 			{
 				s[ i ] = st;
 				break;
@@ -3795,13 +3798,13 @@ textures to surface channels and shaders to surfaces.
 
 static int compare_textures( lwTexture* a, lwTexture* b )
 {
-	return strcmp( a->ord, b->ord );
+	return idStr::Cmp( a->ord, b->ord );
 }
 
 
 static int compare_shaders( lwPlugin* a, lwPlugin* b )
 {
-	return strcmp( a->ord, b->ord );
+	return idStr::Cmp( a->ord, b->ord );
 }
 
 
@@ -4406,3 +4409,5 @@ int lwGetPolyVMaps( lwPolygonList* polygon, lwVMap* vmap )
 	
 	return 1;
 }
+
+} // namespace BFG

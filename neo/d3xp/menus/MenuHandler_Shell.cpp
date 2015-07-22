@@ -26,12 +26,12 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
-//#include "../Game_local.h"
-//#include "../d3xp/Player.h"
-#include "../d3xp/menus/MenuHandler_SWF.h"
-#include "../d3xp/menus/MenuScreen_SWF.h"
+#include "../Game_local.h"
+#include "../d3xp/Player.h"
+#include "../d3xp/menus/MenuHandler.h"
+#include "../d3xp/menus/MenuScreen.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -64,11 +64,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h"
 #include "sys/sys_savegame.h"
 
+namespace BFG
+{
+
 class idLeaderboardCallback;
 
 extern idCVar g_demoMode;
-
-
 
 static const int PEER_UPDATE_INTERVAL = 500;
 static const int MAX_MENU_OPTIONS = 6;
@@ -1940,4 +1941,4 @@ void idMenuHandler_Shell::ShowLEIntro()
 	}
 }
 
-
+} // namespace BFG

@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../cm/CollisionModel.h"
@@ -49,6 +49,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Quat.h"
 #include "../idlib/math/Rotation.h"
 #include "../idlib/math/Vector.h"
+
+namespace BFG
+{
 
 CLASS_DECLARATION( idPhysics, idPhysics_Static )
 END_CLASS
@@ -1064,3 +1067,5 @@ staticPState_t InterpolateStaticPState( const staticInterpolatePState_t& previou
 	
 	return result;
 }
+
+} // namespace BFG

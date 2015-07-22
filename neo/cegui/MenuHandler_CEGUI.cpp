@@ -46,9 +46,12 @@ SetShellState 4
 
  */
 
-struct idMenuHandler::MenuVars
+namespace BFG
 {
 
+struct idMenuHandler::MenuVars
+{
+	idMenuScreen_HUD* ourHud;
 };
 
 
@@ -60,9 +63,10 @@ idMenuHandler
 idMenuHandler::idMenuHandler() :
 	ourVars( new MenuVars )
 {
-
 }
-idMenuHandler::~idMenuHandler() {}
+idMenuHandler::~idMenuHandler()
+{
+}
 
 bool idMenuHandler::IsActive()
 {
@@ -126,6 +130,12 @@ void idMenuHandler_Shell::SetShellState( shellState_t s )
 	{
 		state = s;
 		common->Printf( "idMenuHandler_Shell::SetShellState CHANGED %d\n", s );
+		
+		if( state == SHELL_STATE_PAUSED )
+		{
+			// no pause menu yet so we just hide the main and get going
+			CEGUIMenu::MenuLocator::getMain()->setVisible( false );
+		}
 	}
 	
 // enum with initial press start? and multiplayer lobby states
@@ -195,12 +205,18 @@ void idMenuHandler_PDA::Initialize( const char* swfFile, idSoundWorld* sw )
 idMenuHandler_HUD
 ================================================
 */
-idMenuHandler_HUD::idMenuHandler_HUD() {}
-idMenuHandler_HUD::~idMenuHandler_HUD() {}
+idMenuHandler_HUD::idMenuHandler_HUD()
+{
+	ourVars->ourHud = new idMenuScreen_HUD;
+}
+idMenuHandler_HUD::~idMenuHandler_HUD()
+{
+	delete ourVars->ourHud;
+}
 
 void idMenuHandler_HUD::Update()
 {
-	common->Printf( "idMenuHandler_HUD::Update\n" );
+	// common->Printf( "idMenuHandler_HUD::Update\n" ); // FIXME: DG: don't spam.
 }
 void idMenuHandler_HUD::ActivateMenu( bool show )
 {
@@ -213,8 +229,8 @@ void idMenuHandler_HUD::Initialize( const char* swfFile, idSoundWorld* sw )
 
 idMenuScreen_HUD* idMenuHandler_HUD::GetHud()
 {
-	common->Printf( "idMenuHandler_HUD::GetHud\n" );
-	return new idMenuScreen_HUD;
+	// common->Printf( "idMenuHandler_HUD::GetHud()\n" );
+	return ourVars->ourHud;
 }
 void idMenuHandler_HUD::ShowTip( const char* title, const char* tip, bool autoHide )
 {
@@ -270,4 +286,4 @@ void idMenuHandler_Scoreboard::UpdateScoreboardSelection()
 	common->Printf( "idMenuHandler_Scoreboard::UpdateScoreboardSelection\n" );
 }
 
-
+} // namespace BFG

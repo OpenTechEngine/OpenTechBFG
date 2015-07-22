@@ -29,6 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __BINSEARCH_H__
 #define __BINSEARCH_H__
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -150,5 +153,7 @@ ID_INLINE int idBinSearch_GreaterEqual( const type* array, const int arraySize, 
 	}
 	return offset + res;
 }
+
+} // namespace BFG
 
 #endif /* !__BINSEARCH_H__ */

@@ -27,9 +27,9 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
+#include <cstdarg>
+#include <cstdio>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../cm/CollisionModel.h"
@@ -66,6 +66,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sound/sound.h"
 #include "../ui/UserInterface.h"
 #include "sys/sys_savegame.h"
+
+namespace BFG
+{
 
 /*
 Save game related helper classes.
@@ -1105,7 +1108,7 @@ void idRestoreGame::Error( const char* fmt, ... )
 	char	text[ 1024 ];
 	
 	va_start( argptr, fmt );
-	vsprintf( text, fmt, argptr );
+	std::vsprintf( text, fmt, argptr );
 	va_end( argptr );
 	
 	objects.DeleteContents( true );
@@ -1843,3 +1846,5 @@ void idRestoreGame::ReadSoundCommands()
 	gameSoundWorld->StopAllSounds();
 	gameSoundWorld->ReadFromSaveGame( file );
 }
+
+} // namespace BFG

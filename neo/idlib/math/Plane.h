@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../idlib/math/Matrix.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -461,5 +464,7 @@ ID_INLINE float* idPlane::ToFloatPtr()
 {
 	return reinterpret_cast<float*>( &a );
 }
+
+} // namespace BFG
 
 #endif /* !__MATH_PLANE_H__ */

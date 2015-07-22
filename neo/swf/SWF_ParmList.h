@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "../swf/SWF_ScriptVar.h"
 
+namespace BFG
+{
+
 class idSWFScriptFunction;
 class idSWFScriptObject;
 
@@ -67,5 +70,7 @@ public:
 	void	Append( const int32 i );
 	void	Append( const bool b );
 };
+
+} // namespace BFG
 
 #endif	// __SWF_PARMLIST_H__ 

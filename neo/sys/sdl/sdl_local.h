@@ -29,6 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SDL_LOCAL_H__
 #define __SDL_LOCAL_H__
 
+namespace BFG
+{
+
 // glimp.cpp
 const int GRAB_ENABLE		= ( 1 << 0 );
 const int GRAB_REENABLE		= ( 1 << 1 );
@@ -39,4 +42,6 @@ void GLimp_GrabInput( int flags );
 
 char*	Sys_ConsoleInput();
 
-#endif
+} // namespace BFG
+
+#endif // __SDL_LOCAL_H__

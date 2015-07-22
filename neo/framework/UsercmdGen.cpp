@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 #include "../d3xp/Game.h"
 #include "../framework/CVarSystem.h"
@@ -50,6 +50,9 @@ If you have questions concerning this license or the applicable additional terms
 #endif // USE_CEGUI
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 idCVar joy_mergedThreshold( "joy_mergedThreshold", "1", CVAR_BOOL | CVAR_ARCHIVE, "If the thresholds aren't merged, you drift more off center" );
 idCVar joy_newCode( "joy_newCode", "1", CVAR_BOOL | CVAR_ARCHIVE, "Use the new codepath" );
@@ -1544,3 +1547,5 @@ void idUsercmdGenLocal::BuildCurrentUsercmd( int deviceNum )
 	
 	lastPollTime = pollTime;
 }
+
+} // namespace BFG

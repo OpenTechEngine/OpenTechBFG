@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <math.h>
-#include <string.h>
+#include <cassert>
+#include <cmath>
+#include <cstring>
 
 #include "../d3xp/Entity.h"
 #include "../d3xp/Player.h"
@@ -57,6 +57,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderWorld.h"
 #include "../sound/sound.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 class idClass;
 class idMaterial;
@@ -2063,5 +2066,4 @@ void FullscreenFXManager::Process( const renderView_t* view )
 	}
 }
 
-
-
+} // namespace BFG

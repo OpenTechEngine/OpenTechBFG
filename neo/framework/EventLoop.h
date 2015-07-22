@@ -29,6 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __EVENTLOOP_H__
 #define __EVENTLOOP_H__
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -85,5 +88,7 @@ private:
 };
 
 extern	idEventLoop*	eventLoop;
+
+} // namespace BFG
 
 #endif /* !__EVENTLOOP_H__ */

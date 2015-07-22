@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 ===============================================================================
 */
 
+namespace BFG
+{
+
 #define GAME_NAME						"OpenTechEngine"		// appears on window titles and errors
 
 // RB: changed home folder so we don't break the savegame of the original game
@@ -70,4 +73,4 @@ If you have questions concerning this license or the applicable additional terms
 #endif
 // RB end
 
-
+} // namespace BFG

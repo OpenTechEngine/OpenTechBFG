@@ -40,6 +40,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "ShadowShared.h"
 #include "sys/sys_intrinsics.h"
 
+namespace BFG
+{
 
 /*
 ======================
@@ -487,3 +489,5 @@ bool R_ViewInsideShadowVolume( byte* cullBits, const idShadowVert* verts, int nu
 	
 	return false;
 }
+
+} // namespace BFG

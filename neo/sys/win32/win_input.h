@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../sys/sys_session.h"
 
+namespace BFG
+{
+
 static const int MAX_JOYSTICKS = 4;
 
 /*
@@ -98,3 +101,5 @@ protected:
 	bool					buttonStates[MAX_INPUT_DEVICES][K_LAST_KEY];	// For keeping track of button up/down events
 	int						joyAxis[MAX_INPUT_DEVICES][MAX_JOYSTICK_AXIS];			// For keeping track of joystick axises
 };
+
+} // namespace BFG

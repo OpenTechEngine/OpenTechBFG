@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "AASBuild_local.h"
 
+namespace BFG
+{
+
 /*
 ============
 idAASBuild::AllGapsLeadToOtherNode
@@ -186,3 +189,5 @@ void idAASBuild::MergeLeafNodes( idBrushBSP& bsp )
 	
 	common->Printf( "\r%6d leaf nodes merged\n", numMergedLeafNodes );
 }
+
+} // namespace BFG

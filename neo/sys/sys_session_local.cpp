@@ -26,10 +26,10 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #include "../framework/BuildVersion.h"
 #include "../framework/CVarSystem.h"
@@ -68,6 +68,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys_dedicated_server_search.h"
 #include "sys_session_local.h"
 #include "sys_voicechat.h"
+
+namespace BFG
+{
 
 class idSnapShot;
 
@@ -127,7 +130,7 @@ struct netVersion_s
 {
 	netVersion_s()
 	{
-		sprintf( string, "%s.%d", ENGINE_VERSION, BUILD_NUMBER );
+		std::sprintf( string, "%s.%d", ENGINE_VERSION, BUILD_NUMBER );
 	}
 	char	string[256];
 } netVersion;
@@ -4767,3 +4770,5 @@ void lobbyUserID_t::Serialize( idSerializer& ser )
 	localUserHandle.Serialize( ser );
 	ser.Serialize( lobbyType );
 }
+
+} // namespace BFG

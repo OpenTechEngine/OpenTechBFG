@@ -26,12 +26,12 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../Game_local.h"
 #include "../d3xp/Player.h"
-#include "../d3xp/menus/MenuHandler_SWF.h"
-#include "../d3xp/menus/MenuScreen_SWF.h"
+#include "../d3xp/menus/MenuHandler.h"
+#include "../d3xp/menus/MenuScreen.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -46,10 +46,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_ScriptVar.h"
 #include "../sys/sys_session.h"
 
+namespace BFG
+{
+
 class idSWFScriptObject;
 
 extern idCVar g_demoMode;
-
 const static int NUM_PAUSE_OPTIONS = 6;
 
 enum pauseMenuCmds_t
@@ -570,3 +572,4 @@ bool idMenuScreen_Shell_Pause::HandleAction( idWidgetAction& action, const idWid
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
 
+} // namespace BFG

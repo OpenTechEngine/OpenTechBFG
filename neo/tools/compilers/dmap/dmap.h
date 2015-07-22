@@ -31,6 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../cm/CollisionModel.h"
 #include "../renderer/tr_local.h"
 
+namespace BFG
+{
 
 typedef struct primitive_s
 {
@@ -513,3 +515,5 @@ srfTriangles_t* CreateLightShadow( optimizeGroup_t* shadowerGroups, const mapLig
 void		FreeBeamTree( struct beamTree_s* beamTree );
 
 void		CarveTriByBeamTree( const struct beamTree_s* beamTree, const mapTri_t* tri, mapTri_t** lit, mapTri_t** unLit );
+
+} // namespace BFG

@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
+#include <cmath>
 
 #include "../idlib/math/Angles.h"
 #include "../idlib/math/Math.h"
@@ -36,6 +36,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Rotation.h"
 #include "../idlib/math/Vector.h"
 
+namespace BFG
+{
 
 /*
 ============
@@ -174,3 +176,5 @@ void idRotation::Normalize360()
 		angle += 360.0f;
 	}
 }
+
+} // namespace BFG

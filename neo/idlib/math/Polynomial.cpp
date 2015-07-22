@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys/sys_defines.h"
 #include "sys/sys_types.h"
 
+namespace BFG
+{
+
 const float EPSILON		= 1e-6f;
 
 /*
@@ -286,3 +289,5 @@ void idPolynomial::Test()
 		assert( idMath::Fabs( complexValue.r ) < 1e-4f && idMath::Fabs( complexValue.i ) < 1e-4f );
 	}
 }
+
+} // namespace BFG

@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <string.h>                     // for memcpy, memset
+#include <cstring>                     // for memcpy, memset
 #include "../idlib/math/Math.h"         // for idMath, idMath::INFINITY
 #include "../idlib/math/Quat.h"         // for idQuat
 #include "../idlib/math/Simd.h"         // for VPCALL
@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"              // for triIndex_t
 
 #include "../idlib/math/Simd_Generic.h"
+
+namespace BFG
+{
 
 //===============================================================
 //
@@ -233,3 +236,5 @@ void VPCALL idSIMD_Generic::UntransformJoints( idJointMat* jointMats, const int*
 		jointMats[i] /= jointMats[parents[i]];
 	}
 }
+
+} // namespace BFG

@@ -26,17 +26,20 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Str.h"
 #include "../idlib/sys/sys_types.h"
 #include "../swf/SWF_ParmList.h"
 #include "../swf/SWF_ScriptVar.h"
 
+#pragma hdrstop
+
+namespace BFG
+{
+
 class idSWFScriptFunction;
 class idSWFScriptObject;
-
-#pragma hdrstop
 
 void idSWFParmList::Append( const idSWFScriptVar& other )
 {
@@ -110,3 +113,5 @@ void idSWFParmList::Append( const bool b )
 		var->SetBool( b );
 	}
 }
+
+} // namespace BFG

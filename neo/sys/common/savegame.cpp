@@ -27,9 +27,9 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <errno.h>
-#include <stddef.h>
-#include <string.h>
+#include <cerrno>
+#include <cstddef>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/File.h"
@@ -51,6 +51,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_signin.h"
 #include "../sys_savegame.h"
 #include "sys/sys_threading.h"
+
+namespace BFG
+{
 
 class idLocalUser;
 
@@ -875,3 +878,5 @@ void Sys_SaveGameCheck( bool& exists, bool& autosaveExists )
 		fileSystem->FreeFileList( files );
 	}
 }
+
+} // namespace BFG

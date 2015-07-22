@@ -32,6 +32,13 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/DeclManager.h"
 #include "../idlib/geometry/TraceModel.h"
 
+namespace BFG
+{
+
+class idImage;
+class idCinematic;
+class idUserInterface;
+
 /*
 ===============================================================================
 
@@ -39,10 +46,6 @@ If you have questions concerning this license or the applicable additional terms
 
 ===============================================================================
 */
-
-class idImage;
-class idCinematic;
-class idUserInterface;
 
 // moved from image.h for default parm
 typedef enum
@@ -899,5 +902,7 @@ private:
 };
 
 typedef idList<const idMaterial*, TAG_MATERIAL> idMatList;
+
+} // namespace BFG
 
 #endif /* !__MATERIAL_H__ */

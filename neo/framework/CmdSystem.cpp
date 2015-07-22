@@ -26,9 +26,9 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stdarg.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdarg>
+#include <cstdlib>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -44,6 +44,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 #ifdef ID_RETAIL
 idCVar net_allowCheats( "net_allowCheats", "0", CVAR_BOOL | CVAR_ROM, "Allow cheats in multiplayer" );
@@ -945,3 +948,5 @@ bool idCmdSystemLocal::PostReloadEngine()
 	postReload.Clear();
 	return true;
 }
+
+} // namespace BFG

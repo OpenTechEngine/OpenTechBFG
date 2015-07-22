@@ -1,0 +1,9 @@
+textures/colors/black
+{
+   diffusemap textures/dummy_black.tga
+}
+
+textures/colors/white
+{
+   diffusemap textures/dummy_white.tga
+}

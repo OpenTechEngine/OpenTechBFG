@@ -27,11 +27,11 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cstdarg>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../cm/CollisionModel.h"
@@ -68,6 +68,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Material.h"
 #include "../renderer/RenderWorld.h"
 #include "../sound/sound.h"
+
+namespace BFG
+{
 
 class idCmdArgs;
 
@@ -931,7 +934,7 @@ void idThread::Error( const char* fmt, ... ) const
 	char	text[ 1024 ];
 	
 	va_start( argptr, fmt );
-	vsprintf( text, fmt, argptr );
+	std::vsprintf( text, fmt, argptr );
 	va_end( argptr );
 	
 	interpreter.Error( text );
@@ -948,7 +951,7 @@ void idThread::Warning( const char* fmt, ... ) const
 	char	text[ 1024 ];
 	
 	va_start( argptr, fmt );
-	vsprintf( text, fmt, argptr );
+	std::vsprintf( text, fmt, argptr );
 	va_end( argptr );
 	
 	interpreter.Warning( text );
@@ -2190,3 +2193,5 @@ void idThread::Event_InfluenceActive()
 		idThread::ReturnInt( false );
 	}
 }
+
+} // namespace BFG

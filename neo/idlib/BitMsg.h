@@ -32,6 +32,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../idlib/Str.h"
 #include "../idlib/Dict.h"
+
+namespace BFG
+{
+
 /*
 ================================================
 idBitMsg operates on a sequence of individual bits. It handles byte ordering and
@@ -1176,5 +1180,7 @@ _arrayType_ ReadDeltaFloatArray( const idBitMsg& message, const _arrayType_ & ol
 	
 	return result;
 }
+
+} // namespace BFG
 
 #endif /* !__BITMSG_H__ */

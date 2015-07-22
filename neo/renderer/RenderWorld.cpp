@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -65,6 +65,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h"
 #include "bv/Box.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 class idCmdArgs;
 class idUserInterface;
@@ -2434,3 +2437,5 @@ const idMaterial* R_RemapShaderBySkin( const idMaterial* shader, const idDeclSki
 	
 	return skin->RemapShaderBySkin( shader );
 }
+
+} // namespace BFG

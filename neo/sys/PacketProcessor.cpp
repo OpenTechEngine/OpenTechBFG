@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../idlib/BitMsg.h"
@@ -38,6 +38,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "../sys/LightweightCompression.h"
 #include "PacketProcessor.h"
+
+namespace BFG
+{
 
 // DG: workaround for GCC bug
 const int idPacketProcessor::RETURN_TYPE_NONE = 0;
@@ -683,3 +686,5 @@ void idPacketProcessor::VerifyEmptyReliableQueue( byte keepMsgBelowThis, byte re
 	
 	reliable = clean;
 }
+
+} // namespace BFG

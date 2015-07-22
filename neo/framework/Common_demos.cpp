@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -45,6 +45,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sound/sound.h"
 #include "../sys/sys_public.h"
 #include "Common_local.h"
+
+namespace BFG
+{
 
 /*
 ================
@@ -594,3 +597,5 @@ CONSOLE_COMMAND( aviGame, "writes AVIs for the current game", NULL )
 {
 	commonLocal.AVIGame( args.Argv( 1 ) );
 }
+
+} // namespace BFG

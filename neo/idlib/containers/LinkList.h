@@ -29,7 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __LINKLIST_H__
 #define __LINKLIST_H__
 
-#include <string.h>
+#include <cstring>
+
+namespace BFG
+{
 
 /*
 ==============================================================================
@@ -369,5 +372,7 @@ void idLinkList<type>::SetOwner( type* object )
 {
 	owner = object;
 }
+
+} // namespace BFG
 
 #endif /* !__LINKLIST_H__ */

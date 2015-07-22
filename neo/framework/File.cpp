@@ -27,11 +27,11 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <limits.h>
-#include <stdarg.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <string.h>
+#include <climits>
+#include <cstdarg>
+#include <cstddef>
+#include <cstdio>
+#include <cstring>
 #include <minizip/unzip.h>
 
 #include "../framework/CVarSystem.h"
@@ -54,6 +54,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
+namespace BFG
+{
 
 /*
 =================
@@ -99,44 +101,44 @@ int FS_WriteFloatString( char* buf, const char* fmt, va_list argPtr )
 							sprintf( tmp, "%1.10f", f );
 							tmp.StripTrailing( '0' );
 							tmp.StripTrailing( '.' );
-							index += sprintf( buf + index, "%s", tmp.c_str() );
+							index += std::sprintf( buf + index, "%s", tmp.c_str() );
 						}
 						else
 						{
-							index += sprintf( buf + index, format.c_str(), f );
+							index += std::sprintf( buf + index, format.c_str(), f );
 						}
 						break;
 					case 'd':
 					case 'i':
 						i = va_arg( argPtr, int );
-						index += sprintf( buf + index, format.c_str(), i );
+						index += std::sprintf( buf + index, format.c_str(), i );
 						break;
 					case 'u':
 						u = va_arg( argPtr, unsigned int );
-						index += sprintf( buf + index, format.c_str(), u );
+						index += std::sprintf( buf + index, format.c_str(), u );
 						break;
 					case 'o':
 						u = va_arg( argPtr, unsigned int );
-						index += sprintf( buf + index, format.c_str(), u );
+						index += std::sprintf( buf + index, format.c_str(), u );
 						break;
 					case 'x':
 						u = va_arg( argPtr, unsigned int );
-						index += sprintf( buf + index, format.c_str(), u );
+						index += std::sprintf( buf + index, format.c_str(), u );
 						break;
 					case 'X':
 						u = va_arg( argPtr, unsigned int );
-						index += sprintf( buf + index, format.c_str(), u );
+						index += std::sprintf( buf + index, format.c_str(), u );
 						break;
 					case 'c':
 						i = va_arg( argPtr, int );
-						index += sprintf( buf + index, format.c_str(), ( char ) i );
+						index += std::sprintf( buf + index, format.c_str(), ( char ) i );
 						break;
 					case 's':
 						str = va_arg( argPtr, char* );
-						index += sprintf( buf + index, format.c_str(), str );
+						index += std::sprintf( buf + index, format.c_str(), str );
 						break;
 					case '%':
-						index += sprintf( buf + index, "%s", format.c_str() );
+						index += std::sprintf( buf + index, "%s", format.c_str() );
 						break;
 					default:
 						common->Error( "FS_WriteFloatString: invalid format %s", format.c_str() );
@@ -149,16 +151,16 @@ int FS_WriteFloatString( char* buf, const char* fmt, va_list argPtr )
 				switch( *fmt )
 				{
 					case 't':
-						index += sprintf( buf + index, "\t" );
+						index += std::sprintf( buf + index, "\t" );
 						break;
 					case 'v':
-						index += sprintf( buf + index, "\v" );
+						index += std::sprintf( buf + index, "\v" );
 						break;
 					case 'n':
-						index += sprintf( buf + index, "\n" );
+						index += std::sprintf( buf + index, "\n" );
 						break;
 					case '\\':
-						index += sprintf( buf + index, "\\" );
+						index += std::sprintf( buf + index, "\\" );
 						break;
 					default:
 						common->Error( "FS_WriteFloatString: unknown escape character \'%c\'", *fmt );
@@ -167,7 +169,7 @@ int FS_WriteFloatString( char* buf, const char* fmt, va_list argPtr )
 				fmt++;
 				break;
 			default:
-				index += sprintf( buf + index, "%c", *fmt );
+				index += std::sprintf( buf + index, "%c", *fmt );
 				fmt++;
 				break;
 		}
@@ -867,7 +869,7 @@ int idFile_Memory::Write( const void* buffer, int len )
 	{
 		if( maxSize != 0 )
 		{
-			common->Error( "idFile_Memory::Write: exceeded maximum size %" PRIuSIZE "", maxSize );
+			common->Error( "idFile_Memory::Write: exceeded maximum size %" BFG_PRIuSIZE "", maxSize );
 			return 0;
 		}
 		int extra = granularity * ( 1 + alloc / granularity );
@@ -953,7 +955,7 @@ void idFile_Memory::PreAllocate( size_t len )
 	{
 		if( maxSize != 0 )
 		{
-			idLib::Error( "idFile_Memory::SetLength: exceeded maximum size %" PRIuSIZE "", maxSize );
+			idLib::Error( "idFile_Memory::SetLength: exceeded maximum size %" BFG_PRIuSIZE "", maxSize );
 		}
 		char* newPtr = ( char* )Mem_Alloc( len, TAG_IDFILE );
 		if( allocated > 0 )
@@ -1139,7 +1141,7 @@ void idFile_Memory::TruncateData( size_t len )
 {
 	if( len > allocated )
 	{
-		idLib::Error( "idFile_Memory::TruncateData: len (%" PRIuSIZE ") exceeded allocated size (%" PRIuSIZE ")", len, allocated );
+		idLib::Error( "idFile_Memory::TruncateData: len (%" BFG_PRIuSIZE ") exceeded allocated size (%" BFG_PRIuSIZE ")", len, allocated );
 	}
 	else
 	{
@@ -2133,3 +2135,5 @@ CONSOLE_COMMAND( testEndianNessReset, "Tests the read/write compatibility betwee
 {
 	fileSystem->RemoveFile( testEndianNessFilename );
 }
+
+} // namespace BFG

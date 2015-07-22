@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Plane.h"
 #include "../idlib/math/Rotation.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -315,5 +318,7 @@ ID_INLINE void idSphere::AxisProjection( const idVec3& dir, float& min, float& m
 	min = d - radius;
 	max = d + radius;
 }
+
+} // namespace BFG
 
 #endif /* !__BV_SPHERE_H__ */

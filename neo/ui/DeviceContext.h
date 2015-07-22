@@ -32,13 +32,16 @@ If you have questions concerning this license or the applicable additional terms
 // device context support for gui stuff
 //
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/containers/List.h"
 #include "../idlib/math/Matrix.h"
 #include "../idlib/math/Vector.h"
 #include "../renderer/Font.h"
 #include "Rectangle.h"
+
+namespace BFG
+{
 
 class idFont;
 class idMaterial;
@@ -199,5 +202,7 @@ class idDeviceContextOptimized : public idDeviceContext
 	float				clipY1;
 	float				clipY2;
 };
+
+} // namespace BFG
 
 #endif /* !__DEVICECONTEXT_H__ */

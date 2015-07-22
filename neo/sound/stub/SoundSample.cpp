@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../../idlib/precompiled.h"
 #include "../snd_local.h"
 
+namespace BFG
+{
+
 extern idCVar s_useCompression;
 extern idCVar s_noSound;
 
@@ -552,3 +555,5 @@ float idSoundSample::GetAmplitude( int timeMS ) const
 	}
 	return ( float )amplitude[index] / 255.0f;
 }
+
+} // namespace BFG

@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/DeclManager.h"
 #include "../framework/DeclTable.h"
@@ -38,6 +38,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
+namespace BFG
+{
 
 /*
 =================
@@ -212,3 +214,5 @@ bool idDeclTable::Parse( const char* text, const int textLength, bool allowBinar
 	
 	return true;
 }
+
+} // namespace BFG

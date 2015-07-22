@@ -48,13 +48,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "rc/doom_resource.h"
 #include "../renderer/tr_local.h"
 
-
-
+namespace BFG
+{
 
 idCVar r_useOpenGL32( "r_useOpenGL32", "1", CVAR_INTEGER, "0 = OpenGL 2.0, 1 = OpenGL 3.2 compatibility profile, 2 = OpenGL 3.2 core profile", 0, 2 );
-
-
-
 
 /*
 ========================
@@ -1511,5 +1508,4 @@ void GLimp_SwapBuffers()
 }
 // RB end
 
-
-
+} // namespace BFG

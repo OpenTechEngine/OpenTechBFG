@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstdlib>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -57,6 +57,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderWorld_local.h"
 #include "../ui/UserInterface.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 /*
 =================================================================================
@@ -939,3 +942,5 @@ void R_ModulateLights_f( const idCmdArgs& args )
 	}
 	common->Printf( "modulated %i lights\n", count );
 }
+
+} // namespace BFG

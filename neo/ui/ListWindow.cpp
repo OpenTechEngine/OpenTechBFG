@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "../framework/Common.h"
 #include "../framework/DeclManager.h"
@@ -49,6 +49,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "SliderWindow.h"
 #include "UserInterfaceLocal.h"
 #include "Window.h"
+
+namespace BFG
+{
 
 // Number of pixels above the text that the rect starts
 static const int pixelOffset = 3;
@@ -795,3 +798,4 @@ void idListWindow::StateChanged( bool redraw )
 	UpdateList();
 }
 
+} // namespace BFG

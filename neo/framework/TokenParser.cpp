@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stdarg.h>
-#include <stdio.h>
+#include <cstdarg>
+#include <cstdio>
 
 #include "../framework/Common.h"
 #include "../framework/File.h"
@@ -42,6 +42,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_defines.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 void idTokenParser::LoadFromParser( idParser& parser, const char* guiName )
 {
@@ -242,7 +245,7 @@ void idTokenParser::Error( VERIFY_FORMAT_STRING const char* str, ... )
 	va_list ap;
 	
 	va_start( ap, str );
-	vsprintf( text, str, ap );
+	std::vsprintf( text, str, ap );
 	va_end( ap );
 	
 	idLib::common->Warning( text );
@@ -253,7 +256,7 @@ void idTokenParser::Warning( VERIFY_FORMAT_STRING const char* str, ... )
 	va_list ap;
 	
 	va_start( ap, str );
-	vsprintf( text, str, ap );
+	std::vsprintf( text, str, ap );
 	va_end( ap );
 	
 	idLib::common->Warning( text );
@@ -329,3 +332,5 @@ float idTokenParser::ParseFloat( bool* errorFlag )
 	}
 	return token.GetFloatValue();
 }
+
+} // namespace BFG

@@ -31,6 +31,10 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/containers/Array.h"	// for idTupleSize
 #include "../idlib/math/Vector.h"
+
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -483,5 +487,7 @@ struct idTupleSize< idCQuat >
 {
 	enum { value = 3 };
 };
+
+} // namespace BFG
 
 #endif /* !__MATH_QUAT_H__ */

@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -45,6 +45,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/ScreenRect.h"
 #include "../renderer/VertexCache.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 class idDemoFile;
 
@@ -442,3 +445,5 @@ idDrawVert* idGuiModel::AllocTris( int vertCount, const triIndex_t* tempIndexes,
 	
 	return vertexPointer + startVert;
 }
+
+} // namespace BFG

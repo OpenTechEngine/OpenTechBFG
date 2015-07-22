@@ -30,8 +30,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 #include <AL/al.h>
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -51,6 +51,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sound/OpenAL/AL_SoundSample.h"
 #include "../sound/WaveFile.h"
 #include "../sys/sys_public.h"
+
+namespace BFG
+{
 
 extern idCVar s_useCompression;
 extern idCVar s_noSound;
@@ -1181,3 +1184,4 @@ int idSoundSample_OpenAL::MS_ADPCM_decode( uint8** audio_buf, uint32* audio_len 
 	return 0;
 }
 
+} // namespace BFG

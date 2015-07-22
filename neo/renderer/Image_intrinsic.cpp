@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -41,6 +41,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Image.h"
 #include "../renderer/Material.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 #define	DEFAULT_SIZE	16
 
@@ -625,3 +628,5 @@ void idImageManager::CreateIntrinsicImages()
 	release_assert( loadingIconImage->referencedOutsideLevelLoad );
 	release_assert( hellLoadingIconImage->referencedOutsideLevelLoad );
 }
+
+} // namespace BFG

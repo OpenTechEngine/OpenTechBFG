@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdio.h>
-#include <time.h>
+#include <cstdio>
+#include <ctime>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -36,6 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/Lib.h"
 #include "../idlib/Str.h"
 #include "sys_local.h"
+
+namespace BFG
+{
 
 const char* sysLanguageNames[] =
 {
@@ -254,15 +257,15 @@ const char* Sys_SecToStr( int sec )
 	
 	if( weeks > 0 )
 	{
-		sprintf( timeString, "%dw, %dd, %d:%02d:%02d", weeks, days, hours, min, sec );
+		std::sprintf( timeString, "%dw, %dd, %d:%02d:%02d", weeks, days, hours, min, sec );
 	}
 	else if( days > 0 )
 	{
-		sprintf( timeString, "%dd, %d:%02d:%02d", days, hours, min, sec );
+		std::sprintf( timeString, "%dd, %d:%02d:%02d", days, hours, min, sec );
 	}
 	else
 	{
-		sprintf( timeString, "%d:%02d:%02d", hours, min, sec );
+		std::sprintf( timeString, "%d:%02d:%02d", hours, min, sec );
 	}
 	
 	return timeString;
@@ -372,3 +375,5 @@ const char* Sys_DefaultLanguage()
 	
 	
 }
+
+} // namespace BFG

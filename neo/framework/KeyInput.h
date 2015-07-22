@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/Str.h"               // for idStr
 #include "../sys/sys_public.h"          // for keyNum_t
 
+namespace BFG
+{
+
 struct keyBindings_t
 {
 	idStr keyboard;
@@ -73,5 +76,7 @@ public:
 	static void				WriteBindings( idFile* f );
 	static keyBindings_t	KeyBindingsFromBinding( const char* bind, bool firstOnly = false, bool localized = false );
 };
+
+} // namespace BFG
 
 #endif /* !__KEYINPUT_H__ */

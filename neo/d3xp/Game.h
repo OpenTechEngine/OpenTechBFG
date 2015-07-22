@@ -48,6 +48,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/ModelManager.h"   // for idRenderModelManager, etc
 #include "../ui/UserInterface.h"        // for idUserInterfaceManager, etc
 #include "../cm/CollisionModel.h"       // for idCollisionModelManager
+
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -368,5 +372,7 @@ typedef struct
 extern "C" {
 	typedef gameExport_t* ( *GetGameAPI_t )( gameImport_t* import );
 }
+
+} // namespace BFG
 
 #endif /* !__GAME_H__ */

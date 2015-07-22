@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Quat.h"         // for idCQuat, idQuat
 #include "../idlib/BitMsg.h"  // for idBitMsg
 
+namespace BFG
+{
+
 #define SERIALIZE_BOOL( ser, x )			( ( x ) = ser.SerializeBoolNonRef( x ) )
 #define SERIALIZE_ENUM( ser, x, type, max ) ( ( x ) = (type)ser.SerializeUMaxNonRef( x, max ) )
 #define SERIALIZE_CVAR_FLOAT( ser, cvar )	{ float a = cvar.GetFloat(); ser.Serialize( a ); cvar.SetFloat( a ); }
@@ -933,8 +936,6 @@ ID_INLINE void idSerializer::SerializeSPacked( int& value )
 	}
 }
 
-#endif
+} // namespace BFG
 
-
-
-
+#endif // __SERIALIZER_H__

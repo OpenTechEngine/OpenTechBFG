@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../idlib/Lib.h"
@@ -37,6 +37,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sound/SoundVoice.h"
 #include "../sound/WaveFile.h"
 #include "../sound/snd_defines.h"
+
+namespace BFG
+{
 
 class idSoundSample;
 
@@ -304,3 +307,5 @@ void idSoundVoice_Base::CalculateSurround( int srcChannels, float pLevelMatrix[ 
 		pLevelMatrix[ i ] *= scale;
 	}
 }
+
+} // namespace BFG

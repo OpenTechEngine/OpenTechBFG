@@ -29,13 +29,16 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __EDITWINDOW_H__
 #define __EDITWINDOW_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Str.h"
 #include "../idlib/containers/List.h"
 #include "../ui/SimpleWindow.h"
 #include "../ui/Winvar.h"
 #include "Window.h"
+
+namespace BFG
+{
 
 class idCVar;
 class idTokenParser;
@@ -105,5 +108,7 @@ private:
 	idWinBool			liveUpdate;
 	idWinStr			cvarGroup;
 };
+
+} // namespace BFG
 
 #endif /* !__EDITWINDOW_H__ */

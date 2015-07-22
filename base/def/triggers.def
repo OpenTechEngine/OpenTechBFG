@@ -1,0 +1,170 @@
+// recreated definitions of entities of Doom3, originally in triggers.def
+// (C) 2015 Daniel Gibson and Yamagi Burmeister, licensed under WTFPL v2
+
+entityDef trigger_count {
+	"spawnclass"	"idTrigger_Count"
+
+	"editor_usage"	"TODO: Meaningful description, this is a stub!"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+entityDef trigger_entityname {
+	"spawnclass"	"idTrigger_EntityName"
+
+	"editor_usage"	"TODO: Meaningful description, this is a stub!"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+entityDef trigger_facing {
+	"spawnclass"	"idTrigger_Multi"
+
+	"editor_usage"	"TODO: Meaningful description, this is a stub!"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+entityDef trigger_fade {
+	"spawnclass"	"idTrigger_Fade"
+
+	"editor_usage"	"TODO: Meaningful description, this is a stub!"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+entityDef trigger_flashlight {
+	"spawnclass"	"idTrigger_Multi"
+
+	"editor_usage"	"TODO: Meaningful description, this is a stub!"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+entityDef trigger_guiOverlay {
+	"spawnclass"	"idTrigger_GuiOverlay"
+
+	"editor_usage"	"TODO: Meaningful description, this is a stub!"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+entityDef trigger_hurt {
+	"spawnclass"	"idTrigger_Hurt"
+
+	"editor_usage"	"TODO: Meaningful description, this is a stub!"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+entityDef trigger_multiple {
+	"spawnclass"	"idTrigger_Multi"
+
+	"editor_usage"	"TODO: Meaningful description, this is a stub!"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+entityDef trigger_once {
+	"spawnclass"	"idTrigger_Multi"
+
+	"editor_usage"	"TODO: Meaningful description, this is a stub!"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+entityDef trigger_once_entityname {
+	"spawnclass"	"idTrigger_EntityName"
+
+	"editor_usage"	"TODO: Meaningful description, this is a stub!"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+entityDef trigger_presize {
+	"spawnclass"	"idTrigger_Multi"
+
+	"editor_usage"	"TODO: Meaningful description, this is a stub!"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+entityDef trigger_relay {
+	"spawnclass"	"idTrigger_Multi"
+
+	"editor_usage"	"TODO: Meaningful description, this is a stub!"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+entityDef trigger_timer {
+	"spawnclass"	"idTrigger_Timer"
+
+	"editor_usage"	"TODO: Meaningful description, this is a stub!"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+entityDef trigger_touch {
+	"spawnclass"	"idTrigger_Touch"
+
+	"editor_usage"	"TODO: Meaningful description, this is a stub!"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}

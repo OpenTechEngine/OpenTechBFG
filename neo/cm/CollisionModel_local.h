@@ -38,6 +38,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "CollisionModel.h"
 
+namespace BFG
+{
+
 #define MIN_NODE_SIZE						64.0f
 #define MAX_NODE_POLYGONS					128
 #define CM_MAX_POLYGON_EDGES				64
@@ -564,3 +567,5 @@ private:			// collision map data
 
 // for debugging
 extern idCVar cm_debugCollision;
+
+} // namespace BFG

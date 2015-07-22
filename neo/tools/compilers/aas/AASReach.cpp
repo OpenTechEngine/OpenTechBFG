@@ -33,13 +33,15 @@ If you have questions concerning this license or the applicable additional terms
 #include "../../../aas/AASFile_local.h"
 #include "AASReach.h"
 
+namespace BFG
+{
+
 #define INSIDEUNITS							2.0f
 #define INSIDEUNITS_WALKEND					0.5f
 #define INSIDEUNITS_WALKSTART				0.1f
 #define INSIDEUNITS_SWIMEND					0.5f
 #define INSIDEUNITS_FLYEND					0.5f
 #define INSIDEUNITS_WATERJUMP				15.0f
-
 
 /*
 ================
@@ -1081,3 +1083,5 @@ bool idAASReach::Build( const idMapFile* mapFile, idAASFileLocal* file )
 	
 	return true;
 }
+
+} // namespace BFG

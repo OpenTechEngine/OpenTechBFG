@@ -36,7 +36,12 @@ If you have questions concerning this license or the applicable additional terms
 #include <GL/gl.h>
 #include <GL/glu.h>
 //#include <GL/glaux.h>
+#endif // if 0
 
+namespace BFG
+{
+
+#if 0
 #define	WIN_SIZE	1024
 
 void Draw_ClearWindow()
@@ -317,4 +322,6 @@ void GLS_EndScene()
 {
 }
 
-#endif
+#endif // if 0
+
+} // namespace BFG

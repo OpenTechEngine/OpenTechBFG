@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/math/Extrapolate.h"
 
+namespace BFG
+{
+
 /*
 ==============================================================================================
 
@@ -553,5 +556,7 @@ ID_INLINE type idInterpolateAccelDecelSine<type>::GetCurrentSpeed( int time ) co
 	SetPhase( time );
 	return extrapolate.GetCurrentSpeed( time );
 }
+
+} // namespace BFG
 
 #endif /* !__MATH_INTERPOLATE_H__ */

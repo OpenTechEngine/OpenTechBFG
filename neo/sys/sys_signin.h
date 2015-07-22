@@ -28,6 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_SIGNIN_H__
 #define __SYS_SIGNIN_H__
 
+namespace BFG
+{
+
 /*
 ================================================
 idSignInManagerBase
@@ -130,5 +133,7 @@ protected:
 	int					maxDesiredLocalUsers;
 	idPlayerProfile* 	defaultProfile;
 };
+
+} // namespace BFG
 
 #endif	// __SYS_SIGNIN_H__

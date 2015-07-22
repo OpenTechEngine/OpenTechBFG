@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __PARALLELJOBLIST_H__
 #define __PARALLELJOBLIST_H__
 
-#include <stdio.h>                      // for NULL
+#include <cstdio>                      // for NULL
 
 #include "../idlib/sys/sys_types.h"
 
@@ -37,10 +37,16 @@ If you have questions concerning this license or the applicable additional terms
 #undef AddJob
 #endif
 
-struct CellSpursJob128;
+namespace BFG
+{
+
+class idParallelJobList_Threads;
 class idColor;
+struct CellSpursJob128;
 
 typedef void ( * jobRun_t )( void* );
+
+void SubmitJobList( idParallelJobList_Threads* jobList, int parallelism );
 
 enum jobSyncType_t
 {
@@ -192,5 +198,7 @@ public:
 };
 
 #define REGISTER_PARALLEL_JOB( function, name )		static idParallelJobRegistration register_##function( (jobRun_t) function, name )
+
+} // namespace BFG
 
 #endif // !__PARALLELJOBLIST_H__

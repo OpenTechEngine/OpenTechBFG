@@ -30,7 +30,10 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __IMAGEOPTS_H__
 #define __IMAGEOPTS_H__
 
-#include <string.h>                     // for memcmp
+#include <cstring>                     // for memcmp
+
+namespace BFG
+{
 
 enum textureType_t
 {
@@ -175,4 +178,6 @@ ID_INLINE bool idImageOpts::operator==( const idImageOpts& opts )
 	return ( memcmp( this, &opts, sizeof( *this ) ) == 0 );
 }
 
-#endif
+} // namespace BFG
+
+#endif // __IMAGEOPTS_H__

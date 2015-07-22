@@ -43,9 +43,9 @@ Note that other POSIX systems may need some small changes, e.g. in Sys_InitNetwo
 #include <ws2tcpip.h>
 #endif
 
-#include <limits.h>
-#include <stdlib.h>
-#include <string.h>
+#include <climits>
+#include <cstdlib>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -68,7 +68,7 @@ Note that other POSIX systems may need some small changes, e.g. in Sys_InitNetwo
 #else // ! _WIN32
 
 #include <arpa/inet.h>
-#include <errno.h>
+#include <cerrno>
 #include <fcntl.h>
 #include <net/if.h>
 #include <netdb.h>
@@ -83,6 +83,9 @@ Note that other POSIX systems may need some small changes, e.g. in Sys_InitNetwo
 #endif
 
 #endif // _WIN32
+
+namespace BFG
+{
 
 /*
 ================================================================================================
@@ -906,7 +909,7 @@ void Sys_InitNetworking()
 	pAdapterInfo = ( IP_ADAPTER_INFO* )malloc( sizeof( IP_ADAPTER_INFO ) );
 	if( !pAdapterInfo )
 	{
-		idLib::FatalError( "Sys_InitNetworking: Couldn't malloc( %" PRIiSIZE " )", sizeof( IP_ADAPTER_INFO ) );
+		idLib::FatalError( "Sys_InitNetworking: Couldn't malloc( %" BFG_PRIiSIZE " )", sizeof( IP_ADAPTER_INFO ) );
 	}
 	ulOutBufLen = sizeof( IP_ADAPTER_INFO );
 	
@@ -1428,3 +1431,4 @@ void idUDP::SendPacket( const netadr_t to, const void* data, int size )
 	Net_SendUDPPacket( netSocket, size, data, to );
 }
 
+} // namespace BFG

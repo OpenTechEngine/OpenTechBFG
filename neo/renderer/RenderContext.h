@@ -29,6 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERCONTEXT_H__
 #define __RENDERCONTEXT_H__
 
+namespace BFG
+{
+
 // This is for "official" HDMI 3D support with with the left eye above the right and a guard band in the middle
 // Some displays which don't support this can still do stereo 3D by packing 2 eyes into a single (mono-sized) buffer
 enum hdmi3DState_t
@@ -104,5 +107,7 @@ private:
 };
 
 extern idRenderContext rRenderContext;
+
+} // namespace BFG
 
 #endif	// !__RENDERCONTEXT_H__

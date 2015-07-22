@@ -34,6 +34,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/bv/Bounds.h"
 #include "../idlib/bv/Box.h"
 
+namespace BFG
+{
+
 static const int NUM_FRUSTUM_CORNERS	= 8;
 
 struct frustumCorners_t
@@ -565,5 +568,7 @@ ID_INLINE bool idRenderMatrix::CullExtrudedBoundsToMVP( const idRenderMatrix& mv
 	byte bits;
 	return CullExtrudedBoundsToMVPbits( mvp, bounds, extrudeDirection, clipPlane, &bits, zeroToOne );
 }
+
+} // namespace BFG
 
 #endif // !__RENDERMATRIX_H__

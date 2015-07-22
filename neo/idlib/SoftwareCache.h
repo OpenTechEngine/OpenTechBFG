@@ -34,6 +34,10 @@ If you have questions concerning this license or the applicable additional terms
 #ifdef _MSC_VER // DG: #pragma warning is MSVC specific
 #pragma warning( disable : 4324 )	// structure was padded due to __declspec(align())
 #endif
+
+namespace BFG
+{
+
 /*
 ================================================================================================
 
@@ -145,7 +149,7 @@ class ALIGNTYPE128 idSoftwareCache
 public:
 	void Prefetch( const _type_ * obj )
 	{
-		::Prefetch( obj, 0 );
+		BFG::Prefetch( obj, 0 );
 	}
 };
 
@@ -602,5 +606,6 @@ private:
 	}
 };
 
+} // namespace BFG
 
 #endif // !__SOFTWARECACHE_H__

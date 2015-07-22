@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -50,6 +50,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sound/sound.h"
 #include "../ui/UserInterface.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 //#define WRITE_GUIS
 
@@ -821,3 +824,5 @@ void	idRenderWorldLocal::ReadRenderEntity()
 		common->Printf( "DC_UPDATE_ENTITYDEF: %i = %s\n", index, ent.hModel ? ent.hModel->Name() : "NULL" );
 	}
 }
+
+} // namespace BFG

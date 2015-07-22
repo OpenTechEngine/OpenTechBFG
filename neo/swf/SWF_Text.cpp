@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <string.h>
+#include <cstring>
 
 #include "../idlib/Lib.h"
 #include "../idlib/Str.h"
@@ -41,6 +41,9 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 
 #pragma warning( disable: 4189 ) // local variable is initialized but not referenced
+
+namespace BFG
+{
 
 /*
 ========================
@@ -377,3 +380,5 @@ void idSWF::DefineEditText( idSWFBitStream& bitstream )
 	edittext->flags |= autoSize ? SWF_ET_AUTOSIZE : 0;
 	edittext->flags |= border ? SWF_ET_BORDER : 0;
 }
+
+} // namespace BFG

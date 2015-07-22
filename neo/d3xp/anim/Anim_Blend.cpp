@@ -27,11 +27,11 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <ctype.h>
-#include <stddef.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cctype>
+#include <cstddef>
+#include <cstdlib>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../d3xp/Actor.h"
@@ -68,6 +68,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/ModelManager.h"
 #include "../renderer/RenderWorld.h"
 #include "../sound/sound.h"
+
+namespace BFG
+{
 
 class idClass;
 class idDeclSkin;
@@ -3104,7 +3107,7 @@ bool idDeclModelDef::ParseAnim( idLexer& src, int numDefaultAnims )
 	
 	for( i = 0; i < anims.Num(); i++ )
 	{
-		if( !strcmp( anims[ i ]->FullName(), realname ) )
+		if( !idStr::Cmp( anims[ i ]->FullName(), realname ) )
 		{
 			break;
 		}
@@ -3584,7 +3587,7 @@ bool idDeclModelDef::HasAnim( const char* name ) const
 	// find any animations with same name
 	for( i = 0; i < anims.Num(); i++ )
 	{
-		if( !strcmp( anims[ i ]->Name(), name ) )
+		if( !idStr::Cmp( anims[ i ]->Name(), name ) )
 		{
 			return true;
 		}
@@ -3617,7 +3620,7 @@ int idDeclModelDef::GetSpecificAnim( const char* name ) const
 	// find a specific animation
 	for( i = 0; i < anims.Num(); i++ )
 	{
-		if( !strcmp( anims[ i ]->FullName(), name ) )
+		if( !idStr::Cmp( anims[ i ]->FullName(), name ) )
 		{
 			return i + 1;
 		}
@@ -3667,7 +3670,7 @@ int idDeclModelDef::GetAnim( const char* name ) const
 	numAnims = 0;
 	for( i = 0; i < anims.Num(); i++ )
 	{
-		if( !strcmp( anims[ i ]->Name(), name ) )
+		if( !idStr::Cmp( anims[ i ]->Name(), name ) )
 		{
 			animList[ numAnims++ ] = i;
 			if( numAnims >= MAX_ANIMS )
@@ -6193,3 +6196,5 @@ idRenderModel* idGameEdit::ANIM_CreateMeshForAnim( idRenderModel* model, const c
 	
 	return newmodel;
 }
+
+} // namespace BFG

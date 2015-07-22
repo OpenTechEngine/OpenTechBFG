@@ -29,6 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __STACK_H__
 #define __STACK_H__
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -89,5 +92,7 @@ type* idStackTemplate<type, nextOffset>::Get()
 	}
 	return element;
 }
+
+} // namespace BFG
 
 #endif /* !__STACK_H__ */

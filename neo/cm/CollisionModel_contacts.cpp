@@ -39,6 +39,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "CollisionModel_local.h"
 
+namespace BFG
+{
+
 class idMat3;
 class idTraceModel;
 
@@ -78,3 +81,5 @@ int idCollisionModelManagerLocal::Contacts( contactInfo_t* contacts, const int m
 	
 	return idCollisionModelManagerLocal::numContacts;
 }
+
+} // namespace BFG

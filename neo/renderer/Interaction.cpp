@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -51,6 +51,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/VertexCache.h"
 #include "../renderer/jobs/dynamicshadowvolume/DynamicShadowVolume.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 class idCmdArgs;
 
@@ -990,3 +993,5 @@ void R_ShowInteractionMemory_f( const idCmdArgs& args )
 	common->Printf( "%i maxInteractionsForEntity\n", maxInteractionsForEntity );
 	common->Printf( "%i maxInteractionsForLight\n", maxInteractionsForLight );
 }
+
+} // namespace BFG

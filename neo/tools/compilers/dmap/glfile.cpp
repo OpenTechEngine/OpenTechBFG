@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "dmap.h"
 
+namespace BFG
+{
+
 int		c_glfaces;
 
 int PortalVisibleSides( uPortal_t* p )
@@ -163,3 +166,4 @@ void WriteGLView( tree_t* tree, char* source )
 	common->Printf( "%5i c_glfaces\n", c_glfaces );
 }
 
+} // namespace BFG

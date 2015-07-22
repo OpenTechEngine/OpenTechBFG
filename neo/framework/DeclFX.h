@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../framework/DeclManager.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -114,5 +117,7 @@ public:
 private:
 	void					ParseSingleFXAction( idLexer& src, idFXSingleAction& FXAction );
 };
+
+} // namespace BFG
 
 #endif /* !__DECLFX_H__ */

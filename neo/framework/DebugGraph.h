@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../renderer/RenderSystem.h"   // for idRenderSystem, etc
 
+namespace BFG
+{
+
 class idRenderSystem;
 
 /*
@@ -134,4 +137,6 @@ private:
 	idList< idStr >			labels;
 };
 
-#endif
+} // namespace BFG
+
+#endif // __DEBUGGRAPH_H__

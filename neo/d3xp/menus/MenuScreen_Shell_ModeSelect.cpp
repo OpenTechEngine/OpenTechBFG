@@ -25,10 +25,10 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
-#include "../d3xp/menus/MenuHandler_SWF.h"
-#include "../d3xp/menus/MenuScreen_SWF.h"
+#include "../d3xp/menus/MenuHandler.h"
+#include "../d3xp/menus/MenuScreen.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -47,6 +47,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 const static int NUM_SETTING_OPTIONS = 8;
 
@@ -271,3 +274,4 @@ bool idMenuScreen_Shell_ModeSelect::HandleAction( idWidgetAction& action, const 
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
 
+} // namespace BFG

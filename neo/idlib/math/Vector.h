@@ -29,10 +29,13 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MATH_VECTOR_H__
 #define __MATH_VECTOR_H__
 
-#include <string.h>                     // for memcpy
+#include <cstring>                     // for memcpy
 
 #include "../idlib/containers/Array.h" // for idTupleSize
 #include "../idlib/math/Math.h"
+
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -1436,7 +1439,7 @@ ID_INLINE idVec6::idVec6()
 
 ID_INLINE idVec6::idVec6( const float* a )
 {
-	memcpy( p, a, 6 * sizeof( float ) );
+	std::memcpy( p, a, 6 * sizeof( float ) );
 }
 
 ID_INLINE idVec6::idVec6( const float a1, const float a2, const float a3, const float a4, const float a5, const float a6 )
@@ -1762,5 +1765,7 @@ ID_INLINE idVec3 idPolar3::ToVec3() const
 */
 
 #define	VectorMA( v, s, b, o )		((o)[0]=(v)[0]+(b)[0]*(s),(o)[1]=(v)[1]+(b)[1]*(s),(o)[2]=(v)[2]+(b)[2]*(s))
+
+} // namespace BFG
 
 #endif /* !__MATH_VECTOR_H__ */

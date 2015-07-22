@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/math/Simd_Generic.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -56,5 +59,7 @@ public:
 };
 
 #endif
+
+} // namespace BFG
 
 #endif /* !__MATH_SIMD_SSE_H__ */

@@ -1,6 +1,9 @@
 #ifndef __WIN_NANOAFX_HPP__
 #define __WIN_NANOAFX_HPP__
 
+namespace BFG
+{
+
 #define	_T(n)	L##n
 
 class CComBSTR : public _bstr_t
@@ -77,4 +80,6 @@ public:
 	}
 };
 
-#endif
+} // namespace BFG
+
+#endif // __WIN_NANOAFX_HPP__

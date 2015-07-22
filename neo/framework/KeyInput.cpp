@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -44,6 +44,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 typedef struct
 {
@@ -1013,3 +1016,5 @@ int Key_CovertHIDCode( int hid )
 	}
 	return K_NONE;
 }
+
+} // namespace BFG

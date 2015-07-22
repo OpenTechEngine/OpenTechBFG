@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include <emmintrin.h>
 #include <stdint.h>
-#include <string.h>
+#include <cstring>
 #include <xmmintrin.h>
 
 #include "../framework/Common.h"
@@ -46,8 +46,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_intrinsics.h"
 #include "../idlib/sys/sys_types.h"
 
-
 #include "../idlib/math/MatX.h"
+
+namespace BFG
+{
 
 //===============================================================
 //
@@ -6182,3 +6184,5 @@ void idMatX::Test()
 		idLib::common->Warning( "idMatX::Eigen_Solve failed" );
 	}
 }
+
+} // namespace BFG

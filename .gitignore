@@ -28,6 +28,8 @@ base/strings/
 base/video/
 base/wads/
 
+base/generated/
+
 GPATH
 GRTAGS
 GSYMS
@@ -35,3 +37,6 @@ GTAGS
 HTML/
 neo/.kdev4
 neo/neo.kdev4
+OpenTechEngine.pdb
+*.db
+OpenTechEngine.exe

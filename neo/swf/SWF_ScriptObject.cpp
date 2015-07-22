@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "../framework/CVarSystem.h"
 #include "../idlib/Heap.h"
@@ -40,9 +40,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_ScriptVar.h"
 #include "../swf/SWF_SpriteInstance.h"
 
-class idSWFTextInstance;
-
 #pragma hdrstop
+
+namespace BFG
+{
+
+class idSWFTextInstance;
 
 idCVar swf_debugShowAddress( "swf_debugShowAddress", "0", CVAR_BOOL, "shows addresses along with object types when they are serialized" );
 
@@ -711,3 +714,5 @@ void idSWFScriptObject::PrintToConsole() const
 		idLib::Printf( "No subelements\n" );
 	}
 }
+
+} // namespace BFG

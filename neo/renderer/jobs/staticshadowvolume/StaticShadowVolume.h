@@ -34,6 +34,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/jobs/staticshadowvolume/../../../idlib/math/Vector.h"
 #include "../renderer/jobs/staticshadowvolume/../ShadowShared.h"
 
+namespace BFG
+{
+
 class idShadowVert;
 struct CellSpursJob128;
 /*
@@ -92,5 +95,7 @@ struct staticShadowVolumeParms_t
 
 void StaticShadowVolumeJob( const staticShadowVolumeParms_t* parms );
 void StaticShadowVolume_SetupSPURSHeader( CellSpursJob128* job, const staticShadowVolumeParms_t* parms );
+
+} // namespace BFG
 
 #endif // !__STATICSHADOWVOLUME_H__

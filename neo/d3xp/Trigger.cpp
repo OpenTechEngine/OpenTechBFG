@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/Entity.h"
@@ -63,6 +63,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderWorld.h"
 #include "Game_local.h"
 
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -1587,3 +1589,5 @@ void idTrigger_Flag::Event_Touch( idEntity* other, trace_t* trace )
 		idTrigger_Multi::Event_Touch( other, trace );
 	}
 }
+
+} // namespace BFG

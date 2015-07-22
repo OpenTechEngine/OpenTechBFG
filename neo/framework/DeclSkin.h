@@ -32,6 +32,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/containers/List.h"   // for idList
 #include "../idlib/containers/StrList.h"         // for idStrList
 #include "../renderer/Material.h"       // for idMaterial, etc
+
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -65,5 +69,7 @@ private:
 	idList<skinMapping_t, TAG_IDLIB_LIST_DECL>	mappings;
 	idStrList				associatedModels;
 };
+
+} // namespace BFG
 
 #endif /* !__DECLSKIN_H__ */

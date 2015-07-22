@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Rotation.h"
 #include "../idlib/bv/Sphere.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -490,5 +493,7 @@ ID_INLINE float* idBounds::ToFloatPtr()
 {
 	return &b[0].x;
 }
+
+} // namespace BFG
 
 #endif /* !__BV_BOUNDS_H__ */

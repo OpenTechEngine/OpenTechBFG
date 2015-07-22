@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../d3xp/physics/Force.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -77,5 +80,7 @@ private:
 	idPhysics* 			physics;		// physics object
 	int					id;				// clip model id of physics object
 };
+
+} // namespace BFG
 
 #endif /* !__FORCE_GRAB_H__ */

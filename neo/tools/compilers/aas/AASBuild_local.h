@@ -37,6 +37,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "AASReach.h"
 #include "AASCluster.h"
 
+namespace BFG
+{
 
 //===============================================================
 //
@@ -148,5 +150,7 @@ private:	// storing file
 	bool					StoreFile( const idBrushBSP& bsp );
 	
 };
+
+} // namespace BFG
 
 #endif /* !__AASBUILD_LOCAL_H__ */

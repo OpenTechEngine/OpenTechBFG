@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/sys/sys_types.h"
 #include "../swf/SWF.h"
@@ -34,6 +34,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_ShapeParser.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 /*
 ========================
@@ -125,3 +128,5 @@ void idSWF::DefineMorphShape( idSWFBitStream& bitstream )
 	idSWFShapeParser swfShapeParser;
 	swfShapeParser.ParseMorph( bitstream, *entry->shape );
 }
+
+} // namespace BFG

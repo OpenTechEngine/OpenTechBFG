@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #define __GAME_TARGET_H__
 
 
-#include <string.h>
+#include <cstring>
 
 #include "../d3xp/Entity.h"
 #include "../d3xp/gamesys/Class.h"
@@ -40,6 +40,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Interpolate.h"
 #include "../idlib/math/Vector.h"
 #include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
 
 class idRestoreGame;
 class idSaveGame;
@@ -661,5 +664,7 @@ public:
 private:
 	void				Event_Activate( idEntity* activator );
 };
+
+} // namespace BFG
 
 #endif /* !__GAME_TARGET_H__ */

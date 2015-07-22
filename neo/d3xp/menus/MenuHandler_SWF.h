@@ -42,6 +42,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../d3xp/menus/mpScoreboardInfo.h"
 
+namespace BFG
+{
+
 enum pdaAreas_t
 {
 	PDA_AREA_INVALID = -1,
@@ -556,5 +559,6 @@ protected:
 	
 };
 
+} // namespace BFG
 
 #endif //__MENUHANDLERSWF_H__

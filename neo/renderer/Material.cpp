@@ -27,10 +27,10 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stddef.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cstddef>
+#include <cstdlib>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -51,6 +51,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sound/sound.h"
 #include "../ui/UserInterface.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 /*
 
@@ -3439,3 +3442,5 @@ fail:
 	fastPathDiffuseImage = NULL;
 	fastPathSpecularImage = NULL;
 }
+
+} // namespace BFG

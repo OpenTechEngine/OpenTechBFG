@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/Str.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -181,5 +184,7 @@ ID_INLINE void idToken::AppendDirty( const char a )
 	EnsureAlloced( len + 2, true );
 	data[len++] = a;
 }
+
+} // namespace BFG
 
 #endif /* !__TOKEN_H__ */

@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "PredictedValue.h"
 #include "Player.h"
 
+namespace BFG
+{
+
 /*
 ===============
 idPredictedValue::idPredictedValue
@@ -232,6 +235,6 @@ bool operator!=( const firstType_ lhs, const idPredictedValue< secondType_ >& rh
 }
 
 
+} // namespace BFG
 
-
-#endif
+#endif // PREDICTED_VALUE_IMPL_H_

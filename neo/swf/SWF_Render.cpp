@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/DeclManager.h"
@@ -58,6 +58,14 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 
 #pragma hdrstop
+
+#ifdef _WIN32
+// macro collision
+#undef FindText
+#endif
+
+namespace BFG
+{
 
 idCVar swf_timescale( "swf_timescale", "1", CVAR_FLOAT, "timescale for swf files" );
 idCVar swf_stopat( "swf_stopat", "0", CVAR_FLOAT, "stop at a specific frame" );
@@ -1872,4 +1880,4 @@ void idSWF::FindTooltipIcons( idStr* text )
 	}
 }
 
-
+} // namespace BFG

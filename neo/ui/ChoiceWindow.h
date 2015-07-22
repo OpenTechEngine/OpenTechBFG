@@ -28,13 +28,16 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __CHOICEWINDOW_H
 #define __CHOICEWINDOW_H
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Str.h"
 #include "../idlib/containers/StrList.h"
 #include "../ui/SimpleWindow.h"
 #include "../ui/Winvar.h"
 #include "Window.h"
+
+namespace BFG
+{
 
 class idCVar;
 class idTokenParser;
@@ -91,5 +94,7 @@ private:
 	idWinBool			liveUpdate;
 	idWinStr			updateGroup;
 };
+
+} // namespace BFG
 
 #endif // __CHOICEWINDOW_H

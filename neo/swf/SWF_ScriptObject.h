@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SWF_SCRIPTOBJECT_H__
 #define __SWF_SCRIPTOBJECT_H__
 
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 
 #include "../idlib/Heap.h"
 #include "../idlib/Str.h"
@@ -37,8 +37,13 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "../swf/SWF_ScriptVar.h"
 
+namespace BFG
+{
+
 class idSWFSpriteInstance;
 class idSWFTextInstance;
+
+extern idCVar swf_debug;
 
 /*
 ========================
@@ -242,5 +247,7 @@ private:
 	swfNamedVar_t* 	GetVariable( int index, bool create );
 	swfNamedVar_t* 	GetVariable( const char* name, bool create );
 };
+
+} // namespace BFG
 
 #endif // !__SWF_SCRIPTOBJECT_H__

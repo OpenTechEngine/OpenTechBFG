@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __AASFILE_H__
 #define __AASFILE_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Dict.h"
 #include "../idlib/Heap.h"
@@ -41,6 +41,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Matrix.h"
 #include "../idlib/math/Vector.h"
 #include "sys/sys_types.h"
+
+namespace BFG
+{
 
 class idFile;
 class idLexer;
@@ -471,5 +474,7 @@ protected:
 	idList<aasCluster_t, TAG_AAS>		clusters;
 	idAASSettings				settings;
 };
+
+} // namespace BFG
 
 #endif /* !__AASFILE_H__ */

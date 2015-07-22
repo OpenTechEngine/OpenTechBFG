@@ -25,8 +25,8 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../idlib/Lib.h"
@@ -49,6 +49,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "SWF_ScriptFunction.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 idCVar swf_debug( "swf_debug", "0", CVAR_INTEGER | CVAR_ARCHIVE, "debug swf scripts.  1 shows traces/errors.  2 also shows warnings.  3 also shows disassembly.  4 shows parameters in the disassembly." );
 idCVar swf_debugInvoke( "swf_debugInvoke", "0", CVAR_INTEGER, "debug swf functions being called from game." );
@@ -1664,3 +1667,5 @@ void idSWF::Invoke( const char*   functionName, const idSWFParmList& parms, bool
 		functionExists = false;
 	}
 }
+
+} // namespace BFG

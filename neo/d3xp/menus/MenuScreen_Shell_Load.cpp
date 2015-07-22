@@ -26,13 +26,13 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../Game_local.h"
 #include "../d3xp/Game.h"
 #include "../d3xp/Player.h"
-#include "../d3xp/menus/MenuHandler_SWF.h"
-#include "../d3xp/menus/MenuScreen_SWF.h"
+#include "../d3xp/menus/MenuHandler.h"
+#include "../d3xp/menus/MenuScreen.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/BuildVersion.h"
 #include "../framework/CmdSystem.h"
@@ -53,6 +53,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_TextInstance.h"
 #include "../sys/sys_session.h"
 #include "sys/sys_savegame.h"
+
+namespace BFG
+{
 
 const static int NUM_LOAD_OPTIONS = 10;
 
@@ -582,3 +585,4 @@ bool idMenuScreen_Shell_Load::HandleAction( idWidgetAction& action, const idWidg
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
 
+} // namespace BFG

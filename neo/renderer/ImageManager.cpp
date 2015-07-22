@@ -30,9 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef _WIN32
 #include <alloca.h>
 #endif
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -55,6 +55,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderLog.h"
 #include "../sys/sys_public.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 // do this with a pointer, in case we want to make the actual manager
 // a private virtual subclass
@@ -705,7 +708,7 @@ void R_CombineCubeImages_f( const idCmdArgs& args )
 		int		orderRemap[6] = { 1, 3, 4, 2, 5, 6 };
 		for( side = 0 ; side < 6 ; side++ )
 		{
-			sprintf( filename, "%s%i%04i.tga", baseName.c_str(), orderRemap[side], frameNum );
+			std::sprintf( filename, "%s%i%04i.tga", baseName.c_str(), orderRemap[side], frameNum );
 			
 			common->Printf( "reading %s\n", filename );
 			R_LoadImage( filename, &pics[side], &width, &height, NULL, true );
@@ -758,7 +761,7 @@ void R_CombineCubeImages_f( const idCmdArgs& args )
 			memcpy( combined + width * height * 4 * side, pics[side], width * height * 4 );
 			Mem_Free( pics[side] );
 		}
-		sprintf( filename, "%sCM%04i.tga", baseName.c_str(), frameNum );
+		std::sprintf( filename, "%sCM%04i.tga", baseName.c_str(), frameNum );
 		
 		common->Printf( "writing %s\n", filename );
 		R_WriteTGA( filename, combined, width, height * 6 );
@@ -1040,3 +1043,5 @@ void idImageManager::PrintMemInfo( MemInfo_t* mi )
 	f->Printf( "\nTotal image bytes allocated: %s\n", idStr::FormatNumber( total ).c_str() );
 	fileSystem->CloseFile( f );
 }
+
+} // namespace BFG

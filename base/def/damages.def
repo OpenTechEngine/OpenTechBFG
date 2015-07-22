@@ -1,0 +1,22 @@
+/*
+   damage definitions for generic and global damage defs.
+   monster damage should be definied somewhere else.
+   
+   recreated (in a clean-room way) version of damage definitions from doom3's def/damages.def
+   (or at least some of those definitions)
+   
+   (C) 2012 Daniel Gibson and Yamagi Burmeister, licensed under WTFPL v2
+*/
+
+entityDef damage_generic {
+	"damage"		"20"
+	"mtr_blob"		"genericDamage" // seems to be a material for "screen blob" effects on damage
+	"blob_time"		"300"
+	"blob_size"		"400"
+	"blob_offset	_x"	"400"
+	"dv_time"		"100"
+	"kickDir"		"1 0 0"
+	"kick_amplitude"	"1"
+	"kick_time"		"400"
+	"knockback"		"10"
+}

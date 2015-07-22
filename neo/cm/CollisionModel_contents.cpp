@@ -35,7 +35,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "../cm/CollisionModel.h"
 #include "../framework/Common.h"
@@ -49,6 +49,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_assert.h"
 #include "../idlib/sys/sys_defines.h"
 #include "CollisionModel_local.h"
+
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -746,3 +749,5 @@ int idCollisionModelManagerLocal::Contents( const idVec3& start,
 	
 	return ContentsTrm( &results, start, trm, trmAxis, contentMask, model, modelOrigin, modelAxis );
 }
+
+} // namespace BFG

@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/File.h"          // for idFile, idFileLocal
 #include "../idlib/containers/StrList.h"         // for idStrList
 
+namespace BFG
+{
+
 /*
 ==============================================================
 
@@ -327,5 +330,6 @@ private:
 	idStr filename;
 };
 
+} // namespace BFG
 
 #endif /* !__FILE_MANIFEST_H__ */

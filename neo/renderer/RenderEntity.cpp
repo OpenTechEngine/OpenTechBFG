@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 
 #include "../idlib/bv/Bounds.h"
 #include "../idlib/geometry/RenderMatrix.h"
@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../renderer/RenderWorld.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 class idMaterial;
 
@@ -133,3 +136,5 @@ int idRenderLightLocal::GetIndex()
 {
 	return index;
 }
+
+} // namespace BFG

@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/DeclManager.h"
@@ -48,6 +48,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 #include "../ui/Rectangle.h"
 #include "DeviceContext.h"
+
+namespace BFG
+{
 
 extern idCVar in_useJoystick;
 
@@ -1022,7 +1025,7 @@ char* idRectangle::String() const
 	s = str[ index ];
 	index = ( index + 1 ) & 7;
 	
-	sprintf( s, "%.2f %.2f %.2f %.2f", x, y, w, h );
+	std::sprintf( s, "%.2f %.2f %.2f %.2f", x, y, w, h );
 	
 	return s;
 }
@@ -1299,3 +1302,5 @@ int idDeviceContextOptimized::DrawText( float x, float y, float scale, idVec4 co
 	}
 	return drawText.Length();
 }
+
+} // namespace BFG

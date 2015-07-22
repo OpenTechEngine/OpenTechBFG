@@ -1,0 +1,88 @@
+
+MAIN MENU/Settings
+- Controls
+- Game Options
+- System
+- 3D Options
+
+MAIN MENU/Settings/Controls
+- Key Bindings
+- Controller
+- Controller Input: /toggle: enabled/disabled/
+- Invert Mouse: /toggle: enabled/disabled/
+- Mouse Sensitivity: -Slider-
+
+MAIN MENU/Settings/Controls/Key Bindings
+- Columns: Action, Key Assignment
+- Restore Defaults
+
+MAIN MENU/Settings/Controls/Key Bindings/List
+#CONTROLS - MOVEMENT#
+Forward
+Backpedal
+Move Left
+Move Right
+Jump
+Crouch
+Turn Left
+Turn Right
+Sprint
+#CONTROLS - ATTACK/LOOK#
+Attack
+Next Weapon
+Prev. Weapon
+Reload
+Use
+Look Up
+Look Down
+PDA/Scoreboard
+#CONTROLS - WEAPONS#
+Melee/Grabber
+Pistol
+Shotgun/Dbl
+Machinegun
+Chaingun
+Grenade
+Plasmagun
+Rockets
+BFG
+Soulcube/Artifact
+Flashlight
+#CONTROLS - OTHER#
+Quick Save
+Quick Load
+Screenshot
+Chat
+Team Chat
+
+MAIN MENU/Settings/Controls/Controller
+- Soutpaw: -Slider-
+- Invert Look: -Slider-
+- Vibration: -Slider-
+- Horizontal Sensitivity: -Slider-
+- Vertical Sensititivy: -Slider-
+- Look Acceleration: -Slider-
+- Merged Threshold: -Slider-
+
+MAIN MENU/Settings/Game Options
+- Field of View: <Next-Prev style selection |80|85|90|95|100|>
+- Auto Save: /toggle: enabled/disabled/
+- Auto Weapon Switch: /toggle: enabled/disabled/
+- Auto Weapon Reload: /toggle: enabled/disabled/
+- Aim Assist: /toggle: enabled/disabled/
+- Always Run (MP): /toggle: enabled/disabled/
+
+MAIN MENU/Settings/System
+- Fullscreen: /toggle: enabled/disabled/
+- Frame Rate: <Next-Prev style selection |60|120|>
+- Vertical Sync: /toggle: enabled/disabled/
+- Antialiasing: <Next-Prev style selection |disabled|2x|4x|8x|>
+- Motion Blur: /toggle: enabled/disabled/
+- Texture LOD Bias: -Slider-
+- Brightness: -Slider-
+- Volume: -Slider-
+
+MAIN MENU/Settings/3D Options
+- 3D View: <Next-Prev style selection |Off|Side by Side|Top and Bottom|Side by Side Full|Interlaced|Quad Buffer|>
+- View Offset: -Slider-
+- Swap Eyes: /toggle: enabled/disabled/

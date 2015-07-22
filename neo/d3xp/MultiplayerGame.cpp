@@ -28,12 +28,12 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <math.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cmath>
+#include <cstdarg>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #include "../d3xp/Achievements.h"
 #include "../d3xp/Entity.h"
@@ -67,6 +67,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h"
 #include "../ui/UserInterface.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 // could be a problem if players manage to go down sudden deaths till this .. oh well
 #define LASTMAN_NOLIVES -20
@@ -690,7 +693,7 @@ const char* idMultiplayerGame::GameTime()
 		}
 		else
 		{
-			sprintf( buff, "WMP %i", s );
+			std::sprintf( buff, "WMP %i", s );
 		}
 	}
 	else
@@ -715,7 +718,7 @@ const char* idMultiplayerGame::GameTime()
 		t = s / 10;
 		s -= t * 10;
 		
-		sprintf( buff, "%i:%i%i", m, t, s );
+		std::sprintf( buff, "%i:%i%i", m, t, s );
 	}
 	return &buff[0];
 }
@@ -3891,3 +3894,5 @@ int idMultiplayerGame::GetGameModes( const char** * gameModes, const char** * ga
 		return GAME_COUNT - 1;
 	}
 }
+
+} // namespace BFG

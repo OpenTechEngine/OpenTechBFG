@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 
-#include <stdlib.h>
-#include <stdlib.h>                     // for exit, abs
+#include <cstdlib>
+#include <cstdlib>                     // for exit, abs
 
 #include "../idlib/Lib.h"
 #include "../idlib/Lib.h"               // for idException, idLib
@@ -40,6 +40,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "Thread.h"                     // for idSysThread, idSysSignal, etc
 #include "sys/sys_threading.h"
 #include "sys/sys_threading.h"          // for Sys_DestroyThread, etc
+
+namespace BFG
+{
 
 /*
 ================================================================================================
@@ -337,3 +340,5 @@ void TestWorkers()
 		workers.SignalWorkAndWait();
 	}
 }
+
+} // namespace BFG

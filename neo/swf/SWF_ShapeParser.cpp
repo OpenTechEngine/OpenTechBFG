@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Lib.h"
 #include "../idlib/containers/List.h"
@@ -42,6 +42,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "float.h"
 
 #pragma warning( disable: 4189 ) // local variable is initialized but not referenced
+
+namespace BFG
+{
 
 /*
 ========================
@@ -1079,3 +1082,5 @@ void idSWFShapeParser::ReadFillStyle( idSWFBitStream& bitstream )
 		}
 	}
 }
+
+} // namespace BFG

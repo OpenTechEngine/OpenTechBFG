@@ -27,9 +27,9 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
+#include <cstdarg>
+#include <cstdio>
+#include <cstring>
 
 #include "../framework/Common.h"
 #include "../framework/File.h"
@@ -41,6 +41,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/Token.h"
 #include "sys/sys_assert.h"
 #include "sys/sys_defines.h"
+
+namespace BFG
+{
 
 #define PUNCTABLE
 
@@ -234,7 +237,7 @@ int idLexer::GetPunctuationId( const char* p )
 	
 	for( i = 0; idLexer::punctuations[i].p; i++ )
 	{
-		if( !strcmp( idLexer::punctuations[i].p, p ) )
+		if( !idStr::Cmp( idLexer::punctuations[i].p, p ) )
 		{
 			return idLexer::punctuations[i].n;
 		}
@@ -260,7 +263,7 @@ void idLexer::Error( const char* str, ... )
 	}
 	
 	va_start( ap, str );
-	vsprintf( text, str, ap );
+	std::vsprintf( text, str, ap );
 	va_end( ap );
 	
 	if( idLexer::flags & LEXFL_NOFATALERRORS )
@@ -289,7 +292,7 @@ void idLexer::Warning( const char* str, ... )
 	}
 	
 	va_start( ap, str );
-	vsprintf( text, str, ap );
+	std::vsprintf( text, str, ap );
 	va_end( ap );
 	idLib::common->Warning( "file %s, line %d: %s", idLexer::filename.c_str(), idLexer::line, text );
 }
@@ -2292,3 +2295,4 @@ bool idLexer::HadError() const
 	return hadError;
 }
 
+} // namespace BFG

@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/BitMsg.h"
 #include "../idlib/Callback.h"
@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h"
 #include "sys_dedicated_server_search.h"
 #include "sys_lobby_backend.h"
+
+namespace BFG
+{
 
 /*
 ========================
@@ -209,3 +212,5 @@ int idDedicatedServerSearch::NumServers() const
 {
 	return list.Num();
 }
+
+} // namespace BFG

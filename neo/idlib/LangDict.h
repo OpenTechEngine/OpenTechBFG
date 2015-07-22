@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/containers/HashIndex.h"
 #include "../idlib/Str.h"
 
+namespace BFG
+{
+
 class idLangKeyValue
 {
 public:
@@ -190,5 +193,7 @@ public:
 private:
 	int index;	// Index into the language dictionary
 };
+
+} // namespace BFG
 
 #endif // !__LANGDICT_H__

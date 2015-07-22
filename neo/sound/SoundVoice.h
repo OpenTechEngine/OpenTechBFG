@@ -37,6 +37,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../sound/snd_defines.h"
 
+namespace BFG
+{
+
 class idSoundSample;
 
 /*
@@ -145,4 +148,6 @@ protected:
 	static float omniLevel;
 };
 
-#endif
+} // namespace BFG
+
+#endif // __SOUNDVOICE_H__

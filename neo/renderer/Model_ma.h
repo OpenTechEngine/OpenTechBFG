@@ -35,6 +35,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"
+
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -157,5 +161,7 @@ typedef struct maModel_s
 
 maModel_t*	MA_Load( const char* fileName );
 void		MA_Free( maModel_t* ma );
+
+} // namespace BFG
 
 #endif /* !__MODEL_MA_H__ */

@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stddef.h>
-#include <stdio.h>
+#include <cstddef>
+#include <cstdio>
 
 #include "../framework/Common.h"
 #include "../framework/DeclAF.h"
@@ -45,9 +45,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_assert.h"
 #include "../renderer/Material.h"
 
-class idJointMat;
-
 #pragma hdrstop
+
+namespace BFG
+{
+
+class idJointMat;
 
 /*
 ===============================================================================
@@ -270,7 +273,7 @@ const char* idAFVector::ToString( idStr& str, const int precision )
 		case idAFVector::VEC_COORDS:
 		{
 			char format[128];
-			sprintf( format, "( %%.%df, %%.%df, %%.%df )", precision, precision, precision );
+			std::sprintf( format, "( %%.%df, %%.%df, %%.%df )", precision, precision, precision );
 			sprintf( str, format, vec.x, vec.y, vec.z );
 			break;
 		}
@@ -2183,3 +2186,5 @@ idDeclAF::~idDeclAF()
 	bodies.DeleteContents( true );
 	constraints.DeleteContents( true );
 }
+
+} // namespace BFG

@@ -1,0 +1,98 @@
+// recreated definitions of entities of Doom3, originally in info.def and misc.def
+// (C) 2014-2015 Daniel Gibson, Yamagi Burmeister and contributors of OpenTechBFG
+//     licensed under WTFPL v2
+
+// from info.def:
+
+entityDef info_player_start {
+	"spawnclass"	"idPlayerStart"
+	
+	"editor_usage"	"Possible player spawn spot in single player games"
+	
+	"editor_color"     "1 0 0"
+	"editor_maxs"      "16 16 64"
+	"editor_mins"      "-16 -16 0"
+	"editor_showangle" "1"
+
+	// FIXME: could not find useEffect in code! - but lots of other undocumented stuff..
+	// "editor_var useEffect"	"teleportation effect duration, if set to 0 it does not show"
+	"editor_var skin"		"player skin to use when spawning through"
+}
+
+entityDef info_player_deathmatch {
+	"spawnclass"	"idPlayerStart"
+	
+	"editor_usage"	"Possible player spawn in multiplayer games, first spawn will happen at initial spot"
+	
+	"editor_color"     "1 0 0"
+	"editor_maxs"      "16 16 64"
+	"editor_mins"      "-16 -16 0"
+	"editor_showangle" "1"
+	
+	"editor_var target"		"targets to activate when spawned into"
+	"editor_var initial"	"initial spawn spot in mp games"
+}
+
+entityDef info_player_teleport {
+	"spawnclass"	"idPlayerStart"
+
+	"editor_usage"	"spawn spot after teleportation is done, i.e. after cinematic"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+
+	"editor_float push"		"stargate style jump through force (push velocity)"
+	"editor_float visualEffect"	"time on camera after teleportation"
+	"editor_var visualView"	"which camera to use after teleportation"
+
+	"push"			"300"
+	"visualEffect"	"0"
+	"visualView"	""
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+// from misc.def:
+
+entityDef info_location {
+	"spawnclass"	"idLocationEntity"
+
+	"editor_usage"	"name for a map location (location is enclosed by doors)"
+
+	"editor_color"		"1 1 0"
+	"editor_mins"		"-4 -4 -4"
+	"editor_maxs"		"4 4 4"
+	
+	"editor_var name"		"display name for a map location, must be globally unique among entities but not locations"
+	"editor_var location"	"real location if not unique"
+}
+
+entityDef info_locationSeparator {
+	"spawnclass"	"idLocationSeparatorEntity"
+
+	"editor_usage"	"location separator for vis-portal (make this touch visportal) if no door is used"
+
+	"editor_color"	"1 1 0"
+	"editor_mins"	"-16 -16 -16"
+	"editor_maxs"	"16 16 16"
+}
+
+entityDef info_vacuum {
+	"spawnclass"	"idVacuumEntity"
+
+	"editor_usage"	"mark area for vacuum"
+
+	"editor_color"	"1 1 0"
+	"editor_mins"	"-4 -4 -4"
+	"editor_maxs"	"4 4 4"
+}
+
+entityDef info_vacuumSeparator {
+	"spawnclass"	"idVacuumSeparatorEntity"
+
+	"editor_usage"	"vacuum separator for touched vis-portal, triggering it will disable the barrier"
+
+	"editor_color"	"1 1 0"
+	"editor_mins"	"-16 -16 -16"
+	"editor_maxs"	"16 16 16"
+}

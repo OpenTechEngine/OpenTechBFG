@@ -31,6 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "dmap.h"
 
+namespace BFG
+{
 
 interAreaPortal_t interAreaPortals[MAX_INTER_AREA_PORTALS];
 int					numInterAreaPortals;
@@ -664,7 +666,7 @@ bool FloodEntities( tree_t* tree )
 		
 		mapEnt->epairs.GetString( "classname", "", &cl );
 		
-		if( !strcmp( cl, "light" ) )
+		if( !idStr::Cmp( cl, "light" ) )
 		{
 			const char*	v;
 			
@@ -1111,3 +1113,5 @@ void FillOutside( uEntity_t* e )
 	common->Printf( "%5i leafs filled\n", c_outside );
 	common->Printf( "%5i inside leafs\n", c_inside );
 }
+
+} // namespace BFG

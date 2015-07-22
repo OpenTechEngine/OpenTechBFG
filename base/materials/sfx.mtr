@@ -1,0 +1,12 @@
+// this here is a label
+textures/sfx/spark
+{
+	translucent
+	noshadows
+	{
+		blend		add
+		map			textures/sfx/spark.tga
+		colored
+		//vertexcolor
+	}
+}

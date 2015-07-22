@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <string.h>
+#include <cstring>
 
 #include "../d3xp/Entity.h"
 #include "../d3xp/Fx.h"
@@ -62,6 +62,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/ModelManager.h"
 #include "../renderer/RenderWorld.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 class idSoundShader;
 
@@ -1013,3 +1016,5 @@ void idTeleporter::Event_DoAction( idEntity* activator )
 	idAngles a( 0, spawnArgs.GetFloat( "angle" ), 0 );
 	activator->Teleport( GetPhysics()->GetOrigin(), a, NULL );
 }
+
+} // namespace BFG

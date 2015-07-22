@@ -44,6 +44,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../renderer/Model.h"
 #include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -359,5 +363,7 @@ private:
 	void					Event_GetWaitState();
 	
 };
+
+} // namespace BFG
 
 #endif /* !__GAME_ACTOR_H__ */

@@ -26,13 +26,16 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 #include <zlib.h>
 
 #include "../idlib/Heap.h"
 #include "../idlib/sys/sys_types.h"
 #include "../swf/SWF.h"
 #include "zconf.h"
+
+namespace BFG
+{
 
 /*
 ========================
@@ -66,3 +69,5 @@ bool idSWF::Inflate( const byte* input, int inputSize, byte* output, int outputS
 	
 	return success;
 }
+
+} // namespace BFG

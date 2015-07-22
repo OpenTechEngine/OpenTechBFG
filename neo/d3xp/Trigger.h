@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../d3xp/gamesys/Event.h"
 #include "../idlib/Str.h"
 
+namespace BFG
+{
+
 class function_t;
 class idClipModel;
 class idRestoreGame;
@@ -328,5 +331,7 @@ private:
 	
 	void				Event_Touch( idEntity* other, trace_t* trace );
 };
+
+} // namespace BFG
 
 #endif /* !__GAME_TRIGGER_H__ */

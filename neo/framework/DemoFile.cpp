@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <string.h>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -42,6 +42,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 idCVar idDemoFile::com_logDemos( "com_logDemos", "0", CVAR_SYSTEM | CVAR_BOOL, "Write demo.log with debug information in it" );
 idCVar idDemoFile::com_compressDemos( "com_compressDemos", "1", CVAR_SYSTEM | CVAR_INTEGER | CVAR_ARCHIVE, "Compression scheme for demo files\n0: None    (Fast, large files)\n1: LZW     (Fast to compress, Fast to decompress, medium/small files)\n2: LZSS    (Slow to compress, Fast to decompress, small files)\n3: Huffman (Fast to compress, Slow to decompress, medium files)\nSee also: The 'CompressDemo' command" );
@@ -301,7 +304,7 @@ void idDemoFile::WriteHashString( const char* str )
 	// see if it is already in the has table
 	for( int i = 0 ; i < demoStrings.Num() ; i++ )
 	{
-		if( !strcmp( demoStrings[i]->c_str(), str ) )
+		if( !idStr::Cmp( demoStrings[i]->c_str(), str ) )
 		{
 			WriteInt( i );
 			return;
@@ -380,6 +383,4 @@ int idDemoFile::Write( const void* buffer, int len )
 	return compressor->Write( buffer, len );
 }
 
-
-
-
+} // namespace BFG

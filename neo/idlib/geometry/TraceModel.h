@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../idlib/bv/Bounds.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -199,5 +202,6 @@ ID_INLINE bool idTraceModel::operator!=( const idTraceModel& trm ) const
 	return !Compare( trm );
 }
 
-#endif /* !__TRACEMODEL_H__ */
+} // namespace BFG
 
+#endif /* !__TRACEMODEL_H__ */

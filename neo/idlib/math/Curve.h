@@ -34,6 +34,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Matrix.h"
 #include "../idlib/math/MatX.h"
 
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -2885,5 +2887,7 @@ ID_INLINE float idCurve_NURBS<type>::WeightForIndex( const int index ) const
 	}
 	return weights[index];
 }
+
+} // namespace BFG
 
 #endif /* !__MATH_CURVE_H__ */

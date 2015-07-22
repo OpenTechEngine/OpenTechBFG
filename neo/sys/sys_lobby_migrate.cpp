@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -42,10 +42,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h"
 #include "sys_lobby.h"
 
+namespace BFG
+{
+
 idCVar net_migration_debug( "net_migration_debug", "0", CVAR_BOOL, "debug" );
 idCVar net_migration_disable( "net_migration_disable", "0", CVAR_BOOL, "debug" );
 idCVar net_migration_forcePeerAsHost( "net_migration_forcePeerAsHost", "-1", CVAR_INTEGER, "When set to >-1, it forces that peer number to be the new host during migration" );
-
 
 /*
 ========================
@@ -641,3 +643,5 @@ void idLobby::SendMigrationGameData()
 	
 	nextSendMigrationGameTime = now + MIGRATION_GAME_DATA_INTERVAL_MS;
 }
+
+} // namespace BFG

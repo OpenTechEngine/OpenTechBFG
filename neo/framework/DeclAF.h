@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/geometry/JointTransform.h"  // for idJointMat
 #include "../framework/DeclManager.h"   // for declManager, idDeclManager, etc
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -229,5 +232,7 @@ private:
 	
 	bool					RebuildTextSource();
 };
+
+} // namespace BFG
 
 #endif /* !__DECLAF_H__ */

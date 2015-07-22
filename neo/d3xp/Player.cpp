@@ -28,10 +28,10 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
 #include <algorithm>
 
 #include "../aas/AASFile.h"
@@ -123,9 +123,14 @@ If you have questions concerning this license or the applicable additional terms
 #include "PredictedValue_impl.h"
 
 #ifdef _WIN32
+// macro collision
 #undef min
 #undef max
+#undef FindText
 #endif
+
+namespace BFG
+{
 
 idCVar flashlight_batteryDrainTimeMS( "flashlight_batteryDrainTimeMS", "30000", CVAR_INTEGER, "amount of time (in MS) it takes for full battery to drain (-1 == no battery drain)" );
 idCVar flashlight_batteryChargeTimeMS( "flashlight_batteryChargeTimeMS", "3000", CVAR_INTEGER, "amount of time (in MS) it takes to fully recharge battery" );
@@ -5870,7 +5875,7 @@ void idPlayer::Weapon_GUI()
 		// HACK - Check to see who is activating the frag chamber. Im sorry.
 		if( common->IsMultiplayer() && focusGUIent )
 		{
-			if( strcmp( focusGUIent->GetName(), "chamber_gui_console" ) == 0 && strcmp( command, " ; runScript chamber_trigger" ) == 0 )
+			if( idStr::Cmp( focusGUIent->GetName(), "chamber_gui_console" ) == 0 && idStr::Cmp( command, " ; runScript chamber_trigger" ) == 0 )
 			{
 				gameLocal.playerActivateFragChamber = this;
 			}
@@ -8982,12 +8987,12 @@ void idPlayer::Think()
 	{
 		if( ( usercmd.buttons & BUTTON_ZOOM ) && weapon.GetEntity() )
 		{
-            weapon.GetEntity()->SetIronsight( true );
+			weapon.GetEntity()->SetIronsight( true );
 			zoomFov.Init( gameLocal.time, 200.0f, CalcFov( false ), weapon.GetEntity()->GetZoomFov() );
 		}
 		else
 		{
-            weapon.GetEntity()->SetIronsight( false );
+			weapon.GetEntity()->SetIronsight( false );
 			zoomFov.Init( gameLocal.time, 200.0f, zoomFov.GetCurrentValue( gameLocal.time ), DefaultFov() );
 		}
 	}
@@ -9929,7 +9934,7 @@ void idPlayer::ServerDealDamage( int damage, idEntity& inflictor, idEntity& atta
 			}
 			
 			// HACK - A - LICIOUS - Check to see if we are being damaged by the frag chamber.
-			if( oldHealth > 0 && strcmp( gameLocal.GetMapName(), "maps/game/mp/d3dm3.map" ) == 0 && strcmp( damageDefName, "damage_triggerhurt_1000_chamber" ) == 0 )
+			if( oldHealth > 0 && idStr::Cmp( gameLocal.GetMapName(), "maps/game/mp/d3dm3.map" ) == 0 && idStr::Cmp( damageDefName, "damage_triggerhurt_1000_chamber" ) == 0 )
 			{
 				idPlayer* fragChamberActivator = gameLocal.playerActivateFragChamber;
 				if( fragChamberActivator != NULL )
@@ -11451,7 +11456,7 @@ void idPlayer::ClientThink( const int curTime, const float fraction, const bool 
 			{
 				zoomFov.Init( gameLocal.time, 200.0f, zoomFov.GetCurrentValue( gameLocal.time ), DefaultFov() );
 			}
-		}        
+		}
 	}
 	
 	// clear the ik before we do anything else so the skeleton doesn't get updated twice
@@ -12700,3 +12705,5 @@ gameExpansionType_t idPlayer::GetExpansionType() const
 	}
 	return GAME_UNKNOWN;
 }
+
+} // namespace BFG

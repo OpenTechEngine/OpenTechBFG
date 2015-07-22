@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../d3xp/Entity.h"
 #include "../d3xp/gamesys/Class.h"
 
+namespace BFG
+{
+
 class idRestoreGame;
 class idSaveGame;
 /*
@@ -57,5 +60,7 @@ public:
 private:
 	void			Event_Remove();
 };
+
+} // namespace BFG
 
 #endif /* !__GAME_WORLDSPAWN_H__ */

@@ -29,12 +29,15 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SIMPLEWIN_H__
 #define __SIMPLEWIN_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Str.h"
 #include "../idlib/math/Vector.h"
 #include "../ui/Rectangle.h"
 #include "../ui/Winvar.h"
+
+namespace BFG
+{
 
 class idDeviceContext;
 class idFile;
@@ -111,5 +114,7 @@ protected:
 	
 	idWinBool	hideCursor;
 };
+
+} // namespace BFG
 
 #endif /* !__SIMPLEWIN_H__ */

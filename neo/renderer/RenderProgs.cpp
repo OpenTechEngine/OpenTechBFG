@@ -43,9 +43,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "RenderProgs.h"
 #include "tr_local.h"
 
+namespace BFG
+{
+
 class idCmdArgs;
-
-
 
 idRenderProgManager renderProgManager;
 
@@ -511,3 +512,4 @@ void idRenderProgManager::SetRenderParm( renderParm_t rp, const float* value )
 	SetUniformValue( rp, value );
 }
 
+} // namespace BFG

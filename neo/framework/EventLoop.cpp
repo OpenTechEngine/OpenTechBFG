@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -39,6 +39,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 idCVar idEventLoop::com_journal( "com_journal", "0", CVAR_INIT | CVAR_SYSTEM, "1 = record journal, 2 = play back journal", 0, 2, idCmdSystem::ArgCompletion_Integer<0, 2> );
 
@@ -327,3 +330,5 @@ int idEventLoop::JournalLevel() const
 {
 	return com_journal.GetInteger();
 }
+
+} // namespace BFG

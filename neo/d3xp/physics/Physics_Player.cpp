@@ -27,9 +27,9 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../cm/CollisionModel.h"
@@ -58,6 +58,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Rotation.h"
 #include "../idlib/math/Vector.h"
 #include "../renderer/Material.h"
+
+namespace BFG
+{
 
 CLASS_DECLARATION( idPhysics_Actor, idPhysics_Player )
 END_CLASS
@@ -2363,7 +2366,7 @@ bool idPhysics_Player::ClientPusherLocked( bool& justBecameUnlocked )
 					clientPusherLocked = true; // locked until you have a ground contact that isn't a non static phys obj
 					
 					// HACK - Tomiko Reactor rotating disks screw up if server locks the pushed clients, but elevators need clients to be locked ( otherwise clients will clip through elevators )
-					if( strcmp( ent->GetName(), "cylinder_disk1" ) == 0 || strcmp( ent->GetName(), "cylinder_disk2" ) == 0 || strcmp( ent->GetName(), "cylinder_disk3" ) == 0 )
+					if( idStr::Cmp( ent->GetName(), "cylinder_disk1" ) == 0 || idStr::Cmp( ent->GetName(), "cylinder_disk2" ) == 0 || idStr::Cmp( ent->GetName(), "cylinder_disk3" ) == 0 )
 					{
 						clientPusherLocked = false;
 					}
@@ -2472,3 +2475,4 @@ void idPhysics_Player::ReadFromSnapshot( const idBitMsg& msg )
 	
 }
 
+} // namespace BFG

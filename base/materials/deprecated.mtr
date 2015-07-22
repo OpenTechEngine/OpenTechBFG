@@ -1,0 +1,206 @@
+// for backwards compatibility (with existing doom3 maps etc): 
+// some materials that I renamed or moved to another dir.
+// These are the original paths and names
+//
+// The materials have the same properties as the ones from Doom3 (I hope), 
+// but were rewritten from scratch.
+//
+// (C) 2012 Daniel Gibson, licensed under WTPFL v2 (see COPYING.txt)
+
+// "deprecated" means that another version of the shader (with a different
+//  name or even in a different pseudo-dir) should be preferred
+
+// same as textures/common/aasobstacle
+textures/editor/aasobstacle
+{
+	qer_editorimage textures/common/aasobstacle.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	aasobstacle
+	
+	nonsolid
+	noShadows
+}
+
+// same as textures/common/aassolid
+textures/editor/aassolid
+{
+	qer_editorimage	textures/common/aassolid.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	aassolid
+	
+	nonsolid
+	noShadows
+}
+
+// same as textures/common/visportal
+textures/editor/visportal
+{
+	qer_editorimage	textures/common/visportal.tga
+	areaportal
+
+	noShadows
+}
+
+// ##########  Clips   ##########
+// I renamed some clips from blaclip or bla_clip to clip_bla so all clips start with clip
+
+// same as clip_full
+textures/common/full_clip
+{
+	qer_editorimage textures/common/full_clip.tga
+	monsterclip
+	playerclip
+	moveableclip
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+// same as clip_ik
+textures/common/ik_clip
+{
+	qer_editorimage textures/common/ikclip.tga
+	ikclip
+	
+	nonsolid
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+// same as clip_monsters
+textures/common/monster_clip
+{
+	qer_editorimage textures/common/monster_clip.tga
+	monsterclip
+	
+	nonsolid
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+// same as clip_moveables
+textures/common/moveable_clip
+{
+	qer_editorimage textures/common/moveable_clip.tga
+	moveableclip
+	
+	nonsolid
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+// same as clip_player
+textures/common/player_clip
+{
+	qer_editorimage textures/common/player_clip.tga
+	playerclip
+	noimpact
+	
+	nonsolid
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+
+// ##########   triggers   ##########
+// prefer to use the ones in textures/triggers/
+
+textures/common/trigger
+{    
+	qer_editorimage	textures/triggers/trigger.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/common/trigentityname
+{    
+	qer_editorimage	textures/triggers/trigentityname.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/common/trigentityname_once
+{    
+	qer_editorimage	textures/triggers/trigentitynameonce.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/common/trigfade
+{    
+	qer_editorimage	textures/triggers/trigfade.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/common/trigflashlight
+{    
+	qer_editorimage	textures/triggers/trigflashlight.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	flashlight_trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/common/triggui
+{    
+	qer_editorimage	textures/triggers/triggui.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/common/trighurt
+{    
+	qer_editorimage	textures/triggers/trighurt.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/common/trigmulti
+{    
+	qer_editorimage	textures/triggers/trigmulti.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/common/trigonce
+{    
+	qer_editorimage	textures/triggers/trigonce.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+textures/common/trigtimer
+{    
+	qer_editorimage	textures/triggers/trigtimer.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	trigger
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}

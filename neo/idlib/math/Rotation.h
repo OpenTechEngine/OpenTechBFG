@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/math/Matrix.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -234,5 +237,7 @@ ID_INLINE void idRotation::RotatePoint( idVec3& point ) const
 	}
 	point = ( ( point - origin ) * axis + origin );
 }
+
+} // namespace BFG
 
 #endif /* !__MATH_ROTATION_H__ */

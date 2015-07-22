@@ -37,6 +37,9 @@ Event are used for scheduling tasks and for linking script commands.
 #include "../idlib/containers/LinkList.h"        // for idLinkList
 #include "../cm/CollisionModel.h"       // for trace_t
 
+namespace BFG
+{
+
 #define D_EVENT_MAXARGS				8			// if changed, enable the CREATE_EVENT_CODE define in Event.cpp to generate switch statement for idClass::ProcessEventArgPtr.
 // running the game will then generate c:\doom\base\events.txt, the contents of which should be copied into the switch statement.
 
@@ -228,5 +231,7 @@ ID_INLINE int idEventDef::GetEventNum() const
 {
 	return eventnum;
 }
+
+} // namespace BFG
 
 #endif /* !__SYS_EVENT_H__ */

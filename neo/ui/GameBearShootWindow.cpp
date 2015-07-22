@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <math.h>
+#include <cmath>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -47,6 +47,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "UserInterfaceLocal.h"
 #include "Window.h"
 
+namespace BFG
+{
 
 #define BEAR_GRAVITY 240
 #define BEAR_SIZE 24.f
@@ -1005,3 +1007,5 @@ void idGameBearShootWindow::UpdateGame()
 		}
 	}
 }
+
+} // namespace BFG

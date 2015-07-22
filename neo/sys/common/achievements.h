@@ -30,6 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../sys/sys_achievements.h"
 
+namespace BFG
+{
+
 class idLocalUser;
 template <class T_, int numElements> class idArray;
 
@@ -51,5 +54,7 @@ public:
 	bool	GetAchievementDescription( idLocalUser* user, const int id, achievementDescription_t& data ) const;
 	bool	GetAchievementState( idLocalUser* user, idArray< bool, idAchievementSystem::MAX_ACHIEVEMENTS >& achievements ) const;
 };
+
+} // namespace BFG
 
 #endif // __WIN_ACHIEVEMENTS_H__

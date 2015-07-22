@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Ode.h"
 #include "Heap.h"
 
+namespace BFG
+{
+
 //===============================================================
 //
 //	idODE_Euler
@@ -393,3 +396,4 @@ float idODE_RK4Adaptive::Evaluate( const float* state, float* newState, float t0
 	return delta;
 }
 
+} // namespace BFG

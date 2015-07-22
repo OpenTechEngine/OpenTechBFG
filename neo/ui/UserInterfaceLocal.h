@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../framework/TokenParser.h"   // for idTokenParser
 
+namespace BFG
+{
+
 class idWindow;
 
 class idUserInterfaceLocal : public idUserInterface
@@ -216,3 +219,5 @@ private:
 // These used to be in every window, but they all pointed at the same one in idUserInterfaceManagerLocal.
 // Made a global so it can be switched out dynamically to test optimized versions.
 extern idDeviceContext* dc;
+
+} // namespace BFG

@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -60,6 +60,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/ScreenRect.h"
 #include "tr_local.h"
 
+namespace BFG
+{
 
 /*
 ================
@@ -1187,3 +1189,5 @@ void idRenderWorldLocal::ResetLocalRenderModels()
 {
 	localModels.Clear();	// Clear out the list when switching between expansion packs, so InitFromMap doesn't try to delete the list whose content has already been deleted by the model manager being re-started
 }
+
+} // namespace BFG

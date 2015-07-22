@@ -29,6 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __CLIP_H__
 #define __CLIP_H__
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -380,5 +383,7 @@ ID_INLINE idClipModel* idClip::DefaultClipModel()
 {
 	return &defaultClipModel;
 }
+
+} // namespace BFG
 
 #endif /* !__CLIP_H__ */

@@ -35,12 +35,16 @@ If you have questions concerning this license or the applicable additional terms
 #else
 #include <mm_malloc.h>                  // for posix_memalign
 #endif
-#include <stddef.h>                     // for size_t
-#include <stdlib.h>                     // for NULL, free
-#include <string.h>                     // for strcpy, strlen
+#include <cstddef>                     // for size_t
+#include <cstdlib>                     // for NULL, free
+#include <cstring>                     // for strcpy, strlen
 
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"              // for Max
+
+namespace BFG   // TODO namespace Heap.h too
+{
+//using BFG::AssertFailed; // temporery for now
 
 /*
 ===============================================================================
@@ -177,8 +181,6 @@ enum memTag_t
 
 static const int MAX_TAGS = 256;
 
-
-
 // RB: 64 bit fixes, changed int to size_t
 void* 		Mem_Alloc16( const size_t size, const memTag_t tag );
 void		Mem_Free16( void* ptr );
@@ -197,12 +199,14 @@ void* 		Mem_ClearedAlloc( const size_t size, const memTag_t tag );
 char* 		Mem_CopyString( const char* in );
 // RB end
 
+} // namespace BFG
+
 ID_INLINE void* operator new( size_t s )
 #if !defined(_MSC_VER)
 throw( std::bad_alloc ) // DG: standard signature seems to include throw(..)
 #endif
 {
-	return Mem_Alloc( s, TAG_NEW );
+	return BFG::Mem_Alloc( s, BFG::TAG_NEW );
 }
 
 ID_INLINE void operator delete( void* p )
@@ -210,14 +214,14 @@ ID_INLINE void operator delete( void* p )
 throw() // DG: delete musn't throw
 #endif
 {
-	Mem_Free( p );
+	BFG::Mem_Free( p );
 }
 ID_INLINE void* operator new[]( size_t s )
 #if !defined(_MSC_VER)
 throw( std::bad_alloc ) // DG: standard signature seems to include throw(..)
 #endif
 {
-	return Mem_Alloc( s, TAG_NEW );
+	return BFG::Mem_Alloc( s, BFG::TAG_NEW );
 }
 
 ID_INLINE void operator delete[]( void* p )
@@ -225,31 +229,34 @@ ID_INLINE void operator delete[]( void* p )
 throw() // DG: delete musn't throw
 #endif
 {
-	Mem_Free( p );
+	BFG::Mem_Free( p );
 }
 
-ID_INLINE void* operator new( size_t s, memTag_t tag )
+ID_INLINE void* operator new( size_t s, BFG::memTag_t tag )
 {
 	return Mem_Alloc( s, tag );
 }
 
-ID_INLINE void operator delete( void* p, memTag_t tag )
+ID_INLINE void operator delete( void* p, BFG::memTag_t tag )
 #if !defined(_MSC_VER)
 throw() // DG: delete musn't throw
 #endif
 {
-	Mem_Free( p );
+	BFG::Mem_Free( p );
 }
 
-ID_INLINE void* operator new[]( size_t s, memTag_t tag )
+ID_INLINE void* operator new[]( size_t s, BFG::memTag_t tag )
 {
-	return Mem_Alloc( s, tag );
+	return BFG::Mem_Alloc( s, tag );
 }
 
-ID_INLINE void operator delete[]( void* p, memTag_t tag ) throw() // DG: delete musn't throw
+ID_INLINE void operator delete[]( void* p, BFG::memTag_t tag ) throw() // DG: delete musn't throw
 {
-	Mem_Free( p );
+	BFG::Mem_Free( p );
 }
+
+namespace BFG
+{
 
 // Define replacements for the PS3 library's aligned new operator.
 // Without these, allocations of objects with 32 byte or greater alignment
@@ -831,7 +838,14 @@ void idDynamicAlloc<type, baseBlockSize, minBlockSize>::Clear()
 ==============================================================================
 */
 
+} // namespace BFG
+
+// FIXME include not in it's place
+
 #include "containers/BTree.h"
+
+namespace BFG
+{
 
 //#define DYNAMIC_BLOCK_ALLOC_CHECK
 
@@ -864,7 +878,7 @@ public:
 	int								size;					// size in bytes of the block
 	idDynamicBlock<type>* 			prev;					// previous memory block
 	idDynamicBlock<type>* 			next;					// next memory block
-	idBTreeNode<idDynamicBlock<type>, int>* node;			// node in the B-Tree with free blocks
+	BFG::idBTreeNode<idDynamicBlock<type>, int>* node;			// node in the B-Tree with free blocks
 };
 
 template<class type, int baseBlockSize, int minBlockSize, memTag_t _tag_ = TAG_BLOCKALLOC>
@@ -1473,5 +1487,7 @@ void idDynamicBlockAlloc<type, baseBlockSize, minBlockSize, _tag_>::CheckMemory(
 		}
 	}
 }
+
+} // namespace BFG
 
 #endif /* !__HEAP_H__ */

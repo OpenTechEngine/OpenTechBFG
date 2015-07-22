@@ -28,11 +28,11 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
 #include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"
@@ -75,10 +75,13 @@ If you have questions concerning this license or the applicable additional terms
 #include "ParallelJobList.h"
 #include "tr_local.h"
 
-class idPreloadManifest;
-
 #ifdef _WIN32
 #include "../framework/Licensee.h"
+#endif
+
+#ifdef _WIN32
+// macro collision
+#undef FindText
 #endif
 
 // RB begin
@@ -93,6 +96,11 @@ class idPreloadManifest;
 // DG: we need to initialize cegui after a (new) window has been created
 #include "../cegui/CEGUI_Hooks.h"
 #endif // USE_CEGUI
+
+namespace BFG
+{
+
+class idPreloadManifest;
 
 // DeviceContext bypasses RenderSystem to work directly with this
 idGuiModel* tr_guiModel;
@@ -2134,7 +2142,7 @@ void GfxInfo_f( const idCmdArgs& args )
 	typedef BOOL ( WINAPI * PFNWGLSWAPINTERVALEXTPROC )( int interval );
 	extern	PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT;
 	
-	if( r_swapInterval.GetInteger() && wglSwapIntervalEXT != NULL )
+	if( r_swapInterval.GetInteger() && ::wglSwapIntervalEXT != NULL )
 	{
 		common->Printf( "Forcing swapInterval %i\n", r_swapInterval.GetInteger() );
 	}
@@ -3129,3 +3137,5 @@ float idRenderSystemLocal::GetPhysicalScreenWidthInCentimeters() const
 	}
 	return glConfig.physicalScreenWidthInCentimeters;
 }
+
+} // namespace BFG

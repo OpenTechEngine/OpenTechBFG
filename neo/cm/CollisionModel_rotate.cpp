@@ -35,9 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
 
 #include "../cm/CollisionModel.h"
 #include "../framework/CVarSystem.h"
@@ -54,6 +54,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"
 #include "CollisionModel_local.h"
+
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -1952,3 +1955,5 @@ void idCollisionModelManagerLocal::Rotation( trace_t* results, const idVec3& sta
 	}
 #endif
 }
+
+} // namespace BFG

@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/containers/List.h"
 #include "../idlib/Str.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -205,5 +208,7 @@ ID_INLINE size_t idStrList::Size() const
 //
 //	list.Swap( other );
 //}
+
+} // namespace BFG
 
 #endif /* !__STRLIST_H__ */

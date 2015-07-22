@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include <AL/al.h>
 #include <AL/alc.h>
-#include <string.h>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -45,6 +45,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sound/sound.h"
 #include "../sys/sys_public.h"
 #include "../sound/snd_defines.h"
+
+namespace BFG
+{
 
 class idCmdArgs;
 
@@ -491,4 +494,4 @@ void idSoundHardware_OpenAL::Update()
 	*/
 }
 
-
+} // namespace BFG

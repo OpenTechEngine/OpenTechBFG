@@ -40,6 +40,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../renderer/RenderWorld.h"
 
+namespace BFG
+{
+
 class idBitMsg;
 class idMaterial;
 class idRestoreGame;
@@ -230,5 +233,7 @@ private:
 	void					Event_Explode();
 	void					Event_TriggerTargets();
 };
+
+} // namespace BFG
 
 #endif /* !__GAME_MOVEABLE_H__ */

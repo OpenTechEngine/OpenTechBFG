@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "AASBuild_local.h"
 
+namespace BFG
+{
+
 #define LEDGE_EPSILON		0.1f
 
 //===============================================================
@@ -650,3 +653,5 @@ void idAASBuild::LedgeSubdivision( idBrushBSP& bsp )
 	
 	common->Printf( "\r%6d subdivisions\n", numLedgeSubdivisions );
 }
+
+} // namespace BFG

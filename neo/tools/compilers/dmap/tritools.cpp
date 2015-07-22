@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "dmap.h"
 
+namespace BFG
+{
+
 /*
 
   All triangle list functions should behave reasonably with NULL lists.
@@ -430,3 +433,5 @@ void	PlaneForTri( const mapTri_t* tri, idPlane& plane )
 {
 	plane.FromPoints( tri->v[0].xyz, tri->v[1].xyz, tri->v[2].xyz );
 }
+
+} // namespace BFG

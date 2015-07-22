@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 
 #include "../framework/Common.h"
 #include "../framework/DeclManager.h"
@@ -48,6 +48,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "UserInterfaceLocal.h"
 #include "Window.h"
 #include "sys/sys_types.h"
+
+namespace BFG
+{
 
 #define BALL_RADIUS		12.f
 #define BALL_SPEED		250.f
@@ -1540,3 +1543,5 @@ void idGameBustOutWindow::UpdateGame()
 		}
 	}
 }
+
+} // namespace BFG

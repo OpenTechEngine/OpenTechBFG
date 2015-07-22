@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Lib.h"
 #include "../idlib/Str.h"
@@ -40,6 +40,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_Types.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 int c_PlaceObject2;
 int c_PlaceObject3;
@@ -288,3 +291,5 @@ void idSWFSpriteInstance::RemoveObject2( idSWFBitStream& bitstream )
 {
 	RemoveDisplayEntry( bitstream.ReadU16() );
 }
+
+} // namespace BFG

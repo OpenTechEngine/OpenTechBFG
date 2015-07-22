@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/math/Vector.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -299,5 +302,7 @@ ID_INLINE float* idAngles::ToFloatPtr()
 {
 	return &pitch;
 }
+
+} // namespace BFG
 
 #endif /* !__MATH_ANGLES_H__ */

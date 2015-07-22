@@ -34,8 +34,8 @@ Contains external code for building ZipFiles.
 ================================================================================================
 */
 
-#include <stddef.h>
-#include <string.h>
+#include <cstddef>
+#include <cstring>
 #include <zlib.h>
 
 #include "../framework/CVarSystem.h"
@@ -52,6 +52,8 @@ Contains external code for building ZipFiles.
 #include "Zip.h"
 #include "zconf.h"
 
+namespace BFG
+{
 
 // #undef STDC
 
@@ -520,7 +522,7 @@ bool idZipBuilder::CreateZipFileFromFiles( const idList< idFile_Memory* >& srcFi
 					errcode = zipWriteInFileInZip( zf, buffer.Ptr(), ( unsigned int )bytesRead );
 					if( errcode != ZIP_OK )
 					{
-						idLib::Warning( "Error writing to zipfile (%" PRIuSIZE " bytes)!", bytesRead );
+						idLib::Warning( "Error writing to zipfile (%" BFG_PRIuSIZE " bytes)!", bytesRead );
 						continue;
 					}
 				}
@@ -628,7 +630,7 @@ bool idZipBuilder::AddFile( zipFile zf, idFile_Memory* src, bool deleteFile )
 				errcode = zipWriteInFileInZip( zf, buffer.Ptr(), ( unsigned int )bytesRead );
 				if( errcode != ZIP_OK )
 				{
-					idLib::Warning( "Error writing to zipfile (%" PRIuSIZE " bytes)!", bytesRead );
+					idLib::Warning( "Error writing to zipfile (%" BFG_PRIuSIZE " bytes)!", bytesRead );
 					continue;
 				}
 			}
@@ -1070,3 +1072,5 @@ CONSOLE_COMMAND( testZipBuilderExtractFiles, "test routine for memory zip file e
 	idLib::Printf( "[%s] overall tests: %s\n", __FUNCTION__, overallSuccess ? "^2PASS" : "^1FAIL" );
 #endif
 }
+
+} // namespace BFG

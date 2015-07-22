@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../sys/sys_session.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -425,5 +428,7 @@ public:
 		return numCmds;
 	}
 };
+
+} // namespace BFG
 
 #endif /* !__USERCMDGEN_H__ */

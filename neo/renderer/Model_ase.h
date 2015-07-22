@@ -34,6 +34,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"
+
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -101,5 +105,7 @@ typedef struct aseModel_s
 
 aseModel_t* ASE_Load( const char* fileName );
 void		ASE_Free( aseModel_t* ase );
+
+} // namespace BFG
 
 #endif /* !__MODEL_ASE_H__ */

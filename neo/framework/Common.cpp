@@ -29,10 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #include "../d3xp/Game.h"
 #include "../framework/BuildVersion.h"
@@ -80,6 +80,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "ParallelJobList.h"
 #include "sys/sys_localuser.h"
 #include "sys/sys_threading.h"
+#include "../renderer/Image.h"
 
 #if defined(USE_IDTOOLS)
 #include "../tools/compilers/compiler_public.h"
@@ -92,6 +93,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../cegui/CEGUI_Hooks.h"
 #endif // USE_CEGUI
 
+namespace BFG
+{
 
 #if defined( _DEBUG )
 #define BUILD_DEBUG "-debug"
@@ -103,7 +106,7 @@ struct version_s
 {
 	version_s()
 	{
-		sprintf( string, "%s.%d%s %s %s %s", ENGINE_VERSION, BUILD_NUMBER, BUILD_DEBUG, BUILD_STRING, __DATE__, __TIME__ );
+		std::sprintf( string, "%s.%d%s %s %s %s", ENGINE_VERSION, BUILD_NUMBER, BUILD_DEBUG, BUILD_STRING, __DATE__, __TIME__ );
 	}
 	char	string[256];
 } version;
@@ -363,7 +366,7 @@ void idCommonLocal::StartupVariable( const char* match )
 	int i = 0;
 	while(	i < com_numConsoleLines )
 	{
-		if( strcmp( com_consoleLines[ i ].Argv( 0 ), "set" ) != 0 )
+		if( idStr::Cmp( com_consoleLines[ i ].Argv( 0 ), "set" ) != 0 )
 		{
 			i++;
 			continue;
@@ -853,8 +856,6 @@ CONSOLE_COMMAND( reloadLanguage, "reload language dict", NULL )
 {
 	commonLocal.InitLanguageDict();
 }
-
-#include "../renderer/Image.h"
 
 struct emptyCommand_t;
 
@@ -1950,7 +1951,9 @@ CONSOLE_COMMAND( testSIMD, "test SIMD code", NULL )
 // RB begin
 CONSOLE_COMMAND( testFormattingSizes, "test printf format security", 0 )
 {
-	common->Printf( " sizeof( int32 ): %" PRIuSIZE " bytes\n", sizeof( int32 ) );
-	common->Printf( " sizeof( int64 ): %" PRIuSIZE " bytes\n", sizeof( int64 ) );
+	common->Printf( " sizeof( int32 ): %" BFG_PRIuSIZE " bytes\n", sizeof( int32 ) );
+	common->Printf( " sizeof( int64 ): %" BFG_PRIuSIZE " bytes\n", sizeof( int64 ) );
 }
 // RB end
+
+} // namespace BFG

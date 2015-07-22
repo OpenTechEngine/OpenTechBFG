@@ -25,10 +25,10 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
-#include "../d3xp/menus/MenuHandler_SWF.h"
-#include "../d3xp/menus/MenuScreen_SWF.h"
+#include "../d3xp/menus/MenuHandler.h"
+#include "../d3xp/menus/MenuScreen.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -46,12 +46,14 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_signin.h"
 #include "sys/sys_localuser.h"
 
-class idSWFScriptObject;
-
 #pragma hdrstop
 
-extern idCVar g_demoMode;
+namespace BFG
+{
 
+class idSWFScriptObject;
+
+extern idCVar g_demoMode;
 const static int NUM_MAIN_OPTIONS = 6;
 /*
 ========================
@@ -616,4 +618,4 @@ bool idMenuScreen_Shell_Root::HandleAction( idWidgetAction& action, const idWidg
 	return idMenuWidget::HandleAction( action, event, widget, forceHandled );
 }
 
-
+} // namespace BFG

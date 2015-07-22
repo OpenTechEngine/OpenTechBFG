@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_BUSTOUT_WINDOW_H__
 #define __GAME_BUSTOUT_WINDOW_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Str.h"
 #include "../idlib/containers/List.h"
@@ -37,6 +37,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../ui/SimpleWindow.h"
 #include "../ui/Window.h"
 #include "../ui/Winvar.h"
+
+namespace BFG
+{
 
 class idFile;
 class idGameBustOutWindow;
@@ -201,5 +204,7 @@ private:
 	BOBrick*				paddle;
 	idList<BOBrick*>	board[BOARD_ROWS];
 };
+
+} // namespace BFG
 
 #endif //__GAME_BUSTOUT_WINDOW_H__

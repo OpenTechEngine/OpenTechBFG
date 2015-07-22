@@ -32,6 +32,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "AAS.h"
 #include "../Pvs.h"
 
+namespace BFG
+{
 
 class idRoutingCache
 {
@@ -189,5 +191,7 @@ private:	// debug
 	void						RandomPullPlayer( const idVec3& origin ) const;
 	void						ShowPushIntoArea( const idVec3& origin ) const;
 };
+
+} // namespace BFG
 
 #endif /* !__AAS_LOCAL_H__ */

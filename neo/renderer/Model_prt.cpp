@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/DeclManager.h"
@@ -45,6 +45,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderWorld.h"
 #include "Model_local.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 class idDrawVert;
 
@@ -334,3 +337,5 @@ int idRenderModelPrt::Memory() const
 	
 	return total;
 }
+
+} // namespace BFG

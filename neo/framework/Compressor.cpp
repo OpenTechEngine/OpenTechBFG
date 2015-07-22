@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <string.h>
+#include <cstring>
 
 #include "../framework/Common.h"
 #include "../framework/Compressor.h"
@@ -38,6 +38,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
+namespace BFG
+{
 
 /*
 =================================================================================
@@ -2988,3 +2990,5 @@ idCompressor* idCompressor::AllocLZW()
 {
 	return new( TAG_IDFILE ) idCompressor_LZW();
 }
+
+} // namespace BFG

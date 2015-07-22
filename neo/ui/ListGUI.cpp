@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Dict.h"
 #include "../idlib/Heap.h"
@@ -36,6 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 #include "../ui/UserInterface.h"
 #include "ListGUILocal.h"
+
+namespace BFG
+{
 
 /*
 ====================
@@ -211,3 +214,5 @@ void idListGUILocal::Shutdown()
 	m_name.Clear();
 	Clear();
 }
+
+} // namespace BFG

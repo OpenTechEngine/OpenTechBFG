@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/File.h"
 #include "../framework/FileSystem.h"
@@ -42,6 +42,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 /*
 ================================================================================================
@@ -568,3 +571,5 @@ void idResourceContainer::WriteResourceFile( const char* manifestName, const idS
 		delete resFile;
 	}
 }
+
+} // namespace BFG

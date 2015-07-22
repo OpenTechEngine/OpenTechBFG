@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "dmap.h"
 
+namespace BFG
+{
+
 int		c_active_brushes;
 
 int		c_nodes;
@@ -751,3 +754,5 @@ void SplitBrush( uBrush_t* brush, int planenum, uBrush_t** front, uBrush_t** bac
 	*front = b[0];
 	*back = b[1];
 }
+
+} // namespace BFG

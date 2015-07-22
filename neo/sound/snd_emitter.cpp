@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/DemoFile.h"
@@ -54,6 +54,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sound/snd_local.h"
 #include "../sound/sound.h"
 #include "../sound/snd_defines.h"
+
+namespace BFG
+{
 
 class idDecl;
 
@@ -1185,3 +1188,5 @@ float idSoundEmitterLocal::CurrentAmplitude()
 	}
 	return amplitude;
 }
+
+} // namespace BFG

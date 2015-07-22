@@ -25,8 +25,8 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <assert.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstdlib>
 
 #include "../framework/DeclManager.h"
 #include "../idlib/Heap.h"
@@ -56,6 +56,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys/sys_intrinsics.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 idSWFScriptObject_SpriteInstancePrototype spriteInstanceScriptObjectPrototype;
 
@@ -1677,3 +1680,5 @@ SWF_SPRITE_NATIVE_VAR_DEFINE_SET( onEnterFrame )
 	SWF_SPRITE_PTHIS_SET( "onEnterFrame" );
 	pThis->onEnterFrame = value;
 }
+
+} // namespace BFG

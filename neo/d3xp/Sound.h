@@ -34,6 +34,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Angles.h"
 #include "../idlib/math/Vector.h"
 
+namespace BFG
+{
+
 class idDict;
 class idRestoreGame;
 class idSaveGame;
@@ -81,5 +84,7 @@ private:
 	void			Event_Off();
 	void			DoSound( bool play );
 };
+
+} // namespace BFG
 
 #endif /* !__GAME_SOUND_H__ */

@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 
 #include "../framework/Common.h"
 #include "../idlib/Heap.h"
@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 /*
 ================
@@ -575,3 +578,4 @@ void R_ApplyCubeMapTransforms( int iter, byte* data, int size )
 	}
 }
 
+} // namespace BFG

@@ -28,12 +28,12 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <math.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
+#include <cassert>
+#include <cmath>
+#include <cstdarg>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
 
 #include "../aas/AASFileManager.h"
 #include "../d3xp/AFEntity.h"
@@ -122,6 +122,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "Timer.h"
 #include "sys/sys_localuser.h"
 #include "sys/sys_savegame.h"
+
+namespace BFG
+{
 
 class idLeaderboardCallback;
 class idPreloadManifest;
@@ -257,18 +260,19 @@ void TestGameAPI()
 	gameImport_t testImport;
 	gameExport_t testExport;
 	
-	testImport.sys						= ::sys;
-	testImport.common					= ::common;
-	testImport.cmdSystem				= ::cmdSystem;
-	testImport.cvarSystem				= ::cvarSystem;
-	testImport.fileSystem				= ::fileSystem;
-	testImport.renderSystem				= ::renderSystem;
-	testImport.soundSystem				= ::soundSystem;
-	testImport.renderModelManager		= ::renderModelManager;
-	testImport.uiManager				= ::uiManager;
-	testImport.declManager				= ::declManager;
-	testImport.AASFileManager			= ::AASFileManager;
-	testImport.collisionModelManager	= ::collisionModelManager;
+	// was in global namespace, like ::sys
+	testImport.sys						= sys;
+	testImport.common					= common;
+	testImport.cmdSystem				= cmdSystem;
+	testImport.cvarSystem				= cvarSystem;
+	testImport.fileSystem				= fileSystem;
+	testImport.renderSystem				= renderSystem;
+	testImport.soundSystem				= soundSystem;
+	testImport.renderModelManager		= renderModelManager;
+	testImport.uiManager				= uiManager;
+	testImport.declManager				= declManager;
+	testImport.AASFileManager			= AASFileManager;
+	testImport.collisionModelManager	= collisionModelManager;
 	
 	testExport = *GetGameAPI( &testImport );
 }
@@ -6100,3 +6104,5 @@ bool idGameLocal::SimulateProjectiles()
 	
 	return moreProjectiles;
 }
+
+} // namespace BFG

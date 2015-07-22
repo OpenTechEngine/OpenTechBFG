@@ -36,10 +36,13 @@
 #pragma push_macro("_mm_nmsub_ps")
 #undef _mm_nmsub_ps
 
+#pragma push_macro("assert")
+#undef assert
+
 // ****************************************************************************
 
 // look: the actual include!
-
+#include <cassert>
 #include <CEGUI/CEGUI.h>
 
 
@@ -51,6 +54,7 @@
 #pragma pop_macro("strcasecmp")
 #pragma pop_macro("strnicmp")
 #pragma pop_macro("_mm_nmsub_ps")
+#pragma pop_macro("assert")
 
 // ****************************************************************************
 

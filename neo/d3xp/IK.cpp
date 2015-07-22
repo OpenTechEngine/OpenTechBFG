@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/Entity.h"
@@ -59,6 +59,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Model.h"
 #include "../renderer/RenderWorld.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -1261,3 +1264,5 @@ void idIK_Reach::ClearJointMods()
 	
 	ik_activate = false;
 }
+
+} // namespace BFG

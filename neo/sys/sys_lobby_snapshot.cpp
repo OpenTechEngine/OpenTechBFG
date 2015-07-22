@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -44,6 +44,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 #include "../sys/sys_session.h"
 #include "sys_lobby.h"
+
+namespace BFG
+{
 
 class idBitMsg;
 
@@ -982,3 +985,5 @@ void idLobby::AddSnapObjTemplate( int objID, idBitMsg& msg )
 		peers[p].snapProc->AddSnapObjTemplate( objID, msg );
 	}
 }
+
+} // namespace BFG

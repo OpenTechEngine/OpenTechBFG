@@ -30,9 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Lcp.h"
 
 #include <emmintrin.h>
-#include <math.h>
+#include <cmath>
 #include <stdint.h>
-#include <string.h>
+#include <cstring>
 #include <xmmintrin.h>
 
 #include "../framework/../framework/CVarSystem.h"
@@ -47,6 +47,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys/sys_defines.h"
 #include "sys/sys_intrinsics.h"
 #include "sys/sys_types.h"
+
+namespace BFG
+{
 
 class idCmdArgs;
 
@@ -3452,3 +3455,5 @@ void idLCP::Test_f( const idCmdArgs& args )
 	LDLT_Factor_Test();
 #endif
 }
+
+} // namespace BFG

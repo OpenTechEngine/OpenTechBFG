@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 
 #include "../idlib/Heap.h"
 #include "../idlib/Str.h"
@@ -43,6 +43,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/DeclParticle.h"
 #include "Model_local.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 /*
 
@@ -233,3 +236,6 @@ idBounds idRenderModelBeam::Bounds( const struct renderEntity_s* renderEntity ) 
 	}
 	return b;
 }
+
+} // namespace BFG
+

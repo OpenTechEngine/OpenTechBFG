@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
+#include <cassert>
 #include <emmintrin.h>
-#include <string.h>
+#include <cstring>
 #include <xmmintrin.h>
 
 #include "../framework/CVarSystem.h"
@@ -55,6 +55,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "SoftwareCache.h"
 #include "sys/sys_intrinsics.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 class idDemoFile;
 class idJointMat;
@@ -833,3 +836,5 @@ void idRenderModelOverlay::WriteToDemoFile( idDemoFile* f ) const
 {
 	// FIXME: implement
 }
+
+} // namespace BFG

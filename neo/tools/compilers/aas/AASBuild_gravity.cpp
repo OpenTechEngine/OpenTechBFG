@@ -31,6 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "AASBuild_local.h"
 
+namespace BFG
+{
 
 /*
 ============
@@ -419,3 +421,5 @@ void idAASBuild::GravitationalSubdivision( idBrushBSP& bsp )
 	
 	common->Printf( "\r%6d subdivisions\n", numGravitationalSubdivisions );
 }
+
+} // namespace BFG

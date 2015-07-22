@@ -27,10 +27,10 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../cm/CollisionModel.h"
@@ -64,6 +64,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderWorld.h"
 #include "Timer.h"
 
+namespace BFG
+{
+
 CLASS_DECLARATION( idPhysics_Base, idPhysics_AF )
 END_CLASS
 
@@ -86,9 +89,9 @@ const float SUSPEND_LINEAR_ACCELERATION		= 20.0f;
 const float SUSPEND_ANGULAR_ACCELERATION	= 30.0f;
 const idVec6 vec6_lcp_epsilon				= idVec6( LCP_EPSILON, LCP_EPSILON, LCP_EPSILON,
 		LCP_EPSILON, LCP_EPSILON, LCP_EPSILON );
-
+		
 #define AF_TIMINGS
-
+		
 #ifdef AF_TIMINGS
 static int lastTimerReset = 0;
 static int numArticulatedFigures = 0;
@@ -9113,3 +9116,5 @@ void idPhysics_AF::ReadFromSnapshot( const idBitMsg& msg )
 	
 	UpdateClipModels();
 }
+
+} // namespace BFG

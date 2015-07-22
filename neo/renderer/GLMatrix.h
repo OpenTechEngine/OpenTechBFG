@@ -30,6 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GLMATRIX_H__
 #define __GLMATRIX_H__
 
+namespace BFG
+{
+
 class idMat3;
 class idPlane;
 class idVec3;
@@ -70,5 +73,7 @@ void R_SetupProjectionMatrix( viewDef_t* viewDef );
 void R_SetupProjectionMatrix2( const viewDef_t* viewDef, const float zNear, const float zFar, float out[16] );
 void R_MatrixFullInverse( const float in[16], float r[16] );
 // RB end
+
+} // namespace BFG
 
 #endif /* !__GLMATRIX_H__ */

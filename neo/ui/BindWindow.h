@@ -28,11 +28,14 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __BINDWINDOW_H
 #define __BINDWINDOW_H
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../ui/SimpleWindow.h"
 #include "../ui/Window.h"
 #include "../ui/Winvar.h"
+
+namespace BFG
+{
 
 class idStr;
 class idUserInterfaceLocal;
@@ -62,5 +65,7 @@ private:
 	idWinStr bindName;
 	bool waitingOnKey;
 };
+
+} // namespace BFG
 
 #endif // __BINDWINDOW_H

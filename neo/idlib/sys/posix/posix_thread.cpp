@@ -29,11 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 */
 #pragma hdrstop
 
-#include <errno.h>                      // for ETIMEDOUT
+#include <cerrno>                      // for ETIMEDOUT
 #include <pthread.h>                    // for pthread_mutex_lock, etc
 #include <stdint.h>                     // for uintptr_t
 #include <sys/time.h>                   // for CLOCK_REALTIME
-#include <time.h>                       // for timespec, NULL, etc
+#include <ctime>                       // for timespec, NULL, etc
 
 #include "../framework/Common.h"        // for idCommon
 #include "../idlib/Lib.h"               // for idLib, idLib::common
@@ -53,6 +53,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifdef __FreeBSD__
 #include <pthread_np.h> // for pthread_set_name_np
 #endif
+
+namespace BFG
+{
 
 // DG: Note: On Linux you need at least (e)glibc 2.12 to be able to set the threadname
 //#define DEBUG_THREADS
@@ -628,3 +631,5 @@ void* Sys_InterlockedCompareExchangePointer( void*& ptr, void* comparand, void* 
 	//return InterlockedCompareExchangePointer( & ptr, exchange, comparand );
 	return __sync_val_compare_and_swap( &ptr, comparand, exchange );
 }
+
+} // namespace BFG

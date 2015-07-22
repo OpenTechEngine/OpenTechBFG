@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 #include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"
@@ -59,6 +59,9 @@ If you have questions concerning this license or the applicable additional terms
 #if USE_CEGUI
 #include "../cegui/CEGUI_Hooks.h" // DG: the renderer must update cegui at the end of the frame
 #endif // USE_CEGUI
+
+namespace BFG
+{
 
 class idFont;
 class idMaterial;
@@ -775,7 +778,6 @@ void idRenderSystemLocal::SwapCommandBuffers_FinishRendering(
 		
 		// wait for our fence to hit, which means the swap has actually happened
 		// We must do this before clearing any resources the GPU may be using
-		void GL_BlockingSwapBuffers();
 		GL_BlockingSwapBuffers();
 	}
 	
@@ -1194,3 +1196,5 @@ bool idRenderSystemLocal::UploadImage( const char* imageName, const byte* data, 
 	image->UploadScratch( data, width, height );
 	return true;
 }
+
+} // namespace BFG

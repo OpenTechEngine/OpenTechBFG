@@ -32,7 +32,7 @@ If you have questions concerning this license or the applicable additional terms
 #undef min			// windef.h macros
 #undef max
 
-#include <math.h>
+#include <cmath>
 
 #include "../idlib/Heap.h"
 #include "../idlib/Lib.h"
@@ -43,6 +43,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "../sys/sys_public.h"
 #include "BoundsTrack.h"
+
+namespace BFG
+{
 
 /*
 
@@ -302,7 +305,7 @@ void	idBoundsTrack::Test()
 		FindBoundsIntersectionsSimSIMD( shortTestBounds, boundsList, maxIndex, intersectedIndexes2 );
 	}
 	const int64 stop = Sys_Microseconds();
-	idLib::Printf( "%" PRId64 " microseconds for 40 itterations\n", stop - start );
+	idLib::Printf( "%" BFG_PRId64 " microseconds for 40 itterations\n", stop - start );
 }
 
 
@@ -312,6 +315,8 @@ class interactionPair_t
 	int		entityIndex;
 	int		lightIndex;
 };
+
+} // namespace BFG
 
 /*
 

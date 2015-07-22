@@ -34,6 +34,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/jobs/dynamicshadowvolume/../../../idlib/math/Vector.h"
 #include "../renderer/jobs/dynamicshadowvolume/../ShadowShared.h"
 
+namespace BFG
+{
+
 class idDrawVert;
 class idJointMat;
 struct CellSpursJob128;
@@ -123,5 +126,7 @@ struct dynamicShadowVolumeParms_t
 
 void DynamicShadowVolumeJob( const dynamicShadowVolumeParms_t* parms );
 void DynamicShadowVolume_SetupSPURSHeader( CellSpursJob128* job, const dynamicShadowVolumeParms_t* parms );
+
+} // namespace BFG
 
 #endif // !__DYNAMICSHADOWVOLUME_H__

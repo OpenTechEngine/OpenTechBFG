@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../aas/AASFile.h"
@@ -82,6 +82,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Material.h"
 #include "../renderer/Model.h"
 #include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
 
 class idCmdArgs;
 class idSoundShader;
@@ -5623,7 +5626,7 @@ void idAI::TriggerParticles( const char* jointName )
 void idAI::TriggerFX( const char* joint, const char* fx )
 {
 
-	if( !strcmp( joint, "origin" ) )
+	if( !idStr::Cmp( joint, "origin" ) )
 	{
 		idEntityFx::StartFx( fx, NULL, NULL, this, true );
 	}
@@ -6211,3 +6214,5 @@ void idCombatNode::Event_MarkUsed()
 		disabled = true;
 	}
 }
+
+} // namespace BFG

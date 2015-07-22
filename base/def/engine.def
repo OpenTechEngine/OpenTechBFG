@@ -1,0 +1,85 @@
+// recreated definitions of entities of Doom3, mostly from misc.def
+// (C) 2011-2015 contributors of d3-base-assets and OpenTechBFG, licensed under WTFPL v2
+
+entityDef worldspawn {
+	"spawnclass"   "idWorldspawn"
+
+	"editor_usage"	"the worldspawn. every world has exactly one."
+
+	"editor_maxs"  "?"
+	"editor_mins"  "?"
+	"editor_color" "0.0 0.5 0.8"
+
+	"editor_float gravity"	"default gravity"
+	"editor_var music"		"music file to play"
+	"editor_bool no_stamina" "is stamina counted"	
+	"editor_bool no_Weapons" "only default weapon without attacks"
+
+	"no_stamina"   "1"
+}
+
+entityDef light {
+	"spawnclass"   "idLight"
+
+	"editor_usage"	"Light, if health is set, it can be destroyed"
+
+	"editor_color" "0 1 0"
+	"editor_mins"  "-8 -8 -8"
+	"editor_maxs"  "8 8 8"
+	"editor_showangle" "1"
+	"editor_rotatable" "1"
+	
+	"editor_material texture"	"shader to use" // FIXME: really editor_material, not editor_mat?
+	"editor_color color"		"color"
+	"editor_float shaderParm3"	"shaderParm 3"
+	"editor_float shaderParm4"	"shaderParm 4"
+	"editor_float shaderParm5"	"shaderParm 5"
+	"editor_float shaderParm6"	"shaderParm 6"
+	"editor_float shaderParm7"	"shaderParm 7"
+	"editor_int count"			"trigger count to activate"
+	"editor_bool break"			"break on trigger"
+	"editor_model model"		"model"
+	"editor_model broken"		"model when broken defaults to '_broken' added to name"
+	"editor_var hideModelOnBreak" "hide on break"
+	"editor_int health"			"health, 0 means indestructable"
+	"editor_var target"			"entities triggered on damage"
+	"editor_int levels"			"number of light levels, each trigger time will dimm"
+	"editor_bool start_off"		"on level start, light will be off "
+	"editor_snd snd_broken"		"sound to play on breaking"
+	"editor_material mtr_broken"	"material to use when broken"
+	"editor_color color_demonic"	"demonic color"
+	"editor_material mat_demonic"	"demonic material"
+	"editor_bool leave_demonic_mat"	"demonic material will stay, color reverts"
+
+	"health"	"0"
+	"levels"	"1"
+	"start_off"	"0"
+	"count"	"1"
+	"break"	"0"
+}
+
+entityDef speaker {
+	"spawnclass"	"idSound"
+
+	"editor_usage"	"TODO: Meaningful description, this is a stub!"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+
+	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+entityDef text {
+	"spawnclass"	"idTextEntity"
+
+	"editor_usage"	"display text in level, debugging for debuging purpose"
+
+	"editor_color"	"0.0 0.5 0.8"
+	"editor_maxs"	"8 8 8"
+	"editor_mins"	"-8 -8 -8"
+
+	"editor_bool force"		"if 0 will print only in developermode, otherwise always"
+	"editor_bool playerOriented" "if 1 will act like sprites, always facing player" 
+	"editor_var text"		"text to output"
+}

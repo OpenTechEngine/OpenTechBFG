@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../d3xp/Entity.h"
 #include "../d3xp/Game.h"
@@ -47,6 +47,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../sound/sound.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -367,3 +370,4 @@ void idSound::ShowEditingDialog()
 {
 }
 
+} // namespace BFG

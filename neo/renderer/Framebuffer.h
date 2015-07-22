@@ -34,6 +34,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/Str.h"
 #include "../idlib/containers/List.h"
 
+namespace BFG
+{
+
 class idImage;
 
 static const int MAX_SHADOWMAP_RESOLUTIONS = 5;
@@ -100,5 +103,6 @@ struct globalFramebuffers_t
 };
 extern globalFramebuffers_t globalFramebuffers;
 
+} // namespace BFG
 
 #endif // __FRAMEBUFFER_H__

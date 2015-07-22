@@ -29,6 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __PHYSICS_STATIC_H__
 #define __PHYSICS_STATIC_H__
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -188,5 +191,6 @@ protected:
 staticPState_t InterpolateStaticPState( const staticInterpolatePState_t& previous,
 										const staticInterpolatePState_t& next,
 										float fraction );
+} // namespace BFG
 
 #endif /* !__PHYSICS_STATIC_H__ */

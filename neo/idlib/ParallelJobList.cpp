@@ -29,8 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "../idlib/ParallelJobList.h"
 
-#include <stdio.h>                      // for NULL
-#include <string.h>
+#include <cstdio>                      // for NULL
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../idlib/Lib.h"
@@ -50,6 +50,9 @@ If you have questions concerning this license or the applicable additional terms
 // KORTEMIK: namespace collision
 #undef AddJob
 #endif
+
+namespace BFG
+{
 
 class idColor;
 class idParallelJobList_Threads;
@@ -507,7 +510,6 @@ void idParallelJobList_Threads::Submit( idParallelJobList_Threads* waitForJobLis
 	if( threaded )
 	{
 		// hand over to the manager
-		void SubmitJobList( idParallelJobList_Threads * jobList, int parallelism );
 		SubmitJobList( this, parallelism );
 	}
 	else
@@ -1526,3 +1528,5 @@ void idParallelJobManagerLocal::Submit( idParallelJobList_Threads* jobList, int 
 		threads[i].SignalWork();
 	}
 }
+
+} // namespace BFG

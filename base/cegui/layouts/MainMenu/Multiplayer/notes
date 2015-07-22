@@ -1,0 +1,46 @@
+
+MAIN MENU/Multiplayer
+- Quick Match
+- Find Match
+- Create Private Match
+- Play With Friends
+- Leaderboards
+- Toggle Privacy
+- Invite Friends -> Steam
+- Privacy Info: Open/Invite Only
+
+MAIN MENU/Multiplayer/Quick Match
+- Invite Friends -> Steam
+- Map Info: <Map Name>
+- Type: |Deathmatch|Tourney|Team DM|Last Man|CTF|
+
+MAIN MENU/Multiplayer/Find Match 
+- Deathmatch
+- Tourney
+- Team DM
+- Last Man
+- CTF
+# Each is a link to Quick Match screen with type info requirement set
+
+MAIN MENU/Multiplayer/Create Private Match
+- Start Match
+- Match Settings
+- Toggle Privacy
+- Invite Friends -> Steam
+- Privacy Info: Open/Invite Only
+
+MAIN MENU/Multiplayer/Create Private Match/Match Settings
+- Mode: <Next-Prev style selection |Deathmatch|Tourney|Team DM|Last Man|CTF|>
+- Map: <Next-Prev style selection |generated list|>
+- Time: <Next-Prev style selection |none-60 with incremental 5|>
+- Frag/Point Limit: <Next-Prev style selection |5-400 with incremental 5|>
+
+MAIN MENU/Multiplayer/Play With Friends
+- Refresh
+- @List of Servers@
+- On selection might be more (join etc)
+
+MAIN MENU/Multiplayer/Leaderboards
+- Leaderboard: <Next-Prev style selection |generated type-map list|>
+- Toggle Filter: <Next-Prev style selection |Global|You|Friends|>
+- Columns, scrollable: Rank, Score, Name

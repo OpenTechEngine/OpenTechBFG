@@ -30,6 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/geometry/DrawVert.h"  // for idDrawVert
 
+namespace BFG
+{
+
 /*
 ================================================================================================
 
@@ -282,5 +285,7 @@ private:
 	
 	DISALLOW_COPY_AND_ASSIGN( idJointBuffer );
 };
+
+} // namespace BFG
 
 #endif // !__BUFFEROBJECT_H__

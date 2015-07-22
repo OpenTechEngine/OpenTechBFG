@@ -29,6 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __DXTCODEC_H__
 #define __DXTCODEC_H__
 
+namespace BFG
+{
+
 /*
 ================================================================================================
 Contains the DxtEncoder and DxtDecoder declarations.
@@ -702,5 +705,7 @@ ID_INLINE byte idDxtDecoder::NormalScaleFrom565( unsigned short c565 ) const
 	byte c = byte( ( c565 & ( ( ( 1 << 5 ) - 1 ) << 0 ) ) << 3 );
 	return ( c | ( c >> 5 ) );
 }
+
+} // namespace BFG
 
 #endif // !__DXTCODEC_H__

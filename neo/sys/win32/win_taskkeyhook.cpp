@@ -34,6 +34,9 @@ If you have questions concerning this license or the applicable additional terms
 //
 #include "win_local.h"
 
+namespace BFG
+{
+
 #define DLLEXPORT __declspec(dllexport)
 
 // Magic registry key/value for "Remove Task Manager" policy.
@@ -157,3 +160,5 @@ void DisableTaskKeys( BOOL bDisable, BOOL bBeep, BOOL bTaskMgr )
 		}
 	}
 }
+
+} // namespace BFG

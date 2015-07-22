@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h"  // for MAX_PLAYERS, etc
 #include "../renderer/RenderWorld.h"  // for PS_BLOCK_ALL
 
+namespace BFG
+{
+
 class idRenderWorld;
 class idSoundWorld;
 
@@ -70,4 +73,6 @@ const int NUM_RENDER_PORTAL_BITS	= idMath::BitsForInteger( PS_BLOCK_ALL );
 
 const int MAX_EVENT_PARAM_SIZE		= 128;
 
-#endif
+} // namespace BFG
+
+#endif // __GAME_DEFINES_H__

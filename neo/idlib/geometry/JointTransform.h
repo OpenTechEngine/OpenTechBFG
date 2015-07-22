@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/containers/Queue.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -597,5 +600,7 @@ ID_INLINE void idJointMat::InverseMultiply( idJointMat& result, const idJointMat
 	result.mat[1 * 4 + 3] = m1.mat[1 * 4 + 0] * dst[0] + m1.mat[1 * 4 + 1] * dst[1] + m1.mat[1 * 4 + 2] * dst[2] + m1.mat[1 * 4 + 3];
 	result.mat[2 * 4 + 3] = m1.mat[2 * 4 + 0] * dst[0] + m1.mat[2 * 4 + 1] * dst[1] + m1.mat[2 * 4 + 2] * dst[2] + m1.mat[2 * 4 + 3];
 }
+
+} // namespace BFG
 
 #endif /* !__JOINTTRANSFORM_H__ */

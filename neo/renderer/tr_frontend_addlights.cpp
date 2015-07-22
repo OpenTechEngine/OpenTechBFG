@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstdlib>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -56,6 +56,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "tr_local.h"
 #include "ParallelJobList.h"
 
+namespace BFG
+{
 
 class idInteraction;
 
@@ -799,3 +801,5 @@ void R_OptimizeViewLightsList()
 		tr.viewDef->viewLights = sortLights[i].vLight;
 	}
 }
+
+} // namespace BFG

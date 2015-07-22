@@ -28,9 +28,23 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
+
+
+
+extern "C"
+{
+#include <png.h>
+#include <pngconf.h>
+}
+
+#include <cstdarg>
+#include <cstdio>
+#include <cstring>
+
+extern "C" {
+#include <jpeglib.h>
+}
+
 
 #include "../framework/Common.h"
 #include "../framework/File.h"
@@ -59,9 +73,8 @@ void R_LoadImage( const char *name, byte **pic, int *width, int *height, bool ma
  * You may also wish to include "jerror.h".
  */
 
-extern "C" {
-#include <jpeglib.h>
-}
+namespace BFG
+{
 
 // hooks from jpeg lib to our system
 
@@ -71,7 +84,7 @@ void jpg_Error( const char* fmt, ... )
 	char		msg[2048];
 	
 	va_start( argptr, fmt );
-	vsprintf( msg, fmt, argptr );
+	std::vsprintf( msg, fmt, argptr );
 	va_end( argptr );
 	
 	common->FatalError( "%s", msg );
@@ -83,7 +96,7 @@ void jpg_Printf( const char* fmt, ... )
 	char		msg[2048];
 	
 	va_start( argptr, fmt );
-	vsprintf( msg, fmt, argptr );
+	std::vsprintf( msg, fmt, argptr );
 	va_end( argptr );
 	
 	common->Printf( "%s", msg );
@@ -628,12 +641,6 @@ PNG LOADING
 =========================================================
 */
 
-extern "C"
-{
-#include <png.h>
-#include <pngconf.h>
-}
-
 static void png_Error( png_structp pngPtr, png_const_charp msg )
 {
 	common->FatalError( "%s", msg );
@@ -1145,3 +1152,5 @@ bool R_LoadCubeImages( const char* imgName, cubeFiles_t extensions, byte* pics[6
 	}
 	return true;
 }
+
+} // namespace BFG

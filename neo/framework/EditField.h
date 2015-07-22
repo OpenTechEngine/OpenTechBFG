@@ -29,6 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __EDITFIELD_H__
 #define __EDITFIELD_H__
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -77,5 +80,7 @@ private:
 	char			buffer[MAX_EDIT_LINE];
 	autoComplete_t	autoComplete;
 };
+
+} // namespace BFG
 
 #endif /* !__EDITFIELD_H__ */

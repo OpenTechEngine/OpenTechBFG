@@ -28,10 +28,13 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __LIGHTWEIGHT_COMPRESSION_H__
 #define __LIGHTWEIGHT_COMPRESSION_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"
+
+namespace BFG
+{
 
 struct lzwCompressionData_t
 {
@@ -237,5 +240,7 @@ private:
 	int					compressed;		// Compressed size
 	int					maxSize;
 };
+
+} // namespace BFG
 
 #endif // __LIGHTWEIGHT_COMPRESSION_H__

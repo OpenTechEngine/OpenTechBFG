@@ -61,6 +61,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../d3xp/ai/AAS.h"                     // for aasHandle_t
 #include "../d3xp/anim/Anim.h"                  // for idAnimManager
 
+namespace BFG
+{
+
 /*
 class idActor;
 class idAngles;
@@ -98,6 +101,9 @@ class idUserInterface;
 class idWeapon;
 class idMenuHandler_Shell;
 
+extern idCVar g_demoMode;
+extern idCVar net_ucmdRate;
+extern idCVar net_allowCheats;
 extern idRenderWorld* gameRenderWorld;
 extern idSoundWorld* gameSoundWorld;
 
@@ -891,5 +897,7 @@ const idVec3 DEFAULT_GRAVITY_VEC3( 0, 0, -DEFAULT_GRAVITY );
 const int	CINEMATIC_SKIP_DELAY	= SEC2MS( 2.0f );
 
 //============================================================================
+
+} // namespace BFG
 
 #endif	/* !__GAME_LOCAL_H__ */

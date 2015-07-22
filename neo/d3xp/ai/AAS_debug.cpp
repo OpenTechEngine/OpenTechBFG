@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdlib>
 
 #include "../Game_local.h"		// for cvars and debug drawing
 #include "../aas/AASFile.h"
@@ -50,6 +50,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderWorld.h"
 #include "AAS_local.h"
 
+namespace BFG
+{
 
 /*
 ============
@@ -601,3 +603,5 @@ void idAASLocal::Test( const idVec3& origin )
 		ShowPushIntoArea( origin );
 	}
 }
+
+} // namespace BFG

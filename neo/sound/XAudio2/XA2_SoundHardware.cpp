@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <XAudio2.h>
 #include <XAudio2fx.h>
 
-#include <string.h>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -46,6 +46,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sound/sound.h"
 #include "../sys/sys_public.h"
 #include "../sound/snd_defines.h"
+
+namespace BFG
+{
 
 idCVar s_showLevelMeter( "s_showLevelMeter", "0", CVAR_BOOL | CVAR_ARCHIVE, "Show VU meter" );
 idCVar s_meterTopTime( "s_meterTopTime", "1000", CVAR_INTEGER | CVAR_ARCHIVE, "How long (in milliseconds) peaks are displayed on the VU meter" );
@@ -787,3 +790,5 @@ void idSoundEngineCallback::OnCriticalError( HRESULT Error )
 {
 	soundSystemLocal.SetNeedsRestart();
 }
+
+} // namespace BFG

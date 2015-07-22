@@ -32,9 +32,9 @@ Contains the DxtEncoder implementation.
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
 
 #include "../idlib/containers/Sort.h"
 #include "../idlib/math/Math.h"
@@ -42,6 +42,9 @@ Contains the DxtEncoder implementation.
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"
 #include "DXTCodec.h"
+
+namespace BFG
+{
 
 #define INSET_COLOR_SHIFT		4		// inset the bounding box with ( range >> shift )
 #define INSET_ALPHA_SHIFT		5		// inset alpha channel
@@ -5206,3 +5209,5 @@ void idDxtEncoder::ConvertImageDXN1_DXT1( const byte* inBuf, byte* outBuf, int w
 		inBuf += srcPadding;
 	}
 }
+
+} // namespace BFG

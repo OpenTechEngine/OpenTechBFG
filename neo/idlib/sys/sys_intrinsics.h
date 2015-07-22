@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_INTRIINSICS_H__
 #define __SYS_INTRIINSICS_H__
 
-#include <math.h>                       // for sqrtf
+#include <cmath>                       // for sqrtf
 
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_assert.h"
@@ -39,6 +39,10 @@ If you have questions concerning this license or the applicable additional terms
 #if defined(USE_INTRINSICS)
 #include <emmintrin.h>
 #endif
+
+namespace BFG
+{
+
 /*
 ================================================================================================
 
@@ -309,5 +313,7 @@ ID_FORCE_INLINE_EXTERN __m128 _mm_div16_ps( __m128 x, __m128 y )
 #define _mm_loadu_bounds_1( bounds )		_mm_perm_ps( _mm_loadh_pi( _mm_load_ss( & bounds[1].x ), (__m64 *) & bounds[1].y ), _MM_SHUFFLE( 1, 3, 2, 0 ) )
 
 #endif // #if defined(USE_INTRINSICS)
+
+} // namespace BFG
 
 #endif	// !__SYS_INTRIINSICS_H__

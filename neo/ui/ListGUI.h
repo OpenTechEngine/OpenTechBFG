@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/Str.h"
 
+namespace BFG
+{
+
 class idUserInterface;
 
 /*
@@ -62,5 +65,7 @@ public:
 	virtual void		SetStateChanges( bool enable ) = 0;
 	virtual void		Shutdown() = 0;
 };
+
+} // namespace BFG
 
 #endif /* !__LISTGUI_H__ */

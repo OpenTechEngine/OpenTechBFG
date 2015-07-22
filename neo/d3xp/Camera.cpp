@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <string.h>
+#include <cstring>
 
 #include "../d3xp/Camera.h"
 #include "../d3xp/Entity.h"
@@ -53,6 +53,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_assert.h"
 #include "../renderer/Model.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -746,3 +749,5 @@ void idCameraAnim::Event_SetCallback()
 		idThread::ReturnInt( false );
 	}
 }
+
+} // namespace BFG

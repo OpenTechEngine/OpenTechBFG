@@ -49,7 +49,7 @@ move around it to view it from different angles.
 */
 
 #pragma hdrstop
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "../Game_local.h"
 #include "../d3xp/Actor.h"
@@ -81,6 +81,9 @@ move around it to view it from different angles.
 #include "../renderer/Model.h"
 #include "../renderer/ModelManager.h"
 #include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
 
 class idRestoreGame;
 class idSaveGame;
@@ -1063,3 +1066,5 @@ void idTestModel::TestModelPrevFrame_f( const idCmdArgs& args )
 	
 	gameLocal.testmodel->PrevFrame( args );
 }
+
+} // namespace BFG

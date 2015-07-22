@@ -29,7 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_POSIX__
 #define __SYS_POSIX__
 
-#include <signal.h>
+#include <csignal>
+
+namespace BFG
+{
 
 void		Posix_QueEvent( sysEventType_t type, int value, int value2, int ptrLength, void* ptr );
 const char*	Posix_Cwd();
@@ -66,5 +69,7 @@ enum clk_id_t { CLOCK_REALTIME, CLOCK_MONOTONIC, CLOCK_MONOTONIC_RAW };
 int clock_gettime( clk_id_t clock, struct timespec* tp );
 #endif
 
-#endif
+} // namespace BFG
+
+#endif // __SYS_POSIX__
 

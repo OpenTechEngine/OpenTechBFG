@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "AASBuild_local.h"
 
+namespace BFG
+{
+
 #define VERTEX_HASH_BOXSIZE				(1<<6)	// must be power of 2
 #define VERTEX_HASH_SIZE				(VERTEX_HASH_BOXSIZE*VERTEX_HASH_BOXSIZE)
 #define EDGE_HASH_SIZE					(1<<14)
@@ -557,3 +560,5 @@ bool idAASBuild::StoreFile( const idBrushBSP& bsp )
 	
 	return true;
 }
+
+} // namespace BFG

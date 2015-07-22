@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
 #include "../d3xp/Player.h"
 #include "../d3xp/menus/MenuWidget.h"
@@ -34,9 +34,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_ScriptObject.h"
 #include "../swf/SWF_SpriteInstance.h"
 
-class idMaterial;
-
 #pragma hdrstop
+
+namespace BFG
+{
+
+class idMaterial;
 
 void idMenuWidget_ItemAssignment::SetIcon( int index, const idMaterial* icon )
 {
@@ -134,4 +137,4 @@ void idMenuWidget_ItemAssignment::Update()
 	}
 }
 
-
+} // namespace BFG

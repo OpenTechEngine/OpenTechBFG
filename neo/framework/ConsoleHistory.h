@@ -32,6 +32,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/containers/Array.h"
 #include "../idlib/sys/sys_assert.h"
 #include "../idlib/sys/sys_types.h"
+
+namespace BFG
+{
+
 /*
 
 This should behave like the windows command prompt, with the addition
@@ -82,5 +86,7 @@ private:
 };
 
 extern idConsoleHistory consoleHistory;
+
+} // namespace BFG
 
 #endif // !__CONSOLEHISTORY_H__

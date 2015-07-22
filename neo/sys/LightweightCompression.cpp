@@ -26,11 +26,14 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <string.h>
+#include <cstring>
 
 #include "../idlib/sys/sys_assert.h"
 #include "../idlib/sys/sys_types.h"
 #include "LightweightCompression.h"
+
+namespace BFG
+{
 
 /*
 ========================
@@ -572,3 +575,5 @@ int idZeroRunLengthCompressor::ReadInternal()
 	}
 	return *dest++;
 }
+
+} // namespace BFG

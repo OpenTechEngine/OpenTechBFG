@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/PlayerProfile.h"
@@ -37,6 +37,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 #include "../sys/sys_session.h"
 #include "../sys/sys_signin.h"
+
+namespace BFG
+{
 
 idCVar com_requireNonProductionSignIn( "com_requireNonProductionSignIn", "1", CVAR_BOOL | CVAR_ARCHIVE, "If true, will require sign in, even on non production builds." );
 extern idCVar fs_savepath;
@@ -292,3 +295,5 @@ localUserHandle_t idSignInManagerBase::GetUniqueLocalUserHandle( const char* nam
 	
 	return localUserHandle_t( handle );
 }
+
+} // namespace BFG

@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -36,6 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_lobby_backend.h"
 #include "../sys/sys_session.h"
 #include "sys_session_local.h"
+
+namespace BFG
+{
 
 class idBitMsg;
 
@@ -481,3 +484,5 @@ void idSessionLocalCallbacks::DestroyLobbyBackend( idLobbyBackend* lobbyBackend 
 {
 	sessionLocal->DestroyLobbyBackend( lobbyBackend );
 }
+
+} // namespace BFG

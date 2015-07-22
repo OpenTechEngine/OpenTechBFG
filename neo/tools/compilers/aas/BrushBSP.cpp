@@ -34,6 +34,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "Brush.h"
 #include "BrushBSP.h"
 
+namespace BFG
+{
 
 #define BSP_GRID_SIZE					512.0f
 #define SPLITTER_EPSILON				0.1f
@@ -2462,3 +2464,5 @@ void idBrushBSP::MeltPortals( int skipContents )
 	root->RemoveFlagRecurse( NODE_DONE );
 	common->Printf( "\r%6d points inserted\n", numInsertedPoints );
 }
+
+} // namespace BFG

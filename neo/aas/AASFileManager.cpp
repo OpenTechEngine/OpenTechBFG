@@ -27,12 +27,15 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../aas/AASFileManager.h"
 #include "../idlib/Heap.h"
 #include "AASFile.h"
 #include "AASFile_local.h"
+
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -80,3 +83,5 @@ void idAASFileManagerLocal::FreeAAS( idAASFile* file )
 {
 	delete file;
 }
+
+} // namespace BFG

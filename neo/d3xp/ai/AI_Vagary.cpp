@@ -34,7 +34,7 @@ Vagary specific AI code
 ***********************************************************************/
 
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../Game_local.h"
 #include "../d3xp/Actor.h"
@@ -55,6 +55,9 @@ Vagary specific AI code
 #include "../idlib/math/Matrix.h"
 #include "../idlib/math/Random.h"
 #include "../idlib/math/Vector.h"
+
+namespace BFG
+{
 
 class idAI_Vagary : public idAI
 {
@@ -179,3 +182,5 @@ void idAI_Vagary::Event_ThrowObjectAtEnemy( idEntity* ent, float speed )
 		ment->EnableDamage( true, 2.5f );
 	}
 }
+
+} // namespace BFG

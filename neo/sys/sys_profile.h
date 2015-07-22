@@ -31,12 +31,15 @@ If you have questions concerning this license or the applicable additional terms
 #ifdef _WIN32
 // KORTEMIK: namespaces collide
 #undef _mm_nmsub_ps
-#define _CSTRING_ 1
 #endif
+
 #include <memory>
 
 #include "sys_savegame.h"
 #include "sys_session_savegames.h"
+
+namespace BFG
+{
 
 class idFile_SaveGame;
 class idLocalUser;
@@ -124,4 +127,6 @@ private:
 // Synchronous check, just checks if a profile exists within the savegame location
 bool Sys_SaveGameProfileCheck();
 
-#endif
+} // namespace BFG
+
+#endif // __SYS_PROFILE_H__

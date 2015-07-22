@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/Actor.h"
@@ -48,6 +48,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Matrix.h"
 #include "../idlib/math/Vector.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 /*
 ================================================================================================
@@ -501,3 +504,5 @@ bool idAimAssist::ComputeTargetPos( idEntity* entity, idVec3& primaryTargetPos, 
 	
 	return false;
 }
+
+} // namespace BFG

@@ -35,7 +35,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/Common.h"
 #include "../framework/DeclManager.h"
@@ -54,6 +54,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "../renderer/Material.h"
 #include "CollisionModel_local.h"
+
+namespace BFG
+{
 
 class idMapEntity;
 
@@ -659,13 +662,21 @@ bool idCollisionModelManagerLocal::LoadCollisionModelFile( const char* name, uns
 		file->ReadString( fileVersion );
 		if( fileID == CM_FILEID && fileVersion == CM_FILEVERSION && crc == mapFileCRC && numEntries > 0 )
 		{
+			loaded = true; // DG: moved this up here to prevent segfaults, see below
 			for( int i = 0; i < numEntries; i++ )
 			{
 				cm_model_t* model = LoadBinaryModelFromFile( file, currentTimeStamp );
+				// DG: handle the case that loading the binary model fails gracefully
+				//     (otherwise we'll get a segfault when someone wants to use models[numModels])
+				if( model == NULL )
+				{
+					loaded = false;
+					break;
+				}
+				// DG end
 				models[ numModels ] = model;
 				numModels++;
 			}
-			loaded = true;
 		}
 	}
 	
@@ -757,3 +768,5 @@ bool idCollisionModelManagerLocal::LoadCollisionModelFile( const char* name, uns
 	
 	return true;
 }
+
+} // namespace BFG

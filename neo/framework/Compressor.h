@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../framework/File.h"          // for idFile
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -72,5 +75,7 @@ public:
 	virtual void			Flush() = 0;
 	virtual int				Seek( long offset, fsOrigin_t origin ) = 0;
 };
+
+} // namespace BFG
 
 #endif /* !__COMPRESSOR_H__ */

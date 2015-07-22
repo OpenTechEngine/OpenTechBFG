@@ -34,8 +34,8 @@ Contains the Image implementation for OpenGL.
 ================================================================================================
 */
 
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <GL/glew.h>
 
 #include "../framework/CVarSystem.h"
@@ -49,6 +49,9 @@ Contains the Image implementation for OpenGL.
 #include "../renderer/Material.h"
 #include "../renderer/RenderSystem.h"
 #include "../tr_local.h"
+
+namespace BFG
+{
 
 /*
 ========================
@@ -618,3 +621,5 @@ void idImage::Resize( int width, int height )
 	opts.height = height;
 	AllocImage();
 }
+
+} // namespace BFG

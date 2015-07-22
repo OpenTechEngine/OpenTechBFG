@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cstdlib>
+#include <cstring>
 
 #include "../aas/AASFile.h"
 #include "../cm/CollisionModel.h"
@@ -73,6 +73,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sound/sound.h"
 #include "../ui/UserInterface.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 // _D3XP : rename all gameLocal.time to gameLocal.slow.time for merge!
 
@@ -5574,3 +5577,5 @@ void idRiser::Event_Activate( idEntity* activator )
 		physicsObj.SetLinearExtrapolation( EXTRAPOLATION_LINEAR, gameLocal.slow.time, time * 1000, physicsObj.GetOrigin(), delta, vec3_origin );
 	}
 }
+
+} // namespace BFG

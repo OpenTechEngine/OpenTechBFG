@@ -33,6 +33,14 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "VertexCache.h"
 
+#include "jobs/ShadowShared.h"
+#include "jobs/prelightshadowvolume/PreLightShadowVolume.h"
+#include "jobs/staticshadowvolume/StaticShadowVolume.h"
+#include "jobs/dynamicshadowvolume/DynamicShadowVolume.h"
+
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -47,11 +55,6 @@ If you have questions concerning this license or the applicable additional terms
 #define MD5_ANIM_EXT			"md5anim"
 #define MD5_CAMERA_EXT			"md5camera"
 #define MD5_VERSION				10
-
-#include "jobs/ShadowShared.h"
-#include "jobs/prelightshadowvolume/PreLightShadowVolume.h"
-#include "jobs/staticshadowvolume/StaticShadowVolume.h"
-#include "jobs/dynamicshadowvolume/DynamicShadowVolume.h"
 
 // this is used for calculating unsmoothed normals and tangents for deformed models
 struct dominantTri_t
@@ -325,5 +328,7 @@ public:
 		return true;
 	};
 };
+
+} // namespace BFG
 
 #endif /* !__MODEL_H__ */

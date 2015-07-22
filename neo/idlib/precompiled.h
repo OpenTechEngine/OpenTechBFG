@@ -29,4 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __PRECOMPILED_H__
 #define __PRECOMPILED_H__
 
+namespace BFG
+{
+
+} // namespace BFG
+
 #endif /* !__PRECOMPILED_H__ */

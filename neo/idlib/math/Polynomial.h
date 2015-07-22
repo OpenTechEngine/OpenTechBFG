@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Complex.h"
 #include "../idlib/Heap.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -769,5 +772,7 @@ ID_INLINE void idPolynomial::Resize( int d, bool keep )
 	}
 	degree = d;
 }
+
+} // namespace BFG
 
 #endif /* !__MATH_POLYNOMIAL_H__ */

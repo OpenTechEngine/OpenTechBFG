@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_WEAPON_H__
 #define __GAME_WEAPON_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../d3xp/Entity.h"
 #include "../d3xp/Grabber.h"
@@ -46,6 +46,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Model.h"
 #include "../renderer/RenderWorld.h"
 #include "PredictedValue.h"
+
+namespace BFG
+{
 
 class idBitMsg;
 class idDeclEntityDef;
@@ -247,9 +250,9 @@ public:
 	{
 		return weaponDef;
 	}
-
-    void                    SetIronsight( bool i );
-
+	
+	void                    SetIronsight( bool i );
+	
 	friend class idPlayer;
 private:
 	// script control
@@ -260,7 +263,7 @@ private:
 	idScriptBool			WEAPON_NETFIRING;
 	idScriptBool			WEAPON_RAISEWEAPON;
 	idScriptBool			WEAPON_LOWERWEAPON;
-    idScriptBool            WEAPON_IRONSIGHT;
+	idScriptBool            WEAPON_IRONSIGHT;
 	weaponStatus_t			status;
 	idThread* 				thread;
 	idStr					state;
@@ -492,5 +495,7 @@ ID_INLINE idPlayer* idWeapon::GetOwner()
 {
 	return owner;
 }
+
+} // namespace BFG
 
 #endif /* !__GAME_WEAPON_H__ */

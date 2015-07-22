@@ -29,10 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #ifndef _WIN32
 #include <alloca.h>
+#undef _mm_nmsub_ps
 #endif
-#include <assert.h>
-#include <stdarg.h>
-#include <string.h>
+#include <cassert>
+#include <cstdarg>
+#include <cstring>
 
 #include "../framework/BuildVersion.h"
 #include "../framework/CVarSystem.h"
@@ -58,6 +59,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 #include "Common_local.h"
 #include "ConsoleHistory.h"
+
+namespace BFG
+{
 
 #define	CON_TEXTSIZE			0x30000
 #define	NUM_CON_TIMES			4
@@ -1499,3 +1503,5 @@ void idConsoleLocal::DrawDebugGraphs()
 		debugGraphs[i]->Render( renderSystem );
 	}
 }
+
+} // namespace BFG

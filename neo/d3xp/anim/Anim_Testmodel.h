@@ -33,7 +33,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../d3xp/Entity.h"
 #include "../d3xp/Actor.h"
 
-
+namespace BFG
+{
 
 /*
 ==============================================================================================
@@ -98,5 +99,7 @@ private:
 	
 	void					Event_Footstep();
 };
+
+} // namespace BFG
 
 #endif /* !__ANIM_TESTMODEL_H__*/

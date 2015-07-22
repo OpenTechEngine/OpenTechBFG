@@ -30,9 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <stddef.h>
+#include <cstddef>
 #include <stdint.h>
-#include <string.h>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"  // for idCVar, etc
 #include "../framework/Common.h"
@@ -50,7 +50,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sound/sound.h"
 #include "../sys/sys_public.h"
 
-extern idCVar s_noSound;
+
 
 //#define JPEG_INTERNALS
 //extern "C" {
@@ -58,6 +58,11 @@ extern idCVar s_noSound;
 //}
 
 #include "tr_local.h"
+
+namespace BFG
+{
+
+extern idCVar s_noSound;
 
 #define CIN_system	1
 #define CIN_loop	2
@@ -75,7 +80,7 @@ extern "C"
 #define INT64_C(c) (c ## LL)
 #define UINT64_C(c) (c ## ULL)
 #endif
-//#include <inttypes.h>
+//#include <cinttypes>
 //#endif
 
 #include <libavcodec/avcodec.h>
@@ -2538,3 +2543,5 @@ int idSndWindow::AnimationLength()
 {
 	return -1;
 }
+
+} // namespace BFG

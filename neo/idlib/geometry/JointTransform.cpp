@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Quat.h"
 #include "../idlib/math/Vector.h"
 
+namespace BFG
+{
+
 /*
 =============
 idJointMat::ToJointQuat
@@ -95,3 +98,5 @@ idJointQuat idJointMat::ToJointQuat() const
 	
 	return jq;
 }
+
+} // namespace BFG

@@ -33,7 +33,7 @@ Various utility objects and functions.
 
 #pragma hdrstop
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../aas/AASFile.h"
 #include "../cm/CollisionModel.h"
@@ -92,6 +92,9 @@ Various utility objects and functions.
 #include "../sound/sound.h"
 #include "../ui/UserInterface.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -4525,3 +4528,5 @@ void idPortalSky::Event_Activate( idEntity* activator )
 	gameLocal.portalSkyScale = spawnArgs.GetInt( "ps_scale", "16" );
 	gameLocal.SetPortalSkyEnt( this );
 }
+
+} // namespace BFG

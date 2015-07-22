@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -43,6 +43,10 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef _WIN32
 #include <unistd.h>
 #endif
+
+namespace BFG
+{
+
 #ifdef _DEBUG
 idCVar win_userPersistent( "win_userPersistent", "1", CVAR_BOOL, "debugging cvar for profile persistence status" );
 idCVar win_userOnline( "win_userOnline", "1", CVAR_BOOL, "debugging cvar for profile online status" );
@@ -187,3 +191,5 @@ CONSOLE_COMMAND( testRemoveAllLocalUsers, "Forces removal of local users - mainl
 {
 	session->GetSignInManager().RemoveAllLocalUsers();
 }
+
+} // namespace BFG

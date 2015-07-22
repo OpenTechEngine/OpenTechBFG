@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../d3xp/menus/MenuState.h"
 
+namespace BFG
+{
+
 class mpScoreboardInfo;
 class idSoundWorld;
 class idMenuScreen_HUD;
@@ -132,5 +135,6 @@ public:
 	virtual void					UpdateScoreboardSelection() = 0;
 };
 
+} // namespace BFG
 
 #endif //__MENUHANDLERINTERFACE_H__

@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"       // for idVec3, idVec2
 #include "../idlib/math/Math.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -2248,5 +2251,7 @@ ID_INLINE float* idMat6::ToFloatPtr()
 {
 	return mat[0].ToFloatPtr();
 }
+
+} // namespace BFG
 
 #endif /* !__MATH_MATRIX_H__ */

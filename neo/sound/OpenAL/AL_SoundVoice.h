@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../sound/SoundVoice.h"  // for idSoundVoice
 
+namespace BFG
+{
+
 static const int MAX_QUEUED_BUFFERS = 3;
 
 /*
@@ -149,4 +152,6 @@ class idSoundVoice : public idSoundVoice_OpenAL
 {
 };
 
-#endif
+} // namespace BFG
+
+#endif // __AL_SOUNDVOICE_H__

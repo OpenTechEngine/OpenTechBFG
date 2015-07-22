@@ -30,6 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/sys/sys_types.h"
 
+namespace BFG
+{
+
 class idBounds;
 class idShadowVert;
 class idVec3;
@@ -52,5 +55,7 @@ bool R_LineIntersectsTriangleExpandedWithSphere( const idVec3& lineStart, const 
 		const float sphereRadius, const idVec3& triVert0, const idVec3& triVert1, const idVec3& triVert2 );
 bool R_ViewInsideShadowVolume( byte* cullBits, const idShadowVert* verts, int numVerts, const triIndex_t* indexes, int numIndexes,
 							   const idVec3& localLightOrigin, const idVec3& localViewOrigin, const float zNear );
+							   
+} // namespace BFG
 
 #endif // !__SHADOWSHARED_H__

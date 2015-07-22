@@ -33,6 +33,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/containers/HashIndex.h"
 #include "../idlib/math/Plane.h"
 
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -93,5 +95,7 @@ ID_INLINE int idPlaneSet::FindPlane( const idPlane& plane, const float normalEps
 		return ( Num() - 2 );
 	}
 }
+
+} // namespace BFG
 
 #endif /* !__PLANESET_H__ */

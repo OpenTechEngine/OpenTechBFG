@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #include <emmintrin.h>
-#include <stddef.h>
+#include <cstddef>
 #include <xmmintrin.h>
 #include <GL/glew.h>
 
@@ -41,6 +41,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys/sys_intrinsics.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 idCVar r_showBuffers( "r_showBuffers", "0", CVAR_INTEGER, "" );
 
@@ -993,3 +996,5 @@ void idJointBuffer::Swap( idJointBuffer& other )
 	SwapValues( other.offsetInOtherBuffer, offsetInOtherBuffer );
 	SwapValues( other.apiObject, apiObject );
 }
+
+} // namespace BFG

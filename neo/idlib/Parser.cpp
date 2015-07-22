@@ -28,18 +28,18 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <math.h>                       // for fabs
-#include <stdarg.h>
-#include <stdarg.h>                     // for va_end, va_list, va_start
-#include <stdio.h>
-#include <stdio.h>                      // for NULL, sprintf, vsprintf
-#include <stdlib.h>
-#include <stdlib.h>                     // for abs
-#include <string.h>
-#include <string.h>                     // for strlen, strcpy
-#include <time.h>
-#include <time.h>                       // for ctime, time, time_t
+#include <cmath>
+#include <cmath>                       // for fabs
+#include <cstdarg>
+#include <cstdarg>                     // for va_end, va_list, va_start
+#include <cstdio>
+#include <cstdio>                      // for NULL, sprintf, vsprintf
+#include <cstdlib>
+#include <cstdlib>                     // for abs
+#include <cstring>
+#include <cstring>                     // for strlen, strcpy
+#include <ctime>
+#include <ctime>                       // for ctime, time, time_t
 
 #include "../framework/../framework/CmdSystem.h"
 #include "../framework/CmdSystem.h"  // for CONSOLE_COMMAND
@@ -63,6 +63,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys/sys_assert.h"
 #include "sys/sys_defines.h"
 
+namespace BFG
+{
 
 //#define DEBUG_EVAL
 #define MAX_DEFINEPARMS				128
@@ -112,7 +114,7 @@ int idParser::RemoveGlobalDefine( const char* name )
 	
 	for( prev = NULL, d = idParser::globaldefines; d; prev = d, d = d->next )
 	{
-		if( !strcmp( d->name, name ) )
+		if( !idStr::Cmp( d->name, name ) )
 		{
 			break;
 		}
@@ -235,7 +237,7 @@ define_t* idParser::FindHashedDefine( define_t** definehash, const char* name )
 	hash = PC_NameHash( name );
 	for( d = definehash[hash]; d; d = d->hashnext )
 	{
-		if( !strcmp( d->name, name ) )
+		if( !idStr::Cmp( d->name, name ) )
 		{
 			return d;
 		}
@@ -254,7 +256,7 @@ define_t* idParser::FindDefine( define_t* defines, const char* name )
 	
 	for( d = defines; d; d = d->next )
 	{
-		if( !strcmp( d->name, name ) )
+		if( !idStr::Cmp( d->name, name ) )
 		{
 			return d;
 		}
@@ -389,7 +391,7 @@ void idParser::Error( const char* str, ... ) const
 	va_list ap;
 	
 	va_start( ap, str );
-	vsprintf( text, str, ap );
+	std::vsprintf( text, str, ap );
 	va_end( ap );
 	if( idParser::scriptstack )
 	{
@@ -408,7 +410,7 @@ void idParser::Warning( const char* str, ... ) const
 	va_list ap;
 	
 	va_start( ap, str );
-	vsprintf( text, str, ap );
+	std::vsprintf( text, str, ap );
 	va_end( ap );
 	if( idParser::scriptstack )
 	{
@@ -849,7 +851,7 @@ int idParser::ExpandBuiltinDefine( idToken* deftoken, define_t* define, idToken*
 	{
 		case BUILTIN_LINE:
 		{
-			sprintf( buf, "%d", deftoken->line );
+			std::sprintf( buf, "%d", deftoken->line );
 			( *token ) = buf;
 			token->intvalue = deftoken->line;
 			token->floatvalue = deftoken->line;
@@ -1250,7 +1252,7 @@ int idParser::Directive_undef()
 	hash = PC_NameHash( token.c_str() );
 	for( lastdefine = NULL, define = idParser::definehash[hash]; define; define = define->hashnext )
 	{
-		if( !strcmp( define->name, token.c_str() ) )
+		if( !idStr::Cmp( define->name, token.c_str() ) )
 		{
 			if( define->flags & DEFINE_FIXED )
 			{
@@ -1387,7 +1389,7 @@ int idParser::Directive_define()
 	do
 	{
 		t = new( TAG_IDLIB_PARSER ) idToken( token );
-		if( t->type == TT_NAME && !strcmp( t->c_str(), define->name ) )
+		if( t->type == TT_NAME && !idStr::Cmp( t->c_str(), define->name ) )
 		{
 			t->flags |= TOKEN_FL_RECURSIVE_DEFINE;
 			idParser::Warning( "recursive define (removed recursion)" );
@@ -2531,7 +2533,7 @@ int idParser::Directive_eval()
 	token.whiteSpaceEnd_p = NULL;
 	token.linesCrossed = 0;
 	token.flags = 0;
-	sprintf( buf, "%d", abs( value ) );
+	std::sprintf( buf, "%d", abs( value ) );
 	token = buf;
 	token.type = TT_NUMBER;
 	token.subtype = TT_INTEGER | TT_LONG | TT_DECIMAL;
@@ -2564,7 +2566,7 @@ int idParser::Directive_evalfloat()
 	token.whiteSpaceEnd_p = NULL;
 	token.linesCrossed = 0;
 	token.flags = 0;
-	sprintf( buf, "%1.2f", idMath::Fabs( value ) );
+	std::sprintf( buf, "%1.2f", idMath::Fabs( value ) );
 	token = buf;
 	token.type = TT_NUMBER;
 	token.subtype = TT_FLOAT | TT_LONG | TT_DECIMAL;
@@ -2701,7 +2703,7 @@ int idParser::DollarDirective_evalint()
 	token.whiteSpaceEnd_p = NULL;
 	token.linesCrossed = 0;
 	token.flags = 0;
-	sprintf( buf, "%d", abs( value ) );
+	std::sprintf( buf, "%d", abs( value ) );
 	token = buf;
 	token.type = TT_NUMBER;
 	token.subtype = TT_INTEGER | TT_LONG | TT_DECIMAL | TT_VALUESVALID;
@@ -2736,7 +2738,7 @@ int idParser::DollarDirective_evalfloat()
 	token.whiteSpaceEnd_p = NULL;
 	token.linesCrossed = 0;
 	token.flags = 0;
-	sprintf( buf, "%1.2f", fabs( value ) );
+	std::sprintf( buf, "%1.2f", fabs( value ) );
 	token = buf;
 	token.type = TT_NUMBER;
 	token.subtype = TT_FLOAT | TT_LONG | TT_DECIMAL | TT_VALUESVALID;
@@ -3783,7 +3785,7 @@ int idParser::GetPunctuationId( const char* p )
 	
 	for( i = 0; idParser::punctuations[i].p; i++ )
 	{
-		if( !strcmp( idParser::punctuations[i].p, p ) )
+		if( !idStr::Cmp( idParser::punctuations[i].p, p ) )
 		{
 			return idParser::punctuations[i].n;
 		}
@@ -3893,3 +3895,4 @@ bool idParser::EndOfFile()
 	return true;
 }
 
+} // namespace BFG

@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../d3xp/menus/MenuState.h"
 
+namespace BFG
+{
+
 class idPlayer;
 class idMaterial;
 class idDeclPDA;
@@ -89,5 +92,7 @@ public:
 	virtual void UpdateFlashlight( idPlayer* player ) = 0;
 	virtual void UpdateChattingHud( idPlayer* player ) = 0;
 };
+
+} // namespace BFG
 
 #endif // __MENUSCREENINTERFACE_H__

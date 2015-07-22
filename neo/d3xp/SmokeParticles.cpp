@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 
 #include "../d3xp/Entity.h"
 #include "../d3xp/SmokeParticles.h"
@@ -45,6 +45,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/ModelManager.h"
 #include "../renderer/RenderWorld.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 static const char* smokeParticle_SnapshotName = "_SmokeParticle_Snapshot_";
 
@@ -513,3 +516,5 @@ bool idSmokeParticles::ModelCallback( renderEntity_s* renderEntity, const render
 	
 	return true;
 }
+
+} // namespace BFG

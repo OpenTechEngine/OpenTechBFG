@@ -36,6 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../renderer/RenderWorld.h"
 
+namespace BFG
+{
+
 class idDeclParticle;
 class idParticleStage;
 /*
@@ -111,5 +114,7 @@ private:
 	bool						UpdateRenderEntity( renderEntity_s* renderEntity, const renderView_t* renderView );
 	static bool					ModelCallback( renderEntity_s* renderEntity, const renderView_t* renderView );
 };
+
+} // namespace BFG
 
 #endif /* !__SMOKEPARTICLES_H__ */

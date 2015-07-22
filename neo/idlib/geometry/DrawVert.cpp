@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/math/Vector.h"
 
+namespace BFG
+{
+
 /*
 ============
 idShadowVert::CreateShadowCache
@@ -80,3 +83,5 @@ int idShadowVertSkinned::CreateShadowCache( idShadowVertSkinned* vertexCache, co
 	}
 	return numVerts * 2;
 }
+
+} // namespace BFG

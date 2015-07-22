@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/math/Vector.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -412,5 +415,7 @@ ID_INLINE float* idPluecker::ToFloatPtr()
 {
 	return p;
 }
+
+} // namespace BFG
 
 #endif /* !__MATH_PLUECKER_H__ */

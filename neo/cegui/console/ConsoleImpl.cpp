@@ -178,9 +178,9 @@ void ConsoleImpl::Execute( CEGUI::String inMsg )
 	if( strlen( cmd ) >= 1 )
 	{
 	
-		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, cmd );	// valid command
-		cmdSystem->BufferCommandText( CMD_EXEC_APPEND, "\n" );
-		consoleHistory.AddToHistory( cmd );
+		BFG::cmdSystem->BufferCommandText( BFG::CMD_EXEC_APPEND, cmd );	// valid command
+		BFG::cmdSystem->BufferCommandText( BFG::CMD_EXEC_APPEND, "\n" );
+		BFG::consoleHistory.AddToHistory( cmd );
 	}
 }
 
@@ -188,7 +188,7 @@ void ConsoleImpl::PopulateHistory( void )
 {
 	// TODO implement cegui window historylist aka the dropdown list,
 	// should be filled on access
-	idStr hist = consoleHistory.RetrieveFromHistory( true );
+	BFG::idStr hist = BFG::consoleHistory.RetrieveFromHistory( true );
 }
 
 void ConsoleImpl::TabComplete( void )
@@ -200,8 +200,8 @@ void ConsoleImpl::TabComplete( void )
 									
 		CEGUI::String cmdStub = ConsoleWin->getChild( "Combobox" )->getText();
 		
-		cmdSystem->CommandCompletion( AutoCompleteCallback ); // function pointer to our static member function
-		cmdSystem->ArgCompletion( cmdStub.c_str(), AutoCompleteCallback );
+		BFG::cmdSystem->CommandCompletion( AutoCompleteCallback ); // function pointer to our static member function
+		BFG::cmdSystem->ArgCompletion( cmdStub.c_str(), AutoCompleteCallback );
 		
 		// TODO perhaps we could cycle the completions in the field with tab
 		this->ourVars->tabCompletions.sort();
@@ -228,7 +228,7 @@ void ConsoleImpl::AutoCompleteCallback( const char* s )
 	// for now let's test and print..
 	
 	// accessing friend class for function pointer
-	CEGUIConsole::Console* ourConsole = dynamic_cast<CEGUIConsole::Console*>( console );
+	CEGUIConsole::Console* ourConsole = dynamic_cast<CEGUIConsole::Console*>( BFG::console );
 	ourConsole->ourVars->consoleInstance->TabCompleteListAdd( CEGUI::String( s ) );
 }
 
@@ -246,7 +246,7 @@ void ConsoleImpl::TabCompleteListAdd( CEGUI::String option )
 			CEGUI::String cmdStub = ConsoleWin->getChild( "Combobox" )->getText();
 			
 			// stub matches fully to this option
-			if( idStr::Icmpn( option.c_str(), cmdStub.c_str(), strlen( cmdStub.c_str() ) ) == 0 )
+			if( BFG::idStr::Icmpn( option.c_str(), cmdStub.c_str(), strlen( cmdStub.c_str() ) ) == 0 )
 			{
 				// add the partitial match
 				// TODO color the matching part

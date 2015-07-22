@@ -1,0 +1,15 @@
+MAIN MENU/Campaign
+- Continue Game
+- New Game
+- Load Game
+
+MAIN MENU/Campaign/Load Game
+- List: @Save name@
+
+MAIN MENU/Campaign/Load Game/@Save name@
+- Date
+- Time
+- Difficulty
+- Time Played
+- Campaign name
+- Delete

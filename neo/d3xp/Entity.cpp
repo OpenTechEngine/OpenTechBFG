@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cstdlib>
+#include <cstring>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/AFEntity.h"
@@ -97,6 +97,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h"
 #include "../ui/UserInterface.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 class idDeclSkin;
 
@@ -6787,3 +6790,5 @@ void idAnimatedEntity::Event_GetJointAngle( jointHandle_t jointnum )
 	idVec3 vec( ang[ 0 ], ang[ 1 ], ang[ 2 ] );
 	idThread::ReturnVector( vec );
 }
+
+} // namespace BFG

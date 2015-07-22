@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 
 #include "../framework/Common.h"
 #include "../framework/FileSystem.h"
@@ -43,6 +43,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "Model_ma.h"
 #include "sys/../idlib/sys/sys_defines.h"
 #include "sys/sys_types.h"
+
+namespace BFG
+{
 
 /*
 ======================================================================
@@ -1043,7 +1046,7 @@ bool MA_ParseConnectAttr( idParser& parser )
 		//Is this an attribute for one of our meshes
 		for( int i = 0; i < maGlobal.model->objects.Num(); i++ )
 		{
-			if( !strcmp( maGlobal.model->objects[i]->name, srcName ) )
+			if( !idStr::Cmp( maGlobal.model->objects[i]->name, srcName ) )
 			{
 				//maGlobal.model->objects[i]->materialRef = MA_AddMaterial(destName);
 				strcpy( maGlobal.model->objects[i]->materialName, destName );
@@ -1325,3 +1328,5 @@ void MA_Free( maModel_t* ma )
 	ma->materialNodes.Clear();
 	delete ma;
 }
+
+} // namespace BFG

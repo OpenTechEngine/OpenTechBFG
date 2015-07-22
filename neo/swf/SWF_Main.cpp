@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/DeclManager.h"
@@ -54,6 +54,9 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 
 #pragma warning(disable: 4355) // 'this' : used in base member initializer list
+
+namespace BFG
+{
 
 idCVar swf_loadBinary( "swf_loadBinary", "1", CVAR_INTEGER, "used to set whether to load binary swf from generated" );
 
@@ -812,3 +815,5 @@ void idSWF::idSWFScriptNativeVar_crop::Set( idSWFScriptObject* object, const idS
 {
 	pThis->crop = value.ToBool();
 }
+
+} // namespace BFG

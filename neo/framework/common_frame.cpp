@@ -27,9 +27,9 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#pragma hdrstop
 
-#include <stddef.h>
+
+#include <cstddef>
 #include <algorithm>
 
 #include "../d3xp/Game.h"
@@ -59,12 +59,17 @@ If you have questions concerning this license or the applicable additional terms
 #include "Common_local.h"
 #include "sys/sys_savegame.h"
 
-struct emptyCommand_t;
+#pragma hdrstop
 
 #ifdef _WIN32
-// KORTEMIK: namespaces collide
+// macro collision
 #undef min
 #endif
+
+namespace BFG
+{
+
+struct emptyCommand_t;
 
 /*
 
@@ -796,7 +801,7 @@ void idCommonLocal::Frame()
 			int	nowTime = Sys_Milliseconds();
 			int	com_frameMsec = nowTime - lastTime;
 			lastTime = nowTime;
-			Printf( "frame:%d all:%3d gfr:%3d rf:%3" PRId64 " bk:%3" PRId64 "\n", idLib::frameNumber, com_frameMsec, time_gameFrame, time_frontend / 1000, time_backend / 1000 );
+			Printf( "frame:%d all:%3d gfr:%3d rf:%3" BFG_PRId64 " bk:%3" BFG_PRId64 "\n", idLib::frameNumber, com_frameMsec, time_gameFrame, time_frontend / 1000, time_backend / 1000 );
 			time_gameFrame = 0;
 			time_gameDraw = 0;
 		}
@@ -829,3 +834,4 @@ void idCommonLocal::Frame()
 	}
 }
 
+} // namespace BFG

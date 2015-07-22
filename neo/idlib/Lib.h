@@ -29,13 +29,14 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __LIB_H__
 #define __LIB_H__
 
-#include <stddef.h>
-#include <string.h>
+#include <cstddef>
+#include <cstring>
 
 #include "../idlib/sys/sys_threading.h"
 #include "sys/sys_types.h"              // for byte, dword
 
-
+namespace BFG
+{
 /*
 ===============================================================================
 
@@ -342,4 +343,7 @@ public:
 #include "SoftwareCache.h"
 */
 
+} // namespace BFG
+
 #endif	/* !__LIB_H__ */
+

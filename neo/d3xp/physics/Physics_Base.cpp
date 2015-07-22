@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../cm/CollisionModel.h"
@@ -47,6 +47,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Rotation.h"
 #include "../idlib/math/Vector.h"
 #include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
 
 class idBitMsg;
 
@@ -980,3 +983,5 @@ idPhysics_Base::ReadFromSnapshot
 void idPhysics_Base::ReadFromSnapshot( const idBitMsg& msg )
 {
 }
+
+} // namespace BFG

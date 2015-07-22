@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <ctype.h>
-#include <string.h>
+#include <cctype>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -43,6 +43,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 static autoComplete_t	globalAutoComplete;
 
@@ -721,3 +724,5 @@ void idEditField::Draw( int x, int y, int width, bool showCursor )
 	
 	renderSystem->DrawSmallChar( x + ( cursor - prestep ) * size, y, cursorChar );
 }
+
+} // namespace BFG

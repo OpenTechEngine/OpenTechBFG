@@ -45,13 +45,18 @@ If you have questions concerning this license or the applicable additional terms
 #if defined(_WIN32)
 #undef LONG
 #include <windows.h>
-
+namespace BFG
+{
 typedef CRITICAL_SECTION		mutexHandle_t;
 typedef HANDLE					signalHandle_t;
 typedef LONG					interlockedInt_t;
+} // namespace BFG
 #else
 
 #include <pthread.h>
+
+namespace BFG
+{
 
 struct signalHandle_t
 {
@@ -66,8 +71,14 @@ struct signalHandle_t
 
 typedef pthread_mutex_t			mutexHandle_t;
 typedef int						interlockedInt_t;
+
+} // namespace BFG
 #endif
+
 // RB end
+
+namespace BFG
+{
 
 // _ReadWriteBarrier() does not translate to any instructions but keeps the compiler
 // from reordering read and write instructions across the barrier.
@@ -136,29 +147,29 @@ public:
 	{
 		pthread_key_create( &key, NULL );
 	}
-	
+
 	idSysThreadLocalStorage( const ptrdiff_t& val )
 	{
 		pthread_key_create( &key, NULL );
 		pthread_setspecific( key, ( const void* ) val );
 	}
-	
+
 	~idSysThreadLocalStorage()
 	{
 		pthread_key_delete( key );
 	}
-	
+
 	operator ptrdiff_t()
 	{
 		return ( ptrdiff_t )pthread_getspecific( key );
 	}
-	
+
 	const ptrdiff_t& operator = ( const ptrdiff_t& val )
 	{
 		pthread_setspecific( key, ( const void* ) val );
 		return val;
 	}
-	
+
 	pthread_key_t	key;
 };
 #endif
@@ -208,7 +219,7 @@ uintptr_t			Sys_GetCurrentThreadID();
 uintptr_t			Sys_CreateThread( xthread_t function, void* parms, xthreadPriority priority,
 									  const char* name, core_t core, int stackSize = DEFAULT_THREAD_STACK_SIZE,
 									  bool suspended = false );
-
+									  
 // RB begin
 // removed unused Sys_WaitForThread
 void				Sys_DestroyThread( uintptr_t threadHandle );
@@ -248,5 +259,7 @@ enum
 	CRITICAL_SECTION_TWO,
 	CRITICAL_SECTION_THREE
 };
+
+} // namespace BFG
 
 #endif	// !__SYS_THREADING_H__

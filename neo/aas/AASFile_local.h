@@ -29,6 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __AASFILELOCAL_H__
 #define __AASFILELOCAL_H__
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -96,5 +99,7 @@ private:
 	idVec3						AreaReachableGoal( int areaNum ) const;
 	int							NumReachabilities() const;
 };
+
+} // namespace BFG
 
 #endif /* !__AASFILELOCAL_H__ */

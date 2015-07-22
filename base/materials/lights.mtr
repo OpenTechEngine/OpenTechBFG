@@ -1,0 +1,84 @@
+lights/defaultPointLight
+{
+	lightFalloffImage	makeintensity( lights/squarelight1a.tga )	// this will also be the falloff for any
+																	// point light shaders that don't specify one
+	{
+		forceHighQuality
+		map lights/squarelight1.tga
+		colored
+		zeroClamp
+	}
+}
+lights/defaultProjectedLight
+{
+	lightFalloffImage	_noFalloff		// by default, stay bright almost all the way to the end
+	{
+		forceHighQuality
+		map lights/squarelight1.tga
+		colored
+		zeroClamp
+	}
+}
+
+
+lights/ambientLight
+{
+	ambientLight
+	lightFalloffImage	makeintensity( lights/squarelight1a.tga )
+	{
+		forceHighQuality
+		map lights/squarelight1.tga
+		colored
+		zeroClamp
+	}
+}
+
+
+lights/ambientLight2
+{
+	ambientLight
+	lightFalloffImage	makeintensity( lights/squarelight1a.tga )
+	{
+		forceHighQuality
+		map lights/squarelight.tga
+		colored
+		zeroClamp
+	}
+}
+
+
+//parm 3=flicker speed	parm 4=offset
+
+lights/nofalloff
+{
+	lightFalloffImage _noFalloff
+	{
+//		forceHighQuality
+		map	lights/nofalloff.tga
+		colored
+		zeroClamp
+	}
+}
+
+lights/fleshlight
+{
+	fleshlight
+	lightFalloffImage makeintensity( lights/squarelight1b.tga )
+	{
+		forceHighQuality
+		map lights/flashlight.tga
+		colored
+		zeroClamp
+	}
+}
+
+lights/fake_ies
+{
+	fake_ies
+	lightFalloffImage makeintensity( lights/squarelight1b.tga )
+	{
+	map lights/fake_ies.tga
+	colored
+	zeroClamp
+	}
+}

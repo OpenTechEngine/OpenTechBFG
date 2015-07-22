@@ -36,6 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../d3xp/Projectile.h"
 #include "../d3xp/Misc.h"  // for idFuncEmitter
 
+namespace BFG
+{
+
 class idAI;
 
 /*
@@ -753,5 +756,7 @@ private:
 	void				Event_Activate( idEntity* activator );
 	void				Event_MarkUsed();
 };
+
+} // namespace BFG
 
 #endif /* !__AI_H__ */

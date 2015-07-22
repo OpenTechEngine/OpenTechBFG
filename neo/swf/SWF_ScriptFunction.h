@@ -28,14 +28,17 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SWF_SCRIPTFUNCTION_H__
 #define __SWF_SCRIPTFUNCTION_H__
 
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 
 #include "../idlib/Heap.h"
 #include "../idlib/containers/List.h"
 #include "../idlib/sys/sys_types.h"
 #include "../swf/SWF_ScriptObject.h"
 #include "../swf/SWF_ScriptVar.h"
+
+namespace BFG
+{
 
 class idSWFBitStream;
 class idSWFParmList;
@@ -290,5 +293,7 @@ private:
 	};
 	idList< parmInfo_t, TAG_SWF > parameters;
 };
+
+} // namespace BFG
 
 #endif // !__SWF_SCRIPTFUNCTION_H__

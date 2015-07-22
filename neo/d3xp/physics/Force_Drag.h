@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../d3xp/physics/Force.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -73,5 +76,7 @@ private:
 	idVec3				p;				// position on clip model
 	idVec3				dragPosition;	// drag towards this position
 };
+
+} // namespace BFG
 
 #endif /* !__FORCE_DRAG_H__ */

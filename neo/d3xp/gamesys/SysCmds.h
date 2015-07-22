@@ -29,6 +29,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_CMDS_H__
 #define __SYS_CMDS_H__
 
+namespace BFG
+{
+
 void	D_DrawDebugLines();
+
+} // namespace BFG
 
 #endif /* !__SYS_CMDS_H__ */

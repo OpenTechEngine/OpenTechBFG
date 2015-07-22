@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <ctype.h>
-#include <string.h>
+#include <cctype>
+#include <cstring>
 
 #include "../framework/Common.h"
 #include "../framework/DeclManager.h"
@@ -44,6 +44,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "Model_local.h"
 #include "Model_md3.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 class idMaterial;
 
@@ -411,3 +414,4 @@ idBounds idRenderModelMD3::Bounds( const struct renderEntity_s* ent ) const
 	return ret;
 }
 
+} // namespace BFG

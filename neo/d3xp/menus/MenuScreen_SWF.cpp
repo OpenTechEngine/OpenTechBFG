@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
 #include "../d3xp/menus/MenuHandler_SWF.h"
 #include "../d3xp/menus/MenuScreen_SWF.h"
@@ -40,6 +40,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_SpriteInstance.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 idMenuScreen::idMenuScreen()
 {
@@ -399,3 +402,4 @@ void idMenuScreen::HandleMenu( const mainMenuTransition_t type )
 	transition = type;
 }
 
+} // namespace BFG

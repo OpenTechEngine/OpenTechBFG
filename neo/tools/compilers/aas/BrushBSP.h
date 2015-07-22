@@ -35,6 +35,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/MapFile.h"
 #include "../tools/compilers/aas/Brush.h"
 
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -305,5 +307,7 @@ private:
 	void					MeltLeafNodePortals( idBrushBSPNode* node, int skipContents, idVectorSet<idVec3, 3>& vertexList );
 	void					MeltPortals_r( idBrushBSPNode* node, int skipContents, idVectorSet<idVec3, 3>& vertexList );
 };
+
+} // namespace BFG
 
 #endif /* !__BRUSHBSP_H__ */

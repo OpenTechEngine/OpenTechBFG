@@ -27,10 +27,10 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <math.h>
-#include <stddef.h>
-#include <string.h>
+#include <cassert>
+#include <cmath>
+#include <cstddef>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../aas/AASFile.h"
@@ -59,6 +59,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_defines.h"
 #include "../renderer/RenderWorld.h"
 #include "bv/Box.h"
+
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -1814,3 +1817,5 @@ bool idAI::PredictTrajectory( const idVec3& firePos, const idVec3& target, float
 	// there is no collision free trajectory
 	return false;
 }
+
+} // namespace BFG

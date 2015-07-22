@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>                       // for sin, cos, atan2
-#include <stdio.h>                      // for NULL, sscanf
+#include <cmath>                       // for sin, cos, atan2
+#include <cstdio>                      // for NULL, sscanf
 #include "../framework/Common.h"        // for idCommon
 #include "../framework/File.h"          // for idFile
 #include "../framework/FileSystem.h"    // for idFileSystem, etc
@@ -46,6 +46,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/geometry/DrawVert.h"          // for idDrawVert
 #include "../idlib/geometry/Surface.h"           // for idSurface
 #include "../idlib/sys/sys_defines.h"            // for ID_INLINE
+
+namespace BFG
+{
 
 /*
 ===============
@@ -1140,3 +1143,5 @@ bool idMapFile::NeedsReload()
 	}
 	return true;
 }
+
+} // namespace BFG

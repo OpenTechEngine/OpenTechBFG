@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_PROJECTILE_H__
 #define __GAME_PROJECTILE_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/Entity.h"
@@ -45,6 +45,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Matrix.h"
 #include "../idlib/math/Vector.h"
 #include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
 
 class idBitMsg;
 class idDeclParticle;
@@ -376,5 +379,7 @@ private:
 	void					Event_Explode();
 	void					Event_Fizzle();
 };
+
+} // namespace BFG
 
 #endif /* !__GAME_PROJECTILE_H__ */

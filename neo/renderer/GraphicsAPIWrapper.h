@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../renderer/ScreenRect.h"     // for idScreenRect
 
+namespace BFG
+{
+
 /*
 ================================================================================================
 
@@ -194,5 +197,8 @@ bool			GL_CheckErrors_( const char* filename, int line );
 wrapperStats_t	GL_GetCurrentStats();
 void			GL_ClearStats();
 
+const void GL_BlockingSwapBuffers();
+
+} // namespace BFG
 
 #endif // !__GRAPHICSAPIWRAPPER_H__

@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <math.h>
-#include <stddef.h>
+#include <cmath>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../idlib/LangDict.h"
@@ -50,6 +50,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_Types.h"
 #include "../sys/sys_public.h"
 #include "SWF_TextInstance.h"
+
+namespace BFG
+{
 
 idSWFScriptObject_TextInstancePrototype textInstanceScriptObjectPrototype;
 
@@ -1638,3 +1641,5 @@ SWF_TEXT_FUNCTION_DEFINE( addSubtitleInfo )
 	pThis->subtitleTimingInfo.Append( info );
 	return idSWFScriptVar();
 }
+
+} // namespace BFG

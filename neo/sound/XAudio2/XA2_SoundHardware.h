@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../framework/DebugGraph.h"
 
+namespace BFG
+{
+
 class idSoundSample_XAudio2;
 class idSoundVoice_XAudio2;
 // RB
@@ -130,4 +133,6 @@ class idSoundHardware : public idSoundHardware_XAudio2
 {
 };
 
-#endif
+} // namespace BFG
+
+#endif // __XA_SOUNDHARDWARE_H__

@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstdlib>
 
 #include "../framework/CmdSystem.h"
 #include "../framework/Common.h"
@@ -48,6 +48,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "UserInterfaceLocal.h"
 #include "Window.h"
 #include "Winvar.h"
+
+namespace BFG
+{
 
 /*
 =========================
@@ -769,3 +772,5 @@ void idGuiScriptList::ReadFromSaveGame( idFile* savefile )
 		list[i]->ReadFromSaveGame( savefile );
 	}
 }
+
+} // namespace BFG

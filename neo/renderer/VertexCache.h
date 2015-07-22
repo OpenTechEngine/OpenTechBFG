@@ -34,6 +34,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "../renderer/BufferObject.h"
 
+namespace BFG
+{
+
 const int VERTCACHE_INDEX_MEMORY_PER_FRAME = 31 * 1024 * 1024;
 const int VERTCACHE_VERTEX_MEMORY_PER_FRAME = 31 * 1024 * 1024;
 const int VERTCACHE_JOINT_MEMORY_PER_FRAME = 256 * 1024;
@@ -192,5 +195,7 @@ public:
 void CopyBuffer( byte* dst, const byte* src, int numBytes );
 
 extern	idVertexCache	vertexCache;
+
+} // namespace BFG
 
 #endif // __VERTEXCACHE2_H__

@@ -29,6 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __PHYSICS_STATICMULTI_H__
 #define __PHYSICS_STATICMULTI_H__
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -157,5 +160,7 @@ protected:
 	bool					hasMaster;
 	bool					isOrientated;
 };
+
+} // namespace BFG
 
 #endif /* !__PHYSICS_STATICMULTI_H__ */

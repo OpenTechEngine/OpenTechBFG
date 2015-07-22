@@ -36,8 +36,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include <windows.h>
 
-#include <errno.h>
-#include <float.h>
+#include <cerrno>
+#include <cfloat>
 #include <fcntl.h>
 #include <direct.h>
 #include <io.h>
@@ -55,6 +55,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "win_local.h"
 #include "../renderer/tr_local.h"
 #include "../framework/Licensee.h"
+
+namespace BFG {
 
 idCVar Win32Vars_t::sys_arch( "sys_arch", "", CVAR_SYSTEM | CVAR_INIT, "" );
 idCVar Win32Vars_t::sys_cpustring( "sys_cpustring", "detect", CVAR_SYSTEM | CVAR_INIT, "" );
@@ -229,7 +231,7 @@ void Sys_Error( const char *error, ... ) {
     MSG        msg;
 
 	va_start( argptr, error );
-	vsprintf( text, error, argptr );
+	std::vsprintf( text, error, argptr );
 	va_end( argptr);
 
 	Conbuf_AppendText( text );
@@ -1480,6 +1482,8 @@ EXCEPTION_DISPOSITION __cdecl _except_handler( struct _EXCEPTION_RECORD *Excepti
 							/*	FPU_EXCEPTION_INEXACT_RESULT |			*/	\
 								0
 
+} // namespace BFG
+
 /*
 ==================
 WinMain
@@ -1489,9 +1493,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	const HCURSOR hcurSave = ::SetCursor( LoadCursor( 0, IDC_WAIT ) );
 
-	Sys_SetPhysicalWorkMemory( 192 << 20, 1024 << 20 );
+	BFG::Sys_SetPhysicalWorkMemory( 192 << 20, 1024 << 20 );
 
-	Sys_GetCurrentMemoryStatus( exeLaunchMemoryStats );
+	BFG::Sys_GetCurrentMemoryStatus( BFG::exeLaunchMemoryStats );
 
 #if 0
     DWORD handler = (DWORD)_except_handler;
@@ -1503,17 +1507,17 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
     }
 #endif
 
-	win32.hInstance = hInstance;
-	idStr::Copynz( sys_cmdline, lpCmdLine, sizeof( sys_cmdline ) );
+	BFG::win32.hInstance = hInstance;
+	BFG::idStr::Copynz( BFG::sys_cmdline, lpCmdLine, sizeof( BFG::sys_cmdline ) );
 
 	// done before Com/Sys_Init since we need this for error output
-	Sys_CreateConsole();
+	BFG::Sys_CreateConsole();
 
 	// no abort/retry/fail errors
 	SetErrorMode( SEM_FAILCRITICALERRORS );
 
-	for ( int i = 0; i < MAX_CRITICAL_SECTIONS; i++ ) {
-		InitializeCriticalSection( &win32.criticalSections[i] );
+	for ( int i = 0; i < BFG::MAX_CRITICAL_SECTIONS; i++ ) {
+		InitializeCriticalSection( &BFG::win32.criticalSections[i] );
 	}
 
 	// make sure the timer is high precision, otherwise
@@ -1521,61 +1525,63 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	timeBeginPeriod( 1 );
 
 	// get the initial time base
-	Sys_Milliseconds();
+	BFG::Sys_Milliseconds();
 
 #ifdef DEBUG
 	// disable the painfully slow MS heap check every 1024 allocs
-	_CrtSetDbgFlag( 0 );
+	BFG::_CrtSetDbgFlag( 0 );
 #endif
 
 //	Sys_FPU_EnableExceptions( TEST_FPU_EXCEPTIONS );
-	Sys_FPU_SetPrecision( FPU_PRECISION_DOUBLE_EXTENDED );
+	BFG::Sys_FPU_SetPrecision( BFG::FPU_PRECISION_DOUBLE_EXTENDED );
 
-	common->Init( 0, NULL, lpCmdLine );
+	BFG::common->Init( 0, NULL, lpCmdLine );
 
 #if TEST_FPU_EXCEPTIONS != 0
-	common->Printf( Sys_FPU_GetState() );
+	BFG::common->Printf( Sys_FPU_GetState() );
 #endif
 
-	if ( win32.win_notaskkeys.GetInteger() ) {
-		DisableTaskKeys( TRUE, FALSE, /*( win32.win_notaskkeys.GetInteger() == 2 )*/ FALSE );
+	if ( BFG::win32.win_notaskkeys.GetInteger() ) {
+		BFG::DisableTaskKeys( TRUE, FALSE, /*( win32.win_notaskkeys.GetInteger() == 2 )*/ FALSE );
 	}
 
 	// hide or show the early console as necessary
-	if ( win32.win_viewlog.GetInteger() ) {
-		Sys_ShowConsole( 1, true );
+	if ( BFG::win32.win_viewlog.GetInteger() ) {
+		BFG::Sys_ShowConsole( 1, true );
 	} else {
-		Sys_ShowConsole( 0, false );
+		BFG::Sys_ShowConsole( 0, false );
 	}
 
 #ifdef SET_THREAD_AFFINITY 
 	// give the main thread an affinity for the first cpu
-	SetThreadAffinityMask( GetCurrentThread(), 1 );
+	BFG::SetThreadAffinityMask( GetCurrentThread(), 1 );
 #endif
 
 	::SetCursor( hcurSave );
 
-	::SetFocus( win32.hWnd );
+	::SetFocus( BFG::win32.hWnd );
 
     // main game loop
 	while( 1 ) {
 
-		Win_Frame();
+		BFG::Win_Frame();
 
 #ifdef DEBUG
-		Sys_MemFrame();
+		BFG::Sys_MemFrame();
 #endif
 
 		// set exceptions, even if some crappy syscall changes them!
-		Sys_FPU_EnableExceptions( TEST_FPU_EXCEPTIONS );
+		BFG::Sys_FPU_EnableExceptions( TEST_FPU_EXCEPTIONS );
 
 		// run the game
-		common->Frame();
+		BFG::common->Frame();
 	}
 
 	// never gets here
 	return 0;
 }
+
+namespace BFG {
 
 /*
 ==================
@@ -1699,3 +1705,5 @@ const char* Sys_GetLastErrorString()
 	return lastErrorBuf;
 }
 // DG end
+
+} // namespace BFG

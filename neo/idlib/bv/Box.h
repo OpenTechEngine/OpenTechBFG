@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../idlib/bv/Bounds.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -333,5 +336,7 @@ ID_INLINE void idBox::AxisProjection( const idMat3& ax, idBounds& bounds ) const
 		bounds[1][i] = d1 + d2;
 	}
 }
+
+} // namespace BFG
 
 #endif /* !__BV_BOX_H__ */

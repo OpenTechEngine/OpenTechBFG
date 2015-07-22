@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_BEARSHOOT_WINDOW_H__
 #define __GAME_BEARSHOOT_WINDOW_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Str.h"
 #include "../idlib/containers/List.h"
@@ -36,6 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../ui/SimpleWindow.h"
 #include "../ui/Window.h"
 #include "../ui/Winvar.h"
+
+namespace BFG
+{
 
 class idFile;
 class idGameBearShootWindow;
@@ -144,5 +147,7 @@ private:
 	BSEntity*			wind;
 	BSEntity*			gunblast;
 };
+
+} // namespace BFG
 
 #endif //__GAME_BEARSHOOT_WINDOW_H__

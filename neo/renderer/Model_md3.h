@@ -31,7 +31,11 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../idlib/math/Vector.h"
 
+namespace BFG
+{
+
 class idMaterial;
+
 /*
 ========================================================================
 
@@ -153,5 +157,7 @@ typedef struct md3Header_s
 	
 	int			ofsEnd;				// end of file
 } md3Header_t;
+
+} // namespace BFG
 
 #endif /* !__MODEL_MD3_H__ */

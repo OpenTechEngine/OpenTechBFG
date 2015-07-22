@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../d3xp/Game_defines.h"
 
+namespace BFG
+{
+
 class idScriptObject;
 class idEventDef;
 class idVarDef;
@@ -698,5 +701,7 @@ ID_INLINE const char* idProgram::GetFilenameForStatement( int index )
 {
 	return GetFilename( statements[ index ].file );
 }
+
+} // namespace BFG
 
 #endif /* !__SCRIPT_PROGRAM_H__ */

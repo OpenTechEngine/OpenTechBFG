@@ -14,8 +14,8 @@ Contains the windows implementation of the network session
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -37,6 +37,9 @@ Contains the windows implementation of the network session
 #include "sys/common/signin.h"
 #include "sys/sys_lobby.h"
 #include "sys/sys_lobby_backend.h"
+
+namespace BFG
+{
 
 class idBitMsg;
 class idCallback;
@@ -777,3 +780,5 @@ bool idSessionLocalWin::GetNetAddressFromLobbyAddress( const lobbyAddress_t& lob
 {
 	return false;
 }
+
+} // namespace BFG

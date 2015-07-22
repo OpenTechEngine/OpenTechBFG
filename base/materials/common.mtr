@@ -1,0 +1,335 @@
+// all that stuff in textures/common/ - invisible in the game, used in the editor
+// for clipping, some entites etc
+//
+// the materials have the same properties as the ones from Doom3 (I hope), 
+// but were rewritten from scratch.
+//
+// (C) 2012 Daniel Gibson, licensed under WTPFL v2 (see COPYING.txt)
+
+// "// FIXME: TRANSPARENCY" means that I'd like this to be half-transparent
+//  in the radiant - but I don't know how to do that in a portable way (so it 
+//  works in d3radiant, netradiant, DarkRadiant, ...) yet.
+
+
+// create obstacle in AAS
+textures/common/aasobstacle
+{
+	qer_editorimage textures/common/aasobstacle.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	aasobstacle
+	
+	nonsolid
+	noShadows
+}
+
+// create solid brush in AAS
+textures/common/aassolid
+{
+	qer_editorimage textures/common/aassolid.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	aassolid
+	
+	nonsolid
+	noShadows
+}
+
+// to be used with func_aas_portal
+textures/editor/aasportal
+{
+	qer_editorimage	textures/common/aasportal.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	
+	noShadows
+}
+
+// to be used by func_radiochatter
+textures/editor/radiochatter
+{
+	qer_editorimage	textures/common/radiochatter.tga
+	qer_nocarve // disallow CSG operations on brushes with this texture
+	
+	noShadows
+}
+
+// this defines a portal, seperating areas of the map.
+// when within the players POV it's "open", else "closed".
+// if it's in a func_door it's closed when the door is closed.
+// see https://modwiki.xnet.fi/Visportal
+textures/common/visportal
+{
+	qer_editorimage	textures/common/visportal.tga
+	areaportal
+	
+	noShadows
+}
+
+
+// ##################################################################################
+
+// use this to seal off places that cannot be possibly seen by the player.
+// e.g. behind patches (you can't see through them, but they don't seal off your
+// map to the void/other areas, thus possibly causing leaks).
+// see https://modwiki.xnet.fi/Caulk
+textures/common/caulk
+{
+	qer_editorimage	textures/common/caulk.tga
+	forceOpaque 
+	
+	noShadows
+}
+
+// to be used with models: if they has faces (at least one..) with such a texture, 
+// these faces (and not the visible ones) are used for collision detection
+textures/common/collision
+{
+	qer_editorimage	textures/common/collision.tga
+	collision
+		noShadows
+}
+
+// invisible face that is solid to the player, 
+// but doesn't deal falling damage. Kinda like a cushion..
+// Useful to put above jump pads etc
+textures/common/cushion
+{
+	qer_editorimage	textures/common/cushion.tga
+	nodamage
+	nonsolid
+	playerclip
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+// the player can climb brushes with this material.
+// mostly solid, but not for projectiles
+textures/common/ladder
+{
+	qer_editorimage	textures/common/ladder.tga
+	ladder
+	playerclip
+	monsterclip
+	nonsolid
+	noimpact
+	
+	noShadows
+}
+
+// a simple mirror
+textures/common/mirror
+{
+	qer_editorimage	textures/common/mirror.tga
+	mirror
+	
+	{
+	 	blend add
+	 	//map textures/common/mirror.tga
+	}
+	
+	discrete
+	solid
+}
+
+// Faces with this texture aren't drawn and are not solid.
+// useful e.g. if you don't want all faces of your brush to be drawn 
+// or for most sides of a visportal brush
+textures/common/nodraw
+{
+	qer_editorimage	textures/common/nodraw.tga
+	nonsolid
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+// For faces (or whole brushes) that are invisible but have collision
+// (i.e. nothing can pass them)
+textures/common/nodrawsolid
+{
+	qer_editorimage	textures/common/nodrawsolid.tga
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+// projectiles will just disappear into brushes with this texture
+// instead of exploding or similar
+textures/common/noimpact
+{
+	qer_editorimage	textures/common/noimpact
+	noimpact
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+// For brushes that are invisible but cast shadows anyway
+textures/common/shadow
+{
+	qer_editorimage	textures/common/shadow.tga
+	forceShadows
+	nonsolid
+	// FIXME: TRANSPARENCY
+}
+
+// For brushes that are invisible but cast shadows anyway - *but* don't cast
+// shadows upon themselves or other faces with "noselfshadow" materials
+textures/common/shadow2
+{
+	qer_editorimage	textures/common/shadow2.tga
+	forceshadows
+	noSelfShadow
+	nonsolid
+	// FIXME: TRANSPARENCY
+}
+
+// brushes with this (invisible) texture cause the player to slide
+textures/common/slick
+{
+	qer_editorimage	textures/common/slick.tga
+	slick
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+// ##########  Clips   ##########
+
+// solid for monsters and players, but not for missiles
+textures/common/clip
+{
+	qer_editorimage textures/common/clip.tga
+	monsterclip
+	playerclip
+	noimpact
+	
+	nonsolid
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+// clips everything, just like a solid brush
+textures/common/clip_full
+{
+	qer_editorimage textures/common/full_clip.tga
+	monsterclip
+	playerclip
+	moveableclip
+	
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+// solid only for inverse kinematics, i.e. makes feet stay on top of this
+// see http://www.iddevnet.com/doom3/walkik.php and 
+// http://en.wikipedia.org/wiki/Inverse_kinematics#Inverse_kinematics_and_3D_animation
+textures/common/clip_ik
+{
+	qer_editorimage textures/common/ikclip.tga
+	ikclip
+	
+	nonsolid
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+// solid only for monsters
+textures/common/clip_monsters
+{
+	qer_editorimage textures/common/monster_clip.tga
+	monsterclip
+	
+	nonsolid
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+// only solid for moveables (e.g. articulated figures, rigid bodies)
+textures/common/clip_moveables
+{
+	qer_editorimage textures/common/moveable_clip.tga
+	moveableclip
+	
+	nonsolid
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+// solid only for players, not for monsters, projectiles etc
+textures/common/clip_player
+{
+	qer_editorimage textures/common/player_clip.tga
+	playerclip
+	noimpact
+	
+	nonsolid
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+// like normal clip, but also clips moveables (e.g. articulated figures, rigid bodies)
+textures/common/clip_plusmovables
+{
+	qer_editorimage textures/common/clipplus.tga
+	monsterclip
+	playerclip
+	noimpact
+	moveableclip
+	
+	nonsolid
+	noShadows
+	// FIXME: TRANSPARENCY
+}
+
+
+// ########## GUI surfaces ##########
+
+// for GUI (interactive) surfaces on entities.
+// the entity must have a "gui" key with a path to an
+// appropriate GUI file, e.g. "guis/wurst.gui"
+textures/common/entityGui
+{
+	qer_editorimage textures/common/entitygui.tga
+	guisurf entity
+	
+	playerclip
+	discrete
+}
+
+// for additional (second) GUI (interactive) surfaces on entities.
+// the entity must have a "gui2" key with a path to an
+// appropriate GUI file, e.g. "guis/wurst2.gui"
+textures/common/entityGui2
+{
+	qer_editorimage textures/common/entitygui2.tga
+	guisurf entity2
+	
+	playerclip
+	discrete
+}
+
+// for additional (third) GUI (interactive) surfaces on entities.
+// the entity must have a "gui3" key with a path to an
+// appropriate GUI file, e.g. "guis/wurst3.gui"
+textures/common/entityGui3
+{
+	qer_editorimage textures/common/entitygui3.tga
+	guisurf entity3
+	
+	playerclip
+	discrete
+}
+
+// FIXME: not sure what this is for and if it's even used
+textures/common/pda_gui
+{
+	qer_editorimage textures/common/pdagui.tga
+	
+	// guisurf TODO: path to gui for level-map or something like that
+	
+	discrete
+}
+
+
+// TODO: particle (not even sure what that is supposed to do or if it's used)
+
+// Note: triggers are in another file

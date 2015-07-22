@@ -28,10 +28,10 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
 
 #include "../aas/AASFile.h"
 #include "../cm/CollisionModel.h"
@@ -80,6 +80,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Model.h"
 #include "Game_local.h"
 
+#ifdef _WIN32
+#undef FindText
+#endif
+
+namespace BFG
+{
 
 /***********************************************************************
 
@@ -4052,3 +4058,5 @@ void idActor::Event_GetWaitState()
 		idThread::ReturnString( "" );
 	}
 }
+
+} // namespace BFG

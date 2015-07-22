@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../Game_local.h"
 #include "../d3xp/gamesys/Class.h"
@@ -41,6 +41,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Math.h"
 #include "../idlib/math/Random.h"
 #include "../idlib/math/Vector.h"
+
+namespace BFG
+{
 
 CLASS_DECLARATION( idForce, idForce_Grab )
 END_CLASS
@@ -213,3 +216,4 @@ void idForce_Grab::RemovePhysics( const idPhysics* phys )
 	}
 }
 
+} // namespace BFG

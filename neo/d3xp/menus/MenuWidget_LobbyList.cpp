@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
 #include "../d3xp/menus/MenuWidget.h"
 #include "../idlib/Str.h"
@@ -37,6 +37,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 /*
 ========================
@@ -153,3 +156,4 @@ void idMenuWidget_LobbyList::SetEntryData( int index, idStr name, voiceStateDisp
 	button->SetButtonInfo( name, voiceState );
 }
 
+} // namespace BFG

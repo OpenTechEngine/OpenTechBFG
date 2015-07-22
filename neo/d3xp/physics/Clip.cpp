@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../cm/CollisionModel.h"
@@ -54,6 +54,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "../renderer/Material.h"
 #include "../renderer/RenderWorld.h"
+
+namespace BFG
+{
 
 class idClass;
 
@@ -2086,3 +2089,5 @@ bool idClip::DrawModelContactFeature( const contactInfo_t& contact, const idClip
 	
 	return true;
 }
+
+} // namespace BFG

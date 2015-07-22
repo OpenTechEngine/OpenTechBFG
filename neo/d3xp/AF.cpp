@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <stdio.h>
+#include <cassert>
+#include <cstdio>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/AF.h"
@@ -63,6 +63,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_defines.h"
 #include "../renderer/Model.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 class idClass;
 
@@ -1484,3 +1487,5 @@ void idAF::RemoveBindConstraints()
 	
 	hasBindConstraints = false;
 }
+
+} // namespace BFG

@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../renderer/Model.h"          // for idRenderModel
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -444,5 +447,7 @@ public:
 	// Text drawing for debug visualization.
 	virtual void			DrawText( const char* text, const idVec3& origin, float scale, const idVec4& color, const idMat3& viewAxis, const int align = 1, const int lifetime = 0, bool depthTest = false ) = 0;
 };
+
+} // namespace BFG
 
 #endif /* !__RENDERWORLD_H__ */

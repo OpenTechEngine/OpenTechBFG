@@ -29,12 +29,15 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MULTIPLAYERGAME_H__
 #define	__MULTIPLAYERGAME_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Str.h"
 #include "../idlib/math/Vector.h"
 #include "../idlib/sys/sys_defines.h"
 #include "../d3xp/Game_defines.h"
+
+namespace BFG
+{
 
 /*
 ===============================================================================
@@ -376,5 +379,6 @@ ID_INLINE void idMultiplayerGame::ClearFrags( int clientNum )
 	playerState[ clientNum ].fragCount = 0;
 }
 
-#endif	/* !__MULTIPLAYERGAME_H__ */
+} // namespace BFG
 
+#endif	/* !__MULTIPLAYERGAME_H__ */

@@ -35,6 +35,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/Str.h"
 #include "../idlib/BitMsg.h"
 
+namespace BFG
+{
 
 /*
 ==============================================================
@@ -455,6 +457,6 @@ protected:
 	idFile* file;	// The managed file pointer.
 };
 
-
+} // namespace BFG
 
 #endif /* !__FILE_H__ */

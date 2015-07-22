@@ -30,6 +30,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "dmap.h"
 
+namespace BFG
+{
+
 int			c_faceLeafs;
 
 
@@ -560,3 +563,4 @@ bspface_t*	MakeVisibleBspFaceList( primitive_t* list )
 	return flist;
 }
 
+} // namespace BFG

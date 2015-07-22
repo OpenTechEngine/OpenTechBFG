@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 #include "../d3xp/MultiplayerGame.h"
 #include "../d3xp/Player.h"
@@ -47,6 +47,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderWorld.h"
 #include "Game_local.h"
 #include "PlayerIcon.h"
+
+namespace BFG
+{
 
 static const char* iconKeys[ ICON_NONE ] =
 {
@@ -224,3 +227,4 @@ void idPlayerIcon::UpdateIcon( idPlayer* player, const idVec3& origin, const idM
 	gameRenderWorld->UpdateEntityDef( iconHandle, &renderEnt );
 }
 
+} // namespace BFG

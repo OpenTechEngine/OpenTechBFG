@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../Game_local.h"
 #include "../d3xp/anim/Anim.h"
@@ -54,6 +54,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "../renderer/Model.h"
 #include "../sys/sys_public.h"
+
+namespace BFG
+{
 
 idCVar binaryLoadAnim( "binaryLoadAnim", "1", 0, "enable binary load/write of idMD5Anim" );
 
@@ -1356,3 +1359,5 @@ void idAnimManager::FlushUnusedAnims()
 		delete removeAnims[ i ];
 	}
 }
+
+} // namespace BFG

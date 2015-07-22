@@ -25,10 +25,10 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
-#include "../d3xp/menus/MenuHandler_SWF.h"
-#include "../d3xp/menus/MenuScreen_SWF.h"
+#include "../d3xp/menus/MenuHandler.h"
+#include "../d3xp/menus/MenuScreen.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/CVarSystem.h"
 #include "../framework/PlayerProfile.h"
@@ -47,6 +47,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_session.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 const static int NUM_CONTROLS_OPTIONS = 8;
 
@@ -537,3 +540,4 @@ bool idMenuScreen_Shell_Gamepad::idMenuDataSource_GamepadSettings::IsDataChanged
 	return false;
 }
 
+} // namespace BFG

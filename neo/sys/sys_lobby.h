@@ -29,8 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_LOBBY_H__
 #define __SYS_LOBBY_H__
 
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 #include "../framework/Common_dialog.h"
 #include "../idlib/Lib.h"
@@ -43,6 +43,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/SnapshotProcessor.h"
 #include "../sys/sys_session.h"
 #include "sys_lobby_backend.h"
+
+namespace BFG
+{
 
 class idBitMsg;
 class idLocalUser;
@@ -1030,4 +1033,6 @@ public:
 	virtual ~idSessionCallbacks() {};
 };
 
-#endif
+} // namespace BFG
+
+#endif // __SYS_LOBBY_H__

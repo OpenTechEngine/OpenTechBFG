@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 #include <xmmintrin.h>
 
 #include "../framework/CVarSystem.h"
@@ -43,6 +43,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/ScreenRect.h"
 #include "sys/sys_intrinsics.h"
 #include "tr_local.h"
+
+namespace BFG
+{
 
 /*
 ==========================================================================================
@@ -586,3 +589,5 @@ void R_MatrixFullInverse( const float a[16], float r[16] )
 	}
 }
 // RB end
+
+} // namespace BFG

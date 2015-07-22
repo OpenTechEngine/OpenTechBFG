@@ -28,6 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __BINARYIMAGEDATA_H__
 #define __BINARYIMAGEDATA_H__
 
+namespace BFG
+{
+
 /*
 ================================================================================================
 
@@ -66,5 +69,7 @@ struct bimageFile_t
 	// one or more bimageImage_t structures follow
 };
 #pragma pack( pop )
+
+} // namespace BFG
 
 #endif // __BINARYIMAGEDATA_H__

@@ -31,7 +31,7 @@ If you have questions concerning this license or the applicable additional terms
 PreLightShadowVolumeJob
 ===================
 */
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"
@@ -39,6 +39,9 @@ PreLightShadowVolumeJob
 #include "../renderer/jobs/prelightshadowvolume/../ShadowShared.h"
 #include "../renderer/jobs/prelightshadowvolume/PreLightShadowVolume.h"
 #include "ParallelJobList.h"
+
+namespace BFG
+{
 
 void PreLightShadowVolumeJob( const preLightShadowVolumeParms_t* parms )
 {
@@ -112,3 +115,5 @@ void PreLightShadowVolumeJob( const preLightShadowVolumeParms_t* parms )
 }
 
 REGISTER_PARALLEL_JOB( PreLightShadowVolumeJob, "PreLightShadowVolumeJob" );
+
+} // namespace BFG

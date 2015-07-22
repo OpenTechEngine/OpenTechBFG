@@ -28,10 +28,10 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 #include <stdint.h>
-#include <string.h>
+#include <cstring>
 
 #include "../Game_local.h"
 #include "../d3xp/Entity.h"
@@ -53,6 +53,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/hashing/MD4.h"
 #include "../idlib/math/Vector.h"
 #include "../idlib/sys/sys_types.h"
+
+namespace BFG
+{
 
 // simple types.  function types are dynamically allocated
 idTypeDef	type_void( ev_void, &def_void, "void", 0, NULL );
@@ -666,7 +669,7 @@ void idTypeDef::AddFunction( const function_t* func )
 	
 	for( i = 0; i < functions.Num(); i++ )
 	{
-		if( !strcmp( functions[ i ]->def->Name(), func->def->Name() ) )
+		if( !idStr::Cmp( functions[ i ]->def->Name(), func->def->Name() ) )
 		{
 			if( func->def->TypeDef()->MatchesVirtualFunction( *functions[ i ]->def->TypeDef() ) )
 			{
@@ -1304,7 +1307,7 @@ byte* idScriptObject::GetVariable( const char* name, etype_t etype ) const
 		for( i = 0; i < t->NumParameters(); i++ )
 		{
 			parm = t->GetParmType( i );
-			if( !strcmp( t->GetParmName( i ), name ) )
+			if( !idStr::Cmp( t->GetParmName( i ), name ) )
 			{
 				if( etype != parm->FieldType()->Type() )
 				{
@@ -1372,7 +1375,7 @@ idTypeDef* idProgram::GetType( idTypeDef& type, bool allocate )
 
 	for( int i = typesHash.First( idStr::Hash( type.Name() ) ); i != -1; i = typesHash.Next( i ) )
 	{
-		if( types[ i ]->MatchesType( type ) && !strcmp( types[ i ]->Name(), type.Name() ) )
+		if( types[ i ]->MatchesType( type ) && !idStr::Cmp( types[ i ]->Name(), type.Name() ) )
 		{
 			return types[ i ];
 		}
@@ -1400,7 +1403,7 @@ idTypeDef* idProgram::FindType( const char* name )
 	for( int i = typesHash.First( idStr::Hash( name ) ); i != -1; i = typesHash.Next( i ) )
 	{
 		idTypeDef* check = types[ i ];
-		if( !strcmp( check->Name(), name ) )
+		if( !idStr::Cmp( check->Name(), name ) )
 		{
 			return check;
 		}
@@ -1462,9 +1465,9 @@ byte* idProgram::ReserveDefMemory( int size )
 	if( numVariables > sizeof( variables ) )
 	{
 #if defined(USE_EXCEPTIONS)
-		throw idCompileError( va( "Exceeded global memory size (%" PRIiSIZE " bytes)", sizeof( variables ) ) );
+		throw idCompileError( va( "Exceeded global memory size (%" BFG_PRIiSIZE " bytes)", sizeof( variables ) ) );
 #else
-		gameLocal.Error( "Exceeded global memory size (%" PRIiSIZE " bytes)", sizeof( variables ) );
+		gameLocal.Error( "Exceeded global memory size (%" BFG_PRIiSIZE " bytes)", sizeof( variables ) );
 #endif
 	}
 	
@@ -1512,7 +1515,7 @@ idVarDef* idProgram::AllocDef( idTypeDef* type, const char* name, idVarDef* scop
 		//
 		// vector
 		//
-		if( !strcmp( name, RESULT_STRING ) )
+		if( !idStr::Cmp( name, RESULT_STRING ) )
 		{
 			// <RESULT> vector defs don't need the _x, _y and _z components
 			assert( scope->Type() == ev_function );
@@ -2598,3 +2601,5 @@ void idProgram::ReturnEntity( idEntity* ent )
 		*returnDef->value.entityNumberPtr = 0;
 	}
 }
+
+} // namespace BFG

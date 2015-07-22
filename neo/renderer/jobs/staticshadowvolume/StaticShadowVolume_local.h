@@ -44,4 +44,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../ShadowShared.h"
 #include "StaticShadowVolume.h"
 
+namespace BFG
+{
+
+} // namespace BFG
+
 #endif // !__STATICSHADOWVOLUME_LOCAL_H__

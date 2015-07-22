@@ -34,16 +34,19 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 //#include "local.h"
 
-#include <assert.h>
+#include <cassert>
 // DG: needed for Sys_ReLaunch()
 #include <dirent.h>
-#include <errno.h>
+#include <cerrno>
 #include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <sys/stat.h>
 #include <unistd.h>
+
+namespace BFG
+{
 
 static const char** cmdargv = NULL;
 static int cmdargc = 0;
@@ -513,6 +516,8 @@ void Sys_ReLaunch()
 	// DG end
 }
 
+} // namespace BFG
+
 /*
 ===============
 main
@@ -521,30 +526,30 @@ main
 int main( int argc, const char** argv )
 {
 	// DG: needed for Sys_ReLaunch()
-	cmdargc = argc;
-	cmdargv = argv;
+	BFG::cmdargc = argc;
+	BFG::cmdargv = argv;
 	// DG end
 #ifdef ID_MCHECK
 	// must have -lmcheck linkage
-	mcheck( abrt_func );
-	Sys_Printf( "memory consistency checking enabled\n" );
+	BFG::mcheck( abrt_func );
+	BFG::Sys_Printf( "memory consistency checking enabled\n" );
 #endif
 	
-	Posix_EarlyInit( );
+	BFG::Posix_EarlyInit( );
 	
 	if( argc > 1 )
 	{
-		common->Init( argc - 1, &argv[1], NULL );
+		BFG::common->Init( argc - 1, &argv[1], NULL );
 	}
 	else
 	{
-		common->Init( 0, NULL, NULL );
+		BFG::common->Init( 0, NULL, NULL );
 	}
 	
-	Posix_LateInit( );
+	BFG::Posix_LateInit( );
 	
 	while( 1 )
 	{
-		common->Frame();
+		BFG::common->Frame();
 	}
 }

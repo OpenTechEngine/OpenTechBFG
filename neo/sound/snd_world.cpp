@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -65,6 +65,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sound/sound.h"
 #include "../sound/snd_defines.h"
 #include "snd_local.h"
+
+namespace BFG
+{
 
 idCVar s_lockListener( "s_lockListener", "0", CVAR_BOOL, "lock listener updates" );
 idCVar s_constantAmplitude( "s_constantAmplitude", "-1", CVAR_FLOAT, "" );
@@ -1306,3 +1309,5 @@ void idSoundWorldLocal::SetEnviroSuit( bool active )
 {
 	enviroSuitActive = active;
 }
+
+} // namespace BFG

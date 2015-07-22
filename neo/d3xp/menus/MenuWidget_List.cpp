@@ -25,10 +25,10 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 
-#include "../d3xp/menus/MenuHandler_SWF.h"
+#include "../d3xp/menus/MenuHandler.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../idlib/LangDict.h"
 #include "../idlib/Str.h"
@@ -42,6 +42,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_SpriteInstance.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 /*
 ================================================================================================
@@ -500,3 +503,4 @@ int idMenuWidget_GameBrowserList::GetServerIndex()
 	
 }
 
+} // namespace BFG

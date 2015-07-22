@@ -36,6 +36,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/File_Manifest.h"  // for idPreloadManifest, etc
 #include "../framework/FileSystem.h"    // for FILE_NOT_FOUND_TIMESTAMP, etc
 #include "../framework/Common.h"        // for MemInfo_t
+#include "../renderer/ImageOpts.h"
+
+namespace BFG
+{
 
 /*
 ====================================================================
@@ -431,5 +435,7 @@ IMAGEPROGRAM
 
 void R_LoadImageProgram( const char* name, byte** pic, int* width, int* height, ID_TIME_T* timestamp, textureUsage_t* usage = NULL );
 const char* R_ParsePastImageProgram( idLexer& src );
+
+} // namespace BFG
 
 #endif // !__IMAGE_H__

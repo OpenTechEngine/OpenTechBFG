@@ -36,8 +36,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/VecX.h"
 #include "../idlib/math/Vector.h"
 
-class idRotation;
+namespace BFG
+{
 
+class idRotation;
 
 idBox box_zero( vec3_zero, vec3_zero, mat3_identity );
 
@@ -929,3 +931,5 @@ int idBox::GetParallelProjectionSilhouetteVerts( const idVec3& projectionDir, id
 	
 	return index[0];
 }
+
+} // namespace BFG

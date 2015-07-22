@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>                       // for M_PI
+#include <cmath>                       // for M_PI
 #include <stdint.h>                     // for intptr_t
 
 #include "../idlib/math/Math.h"         // for idMath
@@ -41,7 +41,13 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_assert.h"             // for assert, etc
 #include "../idlib/sys/sys_intrinsics.h"         // for _mm_madd_ps, __m128c, etc
 
+#if defined(USE_INTRINSICS)
+#include <emmintrin.h>                  // for _mm_set_epi32
+#include <xmmintrin.h>                  // for __m128, _mm_load_ps, etc
+#endif
 
+namespace BFG
+{
 
 //===============================================================
 //                                                        M
@@ -50,9 +56,6 @@ If you have questions concerning this license or the applicable additional terms
 //===============================================================
 
 #if defined(USE_INTRINSICS)
-
-#include <emmintrin.h>                  // for _mm_set_epi32
-#include <xmmintrin.h>                  // for __m128, _mm_load_ps, etc
 
 #ifndef M_PI // DG: this is already defined in math.h
 #define M_PI	3.14159265358979323846f
@@ -988,3 +991,4 @@ void VPCALL idSIMD_SSE::UntransformJoints( idJointMat* jointMats, const int* par
 
 #endif // #if defined(USE_INTRINSICS)
 
+} // namespace BFG

@@ -32,8 +32,17 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/File.h"          // for idFile, idFile_Memory
 #include "sys_localuser.h"
 
-struct lobbyConnectInfo_t;
+namespace BFG
+{
 
+extern idCVar net_maxSearchResultsToTry;
+extern idCVar net_peer_throttle_bps_host_threshold;
+extern idCVar net_peer_throttle_bps_peer_threshold_pct;
+extern idCVar net_useGameStateLobby;
+extern idCVar net_bw_challenge_enable;
+extern idCVar si_splitscreen;
+
+struct lobbyConnectInfo_t;
 
 typedef uint8 peerMask_t;
 static const int MAX_PLAYERS			= 8;
@@ -751,5 +760,7 @@ ID_INLINE int idSession::GetInputRouting( int inputRouting[ MAX_INPUT_DEVICES ] 
 }
 
 extern idSession* session;
+
+} // namespace BFG
 
 #endif // __SYS_SESSION_H__

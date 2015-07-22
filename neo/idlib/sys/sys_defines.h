@@ -29,6 +29,17 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef SYS_DEFINES_H
 #define SYS_DEFINES_H
 
+#ifdef _MSC_VER
+// checking format strings catches a LOT of errors
+#include <CodeAnalysis\SourceAnnotations.h>
+#endif
+
+#ifdef __cplusplus
+namespace BFG
+{
+#endif // __cplusplus
+
+
 /*
 ================================================================================================
 
@@ -211,9 +222,6 @@ bulk of the codebase, so it is the best place for analyze pragmas.
 // win32 needs this, but 360 doesn't
 #pragma warning( disable: 6540 )	// warning C6540: The use of attribute annotations on this function will invalidate all of its existing __declspec annotations [D:\tech5\engine\engine-10.vcxproj]
 
-
-// checking format strings catches a LOT of errors
-#include <CodeAnalysis\SourceAnnotations.h>
 #define	VERIFY_FORMAT_STRING	[SA_FormatString(Style="printf")]
 // DG: alternative for GCC with attribute (NOOP for MSVC)
 #define ID_STATIC_ATTRIBUTE_PRINTF(STRIDX, FIRSTARGIDX)
@@ -259,7 +267,7 @@ extern volatile int ignoredReturnValue;
 #define MAX_UNSIGNED_TYPE( x )	( ( ( ( 1U << ( ( sizeof( x ) - 1 ) * 8 ) ) - 1 ) << 8 ) | 255U )
 #define MIN_UNSIGNED_TYPE( x )	0
 
-#endif
+
 
 // DG: so we don't have to rely on "multichar constants" - 'asdf' is equivalent to MUCHARC('a', 's', 'd', 'f') on msvc and gcc
 #define MUCHARC(a, b, c, d) ( ((a)<<24) | ((b)<<16) | ((c)<<8) | (d) )
@@ -268,26 +276,29 @@ extern volatile int ignoredReturnValue;
  * Macros for format conversion specifications for integer arguments of type
  * size_t or ssize_t.
  */
+
 #ifdef _WIN32
 
-#define PRIiSIZE "Ii"
-#define PRIuSIZE "Iu"
-#define PRIxSIZE "Ix"
+#define BFG_PRIiSIZE "Ii"
+#define BFG_PRIuSIZE "Iu"
+#define BFG_PRIxSIZE "Ix"
 
-#undef PRId64
-#undef PRIu64
-#define PRId64 "I64d"
-#define PRIu64 "I64u"
+#define BFG_PRId64 "I64d"
+#define BFG_PRIu64 "I64u"
 
 #else // not _WIN32
 
-#define PRIiSIZE "zi"
-#define PRIuSIZE "zu"
-#define PRIxSIZE "zx"
+#define BFG_PRIiSIZE "zi"
+#define BFG_PRIuSIZE "zu"
+#define BFG_PRIxSIZE "zx"
 
-#undef PRId64
-#undef PRIu64
-#define PRId64 "lld"
-#define PRIu64 "llu"
+#define BFG_PRId64 "lld"
+#define BFG_PRIu64 "llu"
 
 #endif // _WIN32
+
+#ifdef __cplusplus
+} // namespace BFG
+#endif // __cplusplus
+
+#endif // SYS_DEFINES_H

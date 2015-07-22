@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../d3xp/Game.h"               // for refSound_t
 #include "../framework/UsercmdGen.h"    // for usercmd_t
 
+namespace BFG
+{
+
 /*
 
 Save game related helper classes.
@@ -199,5 +202,7 @@ private:
 	
 	void					CallRestore_r( const idTypeInfo* cls, idClass* obj );
 };
+
+} // namespace BFG
 
 #endif /* !__SAVEGAME_H__*/

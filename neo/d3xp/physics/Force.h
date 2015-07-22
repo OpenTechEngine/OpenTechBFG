@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../d3xp/gamesys/Class.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -65,5 +68,7 @@ private:
 
 	static idList<idForce*, TAG_IDLIB_LIST_PHYSICS> forceList;
 };
+
+} // namespace BFG
 
 #endif /* !__FORCE_H__ */

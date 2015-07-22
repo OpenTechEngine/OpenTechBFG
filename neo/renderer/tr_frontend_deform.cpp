@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <string.h>
+#include <cassert>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
@@ -59,6 +59,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "tr_local.h"
 
 class idJointMat;
+
+namespace BFG
+{
 
 /*
 ==========================================================================================
@@ -1184,3 +1187,5 @@ drawSurf_t* R_DeformDrawSurf( drawSurf_t* drawSurf )
 			return NULL;
 	}
 }
+
+} // namespace BFG

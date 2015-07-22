@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
 
+namespace BFG
+{
+
 /*
 ================================================
 The *LCP* class, idLCP, is a Box-Constrained Mixed Linear Complementarity Problem solver.
@@ -81,5 +84,7 @@ public:
 protected:
 	int				maxIterations;
 };
+
+} // namespace BFG
 
 #endif // !__MATH_LCP_H__

@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <string.h>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/PlayerProfile.h"
@@ -38,6 +38,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys_localuser.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 extern idCVar fs_savepath;
 
@@ -228,3 +231,5 @@ void localUserHandle_t::Serialize( idSerializer& ser )
 {
 	ser.Serialize( handle );
 }
+
+} // namespace BFG

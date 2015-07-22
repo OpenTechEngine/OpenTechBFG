@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __WINDOW_H__
 #define __WINDOW_H__
 
-#include <stddef.h>
+#include <cstddef>
 #include <stdint.h>
 
 #include "../idlib/Heap.h"
@@ -45,6 +45,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "Winvar.h"
 
 #include "GuiScript.h"
+
+namespace BFG
+{
 
 class idCVar;
 class idDict;
@@ -509,5 +512,7 @@ ID_INLINE void idWindow::AddDefinedVar( idWinVar* var )
 {
 	definedVars.AddUnique( var );
 }
+
+} // namespace BFG
 
 #endif /* !__WINDOW_H__ */

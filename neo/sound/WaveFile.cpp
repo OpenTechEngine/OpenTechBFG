@@ -33,7 +33,7 @@ Contains the WaveFile implementation.
 ================================================================================================
 */
 
-#include <string.h>
+#include <cstring>
 
 #include "../framework/FileSystem.h"
 #include "../idlib/Heap.h"
@@ -42,6 +42,9 @@ Contains the WaveFile implementation.
 #include "../framework/File.h"
 #include "../idlib/containers/StaticList.h"
 #include "WaveFile.h"
+
+namespace BFG
+{
 
 /*
 ========================
@@ -594,3 +597,5 @@ void idWaveFile::Close()
 	}
 	chunks.SetNum( 0 );
 }
+
+} // namespace BFG

@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 #include "../framework/CVarSystem.h"
 #include "../framework/CmdSystem.h"
@@ -42,6 +42,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 idCVar* idCVar::staticVars = NULL;
 
@@ -1437,3 +1440,5 @@ void idCVarSystemLocal::Restart_f( const idCmdArgs& args )
 		cvar->Reset();
 	}
 }
+
+} // namespace BFG

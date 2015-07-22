@@ -26,10 +26,10 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
-#include "../d3xp/menus/MenuHandler_SWF.h"
-#include "../d3xp/menus/MenuScreen_SWF.h"
+#include "../d3xp/menus/MenuHandler.h"
+#include "../d3xp/menus/MenuScreen.h"
 #include "../d3xp/menus/MenuWidget.h"
 #include "../framework/CmdSystem.h"
 #include "../idlib/Heap.h"
@@ -42,9 +42,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_SpriteInstance.h"
 #include "../swf/SWF_TextInstance.h"
 
-class idSWFParmList;
-
 #pragma hdrstop
+
+namespace BFG
+{
+
+class idSWFParmList;
 
 static const int NUM_CREDIT_LINES = 16;
 
@@ -1020,3 +1023,4 @@ void idMenuScreen_Shell_Credits::UpdateCredits()
 	creditIndex++;
 }
 
+} // namespace BFG

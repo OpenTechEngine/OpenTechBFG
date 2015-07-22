@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __COMMON_DIALOG_H__
 #define __COMMON_DIALOG_H__
 
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Str.h"
 #include "../idlib/StrStatic.h"                  // for idStrStatic
@@ -37,6 +37,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_ScriptFunction.h"  // for idSWFScriptFunction
 #include "../idlib/LangDict.h"
 #include "../idlib/containers/StaticList.h"
+
+namespace BFG
+{
 
 class idSWF;
 class idSWFScriptFunction;
@@ -338,4 +341,6 @@ private:
 	bool	dialogInUse;		// this is to prevent an active msg getting lost during a map heap reset
 };
 
-#endif
+} // namespace BFG
+
+#endif // __COMMON_DIALOG_H__

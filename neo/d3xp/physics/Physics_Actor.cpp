@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <assert.h>
-#include <stddef.h>
+#include <cassert>
+#include <cstddef>
 
 #include "../Game_local.h"
 #include "../cm/CollisionModel.h"
@@ -42,6 +42,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/containers/List.h"
 #include "../idlib/math/Matrix.h"
 #include "../idlib/math/Vector.h"
+
+namespace BFG
+{
 
 class idBounds;
 class idRotation;
@@ -436,3 +439,5 @@ bool idPhysics_Actor::EvaluateContacts()
 	
 	return ( contacts.Num() != 0 );
 }
+
+} // namespace BFG

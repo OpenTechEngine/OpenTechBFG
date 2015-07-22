@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 #pragma hdrstop
-#include <stddef.h>
+#include <cstddef>
 
 #include "../framework/CmdSystem.h"
 #include "../framework/File.h"
@@ -36,6 +36,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/Lib.h"
 #include "../idlib/Str.h"
 #include "ConsoleHistory.h"
+
+namespace BFG
+{
 
 idConsoleHistory consoleHistory;
 
@@ -228,3 +231,5 @@ CONSOLE_COMMAND_SHIP( clearHistory, "Clears the console history", 0 )
 {
 	consoleHistory.ClearHistory();
 }
+
+} // namespace BFG

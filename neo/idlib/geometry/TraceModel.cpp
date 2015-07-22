@@ -27,9 +27,9 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
 
 #include "../framework/Common.h"
 #include "../idlib/Lib.h"
@@ -41,6 +41,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "geometry/Winding.h"
 #include "sys/sys_defines.h"
 
+namespace BFG
+{
 
 /*
 ============
@@ -1651,3 +1653,5 @@ void idTraceModel::GetMassProperties( const float density, float& mass, idVec3& 
 	inertiaTensor[1][2] = inertiaTensor[2][1] += mass * centerOfMass[1] * centerOfMass[2];
 	inertiaTensor[2][0] = inertiaTensor[0][2] += mass * centerOfMass[2] * centerOfMass[0];
 }
+
+} // namespace BFG

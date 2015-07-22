@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <stdarg.h>
-#include <string.h>
+#include <cassert>
+#include <cstdarg>
+#include <cstring>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/Entity.h"
@@ -75,6 +75,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/Snapshot.h"
 #include "../sys/sys_session.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 struct gameReturn_t;
 
@@ -1593,3 +1596,5 @@ void idEventQueue::Enqueue( entityNetEvent_t* event, outOfOrderBehaviour_t behav
 	}
 	end = event;
 }
+
+} // namespace BFG

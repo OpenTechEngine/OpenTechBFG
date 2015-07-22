@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_SAVEGAME_H__
 #define __SYS_SAVEGAME_H__
 
-#include <time.h>
+#include <ctime>
 
 #include "../framework/CVarSystem.h"
 #include "../idlib/Dict.h"
@@ -40,6 +40,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/containers/StaticList.h"
 #include "../idlib/sys/sys_types.h"
 #include "sys/sys_threading.h"
+
+namespace BFG
+{
+
 #ifdef OUTPUT_FUNC
 #undef OUTPUT_FUNC
 #endif
@@ -610,5 +614,7 @@ idStr RemoveSaveFolderPrefix( const char* folder, idSaveGameManager::packageType
 bool SavegameReadDetailsFromFile( idFile* file, idSaveGameDetails& details );
 
 idStr GetSaveGameErrorString( int errorMask );
+
+} // namespace BFG
 
 #endif // __SYS_SAVEGAME_H__

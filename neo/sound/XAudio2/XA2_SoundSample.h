@@ -35,6 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sound/WaveFile.h"
 #include "../sound/snd_defines.h"
 
+namespace BFG
+{
+
 /*
 ================================================
 idSoundSample_XAudio2
@@ -190,4 +193,6 @@ class idSoundSample : public idSoundSample_XAudio2
 public:
 };
 
-#endif
+} // namespace BFG
+
+#endif // __XA2_SOUNDSAMPLE_H__

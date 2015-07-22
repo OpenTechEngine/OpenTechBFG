@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <math.h>
-#include <stdio.h>
+#include <cassert>
+#include <cmath>
+#include <cstdio>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/AFEntity.h"
@@ -75,6 +75,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Model.h"
 #include "../renderer/RenderWorld.h"
 #include "Game_local.h"
+
+namespace BFG
+{
 
 class idDeclSkin;
 
@@ -2447,3 +2450,5 @@ void idObjectiveComplete::Event_HideObjective( idEntity* e )
 		}
 	}
 }
+
+} // namespace BFG

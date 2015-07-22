@@ -17,6 +17,9 @@
 #ifndef _SDL2_SCANCODE_TO_DINPUT_MAPPINGS_H_
 #define _SDL2_SCANCODE_TO_DINPUT_MAPPINGS_H_
 
+namespace BFG
+{
+
 // TODO: map the following keys, if possible:
 // #define DIK_UNDERLINE       0x93    /*                     (NEC PC98) */
 // #define DIK_KANJI           0x94    /* (Japanese keyboard)            */
@@ -358,5 +361,6 @@ static int scanCodeToKeyNum[SDL_NUM_SCANCODES] =
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 // 501-511 unused
 };
 
+} // namespace BFG
 
 #endif /* _SDL2_SCANCODE_TO_DINPUT_MAPPINGS_H_ */

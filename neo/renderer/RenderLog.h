@@ -28,13 +28,16 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __RENDERLOG_H__
 #define __RENDERLOG_H__
 
-#include <assert.h>
+#include <cassert>
 
 #include "../framework/CVarSystem.h"
 #include "../idlib/sys/sys_defines.h"
 #include "../idlib/sys/sys_types.h"
 
 #include "../renderer/tr_local.h"                   // for r_logFile
+
+namespace BFG
+{
 
 /*
 ================================================================================================
@@ -185,7 +188,7 @@ class idRenderLog
 {
 public:
 	idRenderLog() {}
-	
+
 	void		StartFrame() {}
 	void		EndFrame() {}
 	void		Close() {}
@@ -193,21 +196,23 @@ public:
 	{
 		return 0;
 	}
-	
+
 	void		OpenBlock( const char* label );
 	void		CloseBlock();
 	void		OpenMainBlock( renderLogMainBlock_t block ) {}
 	void		CloseMainBlock() {}
 	void		Indent( renderLogIndentLabel_t label = RENDER_LOG_INDENT_DEFAULT ) {}
 	void		Outdent( renderLogIndentLabel_t label = RENDER_LOG_INDENT_DEFAULT ) {}
-	
+
 	void		Printf( VERIFY_FORMAT_STRING const char* fmt, ... ) {}
-	
+
 	int			activeLevel;
 };
 
 #endif	// !STUB_RENDER_LOG
 
 extern idRenderLog renderLog;
+
+} // namespace BFG
 
 #endif // !__RENDERLOG_H__

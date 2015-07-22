@@ -32,13 +32,16 @@ Contains the DxtDecoder implementation.
 */
 
 #pragma hdrstop
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 
 #include "../idlib/math/Math.h"
 #include "../idlib/sys/sys_assert.h"
 #include "../idlib/sys/sys_types.h"
 #include "DXTCodec.h"
+
+namespace BFG
+{
 
 /*
 ========================
@@ -833,3 +836,4 @@ void idDxtDecoder::DecomposeImageDXT5( const byte* inBuf, byte* colorIndices, by
 	}
 }
 
+} // namespace BFG

@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/Str.h"
 #include "../idlib/sys/sys_types.h"
 
+namespace BFG
+{
+
 class idMaterial;
 
 struct scaledGlyphInfo_t
@@ -113,4 +116,6 @@ private:
 	fontInfo_t* fontInfo;
 };
 
-#endif
+} // namespace BFG
+
+#endif // __FONT_H__

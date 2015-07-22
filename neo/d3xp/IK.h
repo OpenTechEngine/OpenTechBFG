@@ -33,6 +33,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Vector.h"
 #include "../renderer/Model.h"
 
+namespace BFG
+{
+
 class idAnimator;
 class idClipModel;
 class idEntity;
@@ -190,5 +193,7 @@ private:
 	idMat3					upperArmToShoulderJoint[MAX_ARMS];
 	idMat3					lowerArmToElbowJoint[MAX_ARMS];
 };
+
+} // namespace BFG
 
 #endif /* !__GAME_IK_H__ */

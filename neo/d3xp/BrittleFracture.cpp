@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 
 #include "../cm/CollisionModel.h"
 #include "../d3xp/BrittleFracture.h"
@@ -70,8 +70,10 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/RenderWorld.h"
 #include "Game_local.h"
 
-class idSoundShader;
+namespace BFG
+{
 
+class idSoundShader;
 
 CLASS_DECLARATION( idEntity, idBrittleFracture )
 EVENT( EV_Activate, idBrittleFracture::Event_Activate )
@@ -1594,3 +1596,5 @@ bool idBrittleFracture::ClientReceiveEvent( int event, int time, const idBitMsg&
 		}
 	}
 }
+
+} // namespace BFG

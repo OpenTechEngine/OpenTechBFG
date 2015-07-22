@@ -42,6 +42,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "menu/MenuSystem.h"
 
+using BFG::AssertFailed;
+
 namespace // anon. namespace for helper functions and global state
 {
 CEGUI::System* ceguiSys = NULL; // the CEGUI System Singleton, available after Init()
@@ -49,7 +51,7 @@ double oldTimePulseSec = -1.0;  // the last "time pulse" in seconds. updated by 
 
 void UpdateTimePulse()
 {
-	double newTimePulseSec = 0.001 * Sys_Milliseconds();
+	double newTimePulseSec = 0.001 * BFG::Sys_Milliseconds();
 	
 	ceguiSys->injectTimePulse( newTimePulseSec - oldTimePulseSec );
 	
@@ -164,16 +166,16 @@ void createWindow( void )
 }
 
 // keyboard keys, mouse keys, mousewheel (TODO: really?)
-bool HandleKeyEvent( const sysEvent_t& keyEvent )
+bool HandleKeyEvent( const BFG::sysEvent_t& keyEvent )
 {
 	if( idCEGUI::IsInitialized() )
 	{
-		assert( keyEvent.evType == SE_KEY );
+		assert( keyEvent.evType == BFG::SE_KEY );
 		
-		keyNum_t keyNum = static_cast<keyNum_t>( keyEvent.evValue );
+		BFG::keyNum_t keyNum = static_cast<BFG::keyNum_t>( keyEvent.evValue );
 		bool pressed = keyEvent.evValue2;
 		
-		if( keyNum < K_JOY1 )
+		if( keyNum < BFG::K_JOY1 )
 		{
 			// Key::Scan is dinput keynums, and so is keyNum_t (at least for everything below K_JOY1)
 			CEGUI::Key::Scan key = static_cast<CEGUI::Key::Scan>( keyEvent.evValue );
@@ -187,11 +189,11 @@ bool HandleKeyEvent( const sysEvent_t& keyEvent )
 				return ceguiSys->getDefaultGUIContext().injectKeyUp( key );
 			}
 		}
-		else if( keyNum >= K_MOUSE1 && keyNum < K_MOUSE1 + CEGUI::MouseButtonCount )
+		else if( keyNum >= BFG::K_MOUSE1 && keyNum < BFG::K_MOUSE1 + CEGUI::MouseButtonCount )
 		{
 			// K_MOUSE* are contiguous, so are CEGUI::MouseButton::*Button - and have the same order
 			// (left, right, middle, X1, X2). CEGUI::LeftButton is 0.
-			CEGUI::MouseButton button = static_cast<CEGUI::MouseButton>( keyNum - K_MOUSE1 );
+			CEGUI::MouseButton button = static_cast<CEGUI::MouseButton>( keyNum - BFG::K_MOUSE1 );
 			if( pressed )
 			{
 				return ceguiSys->getDefaultGUIContext().injectMouseButtonDown( button );
@@ -211,7 +213,7 @@ void Startup()
 {
 	// all functions for console/menu/etc should be here
 	// this will create a cegui console for idConsole to use
-	console->Init();
+	BFG::console->Init();
 	
 	// MenuSystem
 	ourMenuSystem = new CEGUIMenu::MenuSystem();
@@ -221,7 +223,7 @@ void Startup()
 void Shutdown()
 {
 	// all functions for console/menu/etc should be here
-	console->Shutdown();
+	BFG::console->Shutdown();
 	
 	// MenuSystem
 	ourMenuSystem->Destroy();
@@ -241,7 +243,7 @@ bool idCEGUI::Init()
 	if( IsInitialized() )
 	{
 		ceguiSys = &( CEGUI::System::getSingleton() );
-		oldTimePulseSec = 0.001 * Sys_Milliseconds();
+		oldTimePulseSec = 0.001 * BFG::Sys_Milliseconds();
 	}
 	
 	Startup();
@@ -258,7 +260,7 @@ void idCEGUI::NotifyDisplaySizeChanged( int width, int height )
 }
 
 // inject a sys event
-bool idCEGUI::InjectSysEvent( const sysEvent_t* event )
+bool idCEGUI::InjectSysEvent( const BFG::sysEvent_t* event )
 {
 	if( IsInitialized() )
 	{
@@ -268,17 +270,17 @@ bool idCEGUI::InjectSysEvent( const sysEvent_t* event )
 			return false;
 		}
 		
-		const sysEvent_t& ev = *event;
+		const BFG::sysEvent_t& ev = *event;
 		
 		switch( ev.evType )
 		{
-			case SE_KEY:
+			case BFG::SE_KEY:
 				return HandleKeyEvent( ev );
-			case SE_MOUSE_ABSOLUTE:
+			case BFG::SE_MOUSE_ABSOLUTE:
 				return ceguiSys->getDefaultGUIContext().injectMousePosition( ev.evValue, ev.evValue2 );
-			case SE_CHAR:
+			case BFG::SE_CHAR:
 				return ceguiSys->getDefaultGUIContext().injectChar( ev.evValue );
-			case SE_MOUSE_LEAVE:
+			case BFG::SE_MOUSE_LEAVE:
 				// not sure why this is interesting (and mouse entering again not), but whatever..
 				return ceguiSys->getDefaultGUIContext().injectMouseLeaves();
 				

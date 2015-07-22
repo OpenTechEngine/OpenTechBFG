@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/Str.h"
 #include "../idlib/Heap.h"
 
+namespace BFG
+{
+
 /*
 ===============================================================================
 
@@ -121,5 +124,7 @@ ID_INLINE void idBase64::operator=( const idStr& s )
 	strcpy( ( char* )data, s.c_str() );
 	len = s.Length();
 }
+
+} // namespace BFG
 
 #endif /* !__BASE64_H__ */

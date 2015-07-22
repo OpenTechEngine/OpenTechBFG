@@ -4,6 +4,9 @@
 
 #include "sys/sys_types.h"
 
+namespace BFG
+{
+
 /*
    CRC-32
    Copyright (C) 1995-1998 Mark Adler
@@ -189,3 +192,5 @@ unsigned int CRC32_BlockChecksum( const void* data, int length )
 	return crc;
 }
 // RB end
+
+} // namespace BFG

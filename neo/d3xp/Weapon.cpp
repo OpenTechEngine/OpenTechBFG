@@ -28,10 +28,10 @@ If you have questions concerning this license or the applicable additional terms
 
 #pragma hdrstop
 
-#include <assert.h>
-#include <math.h>
-#include <stdio.h>
-#include <string.h>
+#include <cassert>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
 #include <algorithm>
 
 #include "../cm/CollisionModel.h"
@@ -94,6 +94,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../ui/UserInterface.h"
 #include "Game_local.h"
 #include "PredictedValue_impl.h"
+
+namespace BFG
+{
 
 /***********************************************************************
 
@@ -567,7 +570,7 @@ void idWeapon::Restore( idRestoreGame* savefile )
 	WEAPON_NETFIRING.LinkTo(	scriptObject, "WEAPON_NETFIRING" );
 	WEAPON_RAISEWEAPON.LinkTo(	scriptObject, "WEAPON_RAISEWEAPON" );
 	WEAPON_LOWERWEAPON.LinkTo(	scriptObject, "WEAPON_LOWERWEAPON" );
-    WEAPON_IRONSIGHT.LinkTo(    scriptObject, "WEAPON_IRONSIGHT" );
+	WEAPON_IRONSIGHT.LinkTo( scriptObject, "WEAPON_IRONSIGHT" );
 	
 	savefile->ReadObject( reinterpret_cast<idClass*&>( owner ) );
 	worldModel.Restore( savefile );
@@ -810,7 +813,7 @@ void idWeapon::Clear()
 	WEAPON_NETFIRING.Unlink();
 	WEAPON_RAISEWEAPON.Unlink();
 	WEAPON_LOWERWEAPON.Unlink();
-    WEAPON_IRONSIGHT.Unlink();
+	WEAPON_IRONSIGHT.Unlink();
 	
 	if( muzzleFlashHandle != -1 )
 	{
@@ -1348,7 +1351,7 @@ void idWeapon::GetWeaponDef( const char* objectname, int ammoinclip )
 	WEAPON_NETFIRING.LinkTo(	scriptObject, "WEAPON_NETFIRING" );
 	WEAPON_RAISEWEAPON.LinkTo(	scriptObject, "WEAPON_RAISEWEAPON" );
 	WEAPON_LOWERWEAPON.LinkTo(	scriptObject, "WEAPON_LOWERWEAPON" );
-    WEAPON_IRONSIGHT.LinkTo(    scriptObject, "WEAPON_IRONSIGHT" );
+	WEAPON_IRONSIGHT.LinkTo( scriptObject, "WEAPON_IRONSIGHT" );
 	
 	spawnArgs = weaponDef->dict;
 	
@@ -2979,7 +2982,7 @@ void idWeapon::EnterCinematic()
 		WEAPON_NETFIRING	= false;
 		WEAPON_RAISEWEAPON	= false;
 		WEAPON_LOWERWEAPON	= false;
-        WEAPON_IRONSIGHT    = false;
+		WEAPON_IRONSIGHT    = false;
 		
 		grabber.Update( this->GetOwner(), true );
 	}
@@ -3119,7 +3122,7 @@ const char* idWeapon::GetAmmoNameForNum( ammo_t ammonum )
 		return NULL;
 	}
 	
-	sprintf( text, "%d", ammonum );
+	std::sprintf( text, "%d", ammonum );
 	
 	num = ammoDict->GetNumKeyVals();
 	for( i = 0; i < num; i++ )
@@ -3449,9 +3452,9 @@ void idWeapon::Event_WeaponState( const char* statename, int blendFrames )
 	idealState = statename;
 	
 	// HACK, Fixes reload animation on player not playing on second reload ( on non local client players, and only with host viewing. )
-	if( common->IsMultiplayer() && strcmp( weaponDef->GetName(), "weapon_shotgun_double_mp" ) == 0 )
+	if( common->IsMultiplayer() && idStr::Cmp( weaponDef->GetName(), "weapon_shotgun_double_mp" ) == 0 )
 	{
-		if( strcmp( statename, "Reload" ) != 0 )
+		if( idStr::Cmp( statename, "Reload" ) != 0 )
 		{
 			if( status ==  WP_RELOAD )
 			{
@@ -4649,7 +4652,7 @@ void idWeapon::Event_Melee()
 				globalKickDir = muzzleAxis * kickDir;
 				//Adjust the melee powerup modifier for the invulnerability boss fight
 				float mod = owner->PowerUpModifier( MELEE_DAMAGE );
-				if( !strcmp( ent->GetEntityDefName(), "monster_hunter_invul" ) )
+				if( !idStr::Cmp( ent->GetEntityDefName(), "monster_hunter_invul" ) )
 				{
 					//Only do a quater of the damage mod
 					mod *= 0.25f;
@@ -4844,13 +4847,16 @@ void idWeapon::ForceAmmoInClip()
 
 void idWeapon::SetIronsight( bool i )
 {
-    if( !isLinked )
+	if( !isLinked )
 	{
-        return;
-    }
-
-    if ( WEAPON_IRONSIGHT != i )
-    {
-        WEAPON_IRONSIGHT = i;
-    }
+		return;
+	}
+	
+	if( WEAPON_IRONSIGHT != i )
+	{
+		WEAPON_IRONSIGHT = i;
+	}
 }
+
+} // namespace BFG
+

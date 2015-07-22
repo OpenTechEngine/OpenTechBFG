@@ -37,6 +37,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_ScriptVar.h"
 #include "../swf/SWF_Types.h"
 
+namespace BFG
+{
+
 class idSWF;
 class idSWFParmList;
 
@@ -339,5 +342,7 @@ public:
 	SWF_TEXT_FUNCTION_DECLARE( terminateSubtitle );
 	SWF_TEXT_FUNCTION_DECLARE( clearTimingInfo );
 };
+
+} // namespace BFG
 
 #endif // !__SWF_TEXTINSTANCE_H__

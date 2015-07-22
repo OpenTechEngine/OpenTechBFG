@@ -32,6 +32,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_types.h"
 #include "sys/sys_localuser.h"
 
+namespace BFG
+{
+
 // This is to quickly get/set the data needed for disc-swapping
 typedef struct
 {
@@ -96,5 +99,7 @@ private:
 	idStrStatic< MAX_GAMERTAG >	gamertag;
 	int							inputDevice;
 };
+
+} // namespace BFG
 
 #endif // __WIN_LOCALUSER_H__

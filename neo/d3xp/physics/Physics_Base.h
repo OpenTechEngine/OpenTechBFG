@@ -41,6 +41,9 @@ If you have questions concerning this license or the applicable additional terms
 ===============================================================================
 */
 
+namespace BFG
+{
+
 #define contactEntity_t		idEntityPtr<idEntity>
 
 class idPhysics_Base : public idPhysics
@@ -208,5 +211,7 @@ bool InterpolatePhysicsState( _stateType_ & stateToUpdate,
 	
 	return ( stateToUpdate.origin != oldOrigin || stateToUpdate.axis != oldAxis );
 }
+
+} // namespace BFG
 
 #endif /* !__PHYSICS_BASE_H__ */

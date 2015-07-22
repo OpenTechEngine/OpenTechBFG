@@ -35,6 +35,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/sys/sys_assert.h"
 #include "ResolutionScale.h"
 
+namespace BFG
+{
 
 idResolutionScale	resolutionScale;
 
@@ -234,3 +236,5 @@ void idResolutionScale::GetConsoleText( idStr& s )
 		}
 	}
 }
+
+} // namespace BFG

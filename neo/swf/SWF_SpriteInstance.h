@@ -37,6 +37,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_ScriptObject.h"
 #include "../swf/SWF_ScriptVar.h"
 
+namespace BFG
+{
+
 class idMaterial;
 class idSWFBitStream;
 class idSWFSprite;
@@ -298,4 +301,6 @@ public:
 	//SWF_NATIVE_VAR_DECLARE( onLoad );
 };
 
-#endif
+} // namespace BFG
+
+#endif // __SWF_SPRITEINSTANCE_H__

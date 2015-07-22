@@ -25,7 +25,7 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-#include <stddef.h>
+#include <cstddef>
 
 #include "../idlib/Heap.h"
 #include "../idlib/Lib.h"
@@ -38,6 +38,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_Types.h"
 
 #pragma hdrstop
+
+namespace BFG
+{
 
 /*
 ========================
@@ -184,3 +187,5 @@ idSWFDictionaryEntry* idSWF::FindDictionaryEntry( int characterID )
 	
 	return &dictionary[ characterID ];
 }
+
+} // namespace BFG
