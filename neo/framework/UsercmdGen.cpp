@@ -49,6 +49,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../cegui/CEGUI_Hooks.h"
 #endif // USE_CEGUI
 
+#include "../imgui/ImGui_Hooks.h"
+
 #pragma hdrstop
 
 namespace BFG
@@ -1412,6 +1414,7 @@ void idUsercmdGenLocal::Mouse()
 #ifdef USE_CEGUI // DG: this seems like a good place to inject mousewheel deltas into cegui.
 				idCEGUI::InjectMouseWheel( value );
 #endif //USE_CEGUI
+				ImGuiHook::InjectMouseWheel( value );
 				
 				int key = value < 0 ? K_MWHEELDOWN : K_MWHEELUP;
 				value = abs( value );

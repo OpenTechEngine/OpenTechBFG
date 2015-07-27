@@ -209,6 +209,8 @@ LONG WINAPI MainWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
 						// DG: cegui must know about the changed window size
 						idCEGUI::NotifyDisplaySizeChanged( glConfig.nativeScreenWidth, glConfig.nativeScreenHeight );
 #endif // USE_CEGUI
+						// DG: and so must imgui
+						ImGuiHook::NotifyDisplaySizeChanged( glConfig.nativeScreenWidth, glConfig.nativeScreenHeight );
 					}
 				}
 			}

@@ -97,6 +97,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../cegui/CEGUI_Hooks.h"
 #endif // USE_CEGUI
 
+#include "../imgui/ImGui_Hooks.h"
+
 namespace BFG
 {
 
@@ -753,6 +755,7 @@ void R_SetNewMode( const bool fullInit )
 				// DG: cegui must be initialized after the window has been created, it needs an opengl context
 				idCEGUI::Init();
 #endif // USE_CEGUI
+				ImGuiHook::Init( parms.width, parms.height );
 				
 				// it worked
 				break;
@@ -767,6 +770,7 @@ void R_SetNewMode( const bool fullInit )
 				// DG: cegui must know about the changed window size
 				idCEGUI::NotifyDisplaySizeChanged( parms.width, parms.height );
 #endif // USE_CEGUI
+				ImGuiHook::NotifyDisplaySizeChanged( parms.width, parms.height );
 				
 				// it worked
 				break;

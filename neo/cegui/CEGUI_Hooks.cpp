@@ -184,7 +184,7 @@ void createWindow( void )
 	}
 }
 
-// keyboard keys, mouse keys, mousewheel (TODO: really?)
+// keyboard keys, mouse keys
 bool HandleKeyEvent( const BFG::sysEvent_t& keyEvent )
 {
 	if( BFG::idCEGUI::IsInitialized() )

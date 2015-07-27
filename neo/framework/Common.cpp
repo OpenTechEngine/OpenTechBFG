@@ -83,7 +83,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Image.h"
 
 #if defined(USE_IDTOOLS)
-#include "../tools/compilers/compiler_public.h"
+#include "../tools/Tools.h"
 #endif
 
 
@@ -92,6 +92,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifdef USE_CEGUI // in idCommonLocal::ProcessEvent() we events into cegui
 #include "../cegui/CEGUI_Hooks.h"
 #endif // USE_CEGUI
+
+#include "../imgui/ImGui_Hooks.h"
 
 namespace BFG
 {
@@ -1526,6 +1528,9 @@ void idCommonLocal::Shutdown()
 	printf( "idCEGUI::Destroy();\n" );
 	idCEGUI::Destroy();
 	
+	printf( "ImGuiHook::Destroy();\n" );
+	ImGuiHook::Destroy();
+	
 	printf( "delete renderWorld;\n" );
 	delete renderWorld;
 	renderWorld = NULL;
@@ -1715,6 +1720,9 @@ void idCommonLocal::InitCommands()
 	cmdSystem->AddCommand( "runAAS", RunAAS_f, CMD_FL_TOOL, "compiles an AAS file for a map", idCmdSystem::ArgCompletion_MapName );
 	cmdSystem->AddCommand( "runAASDir", RunAASDir_f, CMD_FL_TOOL, "compiles AAS files for all maps in a folder", idCmdSystem::ArgCompletion_MapName );
 	cmdSystem->AddCommand( "runReach", RunReach_f, CMD_FL_TOOL, "calculates reachability for an AAS file", idCmdSystem::ArgCompletion_MapName );
+	
+	cmdSystem->AddCommand( "showEditors", ShowEditors_f, CMD_FL_TOOL, "compiles a map" );
+	
 #endif
 }
 
@@ -1828,6 +1836,8 @@ bool idCommonLocal::ProcessEvent( const sysEvent_t* event )
 	// TODO: should this always be injected or only if a cegui window is active?
 	idCEGUI::InjectSysEvent( event ); // TODO: could check return value?
 #endif // USE_CEGUI
+	
+	ImGuiHook::InjectSysEvent( event );
 	
 	// let the pull-down console take it if desired
 	if( console->ProcessEvent( event, false ) )

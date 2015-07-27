@@ -156,6 +156,7 @@ target_link_libraries(OpenTechEngine
   ${FFMPEG_LIBRARIES}
   ${CEGUI_LIBRARY}
   ${CEGUIGLR_LIBRARY}
+  imgui
   )
   
 #CMAKE_BINARY_DIR

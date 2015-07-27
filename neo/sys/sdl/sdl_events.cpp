@@ -63,6 +63,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../../cegui/CEGUI_Hooks.h"
 #endif // USE_CEGUI
 
+#include "../../imgui/ImGui_Hooks.h"
+
 #if !SDL_VERSION_ATLEAST(2, 0, 0)
 #define SDL_Keycode SDLKey
 #define SDLK_APPLICATION SDLK_COMPOSE
@@ -962,6 +964,8 @@ sysEvent_t Sys_GetEvent()
 						// DG: cegui must know about the changed window size
 						idCEGUI::NotifyDisplaySizeChanged( glConfig.nativeScreenWidth, glConfig.nativeScreenHeight );
 #endif // USE_CEGUI
+						// same for imgui
+						ImGuiHook::NotifyDisplaySizeChanged( glConfig.nativeScreenWidth, glConfig.nativeScreenHeight );
 						
 						break;
 					}

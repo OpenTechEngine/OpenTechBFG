@@ -315,6 +315,8 @@ file(GLOB COMMON_SOURCES sys/common/*.cpp)
 file(GLOB SDL_INCLUDES sys/sdl/*.h)
 file(GLOB SDL_SOURCES sys/sdl/*.cpp)
 
+file(GLOB BFG_IMGUI_INCLUDES imgui/*.h)
+file(GLOB BFG_IMGUI_SOURCES imgui/*.cpp)
 
 source_group("aas" FILES ${AAS_INCLUDES})
 source_group("aas" FILES ${AAS_SOURCES})
@@ -407,6 +409,9 @@ source_group("sys\\common" FILES ${COMMON_SOURCES})
 source_group("sys\\sdl" FILES ${SDL_INCLUDES})
 source_group("sys\\sdl" FILES ${SDL_SOURCES})
 
+source_group("imgui" FILES ${BFG_IMGUI_INCLUDES})
+source_group("imgui" FILES ${BFG_IMGUI_SOURCES})
+
 set(OpenTechBFG_INCLUDES
   ${AAS_INCLUDES}
   ${CM_INCLUDES}
@@ -424,6 +429,7 @@ set(OpenTechBFG_INCLUDES
   ${UI_INCLUDES}
   ${SWF_INCLUDES}
   ${COMMON_INCLUDES}
+  ${BFG_IMGUI_INCLUDES}
   )
 
 set(OpenTechBFG_SOURCES
@@ -443,6 +449,7 @@ set(OpenTechBFG_SOURCES
   ${UI_SOURCES}
   ${SWF_SOURCES}
   ${COMMON_SOURCES}
+  ${BFG_IMGUI_SOURCES}
   )
 
 add_definitions(-D__DOOM__
