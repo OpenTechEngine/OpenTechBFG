@@ -685,11 +685,13 @@ static void LoadPNG( const char* filename, unsigned char** pic, int* width, int*
 	//
 	// load the file
 	//
-	int fileSize = fileSystem->ReadFile( filename, ( void** )&io_s.buffer, timestamp );
-	if( !io_s.buffer )
+	void* buf = NULL;
+	int fileSize = fileSystem->ReadFile( filename, &buf, timestamp );
+	if( buf == NULL )
 	{
 		return;
 	}
+	io_s.buffer = ( byte* )buf;
 	
 	// create png_struct with the custom error handlers
 	png_structp pngPtr = png_create_read_struct( PNG_LIBPNG_VER_STRING, ( png_voidp ) NULL, png_Error, png_Warning );
@@ -779,7 +781,7 @@ static void LoadPNG( const char* filename, unsigned char** pic, int* width, int*
 	
 	png_read_end( pngPtr, infoPtr );
 	
-	fileSystem->FreeFile( io_s.buffer );
+	fileSystem->FreeFile( buf );
 	
 	png_destroy_read_struct( &pngPtr, &infoPtr, NULL );
 	
