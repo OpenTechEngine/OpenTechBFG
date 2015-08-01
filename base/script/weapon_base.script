@@ -1,4 +1,4 @@
-// this file is WTFPL2
+// this file is WTFPLv2
 
 object weapon_base {
 	boolean WEAPON_ATTACK;

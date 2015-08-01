@@ -46,9 +46,6 @@ This file contains the following sections:
 	10) KNOWN ISSUES
 	
 	11) BUG REPORTS
-	
-	12) CODE LICENSE EXCEPTIONS
-
 
 
 ___________________________________
@@ -126,11 +123,13 @@ _______________________________
 3) LICENSE
 ______________________
 
+Most code and the shaders are licensed under a slightly modified GPLv3 license.  
+Most assets in base/ are released under WTFPLv2 or similar Public Domain licenses.
 
-See COPYING.txt for the GNU GENERAL PUBLIC LICENSE
+See COPYING.md for details and COPYING-GPLv3-id.txt for the modified GPLv3 license text.
 
-ADDITIONAL TERMS:  The Doom 3 BFG Edition GPL Source Code is also subject to certain additional terms. You should have received a copy of these additional terms immediately following the terms and conditions of the GNU GPL which accompanied the Doom 3 BFG Edition GPL Source Code.  If not, please request a copy in writing from id Software at id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
-
+ADDITIONAL TERMS:  The Doom 3 BFG Edition GPL Source Code is also subject to certain additional terms.
+You should have received a copy of these additional terms immediately following the terms and conditions of the GNU GPL which accompanied the Doom 3 BFG Edition GPL Source Code.  If not, please request a copy in writing from id Software at id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
 
 ____________________________________________
 
@@ -348,117 +347,3 @@ If you want to report an issue with the game, you should make sure that your rep
               OpenTechEngine.exe +set developer 1 +set logfile 2
 
 NOTE: We cannot help you with OS-specific issues like configuring OpenGL correctly, configuring ALSA or configuring the network.
-	
-
-	
-	
-____________________________________________________________________________________
-
-12) CODE LICENSE EXCEPTIONS - The parts that are not covered by the GPL:
-_______________________________________________________________________
-
-
-EXCLUDED CODE:  The code described below and contained in the Doom 3 BFG Edition GPL Source Code release
-is not part of the Program covered by the GPL and is expressly excluded from its terms. 
-You are solely responsible for obtaining from the copyright holder a license for such code and complying with the applicable license terms.
-
-Base64 implementation
----------------------------------------------------------------------------
-neo/idlib/Base64.cpp
-
-Copyright (c) 1996 Lars Wirzenius.  All rights reserved.
-
-June 14 2003: TTimo <ttimo@idsoftware.com>
-	modified + endian bug fixes
-	http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=197039
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions
-are met:
-
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-
-THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
-IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,
-INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
-
-MD4 Message-Digest Algorithm
------------------------------------------------------------------------------
-neo/idlib/hashing/MD4.cpp
-Copyright (C) 1991-2, RSA Data Security, Inc. Created 1991. All
-rights reserved.
-
-License to copy and use this software is granted provided that it
-is identified as the "RSA Data Security, Inc. MD4 Message-Digest
-Algorithm" in all material mentioning or referencing this software
-or this function.
-
-License is also granted to make and use derivative works provided
-that such works are identified as "derived from the RSA Data
-Security, Inc. MD4 Message-Digest Algorithm" in all material
-mentioning or referencing the derived work.
-
-RSA Data Security, Inc. makes no representations concerning either
-the merchantability of this software or the suitability of this
-software for any particular purpose. It is provided "as is"
-without express or implied warranty of any kind.
-
-These notices must be retained in any copies of any part of this
-documentation and/or software.
-
-MD5 Message-Digest Algorithm
------------------------------------------------------------------------------
-neo/idlib/hashing/MD5.cpp
-This code implements the MD5 message-digest algorithm.
-The algorithm is due to Ron Rivest.  This code was
-written by Colin Plumb in 1993, no copyright is claimed.
-This code is in the public domain; do with it what you wish.
-
-CRC32 Checksum
------------------------------------------------------------------------------
-neo/idlib/hashing/CRC32.cpp
-Copyright (C) 1995-1998 Mark Adler
-
-OpenGL headers
----------------------------------------------------------------------------
-neo/renderer/OpenGL/glext.h
-neo/renderer/OpenGL/wglext.h
-
-Copyright (c) 2007-2012 The Khronos Group Inc.
-
-Permission is hereby granted, free of charge, to any person obtaining a
-copy of this software and/or associated documentation files (the
-"Materials"), to deal in the Materials without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Materials, and to
-permit persons to whom the Materials are furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be included
-in all copies or substantial portions of the Materials.
-
-THE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
-
-Bundled libraries
----------------------------------------------------------------------------
-Please see sub-directories under libs/ for bundled library license information.
-

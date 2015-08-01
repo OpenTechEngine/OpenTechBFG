@@ -1,0 +1,76 @@
+TL;DR: all the assets provided in base/ except for base/renderprogs/
+and some files in base/cegui/ are under Public Domain/WTFPLv2.
+If you use them, credit would be appreciated, but is not necessary.
+
+Details:
+
+* base/renderprogs/ is under a modified GPLv3, see COPYING-GPLv3-id.txt
+
+* Most files in base/cegui/ (except for base/cegui/layouts/) are from the
+  CEGUI project, which is licensed under the MIT license:
+
+	Copyright (c) 2004 - 2014 Paul D Turner & The CEGUI Development Team
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy of
+	this software and associated documentation files (the "Software"), to deal in
+	the Software without restriction, including without limitation the rights to
+	use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+	the Software, and to permit persons to whom the Software is furnished to do so,
+	subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+	FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+	COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+	IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+	CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+################################################################################
+
+The following license applies to:
+
+    base/textures/common/caulk.tga
+    base/textures/common/cushion.tga
+    base/textures/common/full_clip.tga
+    base/textures/common/mirror.tga
+    base/textures/common/nodraw.tga
+    base/textures/common/player_clip.tga
+    base/textures/common/slick.tga
+    base/textures/triggers/trigger.tga
+    
+ Copyright (C) 2000 William Joseph, under Public Domain 
+     (according to Xreal, http://xreal.svn.sourceforge.net/viewvc/xreal/trunk/xreal/base/MEDIA.txt)
+
+################################################################################
+
+The following license applies to everything else in base/:
+
+ Copyright (C) 2009 Stefan "ReFlex" Lautner (layout textures)
+ 
+ Copyright (C) 2011-2015,
+ 	Creators of "doom3_minimal_assets.rar" from the iodoom3 wiki
+ 	Daniel Gibson
+ 	Yamagi Burmeister
+ 	Mikko Kortelainen
+ 	Biel Bestué de Luna
+	... and other OpenTechBFG contributors
+
+ Licensed under DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE version 2 (WTFPLv2):
+     
+     		        DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+		                Version 2, December 2004
+	 
+	 Copyright (C) 2004 Sam Hocevar
+	  14 rue de Plaisance, 75014 Paris, France
+	 Everyone is permitted to copy and distribute verbatim or modified
+	 copies of this license document, and changing it is allowed as long
+	 as the name is changed.
+	 
+		        DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+	   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+	 
+	  0. You just DO WHAT THE FUCK YOU WANT TO.
