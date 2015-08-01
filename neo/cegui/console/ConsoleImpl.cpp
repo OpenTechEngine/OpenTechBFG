@@ -203,18 +203,33 @@ void ConsoleImpl::TabComplete( void )
 									
 		CEGUI::String cmdStub = ConsoleWin->getChild( "Combobox" )->getText();
 		
+		// provides all valid commands to callback function
 		BFG::cmdSystem->CommandCompletion( AutoCompleteCallback ); // function pointer to our static member function
+		// provides all valid arguments for supplied command to callback function
 		BFG::cmdSystem->ArgCompletion( cmdStub.c_str(), AutoCompleteCallback );
 		
-		// TODO perhaps we could cycle the completions in the field with tab
+		// sorting matches
 		this->ourVars->tabCompletions.sort();
+		// for finding common part of the completion
+		int matchSize = INT_MAX;
+		CEGUI::String bestMatch = cmdStub;
+		// iterating over the list of matches
 		std::list<CEGUI::String>::iterator it;
 		for(
 			std::list<CEGUI::String>::iterator it = this->ourVars->tabCompletions.begin();
 			it != this->ourVars->tabCompletions.end();
 			it++
 		)
+		{
+			if( it->length() < matchSize )
+			{
+				matchSize = it->length();
+				bestMatch = *it;
+			}
 			OutputText( ConsoleMsg( *it ) );
+		}
+		// set command line to best match
+		ConsoleWin->getChild( "Combobox" )->setText( bestMatch );
 		this->ourVars->tabCompletions.clear();
 	}
 }
