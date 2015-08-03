@@ -297,6 +297,9 @@ extern volatile int ignoredReturnValue;
 
 #endif // _WIN32
 
+// DG: let's always enable tools for now (the only dependency should be imgui anyway)
+#define ID_ALLOW_TOOLS 1
+
 #ifdef __cplusplus
 } // namespace BFG
 #endif // __cplusplus

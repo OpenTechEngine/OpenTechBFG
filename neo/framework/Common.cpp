@@ -408,6 +408,35 @@ void idCommonLocal::AddStartupCommands()
 	}
 }
 
+// DG: add doom3 tools
+/*
+=================
+idCommonLocal::InitTool
+=================
+*/
+void idCommonLocal::InitTool( const toolFlag_t tool, const idDict* dict, void* entity )
+{
+#ifdef ID_ALLOW_TOOLS
+	if( tool & EDITOR_SOUND )
+	{
+		//SoundEditorInit( dict ); // TODO: implement this somewhere
+	}
+	else if( tool & EDITOR_LIGHT )
+	{
+		Tools::LightEditorInit( dict, entity );
+	}
+	else if( tool & EDITOR_PARTICLE )
+	{
+		//ParticleEditorInit( dict );
+	}
+	else if( tool & EDITOR_AF )
+	{
+		//AFEditorInit( dict );
+	}
+#endif
+}
+// DG end
+
 /*
 ==================
 idCommonLocal::WriteConfigToFile

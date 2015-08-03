@@ -156,6 +156,12 @@ public:
 	// DG end
 	virtual void				UpdateLevelLoadPacifier();
 	virtual void				StartupVariable( const char* match );
+	
+	// DG: re-add tool code
+	// Initializes a tool with the given dictionary.
+	virtual void				InitTool( const toolFlag_t tool, const idDict* dict, void* entity );
+	// DG end
+	
 	virtual void				WriteConfigToFile( const char* filename );
 	virtual void				BeginRedirect( char* buffer, int buffersize, void ( *flush )( const char* ) );
 	virtual void				EndRedirect();

@@ -132,6 +132,8 @@ const int C_COLOR_BLACK				= '9';
 
 // make idStr a multiple of 16 bytes long
 // don't make too large to keep memory requirements to a minimum
+// DG: FIXME: on 64bit platforms it's 4byte bigger because of the pointer (=> 36bytes)
+//     FIXME: so raise this to 32 for a size of 48bytes or lower it to 16 for 32bytes for 64bit?
 const int STR_ALLOC_BASE			= 20;
 const int STR_ALLOC_GRAN			= 32;
 

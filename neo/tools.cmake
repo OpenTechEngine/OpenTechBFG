@@ -16,6 +16,9 @@ set(TOOLS_COMMON_INCLUDES
 set(TOOLS_COMMON_SOURCES
   tools/ToolGui.cpp)
 
+file(GLOB EDITOR_INCLUDES tools/editors/*.h)
+file(GLOB EDITOR_SOURCES tools/editors/*.cpp)
+
 source_group("tools\\compilers" FILES ${COMPILER_INCLUDES})
 
 source_group("tools\\compilers\\aas" FILES ${COMPILER_AAS_INCLUDES})
@@ -24,15 +27,21 @@ source_group("tools\\compilers\\aas" FILES ${COMPILER_AAS_SOURCES})
 source_group("tools\\compilers\\dmap" FILES ${COMPILER_DMAP_INCLUDES})
 source_group("tools\\compilers\\dmap" FILES ${COMPILER_DMAP_SOURCES})
 
+source_group("tools\\editors" FILES ${EDITOR_INCLUDES})
+source_group("tools\\editors" FILES ${EDITOR_SOURCES})
+
+
 set(IDTOOLS_INCLUDES
   ${TOOLS_COMMON_INCLUDES}
   ${COMPILER_INCLUDES}
-  ${COMPILER_AAS_INCLUDES} ${COMPILER_AAS_SOURCES}
-  ${COMPILER_DMAP_INCLUDES} ${COMPILER_DMAP_SOURCES}
+  ${COMPILER_AAS_INCLUDES} # ${COMPILER_AAS_SOURCES}
+  ${COMPILER_DMAP_INCLUDES} # ${COMPILER_DMAP_SOURCES}
+  ${EDITOR_INCLUDES}
   )
 
 set(IDTOOLS_SOURCES
   ${TOOLS_COMMON_SOURCES}
   ${COMPILER_AAS_SOURCES}
   ${COMPILER_DMAP_SOURCES}
+  ${EDITOR_SOURCES}
   )

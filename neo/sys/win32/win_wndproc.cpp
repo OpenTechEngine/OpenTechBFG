@@ -43,6 +43,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../../cegui/CEGUI_Hooks.h"
 #endif // USE_CEGUI
 
+#include "../../imgui/ImGui_Hooks.h" // DG: same for imgui
+
 namespace BFG
 {
 
