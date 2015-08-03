@@ -17,8 +17,8 @@
 // like DragFloat3(), but with "X: ", "Y: " or "Z: " prepended to each display_format, for vectors
 // if !ignoreLabelWidth, it makes sure the label also fits into the current item width.
 //    note that this screws up alignment with consecutive "value+label widgets" (like Drag* or ColorEdit*)
-bool ImGui::DragXYZ( const char* label, float v[3], float v_speed,
-					 float v_min, float v_max, const char* display_format, float power, bool ignoreLabelWidth )
+bool ImGui::DragVec3( const char* label, BFG::idVec3& v, float v_speed,
+					  float v_min, float v_max, const char* display_format, float power, bool ignoreLabelWidth )
 {
 	bool value_changed = false;
 	ImGui::BeginGroup();
@@ -55,10 +55,10 @@ bool ImGui::DragXYZ( const char* label, float v[3], float v_speed,
 // shortcut for DragXYZ with ignorLabelWidth = false
 // very similar, but adjusts width to width of label to make sure it's not cut off
 // sometimes useful, but might not align with consecutive "value+label widgets" (like Drag* or ColorEdit*)
-bool ImGui::DragXYZfitLabel( const char* label, float v[3], float v_speed,
-							 float v_min, float v_max, const char* display_format, float power )
+bool ImGui::DragVec3fitLabel( const char* label, BFG::idVec3& v, float v_speed,
+							  float v_min, float v_max, const char* display_format, float power )
 {
-	return ImGui::DragXYZ( label, v, v_speed, v_min, v_max, display_format, power, false );
+	return ImGui::DragVec3( label, v, v_speed, v_min, v_max, display_format, power, false );
 }
 
 // the ImGui hooks to integrate it into the engine
