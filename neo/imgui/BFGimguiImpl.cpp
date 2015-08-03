@@ -296,9 +296,10 @@ bool CreateDeviceObjects()
 void RenderDrawLists( ImDrawData* draw_data )
 {
 	// Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled
-	GLint last_program, last_texture;
+	GLint last_program, last_texture, polygon_mode;
 	glGetIntegerv( GL_CURRENT_PROGRAM, &last_program );
 	glGetIntegerv( GL_TEXTURE_BINDING_2D, &last_texture );
+	glGetIntegerv( GL_POLYGON_MODE, &polygon_mode );
 	glEnable( GL_BLEND );
 	glBlendEquation( GL_FUNC_ADD );
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
@@ -306,6 +307,8 @@ void RenderDrawLists( ImDrawData* draw_data )
 	glDisable( GL_DEPTH_TEST );
 	glEnable( GL_SCISSOR_TEST );
 	glActiveTexture( GL_TEXTURE0 );
+	
+	glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 	
 	// Setup orthographic projection matrix
 	const float width = ImGui::GetIO().DisplaySize.x;
@@ -350,6 +353,7 @@ void RenderDrawLists( ImDrawData* draw_data )
 	}
 	
 	// Restore modified state
+	glPolygonMode( GL_FRONT_AND_BACK, polygon_mode );
 	glBindVertexArray( 0 );
 	glBindBuffer( GL_ARRAY_BUFFER, 0 );
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0 );
