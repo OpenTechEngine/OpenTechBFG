@@ -823,29 +823,6 @@ unsigned char Sys_MapCharForKey( int key )
 }
 
 /*
-===============
-Sys_GrabMouseCursor
-===============
-*/
-void Sys_GrabMouseCursor( bool grabIt )
-{
-	int flags;
-	
-	if( grabIt )
-	{
-		// DG: disabling the cursor is now done once in GLimp_Init() because it should always be disabled
-		flags = GRAB_ENABLE | GRAB_SETSTATE;
-		// DG end
-	}
-	else
-	{
-		flags = GRAB_SETSTATE;
-	}
-	
-	GLimp_GrabInput( flags );
-}
-
-/*
 ================
 Sys_GetEvent
 ================

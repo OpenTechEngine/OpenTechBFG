@@ -70,8 +70,6 @@ idCVar r_useOpenGL32( "r_useOpenGL32", "1", CVAR_INTEGER, "0 = OpenGL 3.x, 1 = O
 #endif
 // RB end
 
-static bool grabbed = false;
-
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 static SDL_Window* window = NULL;
 static SDL_GLContext context = NULL;
@@ -581,35 +579,29 @@ GLExtension_t GLimp_ExtensionPointer(const char *name) {
 }
 */
 
-void GLimp_GrabInput( int flags )
+/*
+===============
+Sys_GrabMouseCursor
+===============
+*/
+void Sys_GrabMouseCursor( bool grab )
 {
-	bool grab = flags & GRAB_ENABLE;
+	static bool grabbed = false;
 	
-	if( grab && ( flags & GRAB_REENABLE ) )
-		grab = false;
-		
-	if( flags & GRAB_SETSTATE )
-		grabbed = grab;
-		
 	if( in_nograb.GetBool() )
 		grab = false;
 		
-	if( !window )
+	if( grabbed != grab )
 	{
-		common->Warning( "GLimp_GrabInput called without window" );
-		return;
-	}
-	
+		grabbed = grab;
+		
 #if SDL_VERSION_ATLEAST(2, 0, 0)
-	// DG: disabling the cursor is now done once in GLimp_Init() because it should always be disabled
-	
-	// DG: check for GRAB_ENABLE instead of GRAB_HIDECURSOR because we always wanna hide it
-	SDL_SetRelativeMouseMode( flags & GRAB_ENABLE ? SDL_TRUE : SDL_FALSE );
-	SDL_SetWindowGrab( window, grab ? SDL_TRUE : SDL_FALSE );
+		SDL_SetRelativeMouseMode( grab ? SDL_TRUE : SDL_FALSE );
+		SDL_SetWindowGrab( window, grab ? SDL_TRUE : SDL_FALSE );
 #else
-	// DG end
-	SDL_WM_GrabInput( grab ? SDL_GRAB_ON : SDL_GRAB_OFF );
+		SDL_WM_GrabInput( grab ? SDL_GRAB_ON : SDL_GRAB_OFF );
 #endif
+	}
 }
 
 /*
