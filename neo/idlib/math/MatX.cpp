@@ -2874,7 +2874,7 @@ void idMatX::SVD_Solve( idVecX& x, const idVecX& b, const idVecX& w, const idMat
 	for( i = 0; i < numColumns; i++ )
 	{
 		sum = 0.0f;
-		if( w[i] >= idMath::FLT_EPSILON )
+		if( w[i] >= idMath::ID_FLT_EPSILON )
 		{
 			for( j = 0; j < numRows; j++ )
 			{
@@ -2916,7 +2916,7 @@ void idMatX::SVD_Inverse( idMatX& inv, const idVecX& w, const idMatX& V ) const
 	for( i = 0; i < numRows; i++ )
 	{
 		wi = w[i];
-		wi = ( wi < idMath::FLT_EPSILON ) ? 0.0f : 1.0f / wi;
+		wi = ( wi < idMath::ID_FLT_EPSILON ) ? 0.0f : 1.0f / wi;
 		for( j = 0; j < numColumns; j++ )
 		{
 			V2[j][i] *= wi;
@@ -2955,7 +2955,7 @@ void idMatX::SVD_MultiplyFactors( idMatX& m, const idVecX& w, const idMatX& V ) 
 	for( r = 0; r < numRows; r++ )
 	{
 		// calculate row of matrix
-		if( w[r] >= idMath::FLT_EPSILON )
+		if( w[r] >= idMath::ID_FLT_EPSILON )
 		{
 			for( i = 0; i < V.GetNumRows(); i++ )
 			{
