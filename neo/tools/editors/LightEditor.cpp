@@ -27,7 +27,6 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include "../Tools.h"
 #include "LightEditor.h"
 
 #include "../imgui/BFGimgui.h"
@@ -315,7 +314,7 @@ LightEditor LightEditor::TheLightEditor;
 bool LightEditor::showIt = false;
 
 // static
-void LightEditor::ReInit( const idDict* dict, idLight* light )
+void LightEditor::ReInit( const idDict* dict, idEntity* light )
 {
 	// TODO: if the lighteditor is currently shown, show a warning first about saving current changes to the last light?
 	TheLightEditor.Init( dict, light );
@@ -327,7 +326,7 @@ void LightEditor::Draw()
 	TheLightEditor.DrawWindow();
 }
 
-void LightEditor::Init( const idDict* dict, idLight* light )
+void LightEditor::Init( const idDict* dict, idEntity* light )
 {
 	Reset();
 	if( dict )
@@ -338,7 +337,7 @@ void LightEditor::Init( const idDict* dict, idLight* light )
 		
 		name = dict->GetString( "name", "" );
 	}
-	this->light = light;
+	this->lightEntity = light;
 }
 
 void LightEditor::Reset()
@@ -346,17 +345,17 @@ void LightEditor::Reset()
 	name.Clear();
 	original.Defaults();
 	cur.Defaults();
-	light = NULL;
+	lightEntity = NULL;
 }
 
 void LightEditor::TempApplyChanges()
 {
-	if( light != NULL )
+	if( lightEntity != NULL )
 	{
 		idDict d;
 		cur.ToDict( &d );
-		gameEdit->EntityChangeSpawnArgs( light, &d );
-		gameEdit->EntityUpdateChangeableSpawnArgs( light, NULL );
+		gameEdit->EntityChangeSpawnArgs( lightEntity, &d );
+		gameEdit->EntityUpdateChangeableSpawnArgs( lightEntity, NULL );
 	}
 }
 
@@ -368,12 +367,12 @@ void LightEditor::SaveChanges()
 
 void LightEditor::CancelChanges()
 {
-	if( light != NULL )
+	if( lightEntity != NULL )
 	{
 		idDict d;
 		original.ToDict( &d );
-		gameEdit->EntityChangeSpawnArgs( light, &d );
-		gameEdit->EntityUpdateChangeableSpawnArgs( light, NULL );
+		gameEdit->EntityChangeSpawnArgs( lightEntity, &d );
+		gameEdit->EntityUpdateChangeableSpawnArgs( lightEntity, NULL );
 	}
 }
 

@@ -34,10 +34,7 @@ If you have questions concerning this license or the applicable additional terms
 #define NEO_TOOLS_EDITORS_LIGHTEDITOR_H_
 
 #include <idlib/Dict.h>
-
-// FIXME: this is really ugly, but I really want to be able to use idLight here :-/
-//        Note that I at least try to not leak d3xp/ stuff into the rest of the engine through headers.
-#include "../d3xp/Light.h"
+#include "../Tools.h"
 
 namespace BFG
 {
@@ -91,9 +88,9 @@ class LightEditor
 	LightInfo original;
 	LightInfo cur; // current status of the light
 	
-	idLight* light;
+	idEntity* lightEntity;
 	
-	void Init( const idDict* dict, idLight* light );
+	void Init( const idDict* dict, idEntity* light );
 	void Reset();
 	
 	void DrawWindow();
@@ -110,7 +107,7 @@ class LightEditor
 	static LightEditor TheLightEditor; // FIXME: maybe at some point we could allow more than one..
 	
 public:
-	static void ReInit( const idDict* dict, idLight* light );
+	static void ReInit( const idDict* dict, idEntity* light );
 	
 	static void Draw();
 	

@@ -5,6 +5,10 @@
 #include "compilers/compiler_public.h"
 #include <idlib/Dict.h>
 
+// in moddable doom3 Game.h was in framework/ and not to be modified by mods
+// we need it for GameEdit definition and idEntity declaration
+#include <d3xp/Game.h>
+
 namespace BFG
 {
 
@@ -15,7 +19,7 @@ namespace Tools
 
 void ToolSelectionWindow();
 
-void LightEditorInit( const idDict* dict, void* entity );
+void LightEditorInit( const idDict* dict, idEntity* entity );
 
 }
 

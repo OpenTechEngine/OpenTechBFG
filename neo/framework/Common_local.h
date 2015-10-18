@@ -159,7 +159,7 @@ public:
 	
 	// DG: re-add tool code
 	// Initializes a tool with the given dictionary.
-	virtual void				InitTool( const toolFlag_t tool, const idDict* dict, void* entity );
+	virtual void				InitTool( const toolFlag_t tool, const idDict* dict, idEntity* entity );
 	// DG end
 	
 	virtual void				WriteConfigToFile( const char* filename );

@@ -48,6 +48,8 @@ class idUserInterface;
 class idSaveLoadParms;
 class idMatchParameters;
 
+class idEntity; // for InitTool()
+
 struct lobbyConnectInfo_t;
 
 
@@ -229,7 +231,7 @@ public:
 	
 	// DG: re-add tool code
 	// Initializes a tool with the given dictionary.
-	virtual void				InitTool( const toolFlag_t tool, const idDict* dict, void* entity ) = 0;
+	virtual void				InitTool( const toolFlag_t tool, const idDict* dict, idEntity* entity ) = 0;
 	// DG end
 	
 	// Begins redirection of console output to the given buffer.

@@ -414,7 +414,7 @@ void idCommonLocal::AddStartupCommands()
 idCommonLocal::InitTool
 =================
 */
-void idCommonLocal::InitTool( const toolFlag_t tool, const idDict* dict, void* entity )
+void idCommonLocal::InitTool( const toolFlag_t tool, const idDict* dict, idEntity* entity )
 {
 #ifdef ID_ALLOW_TOOLS
 	if( tool & EDITOR_SOUND )
