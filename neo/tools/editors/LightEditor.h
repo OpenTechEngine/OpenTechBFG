@@ -56,6 +56,9 @@ public:
 	idVec3		lightTarget;
 	idVec3		lightCenter;
 	idVec3		color;
+	
+	
+#if 0 // FIXME: unused, delete?
 	bool		fog;
 	idVec4		fogDensity;
 	
@@ -63,6 +66,7 @@ public:
 	float		strobeSpeed;
 	bool		rotate;
 	float		rotateSpeed;
+#endif // 0
 	
 	idVec3		lightRadius;
 	bool		castShadows;
@@ -78,13 +82,12 @@ public:
 	void		DefaultPoint();
 	void		FromDict( const idDict* e );
 	void		ToDict( idDict* e );
-	void		ToDictFromDifferences( idDict* e, const idDict* differences );
-	void		ToDictWriteAllInfo( idDict* e );
 };
 
 class LightEditor
 {
-	idStr name;
+	idStr title;
+	idStr entityName;
 	LightInfo original;
 	LightInfo cur; // current status of the light
 	

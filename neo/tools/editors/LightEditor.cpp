@@ -50,6 +50,8 @@ void LightInfo::Defaults()
 	lightTarget.Zero();
 	lightCenter.Zero();
 	color[0] = color[1] = color[2] = 1.0f;
+	
+#if 0 // FIXME: unused, delete?
 	fog = false;
 	fogDensity.Zero();
 	
@@ -57,6 +59,7 @@ void LightInfo::Defaults()
 	strobeSpeed = 0.0f;
 	rotate = false;
 	rotateSpeed = 0.0f;
+#endif // 0
 	
 	lightRadius.Zero();
 	castShadows = true;
@@ -112,6 +115,7 @@ void LightInfo::FromDict( const idDict* e )
 		//       even though it displays them as 0 to 255
 	}
 	
+#if 0 // FIXME: unused, delete?
 	if( e->GetVec4( "fog", "", fogDensity ) )
 	{
 		fog = true;
@@ -120,6 +124,7 @@ void LightInfo::FromDict( const idDict* e )
 	{
 		fog = false;
 	}
+#endif // 0
 	
 	if( e->GetVector( "light_right", "", lightRight ) )
 	{
@@ -169,28 +174,16 @@ void LightInfo::FromDict( const idDict* e )
 	}
 }
 
-void LightInfo::ToDictFromDifferences( idDict* e, const idDict* differences )
+// the returned idDict is supposed to be used by idGameEdit::EntityChangeSpawnArgs()
+// and thus will contain pairs with value "" if the key should be removed from entity
+void LightInfo::ToDict( idDict* e )
 {
-	for( int i = 0 ; i < differences->GetNumKeyVals() ; i ++ )
-	{
-		const idKeyValue* kv = differences->GetKeyVal( i );
-		
-		if( kv->GetValue().Length() > 0 )
-		{
-			e->Set( kv->GetKey() , kv->GetValue() );
-		}
-		else
-		{
-			e->Delete( kv->GetKey() );
-		}
-		
-		common->Printf( "Applied difference: %s %s\n" , kv->GetKey().c_str() , kv->GetValue().c_str() );
-	}
-}
-
-//write all info to a dict, regardless of light type
-void LightInfo::ToDictWriteAllInfo( idDict* e )
-{
+	// idGameEdit::EntityChangeSpawnArgs() will delete key/value from entity,
+	// if value is "" => use DELETE_VAL for readability
+	static const char* DELETE_VAL = "";
+	
+	e->Set( "light", DELETE_VAL ); // we always use "light_radius" instead
+	
 	e->Set( "noshadows", ( !castShadows ) ? "1" : "0" );
 	e->Set( "nospecular", ( !castSpecular ) ? "1" : "0" );
 	e->Set( "nodiffuse", ( !castDiffuse ) ? "1" : "0" );
@@ -200,69 +193,22 @@ void LightInfo::ToDictWriteAllInfo( idDict* e )
 	if( strTexture.Length() > 0 )
 	{
 		e->Set( "texture", strTexture );
-	}
-	
-	e->SetVector( "_color", color );
-	
-	if( !equalRadius )
-	{
-		e->SetVector( "light_radius", lightRadius );
 	}
 	else
 	{
-		idVec3 tmp( lightRadius[0] ); // x, y and z have the same value
-		e->SetVector( "light_radius", tmp );
+		e->Set( "texture", DELETE_VAL );
 	}
 	
-	e->SetVector( "light_center", lightCenter );
-	e->Set( "parallel", isParallel ? "1" : "0" );
+	e->Set( "_color", color.ToString( 4 ) ); // NOTE: e->SetVector() uses precision of 2, not enough for color
 	
-	e->SetVector( "light_target", lightTarget );
-	e->SetVector( "light_up", lightUp );
-	e->SetVector( "light_right", lightRight );
-	e->SetVector( "light_start", lightStart );
-	e->SetVector( "light_end", lightEnd );
-}
-
-void LightInfo::ToDict( idDict* e )
-{
-
-	e->Delete( "noshadows" );
-	e->Delete( "nospecular" );
-	e->Delete( "nodiffuse" );
-	e->Delete( "falloff" );
-	e->Delete( "parallel" );
-	e->Delete( "texture" );
-	e->Delete( "_color" );
-	e->Delete( "fog" );
-	e->Delete( "light_target" );
-	e->Delete( "light_right" );
-	e->Delete( "light_up" );
-	e->Delete( "light_start" );
-	e->Delete( "light_end" );
-	e->Delete( "light_radius" );
-	e->Delete( "light_center" );
-	e->Delete( "light" );
-	
-	e->Set( "noshadows", ( !castShadows ) ? "1" : "0" );
-	e->Set( "nospecular", ( !castSpecular ) ? "1" : "0" );
-	e->Set( "nodiffuse", ( !castDiffuse ) ? "1" : "0" );
-	
-	e->SetFloat( "falloff", fallOff );
-	
-	if( strTexture.Length() > 0 )
-	{
-		e->Set( "texture", strTexture );
-	}
-	
-	e->SetVector( "_color", color );
-	
+#if 0 // DG: I think this isn't used
 	if( fog )
 	{
 		idVec4 tmp( fogDensity );
 		tmp *= 1.0f / 255.0f; // TODO: why not just make fogdensity values between 0 and 1 to start with?
 		e->SetVec4( "fog", tmp );
 	}
+#endif // 0
 	
 	if( pointLight )
 	{
@@ -280,11 +226,19 @@ void LightInfo::ToDict( idDict* e )
 		{
 			e->SetVector( "light_center", lightCenter );
 		}
-		
-		if( isParallel )
+		else
 		{
-			e->Set( "parallel", "1" );
+			e->Set( "light_center", DELETE_VAL );
 		}
+		
+		e->Set( "parallel", isParallel ? "1" : DELETE_VAL );
+		
+		// get rid of all the projected light specific stuff
+		e->Set( "light_target", DELETE_VAL );
+		e->Set( "light_up", DELETE_VAL );
+		e->Set( "light_right", DELETE_VAL );
+		e->Set( "light_start", DELETE_VAL );
+		e->Set( "light_end", DELETE_VAL );
 	}
 	else
 	{
@@ -296,6 +250,16 @@ void LightInfo::ToDict( idDict* e )
 			e->SetVector( "light_start", lightStart );
 			e->SetVector( "light_end", lightEnd );
 		}
+		else
+		{
+			e->Set( "light_start", DELETE_VAL );
+			e->Set( "light_end", DELETE_VAL );
+		}
+		
+		// get rid of the pointlight specific stuff
+		e->Set( "light_radius", DELETE_VAL );
+		e->Set( "light_center", DELETE_VAL );
+		e->Set( "parallel", DELETE_VAL );
 	}
 }
 
@@ -335,14 +299,24 @@ void LightEditor::Init( const idDict* dict, idEntity* light )
 		//current = original;
 		cur.FromDict( dict );
 		
-		name = dict->GetString( "name", "" );
+		const char* name = dict->GetString( "name", NULL );
+		if( name )
+		{
+			entityName = name;
+			title.Format( "Light Editor: %s", name );
+		}
+		else
+		{
+			idassert( 0 && "LightEditor::Init(): Given entity has no 'name' property?!" );
+			entityName = ""; // TODO: generate name or handle gracefully or something?
+		}
 	}
 	this->lightEntity = light;
 }
 
 void LightEditor::Reset()
 {
-	name.Clear();
+	title = "Light Editor: no Light selected!";
 	original.Defaults();
 	cur.Defaults();
 	lightEntity = NULL;
@@ -361,7 +335,28 @@ void LightEditor::TempApplyChanges()
 
 void LightEditor::SaveChanges()
 {
-	TempApplyChanges();
+	idDict d;
+	cur.ToDict( &d );
+	if( entityName[0] != '\0' )
+	{
+		gameEdit->MapCopyDictToEntity( entityName, &d );
+	}
+	else
+	{
+		assert( 0 && "FIXME: implement LightEditor::SaveChanges() properly for entities without names (new ones?)" );
+		
+#if 0 // TODO: I'm not quite sure about this, we prolly need to set a name before anyway for TempApplyChanges()
+		entityName = "light_42"; // FIXME: generate unique name!!
+		title.Format( "Light Editor: %s", entityName );
+		
+		d.Set( "name", entityName );
+		
+		d.Set( "classname", "light" );
+		d.Set( "spawnclass", "idLight" );
+		
+		gameEdit->MapAddEntity( &d );
+#endif // 0
+	}
 	gameEdit->MapSave();
 }
 
@@ -384,128 +379,135 @@ static float* vecToArr( idVec3& v )
 
 void LightEditor::DrawWindow()
 {
-	idStr title( "Light Editor: " );
-	if( name.Length() == 0 )
+	bool showWindow = showIt;
+	if( ImGui::Begin( title, &showWindow, ImGuiWindowFlags_ShowBorders ) )
 	{
-		title += "no Light selected!";
-	}
-	else
-	{
-		title += name;
-	}
-	
-	ImGui::Begin( title, &showIt, ImGuiWindowFlags_ShowBorders );
-	
-	bool changes = false;
-	
-	changes |= ImGui::Checkbox( "Cast Shadows", &cur.castShadows );
-	ImGui::SameLine();
-	changes |= ImGui::Checkbox( "Cast Diffuse", &cur.castDiffuse );
-	changes |= ImGui::Checkbox( "Cast Specular", &cur.castSpecular );
-	
-	
-	ImGui::Spacing();
-	
-	changes |= ImGui::ColorEdit3( "Color", vecToArr( cur.color ) );
-	
-	// TODO: texture
-	// TODO: fog, fogDensity
-	
-	ImGui::Spacing();
-	
-	int lightSelectionRadioBtn = cur.pointLight ? 0 : 1;
-	
-	changes |= ImGui::RadioButton( "Point Light", &lightSelectionRadioBtn, 0 );
-	ImGui::SameLine();
-	changes |= ImGui::RadioButton( "Projected Light", &lightSelectionRadioBtn, 1 );
-	
-	cur.pointLight = ( lightSelectionRadioBtn == 0 );
-	
-	ImGui::Indent();
-	
-	ImGui::Spacing();
-	
-	if( lightSelectionRadioBtn == 0 )
-	{
-		ImGui::PushItemWidth( -1.0f ); // align end of Drag* with right window border
+		bool changes = false;
 		
-		changes |= ImGui::Checkbox( "Equilateral Radius", &cur.equalRadius );
-		ImGui::Text( "Radius:" );
+		changes |= ImGui::Checkbox( "Cast Shadows", &cur.castShadows );
+		ImGui::SameLine();
+		changes |= ImGui::Checkbox( "Cast Diffuse", &cur.castDiffuse );
+		changes |= ImGui::Checkbox( "Cast Specular", &cur.castSpecular );
+		
+		ImGui::Spacing();
+		
+		changes |= ImGui::ColorEdit3( "Color", vecToArr( cur.color ) );
+		
+		// TODO: texture
+		// TODO: fog, fogDensity - probably unused!
+		
+		ImGui::Spacing();
+		
+		int lightSelectionRadioBtn = cur.pointLight ? 0 : 1;
+		
+		changes |= ImGui::RadioButton( "Point Light", &lightSelectionRadioBtn, 0 );
+		ImGui::SameLine();
+		changes |= ImGui::RadioButton( "Projected Light", &lightSelectionRadioBtn, 1 );
+		
+		cur.pointLight = ( lightSelectionRadioBtn == 0 );
+		
 		ImGui::Indent();
-		if( cur.equalRadius )
+		
+		ImGui::Spacing();
+		
+		if( lightSelectionRadioBtn == 0 )
 		{
-			if( ImGui::DragFloat( "(in all dirs)##radEquil", &cur.lightRadius.x, 1.0f, 0.0f, 10000.0f, "%.1f" ) )
+			ImGui::PushItemWidth( -1.0f ); // align end of Drag* with right window border
+			
+			changes |= ImGui::Checkbox( "Equilateral Radius", &cur.equalRadius );
+			ImGui::Text( "Radius:" );
+			ImGui::Indent();
+			if( cur.equalRadius )
 			{
-				cur.lightRadius.z = cur.lightRadius.y = cur.lightRadius.x;
-				changes = true;
+				if( ImGui::DragFloat( "##radEquil", &cur.lightRadius.x, 1.0f, 0.0f, 10000.0f, "%.1f" ) )
+				{
+					cur.lightRadius.z = cur.lightRadius.y = cur.lightRadius.x;
+					changes = true;
+				}
+			}
+			else
+			{
+				changes |= ImGui::DragVec3( "##radXYZ", cur.lightRadius );
+			}
+			ImGui::Unindent();
+			
+			ImGui::Spacing();
+			
+			// TODO: this could as well be a slider or something, if 0/0.5/1 is too restricting
+			
+			ImGui::Text( "Fall-off:" );
+			ImGui::SameLine();
+#if 0
+			ImGui::RadioButton( "0.0", &fallOffRadio, 0 );
+			ImGui::SameLine();
+			ImGui::RadioButton( "0.5", &fallOffRadio, 1 );
+			ImGui::SameLine();
+			ImGui::RadioButton( "1.0", &fallOffRadio, 2 );
+#endif // 0
+			
+			// a slider is easier than radiobuttons.. does it really have to be radiobuttons?
+			changes |= ImGui::SliderFloat( "##FallOff", &cur.fallOff, 0.0f, 1.0f, "%.1f" );
+			
+			ImGui::Spacing();
+			
+			changes |= ImGui::Checkbox( "Parallel", &cur.isParallel );
+			
+			ImGui::Spacing();
+			
+			changes |= ImGui::Checkbox( "Center", &cur.hasCenter );
+			if( cur.hasCenter )
+			{
+				ImGui::Indent();
+				changes |= ImGui::DragVec3( "##centerXYZ", cur.lightCenter, 1.0f, 0.0f, 10000.0f, "%.1f" );
+				ImGui::Unindent();
+			}
+			ImGui::PopItemWidth(); // back to default alignment on right side
+		}
+		else if( lightSelectionRadioBtn == 1 )
+		{
+			changes |= ImGui::DragVec3( "Target", cur.lightTarget, 1.0f, 0.0f, 0.0f, "%.1f" );
+			changes |= ImGui::DragVec3( "Right", cur.lightRight, 1.0f, 0.0f, 0.0f, "%.1f" );
+			changes |= ImGui::DragVec3( "Up", cur.lightUp, 1.0f, 0.0f, 0.0f, "%.1f" );
+			
+			ImGui::Spacing();
+			
+			changes |= ImGui::Checkbox( "Explicit start/end points", &cur.explicitStartEnd );
+			
+			ImGui::Spacing();
+			if( cur.explicitStartEnd )
+			{
+				changes |= ImGui::DragVec3( "Start", cur.lightStart, 1.0f, 0.0f, 0.0f, "%.1f" );
+				changes |= ImGui::DragVec3( "End", cur.lightEnd, 1.0f, 0.0f, 0.0f, "%.1f" );
 			}
 		}
-		else
-		{
-			changes |= ImGui::DragVec3( "##radXYZ", cur.lightRadius );
-		}
+		
 		ImGui::Unindent();
 		
-		ImGui::Spacing();
+		// TODO: allow multiple lights selected at the same time + "apply different" button?
+		//       then only the changed attribute (e.g. color) would be set to all lights,
+		//       but they'd keep their other individual properties (eg radius)
 		
-		// TODO: this could as well be a slider or something, if 0/0.5/1 is too restricting
-		
-		ImGui::Text( "Fall-off:" );
-		ImGui::SameLine();
-#if 0
-		ImGui::RadioButton( "0.0", &fallOffRadio, 0 );
-		ImGui::SameLine();
-		ImGui::RadioButton( "0.5", &fallOffRadio, 1 );
-		ImGui::SameLine();
-		ImGui::RadioButton( "1.0", &fallOffRadio, 2 );
-#endif // 0
-		
-		// a slider is easier than radiobuttons.. does it really have to be radiobuttons?
-		changes |= ImGui::SliderFloat( "Fall-off", &cur.fallOff, 0.0f, 1.0f, "%.1f" );
-		
-		ImGui::Spacing();
-		
-		changes |= ImGui::Checkbox( "Parallel", &cur.isParallel );
-		
-		ImGui::Spacing();
-		
-		changes |= ImGui::Checkbox( "Center", &cur.hasCenter );
-		if( cur.hasCenter )
+		if( ImGui::Button( "Save to .map" ) )
 		{
-			ImGui::Indent();
-			changes |= ImGui::DragVec3( "##centerXYZ", cur.lightCenter, 1.0f, 0.0f, 10000.0f, "%.1f" );
-			ImGui::Unindent();
+			SaveChanges();
+			showWindow = false;
 		}
-		ImGui::PopItemWidth(); // back to default alignment on right side
-	}
-	else if( lightSelectionRadioBtn == 1 )
-	{
-		changes |= ImGui::DragVec3( "Target", cur.lightTarget, 1.0f, 0.0f, 0.0f, "%.1f" );
-		changes |= ImGui::DragVec3( "Right", cur.lightRight, 1.0f, 0.0f, 0.0f, "%.1f" );
-		changes |= ImGui::DragVec3( "Up", cur.lightUp, 1.0f, 0.0f, 0.0f, "%.1f" );
-		
-		ImGui::Spacing();
-		
-		changes |= ImGui::Checkbox( "Explicit start/end points", &cur.explicitStartEnd );
-		
-		ImGui::Spacing();
-		if( cur.explicitStartEnd )
+		else if( ImGui::SameLine(), ImGui::Button( "Cancel" ) )
 		{
-			changes |= ImGui::DragVec3( "Start", cur.lightStart, 1.0f, 0.0f, 0.0f, "%.1f" );
-			changes |= ImGui::DragVec3( "End", cur.lightEnd, 1.0f, 0.0f, 0.0f, "%.1f" );
+			CancelChanges();
+			showWindow = false;
+		}
+		else if( changes )
+		{
+			TempApplyChanges();
 		}
 	}
-	
-	ImGui::Unindent();
-	
-	// TODO: "Save to map" / "Cancel" buttons
-	
 	ImGui::End();
 	
-	if( changes )
+	if( showIt && !showWindow )
 	{
-		TempApplyChanges();
-		printf( "## applying changes!\n" );
+		// TODO: do the same as when pressing cancel?
+		showIt = showWindow;
 	}
 }
 
