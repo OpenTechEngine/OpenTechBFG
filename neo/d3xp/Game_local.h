@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __GAME_LOCAL_H__
 #define	__GAME_LOCAL_H__
 
-#include "../idlib/sys/sys_defines.h"   // for NULL
+#include "../idlib/sys/sys_defines.h"   // for NULL                                           
 #include "../idlib/sys/sys_types.h"     // for uint32, byte
 #include "../cm/CollisionModel.h"       // for trace_t
 #include "../sys/sys_session.h"  // for MAX_PLAYERS, etc
