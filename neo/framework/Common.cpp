@@ -1860,11 +1860,8 @@ bool idCommonLocal::ProcessEvent( const sysEvent_t* event )
 		}
 	}
 	
-#ifdef USE_CEGUI
-	// send events to cegui
-	// TODO: should this always be injected or only if a cegui window is active?
-	idCEGUI::InjectSysEvent( event ); // TODO: could check return value?
-#endif // USE_CEGUI
+	// NOTE: idCEGUI::InjectSysEvent() is now called in the menu/console code
+	//       where cegui is actually used
 	
 	ImGuiHook::InjectSysEvent( event );
 	

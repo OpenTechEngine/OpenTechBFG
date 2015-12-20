@@ -6,6 +6,8 @@
 
 #include "menu/MenuLocator.h"
 
+#include "cegui/CEGUI_Hooks.h"
+
 /* Notes
 
 In to the mainmenu:
@@ -79,8 +81,7 @@ void idMenuHandler::ClearWidgetActionRepeater()
 }
 bool idMenuHandler::HandleGuiEvent( const sysEvent_t* sev )
 {
-	//common->Printf("idMenuHandler::HandleGuiEvent\n");
-	return true;
+	return idCEGUI::InjectSysEvent( sev );
 }
 
 /*
@@ -142,9 +143,16 @@ void idMenuHandler_Shell::SetShellState( shellState_t s )
 }
 void idMenuHandler_Shell::SetNextScreen( int screen, int trans )
 {
-	common->Printf( "idMenuHandler_Shell::SetNextScreen %d %d\n", screen, trans );
-//shellHandler->SetNextScreen( SHELL_AREA_INVALID, MENU_TRANSITION_SIMPLE );
-	// whats that supposed to do?
+	// called with SHELL_AREA_INVALID to close main menu
+	if( screen == SHELL_AREA_INVALID )
+	{
+		ActivateMenu( false );
+	}
+	else
+	{
+		common->Printf( "idMenuHandler_Shell::SetNextScreen %d %d\n", screen, trans );
+		// TODO: are there any other cases we should care about?
+	}
 }
 
 void idMenuHandler_Shell::SetInGame( bool val )

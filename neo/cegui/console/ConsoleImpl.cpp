@@ -212,7 +212,7 @@ void ConsoleImpl::TabComplete( void )
 		cvarSystem->CommandCompletion( AutoCompleteCallback );
 		// provides all valid cvar arguments for supplied command to callback function
 		cvarSystem->ArgCompletion( cmdStub.c_str(), AutoCompleteCallback );
-
+		
 		// sorting matches
 		this->ourVars->tabCompletions.sort();
 		// for finding common part of the completion

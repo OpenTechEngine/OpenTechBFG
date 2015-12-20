@@ -449,7 +449,7 @@ const char* idKeyInput::LocalizedKeyName( keyNum_t keynum )
 	}
 #else // DG: for !Windows I introduced Sys_GetKeyName() to get key label for current keyboard layout
 	
-	const char* ret = nullptr;
+	const char* ret = NULL;
 	
 	if( keynum < K_JOY1 ) // only for keyboard keys, not joystick or mouse
 	{

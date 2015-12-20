@@ -158,7 +158,10 @@ bool Console::ProcessEvent( const BFG::sysEvent_t* event, bool forceAccept )
 				}
 				TabComplete();
 			}
-			return true;
+			
+			// if the console is open, we need to pass events to CEGUI so the cursor, textinput etc works
+			// (if it's closed, someone else like main menu gets to handle the event)
+			return idCEGUI::InjectSysEvent( event );
 		}
 		
 		// if we aren't Active, dump all the other events
@@ -173,7 +176,7 @@ bool Console::ProcessEvent( const BFG::sysEvent_t* event, bool forceAccept )
 			return true;
 		}
 		
-		// we don't handle things like mouse, joystick, and network packets
+		// we don't handle things like mouse, joystick, and network packets if the console is not open
 		return false;
 	}
 	return false;
