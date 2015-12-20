@@ -45,6 +45,12 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../../imgui/ImGui_Hooks.h" // DG: same for imgui
 
+// DG: mingw compatibility hack
+#ifndef GET_XBUTTON_WPARAM
+#define GET_XBUTTON_WPARAM(w) (HIWORD(w))
+#endif
+// DG end
+
 namespace BFG
 {
 
@@ -508,9 +514,6 @@ LONG WINAPI MainWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
 		case WM_XBUTTONDOWN:
 		{
 			// RB begin
-#if defined(__MINGW32__)
-			Sys_QueEvent( SE_KEY, K_MOUSE4, 1, 0, NULL, 0 );
-#else
 			int button = GET_XBUTTON_WPARAM( wParam );
 			if( button == 1 )
 			{
@@ -520,16 +523,12 @@ LONG WINAPI MainWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
 			{
 				Sys_QueEvent( SE_KEY, K_MOUSE5, 1, 0, NULL, 0 );
 			}
-#endif
 			// RB end
 			return 0;
 		}
 		case WM_XBUTTONUP:
 		{
 			// RB begin
-#if defined(__MINGW32__)
-			Sys_QueEvent( SE_KEY, K_MOUSE4, 0, 0, NULL, 0 );
-#else
 			int button = GET_XBUTTON_WPARAM( wParam );
 			if( button == 1 )
 			{
@@ -539,7 +538,6 @@ LONG WINAPI MainWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
 			{
 				Sys_QueEvent( SE_KEY, K_MOUSE5, 0, 0, NULL, 0 );
 			}
-#endif
 			// RB end
 			return 0;
 		}
