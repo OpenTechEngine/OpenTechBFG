@@ -182,7 +182,7 @@ private:
 
 static idConsoleLocal localConsole;
 
-#ifndef USE_CEGUI
+#if 1 // #ifndef USE_CEGUI // FIXME: DG: once CEGUI console is fixed and reactivated, undo this
 idConsole* console = &localConsole;
 #endif
 

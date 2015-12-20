@@ -183,7 +183,9 @@ bool Console::ProcessEvent( const BFG::sysEvent_t* event, bool forceAccept )
 }
 } /* namespace CEGUIConsole */
 
+#if 0 // FIXME: fix and reactivate cegui console
 static CEGUIConsole::Console localConsole;
 idConsole* console = &localConsole;
+#endif
 
 } // namespace BFG
