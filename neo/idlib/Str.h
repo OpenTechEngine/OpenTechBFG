@@ -132,9 +132,10 @@ const int C_COLOR_BLACK				= '9';
 
 // make idStr a multiple of 16 bytes long
 // don't make too large to keep memory requirements to a minimum
-// DG: FIXME: on 64bit platforms it's 4byte bigger because of the pointer (=> 36bytes)
-//     FIXME: so raise this to 32 for a size of 48bytes or lower it to 16 for 32bytes for 64bit?
-const int STR_ALLOC_BASE			= 20;
+// DG: on 64bit platforms it's 4byte bigger because the data pointer is 8bytes instead of 4
+//     so target sizeof(idStr)==32 for 32bit and sizeof(idStr)==48 for 64bit
+//     (I think we can assume a bit more available memory on 64bit systems)
+const int STR_ALLOC_BASE			= ( sizeof( char* ) == 4 ) ? 20 : 32;
 const int STR_ALLOC_GRAN			= 32;
 
 typedef enum
@@ -374,8 +375,10 @@ public:
 	
 protected:
 	int					len;
-	char* 				data;
+	// DG: moved allocedAndFlag above data to save 4bytes on 64bit systems (=> alignment)
 	int					allocedAndFlag;	// top bit is used to store a flag that indicates if the string data is static or not
+	char* 				data;
+	
 	char				baseBuffer[ STR_ALLOC_BASE ];
 	
 	void				EnsureAlloced( int amount, bool keepold = true );	// ensure string data buffer is large anough
