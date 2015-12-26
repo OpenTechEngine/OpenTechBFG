@@ -374,6 +374,8 @@ public:
 	idImage*			heatmap7Image;
 	idImage*			smaaAreaImage;
 	idImage*			smaaSearchImage;
+	idImage*			smaaEdgesImage;
+	idImage*			smaaBlendImage;
 	// RB end
 	idImage* 			scratchImage;
 	idImage* 			scratchImage2;
