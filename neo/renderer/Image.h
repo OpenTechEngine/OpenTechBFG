@@ -380,6 +380,7 @@ public:
 	idImage*			smaaEdgesImage;
 	idImage*			smaaBlendImage;
 	idImage*			currentNormalsImage;			// cheap G-Buffer replacement, holds normals and surface roughness
+	idImage*			currentAOImage;					// contains AO and bilateral filtering keys
 	// RB end
 	idImage* 			scratchImage;
 	idImage* 			scratchImage2;
