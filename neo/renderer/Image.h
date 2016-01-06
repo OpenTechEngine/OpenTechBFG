@@ -371,7 +371,7 @@ public:
 #endif
 	idImage*			currentRenderHDRImageQuarter;
 	idImage*			currentRenderHDRImage64;
-	idImage*			bloomRender[2];
+	idImage*			bloomRenderImage[2];
 	idImage*			heatmap5Image;
 	idImage*			heatmap7Image;
 	idImage*			smaaInputImage;
@@ -380,7 +380,7 @@ public:
 	idImage*			smaaEdgesImage;
 	idImage*			smaaBlendImage;
 	idImage*			currentNormalsImage;			// cheap G-Buffer replacement, holds normals and surface roughness
-	idImage*			currentAOImage;					// contains AO and bilateral filtering keys
+	idImage*			ambientOcclusionImage[2];		// contain AO and bilateral filtering keys
 	// RB end
 	idImage* 			scratchImage;
 	idImage* 			scratchImage2;
