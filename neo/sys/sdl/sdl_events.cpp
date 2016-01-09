@@ -1186,8 +1186,13 @@ sysEvent_t Sys_GetEvent()
 				continue; // Avoid 'unknown event' spam when testing with touchpad by skipping this
 				
 			case SDL_MOUSEWHEEL:
-				res.evType = SE_KEY;
+				if( ev.wheel.y == 0 )
+				{
+					// ignore horizontal scrolling events
+					continue;
+				}
 				
+				res.evType = SE_KEY;
 				res.evValue = ( ev.wheel.y > 0 ) ? K_MWHEELUP : K_MWHEELDOWN;
 				
 				mouse_polls.Append( mouse_poll_t( M_DELTAZ, ev.wheel.y ) );
