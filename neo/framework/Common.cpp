@@ -1750,7 +1750,7 @@ void idCommonLocal::InitCommands()
 	cmdSystem->AddCommand( "runAASDir", RunAASDir_f, CMD_FL_TOOL, "compiles AAS files for all maps in a folder", idCmdSystem::ArgCompletion_MapName );
 	cmdSystem->AddCommand( "runReach", RunReach_f, CMD_FL_TOOL, "calculates reachability for an AAS file", idCmdSystem::ArgCompletion_MapName );
 	
-	cmdSystem->AddCommand( "showEditors", ShowEditors_f, CMD_FL_TOOL, "compiles a map" );
+	// cmdSystem->AddCommand( "showEditors", ShowEditors_f, CMD_FL_TOOL, "compiles a map" );
 	
 #endif
 }
@@ -1832,7 +1832,6 @@ bool idCommonLocal::ProcessEvent( const sysEvent_t* event )
 			{
 				if( !game->Shell_IsActive() )
 				{
-				
 					// menus / etc
 					if( MenuEvent( event ) )
 					{
@@ -1863,8 +1862,6 @@ bool idCommonLocal::ProcessEvent( const sysEvent_t* event )
 	// NOTE: idCEGUI::InjectSysEvent() is now called in the menu/console code
 	//       where cegui is actually used
 	
-	ImGuiHook::InjectSysEvent( event );
-	
 	// let the pull-down console take it if desired
 	if( console->ProcessEvent( event, false ) )
 	{
@@ -1883,6 +1880,11 @@ bool idCommonLocal::ProcessEvent( const sysEvent_t* event )
 	
 	// menus / etc
 	if( MenuEvent( event ) )
+	{
+		return true;
+	}
+	
+	if( ImGuiHook::InjectSysEvent( event ) )
 	{
 		return true;
 	}

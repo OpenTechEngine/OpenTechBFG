@@ -109,9 +109,7 @@ bool HandleKeyEvent( const sysEvent_t& keyEvent )
 	if( keyNum < K_JOY1 )
 	{
 		// keyboard input as direct input scancodes
-		int dInputKey =  keyEvent.evValue;
-		
-		io.KeysDown[dInputKey] = pressed;
+		io.KeysDown[keyNum] = pressed;
 		
 		io.KeyAlt = usercmdGen->KeyState( K_LALT ) == 1 || usercmdGen->KeyState( K_RALT ) == 1;
 		io.KeyCtrl = usercmdGen->KeyState( K_LCTRL ) == 1 || usercmdGen->KeyState( K_RCTRL ) == 1;
@@ -119,13 +117,16 @@ bool HandleKeyEvent( const sysEvent_t& keyEvent )
 		
 		return true;
 	}
-	else if( pressed && keyNum >= K_MOUSE1 && keyNum <= K_MOUSE5 )
+	else if( keyNum >= K_MOUSE1 && keyNum <= K_MOUSE5 )
 	{
-		// K_MOUSE* are contiguous, so they can be used as indexes into imgui's
-		// g_MousePressed[] - imgui even uses the same order (left, right, middle, X1, X2)
-		int buttonIdx = keyNum - K_MOUSE1;
-		g_MousePressed[buttonIdx] = true;
-		return true;
+		if( pressed )
+		{
+			// K_MOUSE* are contiguous, so they can be used as indexes into imgui's
+			// g_MousePressed[] - imgui even uses the same order (left, right, middle, X1, X2)
+			int buttonIdx = keyNum - K_MOUSE1;
+			g_MousePressed[buttonIdx] = true;
+		}
+		return true; // let's pretend we also handle mouse up events
 	}
 	
 	return false;
@@ -362,6 +363,16 @@ void RenderDrawLists( ImDrawData* draw_data )
 	glBindTexture( GL_TEXTURE_2D, last_texture );
 }
 
+bool ShowWindows()
+{
+	return Tools::AreEditorsActive();
+}
+
+bool UseInput()
+{
+	return Tools::ReleaseMouseForTools();
+}
+
 } //anon namespace
 
 bool Init( int windowWidth, int windowHeight )
@@ -420,7 +431,7 @@ void NotifyDisplaySizeChanged( int width, int height )
 // inject a sys event
 bool InjectSysEvent( const sysEvent_t* event )
 {
-	if( IsInitialized() )
+	if( IsInitialized() && UseInput() )
 	{
 		if( event == NULL )
 		{
@@ -461,7 +472,7 @@ bool InjectSysEvent( const sysEvent_t* event )
 
 bool InjectMouseWheel( int delta )
 {
-	if( IsInitialized() && delta != 0 )
+	if( IsInitialized() && UseInput() && delta != 0 )
 	{
 		g_MouseWheel = ( delta > 0 ) ? 1 : -1;
 		return true;
@@ -471,44 +482,49 @@ bool InjectMouseWheel( int delta )
 
 void NewFrame()
 {
-	if( !g_FontTexture ) CreateDeviceObjects();
-	
-	ImGuiIO& io = ImGui::GetIO();
-	
-	// Setup display size (every frame to accommodate for window resizing)
-	io.DisplaySize = g_DisplaySize;
-	
-	// Setup time step
-	int	time = Sys_Milliseconds();
-	double current_time = time * 0.001;
-	io.DeltaTime = g_Time > 0.0 ? ( float )( current_time - g_Time ) : ( float )( 1.0f / 60.0f );
-	g_Time = current_time;
-	
-	// Setup inputs
-	io.MousePos = g_MousePos;
-	
-	// If a mouse press event came, always pass it as "mouse held this frame",
-	// so we don't miss click-release events that are shorter than 1 frame.
-	for( int i = 0; i < 5; ++i )
+	if( IsInitialized() && ShowWindows() )
 	{
-		io.MouseDown[i] = g_MousePressed[i] || usercmdGen->KeyState( K_MOUSE1 + i ) == 1;
-		g_MousePressed[i] = false;
+		if( !g_FontTexture ) CreateDeviceObjects();
+		
+		ImGuiIO& io = ImGui::GetIO();
+		
+		// Setup display size (every frame to accommodate for window resizing)
+		io.DisplaySize = g_DisplaySize;
+		
+		// Setup time step
+		int	time = Sys_Milliseconds();
+		double current_time = time * 0.001;
+		io.DeltaTime = g_Time > 0.0 ? ( float )( current_time - g_Time ) : ( float )( 1.0f / 60.0f );
+		g_Time = current_time;
+		
+		// Setup inputs
+		io.MousePos = g_MousePos;
+		
+		// If a mouse press event came, always pass it as "mouse held this frame",
+		// so we don't miss click-release events that are shorter than 1 frame.
+		for( int i = 0; i < 5; ++i )
+		{
+			io.MouseDown[i] = g_MousePressed[i] || usercmdGen->KeyState( K_MOUSE1 + i ) == 1;
+			g_MousePressed[i] = false;
+		}
+		
+		io.MouseWheel = g_MouseWheel;
+		g_MouseWheel = 0.0f;
+		
+		// Hide OS mouse cursor if ImGui is drawing it TODO: hide mousecursor?
+		// ShowCursor(io.MouseDrawCursor ? 0 : 1);
+		
+		ImGui::GetIO().MouseDrawCursor = UseInput();
+		
+		// Start the frame
+		ImGui::NewFrame();
+		g_haveNewFrame = true;
 	}
-	
-	io.MouseWheel = g_MouseWheel;
-	g_MouseWheel = 0.0f;
-	
-	// Hide OS mouse cursor if ImGui is drawing it TODO: hide mousecursor?
-	// ShowCursor(io.MouseDrawCursor ? 0 : 1);
-	
-	// Start the frame
-	ImGui::NewFrame();
-	g_haveNewFrame = true;
 }
 
 void Render()
 {
-	if( IsInitialized() )
+	if( IsInitialized() && ShowWindows() )
 	{
 		if( !g_haveNewFrame )
 		{
@@ -517,8 +533,7 @@ void Render()
 			NewFrame();
 		}
 		
-		// FIXME: hacky!
-		Tools::ToolSelectionWindow();
+		Tools::DrawToolWindows();
 		
 		ImGui::Render();
 		g_haveNewFrame = false;
@@ -559,7 +574,7 @@ void Destroy()
 
 bool IsInitialized()
 {
-	// checks if cegui is up and running
+	// checks if imgui is up and running
 	return g_IsInit;
 }
 

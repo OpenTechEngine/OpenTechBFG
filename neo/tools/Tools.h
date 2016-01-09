@@ -17,7 +17,19 @@ void ShowEditors_f( const idCmdArgs& args );
 namespace Tools
 {
 
-void ToolSelectionWindow();
+// things in impl need to be used in at least one other file, but should generally not be touched
+namespace impl
+{
+
+void SetReleaseToolMouse( bool doRelease );
+
+} //namespace impl
+
+bool ReleaseMouseForTools();
+
+bool AreEditorsActive();
+
+void DrawToolWindows();
 
 void LightEditorInit( const idDict* dict, idEntity* entity );
 

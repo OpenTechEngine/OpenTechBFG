@@ -508,6 +508,7 @@ void LightEditor::DrawWindow()
 	{
 		// TODO: do the same as when pressing cancel?
 		showIt = showWindow;
+		impl::SetReleaseToolMouse( false );
 	}
 }
 

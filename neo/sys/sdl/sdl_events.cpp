@@ -64,6 +64,7 @@ If you have questions concerning this license or the applicable additional terms
 #endif // USE_CEGUI
 
 #include "../../imgui/ImGui_Hooks.h"
+#include "tools/Tools.h"
 
 #if !SDL_VERSION_ATLEAST(2, 0, 0)
 #define SDL_Keycode SDLKey
@@ -1012,6 +1013,8 @@ sysEvent_t Sys_GetEvent()
 				// DG: cegui must know about the changed window size
 				idCEGUI::NotifyDisplaySizeChanged( glConfig.nativeScreenWidth, glConfig.nativeScreenHeight );
 #endif // USE_CEGUI
+				// same for imgui
+				ImGuiHook::NotifyDisplaySizeChanged( glConfig.nativeScreenWidth, glConfig.nativeScreenHeight );
 			
 				// for some reason this needs a vid_restart in SDL1 but not SDL2 so GLimp_SetScreenParms() is called
 				PushConsoleEvent( "vid_restart" );
@@ -1157,7 +1160,7 @@ sysEvent_t Sys_GetEvent()
 				// to fix cursor problems in windowed mode
 				
 				// TODO we should have some method to tell if we want absolute or relative mouse
-				if( ( game && game->Shell_IsActive() ) || ( console && console->Active() ) )
+				if( ( game && game->Shell_IsActive() ) || ( console && console->Active() ) || Tools::ReleaseMouseForTools() )
 				{
 					res.evType = SE_MOUSE_ABSOLUTE;
 					res.evValue = ev.motion.x;
