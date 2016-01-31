@@ -158,7 +158,7 @@ void LightInfo::FromDict( const idDict* e )
 		pointLight = true;
 		if( e->GetVector( "light_radius", "", lightRadius ) )
 		{
-			equalRadius = false;
+			equalRadius = ( lightRadius.x == lightRadius.y && lightRadius.x == lightRadius.z );
 		}
 		else
 		{
