@@ -46,6 +46,20 @@ lights/ambientLight2
 	}
 }
 
+// this is the default light texture used by idGameEdit::ParseSpawnArgsToRenderLight()
+// if none is set
+lights/squarelight1
+{
+	ambientLight
+	lightFalloffImage	makeintensity( lights/squarelight1a.png )
+	{
+		forceHighQuality
+		map lights/squarelight1.png
+		colored
+		zeroClamp
+	}
+}
+
 
 //parm 3=flicker speed	parm 4=offset
 
@@ -60,9 +74,8 @@ lights/nofalloff
 	}
 }
 
-lights/fleshlight
+lights/flashlight
 {
-	fleshlight
 	lightFalloffImage makeintensity( lights/squarelight1b.png )
 	{
 		forceHighQuality
@@ -74,7 +87,7 @@ lights/fleshlight
 
 lights/fake_ies
 {
-	fake_ies
+	// fake_ies // wtf was this supposed to achieve? material parser fails..
 	lightFalloffImage makeintensity( lights/squarelight1b.png )
 	{
 	map lights/fake_ies.png

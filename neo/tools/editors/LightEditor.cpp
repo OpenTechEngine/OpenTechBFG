@@ -420,10 +420,6 @@ void LightEditor::TempApplyChanges()
 		cur.ToDict( &d );
 		gameEdit->EntityChangeSpawnArgs( lightEntity, &d );
 		gameEdit->EntityUpdateChangeableSpawnArgs( lightEntity, NULL );
-		
-		// FIXME: for some reason this doesn't work as expected if cur.textureStr == ""
-		//        the last used texture continues to be used in that case.
-		//        the problem is probably somewhere in idLight or idGameEdit::ParseSpawnArgsToRenderLight()
 	}
 }
 
