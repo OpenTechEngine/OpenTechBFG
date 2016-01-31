@@ -31,6 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../imgui/BFGimgui.h"
 
+#include "renderer/Material.h"
+#include "renderer/Image.h"
+
 namespace BFG
 {
 namespace Tools
@@ -293,6 +296,12 @@ void LightEditor::Draw()
 void LightEditor::Init( const idDict* dict, idEntity* light )
 {
 	Reset();
+	
+	if( textureNames.Num() == 0 )
+	{
+		LoadLightTextures();
+	}
+	
 	if( dict )
 	{
 		original.FromDict( dict );
@@ -310,6 +319,22 @@ void LightEditor::Init( const idDict* dict, idEntity* light )
 			idassert( 0 && "LightEditor::Init(): Given entity has no 'name' property?!" );
 			entityName = ""; // TODO: generate name or handle gracefully or something?
 		}
+		
+		currentTextureIndex = 0;
+		currentTexture = NULL;
+		if( original.strTexture.Length() > 0 )
+		{
+			const char* curTex = original.strTexture.c_str();
+			for( int i = 0; i < textureNames.Num(); ++i )
+			{
+				if( textureNames[i] == curTex )
+				{
+					currentTextureIndex = i + 1; // remember, 0 is "<No Texture>"
+					LoadCurrentTexture();
+					break;
+				}
+			}
+		}
 	}
 	this->lightEntity = light;
 }
@@ -320,6 +345,71 @@ void LightEditor::Reset()
 	original.Defaults();
 	cur.Defaults();
 	lightEntity = NULL;
+	currentTextureIndex = 0;
+	currentTexture = NULL;
+}
+
+namespace
+{
+class idSort_textureNames : public idSort_Quick< idStr, idSort_textureNames >
+{
+public:
+	int Compare( const idStr& a, const idStr& b ) const
+	{
+		return a.Icmp( b );
+	}
+};
+} //anon. namespace
+
+void LightEditor::LoadLightTextures()
+{
+	textureNames.Clear();
+	int count = declManager->GetNumDecls( DECL_MATERIAL );
+	const idMaterial* mat;
+	for( int i = 0; i < count; i++ )
+	{
+		mat = declManager->MaterialByIndex( i, false );
+		idStr str = mat->GetName();
+		str.ToLower(); // FIXME: why? (this is from old doom3 code)
+		if( str.Icmpn( "lights/", strlen( "lights/" ) ) == 0 || str.Icmpn( "fogs/", strlen( "fogs/" ) ) == 0 )
+		{
+			textureNames.Append( str );
+		}
+	}
+	textureNames.SortWithTemplate( idSort_textureNames() );
+}
+
+// static
+bool LightEditor::TextureItemsGetter( void* data, int idx, const char** out_text )
+{
+	LightEditor* self = static_cast<LightEditor*>( data );
+	if( idx == 0 )
+	{
+		*out_text = "<No Texture>";
+		return true;
+	}
+	--idx; // as index 0 has special purpose, the "real" index is one less
+	if( idx < 0 || idx >= self->textureNames.Num() )
+	{
+		*out_text = "<Invalid Index!>";
+		return false;
+	}
+	*out_text = self->textureNames[idx].c_str();
+	
+	return true;
+}
+
+void LightEditor::LoadCurrentTexture()
+{
+	currentTexture = NULL;
+	if( currentTextureIndex > 0 && cur.strTexture.Length() > 0 )
+	{
+		const idMaterial* mat = declManager->FindMaterial( cur.strTexture, false );
+		if( mat != NULL )
+		{
+			currentTexture = mat->GetEditorImage();
+		}
+	}
 }
 
 void LightEditor::TempApplyChanges()
@@ -330,6 +420,10 @@ void LightEditor::TempApplyChanges()
 		cur.ToDict( &d );
 		gameEdit->EntityChangeSpawnArgs( lightEntity, &d );
 		gameEdit->EntityUpdateChangeableSpawnArgs( lightEntity, NULL );
+		
+		// FIXME: for some reason this doesn't work as expected if cur.textureStr == ""
+		//        the last used texture continues to be used in that case.
+		//        the problem is probably somewhere in idLight or idGameEdit::ParseSpawnArgsToRenderLight()
 	}
 }
 
@@ -393,7 +487,6 @@ void LightEditor::DrawWindow()
 		
 		changes |= ImGui::ColorEdit3( "Color", vecToArr( cur.color ) );
 		
-		// TODO: texture
 		// TODO: fog, fogDensity - probably unused!
 		
 		ImGui::Spacing();
@@ -482,6 +575,21 @@ void LightEditor::DrawWindow()
 		}
 		
 		ImGui::Unindent();
+		
+		if( ImGui::Combo( "Texture", &currentTextureIndex, TextureItemsGetter, this, textureNames.Num() + 1 ) )
+		{
+			changes = true;
+			// -1 because 0 is "<No Texture>"
+			cur.strTexture = ( currentTextureIndex > 0 ) ? textureNames[currentTextureIndex - 1] : "";
+			LoadCurrentTexture();
+		}
+		
+		if( currentTexture != NULL )
+		{
+			ImVec2 size( currentTexture->GetUploadWidth(), currentTexture->GetUploadHeight() );
+			ImGui::Image( currentTexture->GetImGuiTextureID(), size, ImVec2( 0, 0 ), ImVec2( 1, 1 ),
+						  ImColor( 255, 255, 255, 255 ), ImColor( 255, 255, 255, 128 ) );
+		}
 		
 		// TODO: allow multiple lights selected at the same time + "apply different" button?
 		//       then only the changed attribute (e.g. color) would be set to all lights,

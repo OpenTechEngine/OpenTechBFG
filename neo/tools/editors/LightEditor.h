@@ -93,8 +93,16 @@ class LightEditor
 	
 	idEntity* lightEntity;
 	
+	idList<idStr> textureNames;
+	int currentTextureIndex;
+	idImage* currentTexture;
+	
 	void Init( const idDict* dict, idEntity* light );
 	void Reset();
+	
+	void LoadLightTextures();
+	static bool TextureItemsGetter( void* data, int idx, const char** out_text );
+	void LoadCurrentTexture();
 	
 	void DrawWindow();
 	
