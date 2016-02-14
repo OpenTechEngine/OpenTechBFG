@@ -203,22 +203,29 @@ LONG WINAPI MainWndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
 				
 					if( rect.right > rect.left && rect.bottom > rect.top )
 					{
-						glConfig.nativeScreenWidth = rect.right - rect.left;
-						glConfig.nativeScreenHeight = rect.bottom - rect.top;
-						
-						// save the window size in cvars if we aren't fullscreen
-						int style = GetWindowLong( hWnd, GWL_STYLE );
-						if( ( style & WS_POPUP ) == 0 )
+						// DG: only change cvars and notify GUIs if size has actually changed (and not only position)
+						int newWidth = rect.right - rect.left;
+						int newHeight = rect.bottom - rect.top;
+						if( newWidth != glConfig.nativeScreenWidth || newHeight != glConfig.nativeScreenHeight )
 						{
-							r_windowWidth.SetInteger( glConfig.nativeScreenWidth );
-							r_windowHeight.SetInteger( glConfig.nativeScreenHeight );
-						}
+							glConfig.nativeScreenWidth = newWidth;
+							glConfig.nativeScreenHeight = newHeight;
+							
+							// save the window size in cvars if we aren't fullscreen
+							int style = GetWindowLong( hWnd, GWL_STYLE );
+							if( ( style & WS_POPUP ) == 0 )
+							{
+								r_windowWidth.SetInteger( glConfig.nativeScreenWidth );
+								r_windowHeight.SetInteger( glConfig.nativeScreenHeight );
+							}
 #ifdef USE_CEGUI
-						// DG: cegui must know about the changed window size
-						idCEGUI::NotifyDisplaySizeChanged( glConfig.nativeScreenWidth, glConfig.nativeScreenHeight );
+							// DG: cegui must know about the changed window size
+							idCEGUI::NotifyDisplaySizeChanged( newWidth, newHeight );
 #endif // USE_CEGUI
-						// DG: and so must imgui
-						ImGuiHook::NotifyDisplaySizeChanged( glConfig.nativeScreenWidth, glConfig.nativeScreenHeight );
+							// DG: and so must imgui
+							ImGuiHook::NotifyDisplaySizeChanged( newWidth, newHeight );
+						}
+						// DG end
 					}
 				}
 			}

@@ -119,14 +119,12 @@ bool HandleKeyEvent( const sysEvent_t& keyEvent )
 	}
 	else if( keyNum >= K_MOUSE1 && keyNum <= K_MOUSE5 )
 	{
-		if( pressed )
-		{
-			// K_MOUSE* are contiguous, so they can be used as indexes into imgui's
-			// g_MousePressed[] - imgui even uses the same order (left, right, middle, X1, X2)
-			int buttonIdx = keyNum - K_MOUSE1;
-			g_MousePressed[buttonIdx] = true;
-		}
-		return true; // let's pretend we also handle mouse up events
+		// K_MOUSE* are contiguous, so they can be used as indexes into imgui's
+		// g_MousePressed[] - imgui even uses the same order (left, right, middle, X1, X2)
+		int buttonIdx = keyNum - K_MOUSE1;
+		g_MousePressed[buttonIdx] = pressed;
+		
+		return true;
 	}
 	
 	return false;
@@ -297,10 +295,10 @@ bool CreateDeviceObjects()
 void RenderDrawLists( ImDrawData* draw_data )
 {
 	// Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled
-	GLint last_program, last_texture, polygon_mode;
+	GLint last_program, last_texture, polygon_mode[2];
 	glGetIntegerv( GL_CURRENT_PROGRAM, &last_program );
 	glGetIntegerv( GL_TEXTURE_BINDING_2D, &last_texture );
-	glGetIntegerv( GL_POLYGON_MODE, &polygon_mode );
+	glGetIntegerv( GL_POLYGON_MODE, polygon_mode );
 	glEnable( GL_BLEND );
 	glBlendEquation( GL_FUNC_ADD );
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
@@ -354,7 +352,8 @@ void RenderDrawLists( ImDrawData* draw_data )
 	}
 	
 	// Restore modified state
-	glPolygonMode( GL_FRONT_AND_BACK, polygon_mode );
+	glPolygonMode( GL_FRONT, polygon_mode[0] );
+	glPolygonMode( GL_BACK, polygon_mode[1] );
 	glBindVertexArray( 0 );
 	glBindBuffer( GL_ARRAY_BUFFER, 0 );
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0 );
@@ -505,7 +504,7 @@ void NewFrame()
 		for( int i = 0; i < 5; ++i )
 		{
 			io.MouseDown[i] = g_MousePressed[i] || usercmdGen->KeyState( K_MOUSE1 + i ) == 1;
-			g_MousePressed[i] = false;
+			// g_MousePressed[i] = false; // the mouse up event will set this to false
 		}
 		
 		io.MouseWheel = g_MouseWheel;
