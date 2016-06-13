@@ -12,6 +12,12 @@ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
   
   add_definitions(-fno-strict-aliasing)
 
+  if(MINGW)
+    # otherwise imgui will try to use ime32 functions and linking against ime32 seems to  fail
+    # we don't need IME in the tools anyway.
+    add_definitions(-DIMGUI_DISABLE_WIN32_DEFAULT_IME_FUNCS)
+  endif()
+
 elseif(MSVC) # TODO: or Windows in general?
 
   set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /D _DEBUG /MP /MTd")
