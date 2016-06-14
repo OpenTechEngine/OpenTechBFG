@@ -1845,7 +1845,7 @@ void R_EnvShot_f( const idCmdArgs& args )
 		ref.viewaxis = axis[i];
 		fullname.Format( "env/%s%s", baseName, extension );
 		
-		tr.TakeScreenshot( size, size, fullname, blends, &ref, PNG );
+		tr.TakeScreenshot( size, size, fullname, blends, &ref, TGA );
 	}
 	
 	// restore the original resolution, axis and fov
