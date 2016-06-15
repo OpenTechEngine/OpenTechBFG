@@ -139,11 +139,12 @@ ___________________________________
 
 This project's GitHub.net Git repository can be checked out through Git with the following instruction set: 
 
-	> git clone https://github.com/OpenTechEngine/OpenTechBFG.git
+	> git clone --recurse-submodules https://github.com/OpenTechEngine/OpenTechBFG.git
+
+Don't forget "--recurse-submodules" it initialises the cegui submodule and downloads it for you.
 
 If you don't want to use git, you can download the source as a zip file at
 	https://github.com/OpenTechEngine/OpenTechBFG/archive/master.zip
-
 
 
 ___________________________________________________________________
@@ -158,7 +159,7 @@ __________________________________________________________
 
 3. Download and install the latest CMake.
 
-4. Generate the VC13 projects using CMake by doubleclicking a matching configuration .bat file in the neo/ folder.
+4. Generate the VC13 projects using CMake by doubleclicking a matching configuration .bat file in the neo/scripts folder.
 
 5. Use the VC13 solution to compile what you need:
 	OpenTechEngine/build/OpenTechEngine.sln
@@ -202,7 +203,7 @@ _________________________
 
 2. Generate the Makefiles using CMake:
 
-	> cd neo/
+	> cd neo/scripts  
 	> ./cmake-eclipse-linux-profile.sh
 	
 3. Compile OpenTechEngine targets with

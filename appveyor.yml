@@ -1,6 +1,6 @@
 version: 1.0.{build}
 os: Default Azure
-configuration: Debug
+configuration: Release
 platform: x64
 clone_folder: c:\projects\OpenTechBFG
 
@@ -38,4 +38,4 @@ on_success:
 
     [System.IO.Compression.ZipFile]::CreateFromDirectory("C:\projects\OpenTechBFG\build\OpenTechBFG-$unixtimestamp", "C:\projects\OpenTechBFG\build\OpenTechBFG-$unixtimestamp.zip")
 
-    scp -q -B -i /c/projects/OpenTechBFG/.appveyor/id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no /c/projects/OpenTechBFG/build/OpenTechBFG-$unixtimestamp.zip kordex@frs.sourceforge.net:/home/frs/project/opentechengine/snapshot/Windows/VisualStudio/OpenTechEngine-$unixtimestamp.zip
+    if ("$(scp -q -B -i /c/projects/OpenTechBFG/.appveyor/id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no /c/projects/OpenTechBFG/build/OpenTechBFG-$unixtimestamp.zip kordex@frs.sourceforge.net:/home/frs/project/opentechengine/snapshot/Windows/VisualStudio/OpenTechEngine-$unixtimestamp.zip)" -or $True) {$True}

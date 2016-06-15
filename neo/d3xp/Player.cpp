@@ -5241,7 +5241,8 @@ void idPlayer::NextWeapon()
 		return;
 	}
 	
-	int w = idealWeapon.Get();
+	int iw = Max( idealWeapon.Get(), 0 ); // make sure it's not -1
+	int w = iw;
 	while( 1 )
 	{
 		w++;
@@ -5249,7 +5250,7 @@ void idPlayer::NextWeapon()
 		{
 			w = 0;
 		}
-		if( w == idealWeapon )
+		if( w == iw )
 		{
 			w = weapon_fists;
 			break;
@@ -5301,7 +5302,8 @@ void idPlayer::PrevWeapon()
 		return;
 	}
 	
-	int w = idealWeapon.Get();
+	int iw = Max( idealWeapon.Get(), 0 ); // make sure it's not -1
+	int w = iw;
 	while( 1 )
 	{
 		w--;
@@ -5309,7 +5311,7 @@ void idPlayer::PrevWeapon()
 		{
 			w = MAX_WEAPONS - 1;
 		}
-		if( w == idealWeapon )
+		if( w == iw )
 		{
 			w = weapon_fists;
 			break;
@@ -5664,7 +5666,7 @@ void idPlayer::Weapon_Combat()
 		idealWeapon = currentWeapon;
 	}
 	
-	if( idealWeapon != currentWeapon &&  idealWeapon.Get() < MAX_WEAPONS )
+	if( idealWeapon != currentWeapon &&  idealWeapon.Get() < MAX_WEAPONS && idealWeapon.Get() >= 0 )
 	{
 		if( weaponCatchup )
 		{

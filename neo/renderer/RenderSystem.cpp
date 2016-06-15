@@ -348,7 +348,6 @@ static void R_CheckCvars()
 	{
 		case GLDRV_OPENGL_ES2:
 		case GLDRV_OPENGL_ES3:
-		case GLDRV_OPENGL_MESA:
 			r_useShadowMapping.SetInteger( 0 );
 			break;
 			
