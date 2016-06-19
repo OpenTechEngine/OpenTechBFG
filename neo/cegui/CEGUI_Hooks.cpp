@@ -37,6 +37,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "wrap_cegui.h"
 
 #include <CEGUI/RendererModules/OpenGL/GLRenderer.h>
+#include <CEGUI/RendererModules/OpenGL/GL3Renderer.h>
 
 #include "console/Console.h"
 
@@ -48,6 +49,7 @@ namespace // anon. namespace for helper functions and global state
 {
 CEGUI::System* ceguiSys = NULL; // the CEGUI System Singleton, available after Init()
 double oldTimePulseSec = -1.0;  // the last "time pulse" in seconds. updated by Update() (or rather UpdateTimePulse())
+bool usingOpenGL32 = false;
 
 void UpdateTimePulse()
 {
@@ -88,10 +90,19 @@ void RenderGUIContexts()
 void initSystem( void )
 {
 	// create renderer
-	
-	CEGUI::OpenGLRenderer& myRenderer = CEGUI::OpenGLRenderer::create();
-	myRenderer.enableExtraStateSettings( true );
-	CEGUI::System::create( myRenderer );
+	if( BFG::cvarSystem->GetCVarInteger( "r_useOpenGL32" ) > 0 )
+	{
+		usingOpenGL32 = true;
+		CEGUI::OpenGL3Renderer& myRenderer = CEGUI::OpenGL3Renderer::create();
+		myRenderer.enableExtraStateSettings( true );
+		CEGUI::System::create( myRenderer );
+	}
+	else
+	{
+		CEGUI::OpenGLRenderer& myRenderer = CEGUI::OpenGLRenderer::create();
+		myRenderer.enableExtraStateSettings( true );
+		CEGUI::System::create( myRenderer );
+	}
 }
 
 void setRes( CEGUI::DefaultResourceProvider* rp, const char* name, const BFG::idStr& base, const char* dir = NULL )
@@ -335,9 +346,19 @@ void idCEGUI::Destroy()
 	if( IsInitialized() )
 	{
 		Shutdown();
-		CEGUI::OpenGLRenderer* renderer = static_cast<CEGUI::OpenGLRenderer*>( CEGUI::System::getSingleton().getRenderer() );
-		CEGUI::System::getSingleton().destroy();
-		CEGUI::OpenGLRenderer::destroy( *renderer );
+		if( usingOpenGL32 )
+		{
+			usingOpenGL32 = false;
+			CEGUI::OpenGL3Renderer* renderer = static_cast<CEGUI::OpenGL3Renderer*>( CEGUI::System::getSingleton().getRenderer() );
+			CEGUI::System::getSingleton().destroy();
+			CEGUI::OpenGL3Renderer::destroy( *renderer );
+		}
+		else
+		{
+			CEGUI::OpenGLRenderer* renderer = static_cast<CEGUI::OpenGLRenderer*>( CEGUI::System::getSingleton().getRenderer() );
+			CEGUI::System::getSingleton().destroy();
+			CEGUI::OpenGLRenderer::destroy( *renderer );
+		}
 	}
 }
 
