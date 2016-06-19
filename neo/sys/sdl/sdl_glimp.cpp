@@ -210,11 +210,10 @@ bool GLimp_Init( glimpParms_t parms )
 			
 			SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
 			SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 2 );
-			
-			if( r_debugContext.GetBool() )
-			{
-				SDL_GL_SetAttribute( SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_DEBUG_FLAG );
-			}
+		}
+		if( r_debugContext.GetBool() )
+		{
+			SDL_GL_SetAttribute( SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_DEBUG_FLAG );
 		}
 		
 		if( r_useOpenGL32.GetInteger() > 1 )
