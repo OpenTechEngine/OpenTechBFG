@@ -185,7 +185,10 @@ _________________________
 
 		// TODO add ffmpeg libs for bink videos
 		
-		> yum install cmake SDL-devel openal-devel
+		> yum install cmake SDL-devel openal-devel gcc-c++
+		http://rpmfusion.org/Configuration 
+		First enable access to the free repository. Then enable access to the nonfree repositories. 
+		> yum install libtxc_dxtn
 	
 	On openSUSE (tested in 13.1)
 	
@@ -213,7 +216,7 @@ _________________________
 
 ___________________________________________________
 
-7) INSTALLATION, GETTING THE GAMEDATA, RUNNING THE GAME
+7) RUNNING THE GAME
 __________________________________________
 
 
@@ -221,55 +224,16 @@ If you use the prebuilt Win32 binaries then simply extract them to your
 C:\Program Files (x86)\Steam\SteamApps\common\Doom 3 BFG Edition\ directory and run OpenTechEngine.exe.
 
 
-
-
 The following instructions are primarily intented for Linux users and all hackers on other operating systems.
 
-To play the game, you need the game data from a legal copy of the game, which 
-unfortunately requires Steam for Windows - Steam for Linux or OSX won't do, because
-(at least currently) the Doom 3 BFG game is only installable on Steam for Windows.
-Even the DVD version of Doom 3 BFG only contains encrytped data that is decoded
-by Steam on install.
+1. Run the game
 
-Fortunately, you can run Steam in Wine to install Doom3 BFG and afterwards copy the 
-game data somewhere else to use it with native executables.
-Winetricks ( http://winetricks.org/ ) makes installing Windows Steam on Linux really easy.
+	> ln -s ../base .
+	> ./OpenTechEngine
 
-Anyway:
+2. Enjoy
 
-1. Install Doom 3 BFG in Steam (Windows version), make sure it's getting 
-   updated/patched.
-
-2. Create your own Doom 3 BFG directory, e.g. /path/to/Doom3BFG/
-
-3. Copy the game-data's base dir from Steam to that directory 
-   (e.g. /path/to/Doom3BFG/), it's in
-	/your/path/to/Steam/steamapps/common/DOOM 3 BFG Edition/base/
-
-4. Copy your OpenTechEngine executable that you created in 5) or 6) and the FFmpeg DLLs to your own 
-   OpenTechEngine directory (/path/to/OpenTechEngine/).
-   
-   Your own Doom 3 BFG directory now should look like:
-	/path/to/Doom3BFG/
-	 ->	OpenTechEngine (or OpenTechEngine.exe on Windows)
-	 -> avcodec-55.dll
-	 -> avdevice-55.dll
-	 -> avfilter-4.dll
-	 -> avformat-55.dll
-	 -> avutil-52.dll
-	 -> postproc-52.dll
-	 -> swresample-0.dll
-	 -> swscale-2.dll
-	 ->	base/
-		 ->	classicmusic/
-		 ->	_common.crc
-		 ->	(etc)
-
-5. Run the game by executing the OpenTechEngine executable.
-
-6. Enjoy
-
-7. If you run into bugs, please report them, see 11)
+3. If you run into bugs, please report them, see 11)
 
 ___________________________________________________
 
