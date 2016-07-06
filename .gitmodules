@@ -1,3 +1,9 @@
 [submodule "libs/cegui/CEGUI.git"]
 	path = libs/cegui/CEGUI.git
 	url = https://github.com/OpenTechEngine/CEGUI.git
+[submodule "libs/oggvorbis/vorbis.git"]
+	path = libs/oggvorbis/vorbis.git
+	url = https://github.com/xiph/vorbis.git
+[submodule "libs/oggvorbis/ogg.git"]
+	path = libs/oggvorbis/ogg.git
+	url = https://github.com/xiph/ogg.git
