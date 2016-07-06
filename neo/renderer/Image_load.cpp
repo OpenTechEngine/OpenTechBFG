@@ -3,7 +3,8 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2013-2015 Robert Beckebans
+Copyright (C) 2013-2016 Robert Beckebans
+Copyright (C) 2014-2016 Kot in Action Creative Artel
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -34,6 +35,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
+#include "../framework/Common_local.h"
 #include "../framework/FileSystem.h"
 #include "../idlib/Heap.h"
 #include "../idlib/Lib.h"
@@ -270,7 +272,22 @@ void idImage::GenerateImage( const byte* pic, int width, int height, textureFilt
 	else
 	{
 		idBinaryImage im( GetName() );
+		
+		
+		// foresthale 2014-05-30: give a nice progress display when binarizing
+		commonLocal.LoadPacifierBinarizeFilename( GetName() , "generated image" );
+		if( opts.numLevels > 1 )
+		{
+			commonLocal.LoadPacifierBinarizeProgressTotal( opts.width * opts.height * 4 / 3 );
+		}
+		else
+		{
+			commonLocal.LoadPacifierBinarizeProgressTotal( opts.width * opts.height );
+		}
+		
 		im.Load2DFromMemory( width, height, pic, opts.numLevels, opts.format, opts.colorFormat, opts.gammaMips );
+		
+		commonLocal.LoadPacifierBinarizeEnd();
 		
 		AllocImage();
 		
@@ -316,7 +333,21 @@ void idImage::GenerateCubeImage( const byte* pic[6], int size, textureFilter_t f
 	}
 	
 	idBinaryImage im( GetName() );
+	
+	// foresthale 2014-05-30: give a nice progress display when binarizing
+	commonLocal.LoadPacifierBinarizeFilename( GetName(), "generated cube image" );
+	if( opts.numLevels > 1 )
+	{
+		commonLocal.LoadPacifierBinarizeProgressTotal( opts.width * opts.width * 6 * 4 / 3 );
+	}
+	else
+	{
+		commonLocal.LoadPacifierBinarizeProgressTotal( opts.width * opts.width * 6 );
+	}
+	
 	im.LoadCubeFromMemory( size, pic, opts.numLevels, opts.format, opts.gammaMips );
+	
+	commonLocal.LoadPacifierBinarizeEnd();
 	
 	AllocImage();
 	
@@ -519,6 +550,26 @@ void idImage::ActuallyLoadImage( bool fromBackEnd )
 	}
 	else
 	{
+		idStr binarizeReason = "binarize: unknown reason";
+		if( binaryFileTime == FILE_NOT_FOUND_TIMESTAMP )
+		{
+			binarizeReason = va( "binarize: binary file not found '%s'", generatedName.c_str() );
+		}
+		else if( header.colorFormat != opts.colorFormat )
+		{
+			binarizeReason = va( "binarize: mismatch color format '%s'", generatedName.c_str() );
+		}
+		else if( header.colorFormat != opts.colorFormat )
+		{
+			binarizeReason = va( "binarize: mismatched color format '%s'", generatedName.c_str() );
+		}
+		else if( header.textureType != opts.textureType )
+		{
+			binarizeReason = va( "binarize: mismatched texture type '%s'", generatedName.c_str() );
+		}
+		//else if( toolUsage )
+		//	binarizeReason = va( "binarize: tool usage '%s'", generatedName.c_str() );
+		
 		if( cubeFiles != CF_2D )
 		{
 			int size;
@@ -530,13 +581,30 @@ void idImage::ActuallyLoadImage( bool fromBackEnd )
 				return;
 			}
 			
-			opts.textureType = TT_CUBIC;
 			repeat = TR_CLAMP;
+			
+			opts.textureType = TT_CUBIC;
 			opts.width = size;
 			opts.height = size;
 			opts.numLevels = 0;
+			
 			DeriveOpts();
+			
+			// foresthale 2014-05-30: give a nice progress display when binarizing
+			commonLocal.LoadPacifierBinarizeFilename( generatedName.c_str(), binarizeReason.c_str() );
+			if( opts.numLevels > 1 )
+			{
+				commonLocal.LoadPacifierBinarizeProgressTotal( opts.width * opts.width * 6 * 4 / 3 );
+			}
+			else
+			{
+				commonLocal.LoadPacifierBinarizeProgressTotal( opts.width * opts.width * 6 );
+			}
+			
 			im.LoadCubeFromMemory( size, ( const byte** )pics, opts.numLevels, opts.format, opts.gammaMips );
+			
+			commonLocal.LoadPacifierBinarizeEnd();
+			
 			repeat = TR_CLAMP;
 			
 			for( int i = 0; i < 6; i++ )
@@ -580,7 +648,20 @@ void idImage::ActuallyLoadImage( bool fromBackEnd )
 			opts.height = height;
 			opts.numLevels = 0;
 			DeriveOpts();
+			
+			// foresthale 2014-05-30: give a nice progress display when binarizing
+			commonLocal.LoadPacifierBinarizeFilename( generatedName.c_str(), binarizeReason.c_str() );
+			if( opts.numLevels > 1 )
+			{
+				commonLocal.LoadPacifierBinarizeProgressTotal( opts.width * opts.width * 6 * 4 / 3 );
+			}
+			else
+			{
+				commonLocal.LoadPacifierBinarizeProgressTotal( opts.width * opts.width * 6 );
+			}
+			
 			im.Load2DFromMemory( opts.width, opts.height, pic, opts.numLevels, opts.format, opts.colorFormat, opts.gammaMips );
+			commonLocal.LoadPacifierBinarizeEnd();
 			
 			Mem_Free( pic );
 		}
