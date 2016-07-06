@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
 
-project(OpenTechEngine)
+project(OpenTechEngine LANGUAGES CXX C)
 
 ################################################################################
 
@@ -118,15 +118,6 @@ if(BUNDLED_CEGUI)
     set(BUNDLED_FREETYPE ON CACHE BOOL "Select BUNDLED_FREETYPE for cegui" FORCE)
   endif()
   
-  # set RPATH for Unix-y systems (except for OS X), so they can find the cegui libs.
-  # must be done here so it's used for both the OpenTech executable and the cegui libs
-  if(UNIX AND NOT APPLE AND NOT WIN32)
-    # use $ORIGIN/lib as RPATH to have a relative rpath (lib/ should always be next to the executable)
-    set(CMAKE_INSTALL_RPATH "\$ORIGIN/lib")
-    # this RPATH should be used immediately, not only after installing
-    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
-  endif()
-
   add_subdirectory(libs/cegui)
 endif()
 
