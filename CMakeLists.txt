@@ -97,6 +97,11 @@ if(BUNDLED_GLEW)
   add_subdirectory(libs/glew)
 endif()
 
+# oggvorbis
+if(BUNDLED_OGGVORBIS)
+  add_subdirectory(libs/oggvorbis)
+endif()
+
 # openal
 if(BUNDLED_OPENAL)
 #  add_subdirectory(libs/openal)
