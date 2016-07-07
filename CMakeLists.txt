@@ -129,3 +129,37 @@ endif()
 ####
 
 add_subdirectory(neo)
+
+# cpack
+set(CPACK_PACKAGE_NAME "OpenTechBFG")
+set(CPACK_PACKAGE_VENDOR "OpenTechEngine")
+set(CPACK_PACKAGE_CONTACT "https://github.com/OpenTechEngine/OpenTechBFG")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Engine based on Doom 3 BFG aiming to allow the creation of standalone games")
+set(CPACK_PACKAGE_VERSION "1.0.0")
+set(CPACK_PACKAGE_VERSION_MAJOR "1")
+set(CPACK_PACKAGE_VERSION_MINOR "0")
+set(CPACK_PACKAGE_VERSION_PATCH "0")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "/opt/OpenTechEngine/OpenTechBFG")
+
+if(CMAKE_SYSTEM_NAME MATCHES "Linux")
+  set(CPACK_GENERATOR RPM DEB)
+  set(CPACK_DEB_COMPONENT_INSTALL ON)
+  set(CPACK_RPM_COMPONENT_INSTALL ON)
+  set(CPACK_COMPONENTS_ALL OpenTechEngine)
+elseif(CMAKE_SYSTEM_NAME MATCHES "Darwin")
+  set(CPACK_GENERATOR BUNDLE)
+  set(CPACK_BUNDLE_COMPONENT_INSTALL ON)
+  set(CPACK_COMPONENTS_ALL OpenTechEngine)
+elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
+  set(CPACK_GENERATOR NSIS)
+  set(CPACK_NSIS_COMPONENT_INSTALL ON)
+  set(CPACK_COMPONENTS_ALL OpenTechEngine)
+else()
+  set(CPACK_GENERATOR TGZ)
+  set(CPACK_TGZ_COMPONENT_INSTALL ON)
+  set(CPACK_COMPONENTS_ALL OpenTechEngine)
+endif()
+
+
+
+include(CPack)

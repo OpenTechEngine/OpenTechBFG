@@ -103,4 +103,4 @@ target_link_libraries(OpenTechEngine
   )
 #endif()
 
-install (TARGETS OpenTechEngine RUNTIME DESTINATION bin)
+install (TARGETS OpenTechEngine RUNTIME DESTINATION bin COMPONENT OpenTechEngine)
