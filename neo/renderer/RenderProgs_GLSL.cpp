@@ -391,7 +391,8 @@ const char* idRenderProgManager::GLSLMacroNames[MAX_SHADER_MACRO_NAMES] =
 	"LIGHT_PARALLEL",
 	"BRIGHTPASS",
 	"HDR_DEBUG",
-	"USE_SRGB"
+	"USE_SRGB",
+	"USE_PBR"
 };
 // RB end
 

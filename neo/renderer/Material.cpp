@@ -1070,17 +1070,17 @@ void idMaterial::ParseBlend( idLexer& src, shaderStage_t* stage )
 		stage->drawStateBits = GLS_SRCBLEND_ZERO | GLS_DSTBLEND_ONE;
 		return;
 	}
-	if( !token.Icmp( "bumpmap" ) )
+	if( !token.Icmp( "bumpmap" ) || !token.Icmp( "normalmap" ) )
 	{
 		stage->lighting = SL_BUMP;
 		return;
 	}
-	if( !token.Icmp( "diffusemap" ) )
+	if( !token.Icmp( "diffusemap" ) || !token.Icmp( "basecolormap" ) )
 	{
 		stage->lighting = SL_DIFFUSE;
 		return;
 	}
-	if( !token.Icmp( "specularmap" ) )
+	if( !token.Icmp( "specularmap" ) ||  !token.Icmp( "rmaomap" ) )
 	{
 		stage->lighting = SL_SPECULAR;
 		return;
@@ -1930,7 +1930,18 @@ void idMaterial::ParseStage( idLexer& src, const textureRepeat_t trpDefault )
 				td = TD_DIFFUSE;
 				break;
 			case SL_SPECULAR:
-				td = TD_SPECULAR;
+				if( idStr::FindText( imageName, "_rmaod", false ) != -1 )
+				{
+					td = TD_SPECULAR_PBR_RMAOD;
+				}
+				else if( idStr::FindText( imageName, "_rmao", false ) != -1 )
+				{
+					td = TD_SPECULAR_PBR_RMAO;
+				}
+				else
+				{
+					td = TD_SPECULAR;
+				}
 				break;
 			default:
 				break;
@@ -1943,10 +1954,13 @@ void idMaterial::ParseStage( idLexer& src, const textureRepeat_t trpDefault )
 		// create new coverage stage
 		shaderStage_t* newCoverageStage = &pd->parseStages[numStages];
 		numStages++;
+		
 		// copy it
 		*newCoverageStage = *ss;
+		
 		// toggle alphatest off for the current stage so it doesn't get called during the depth fill pass
 		ss->hasAlphaTest = false;
+		
 		// toggle alpha test on for the coverage stage
 		newCoverageStage->hasAlphaTest = true;
 		newCoverageStage->lighting = SL_COVERAGE;
@@ -2498,7 +2512,7 @@ void idMaterial::ParseMaterial( idLexer& src )
 			continue;
 		}
 		// diffusemap for stage shortcut
-		else if( !token.Icmp( "diffusemap" ) )
+		else if( !token.Icmp( "diffusemap" ) || !token.Icmp( "basecolormap" ) )
 		{
 			str = R_ParsePastImageProgram( src );
 			idStr::snPrintf( buffer, sizeof( buffer ), "blend diffusemap\nmap %s\n}\n", str );
@@ -2520,7 +2534,7 @@ void idMaterial::ParseMaterial( idLexer& src )
 			continue;
 		}
 		// normalmap for stage shortcut
-		else if( !token.Icmp( "bumpmap" ) )
+		else if( !token.Icmp( "bumpmap" ) || !token.Icmp( "normalmap" ) )
 		{
 			str = R_ParsePastImageProgram( src );
 			idStr::snPrintf( buffer, sizeof( buffer ), "blend bumpmap\nmap %s\n}\n", str );
