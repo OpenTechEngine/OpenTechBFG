@@ -7,3 +7,6 @@
 [submodule "libs/oggvorbis/ogg.git"]
 	path = libs/oggvorbis/ogg.git
 	url = https://github.com/xiph/ogg.git
+[submodule "libs/openal-soft/openal-soft.git"]
+	path = libs/openal-soft/openal-soft.git
+	url = https://github.com/kcat/openal-soft.git
