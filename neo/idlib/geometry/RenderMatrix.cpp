@@ -3252,8 +3252,8 @@ static void ClipHomogeneousPolygonToSide_SSE2( idVec4* __restrict newPoints, idV
 		}
 		
 		{
-			const __m128 d0 = _mm_nmsub_ps( pw0, side, pa0 );
-			const __m128 d1 = _mm_nmsub_ps( pw1, side, pa1 );
+			const __m128 d0 = BFG::_mm_nmsub_ps( pw0, side, pa0 );
+			const __m128 d1 = BFG::_mm_nmsub_ps( pw1, side, pa1 );
 			const __m128 delta = _mm_sub_ps( d0, d1 );
 			const __m128 deltaAbs = _mm_and_ps( delta, vector_float_abs_mask );
 			const __m128 clamp = _mm_cmpgt_ps( vector_float_smallest_non_denorm, deltaAbs );
