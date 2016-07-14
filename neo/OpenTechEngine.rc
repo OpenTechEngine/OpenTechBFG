@@ -1,0 +1,26 @@
+id ICON "../OpenTechEngine.ico"
+
+1 VERSIONINFO
+FILEVERSION 1,0,0,0
+PRODUCTVERSION 1,0,0,0
+BEGIN
+ BLOCK "StringFileInfo"
+ BEGIN
+  BLOCK "080904E4"
+  BEGIN
+   VALUE "CompanyName", "OpenTechEngine"
+   VALUE "FileDescription", "OpenTechBFG"
+   VALUE "FileVersion", "1.0"
+   VALUE "InternalName", "OpenTechBFG"
+   VALUE "LegalCopyright", "OpenTechEngine"
+   VALUE "OriginalFilename", "OpenTechEngine.exe"
+   VALUE "ProductName", "OpenTechBFG"
+   VALUE "ProductVersion", "1.0"
+  END
+ END
+
+ BLOCK "VarFileInfo"
+ BEGIN
+  VALUE "Translation", 0x809, 1252
+ END
+END

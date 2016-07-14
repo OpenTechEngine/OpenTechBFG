@@ -78,6 +78,11 @@ if(MINGW) # MinGW, 32 and 64bit
   # I think it is from Visual C++ .NET 2002, so it should be available on any remotely modern system.
   add_definitions(-D__MSVCRT_VERSION__=0x0700)
   add_definitions(-D__USE_MINGW_ANSI_STDIO=1)
+
+  # windres on mingw
+  set(CMAKE_RC_COMPILER_INIT windres)
+  enable_language(RC)
+  set(CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> -O coff -i <SOURCE> -o <OBJECT>")
 endif()	# WIN32
 
 #if(NOT ANDROID)
