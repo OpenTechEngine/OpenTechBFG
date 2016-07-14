@@ -265,9 +265,9 @@ typedef union DECLSPEC_INTRINTYPE _CRT_ALIGN( 16 ) __m128c
 
 ID_FORCE_INLINE_EXTERN __m128 _mm_nmsub_ps( __m128 a, __m128 b, __m128 c )
 {
-    return _mm_sub_ps( (c), _mm_mul_ps( (a), (b) ) );
+	return _mm_sub_ps( ( c ), _mm_mul_ps( ( a ), ( b ) ) );
 }
- 
+
 ID_FORCE_INLINE_EXTERN __m128 _mm_msum3_ps( __m128 a, __m128 b )
 {
 	__m128 c = _mm_mul_ps( a, b );
