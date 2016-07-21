@@ -56,6 +56,6 @@ deploy:
   file: "build/OpenTechBFG-1.0.0-win64.exe"
   skip_cleanup: true
   on:
-    repo: OpenTechEngine/OpenTechBFG
+    repo: "OpenTechEngine/OpenTechBFG"
     tags: true
-    condition: "$CXX" = "mingw"
+    condition: $CXX = "mingw"
