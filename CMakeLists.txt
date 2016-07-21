@@ -139,7 +139,22 @@ elseif(WIN32)
 else()
   install(DIRECTORY "base" DESTINATION "bin" COMPONENT Assets)
 endif()
-  
+
+#### create symlinks for unix so game can be run from build
+if(UNIX)
+  add_custom_target(
+    "OpenTechEngine_symlinks" ALL
+    COMMAND ln -sf "${CMAKE_SOURCE_DIR}/base" "${CMAKE_BINARY_DIR}/base"
+    COMMAND ln -sf "${CMAKE_BINARY_DIR}/neo/OpenTechEngine" "${CMAKE_BINARY_DIR}/OpenTechEngine"
+    )
+  if(BUNDLED_CEGUI)
+    add_custom_target(
+      "CEGUI_lib_symlinks" ALL
+      COMMAND ln -sf "${CMAKE_BINARY_DIR}/libs/cegui/CEGUI.git/lib" "${CMAKE_BINARY_DIR}/lib"
+      )
+  endif()
+endif()
+
 # cpack
 include(${CMAKE_CURRENT_SOURCE_DIR}/CPackConfig.cmake)
 include(CPack)
