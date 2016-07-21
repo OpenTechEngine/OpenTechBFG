@@ -4,10 +4,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(BREAKPAD_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/breakpad.git/src)
 
 if(WIN32)
-  if(MSVC)
-    add_definitions(-D_UNICODE)
-    add_definitions(-DUNICODE)
-  endif()
   set(DEBUG_ACCESS_SDK_DIR "$ENV{VSINSTALLDIR}/DIA SDK")
   if (NOT (EXISTS "${DEBUG_ACCESS_SDK_DIR}"))
     # The Debug Access SDK is required to build the dump_syms tool.
