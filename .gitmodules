@@ -10,3 +10,9 @@
 [submodule "libs/openal-soft/openal-soft.git"]
 	path = libs/openal-soft/openal-soft.git
 	url = https://github.com/kcat/openal-soft.git
+[submodule "libs/breakpad/breakpad.git"]
+	path = libs/breakpad/breakpad.git
+	url = https://github.com/google/breakpad.git
+[submodule "libs/breakpad/include/third_party/lss"]
+	path = libs/breakpad/include/third_party/lss
+	url = https://chromium.googlesource.com/linux-syscall-support
