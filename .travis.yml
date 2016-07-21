@@ -42,9 +42,9 @@ script:
  - cd ..
 
 after_success:
- - if [ "$CXX" = "g++" ]; then bash .travis/scripts/after_success.gcc.sh ; fi
- - if [ "$CXX" = "clang++" ]; then bash .travis/scripts/after_success.clang.sh ; fi
- - if [ "$CXX" = "mingw" ]; then bash .travis/scripts/after_success.mingw.sh ; fi
+ - if [ "$CXX" = "g++" ]; then bash .travis/scripts/after_success.gcc.sh || true; fi
+ - if [ "$CXX" = "clang++" ]; then bash .travis/scripts/after_success.clang.sh || true; fi
+ - if [ "$CXX" = "mingw" ]; then bash .travis/scripts/after_success.mingw.sh || true; fi
 
 after_failure:
  - bash .travis/scripts/after_failure.sh
