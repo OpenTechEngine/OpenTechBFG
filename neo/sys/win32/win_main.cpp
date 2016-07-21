@@ -51,6 +51,10 @@ If you have questions concerning this license or the applicable additional terms
 #include <sys/stat.h>
 #endif
 
+#ifdef USE_BREAKPAD
+#include "client/windows/handler/exception_handler.h"
+#endif
+
 #include "../sys_local.h"
 #include "win_local.h"
 #include "../renderer/tr_local.h"
@@ -1490,7 +1494,18 @@ WinMain
 ==================
 */
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow ) {
-
+#ifdef USE_BREAKPAD
+    google_breakpad::ExceptionHandler *pHandler =
+        new google_breakpad::ExceptionHandler(
+                                              L"%TMP%\\", // FIXME: provide base path here, dir must exist
+                                              NULL,
+                                              NULL,
+                                              0,
+                                              google_breakpad::ExceptionHandler::HANDLER_ALL,
+                                              MiniDumpNormal,
+                                              L"",
+                                              0 );
+#endif
 	const HCURSOR hcurSave = ::SetCursor( LoadCursor( 0, IDC_WAIT ) );
 
 	BFG::Sys_SetPhysicalWorkMemory( 192 << 20, 1024 << 20 );

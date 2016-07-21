@@ -59,6 +59,13 @@ else()
   list(APPEND OpenTechBFG_SOURCES ${STUBAUDIO_SOURCES})
 endif()
 
+if(BREAKPAD)
+  add_definitions(-DUSE_BREAKPAD)
+  include_directories(${CMAKE_SOURCE_DIR}/libs/breakpad/breakpad.git/src)
+  include_directories(${CMAKE_SOURCE_DIR}/libs/breakpad/include)
+  set(BREAKPAD_LIBRARY breakpad)
+  link_directories(${CMAKE_BINARY_DIR}/libs/breakpad)
+endif()
 #endif()
 
 list(REMOVE_DUPLICATES OpenTechBFG_SOURCES)
@@ -97,6 +104,7 @@ target_link_libraries(OpenTechEngine
   ${RT_LIBRARY}
   ${SDLx_LIBRARY}
   ${OPENAL_LIBRARY}
+  ${BREAKPAD_LIBRARY}
   ${FFMPEG_LIBRARIES}
   ${CEGUI_LIBRARY}
   ${CEGUIGLR_LIBRARY}

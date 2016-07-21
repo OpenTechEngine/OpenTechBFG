@@ -33,6 +33,16 @@ option(IDTOOLS
 option(CEGUI
   "Use cegui" ON)
 
+if(WIN32 AND (CMAKE_COMPILER_IS_GNUCC OR NOT $ENV{VSINSTALLDIR}))
+  # breakpad doesn't work on mingw out of the box
+  # and it requires DIA SDK which is under VSINSTALLDIR
+  option(BREAKPAD
+    "Use breakpad" OFF)
+else()
+  option(BREAKPAD
+    "Use breakpad" ON)
+endif()  
+
 #options########################################################################
 
 
@@ -124,6 +134,11 @@ if(BUNDLED_CEGUI)
   endif()
   
   add_subdirectory(libs/cegui)
+endif()
+
+# breakpad
+if(BREAKPAD)
+  add_subdirectory(libs/breakpad)
 endif()
 
 ####

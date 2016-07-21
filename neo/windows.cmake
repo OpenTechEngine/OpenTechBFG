@@ -81,6 +81,14 @@ if(USE_MFC_TOOLS)
     ${EDITOR_SOUND_INCLUDES} ${EDITOR_SOUND_SOURCES})
 endif() # USE_MFC_TOOLS
 
+if(BREAKPAD)
+  add_definitions(-DUSE_BREAKPAD)
+  include_directories(${CMAKE_SOURCE_DIR}/libs/breakpad/breakpad.git/src)
+  include_directories(${CMAKE_SOURCE_DIR}/libs/breakpad/include)
+  set(BREAKPAD_LIBRARY breakpad)
+  link_directories(${CMAKE_BINARY_DIR}/libs/breakpad)
+endif()
+
 list(APPEND OpenTechBFG_INCLUDES
   ${SYS_INCLUDES} 
   ${WIN32_INCLUDES})
@@ -147,6 +155,7 @@ target_link_libraries(OpenTechEngine
   ${DIRECTX_LIBRARIES}
   opengl32
   glu32
+  ${BREAKPAD_LIBRARY}
   ${OPENAL-SOFT_LIBRARY}
   ${FFMPEG_LIBRARIES}
   ${CEGUI_LIBRARY}

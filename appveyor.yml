@@ -7,6 +7,7 @@ clone_folder: c:\projects\OpenTechBFG
 environment:
   encryption_key:
     secure: 9Urg0eGnS5HKgBq7lQQAtuwwobSySAi5rtxr2kadkQpOeCxa5PTLL15AJ/RPDgAJ
+  VSINSTALLDIR: "C:/Program Files (x86)/Microsoft Visual Studio 12.0"
 
 before_build:
 - cd c:\projects\OpenTechBFG\
