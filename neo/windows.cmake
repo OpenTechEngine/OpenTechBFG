@@ -130,9 +130,20 @@ else() # mingw on linux
     #XInput
     xinput9_1_0
     )
-  install(FILES "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll" DESTINATION bin COMPONENT OpenTechEngine)
-  install(FILES "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libwinpthread-1.dll" DESTINATION bin COMPONENT OpenTechEngine)
-  install(FILES "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libstdc++-6.dll" DESTINATION bin COMPONENT OpenTechEngine)
+
+  if(EXISTS "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll")
+    install(FILES "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll" DESTINATION bin COMPONENT OpenTechEngine)
+    install(FILES "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libwinpthread-1.dll" DESTINATION bin COMPONENT OpenTechEngine)
+    install(FILES "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libstdc++-6.dll" DESTINATION bin COMPONENT OpenTechEngine)
+  elseif(EXISTS "/usr/lib/gcc/x86_64-w64-mingw32/4.8/libgcc_s_sjlj-1.dll")
+    install(FILES "/usr/lib/gcc/x86_64-w64-mingw32/4.8/libgcc_s_sjlj-1.dll" DESTINATION bin COMPONENT OpenTechEngine)
+    install(FILES "/usr/lib/gcc/x86_64-w64-mingw32/4.8/libstdc++-6.dll" DESTINATION bin COMPONENT OpenTechEngine)
+    install(FILES "/usr/x86_64-w64-mingw32/lib/libwinpthread-1.dll" DESTINATION bin COMPONENT OpenTechEngine)
+  else()
+    install(FILES "${CMAKE_BINARY_DIR}/libgcc_s_seh-1.dll" DESTINATION bin COMPONENT OpenTechEngine)
+    install(FILES "${CMAKE_BINARY_DIR}/libwinpthread-1.dll" DESTINATION bin COMPONENT OpenTechEngine)
+    install(FILES "${CMAKE_BINARY_DIR}/libstdc++-6.dll" DESTINATION bin COMPONENT OpenTechEngine)
+  endif()
 endif()
 
 target_link_libraries(OpenTechEngine
