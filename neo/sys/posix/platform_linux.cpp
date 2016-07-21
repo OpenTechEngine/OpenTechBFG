@@ -45,6 +45,11 @@ If you have questions concerning this license or the applicable additional terms
 #include <sys/stat.h>
 #include <unistd.h>
 
+#ifdef USE_BREAKPAD
+using BFG::idNullPtr;
+#include "client/linux/handler/exception_handler.h"
+#endif
+
 namespace BFG
 {
 
@@ -515,7 +520,15 @@ void Sys_ReLaunch()
 	}
 	// DG end
 }
+#ifdef USE_BREAKPAD
+// breakpad dumpCallback
 
+static bool breakpad_dumpCallback( const google_breakpad::MinidumpDescriptor& descriptor, void* context, bool succeeded )
+{
+	printf( "Dump path: %s\n", descriptor.path() );
+	return succeeded;
+}
+#endif
 } // namespace BFG
 
 /*
@@ -525,6 +538,10 @@ main
 */
 int main( int argc, const char** argv )
 {
+#ifdef USE_BREAKPAD
+	google_breakpad::MinidumpDescriptor descriptor( "/tmp" );
+	google_breakpad::ExceptionHandler eh( descriptor, NULL, BFG::breakpad_dumpCallback, NULL, true, -1 );
+#endif
 	// DG: needed for Sys_ReLaunch()
 	BFG::cmdargc = argc;
 	BFG::cmdargv = argv;

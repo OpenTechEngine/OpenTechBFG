@@ -33,6 +33,16 @@ option(IDTOOLS
 option(CEGUI
   "Use cegui" ON)
 
+if(WIN32 AND (CMAKE_COMPILER_IS_GNUCC OR NOT $ENV{VSINSTALLDIR}))
+  # breakpad doesn't work on mingw out of the box
+  # and it requires DIA SDK which is under VSINSTALLDIR
+  option(BREAKPAD
+    "Use breakpad" OFF)
+else()
+  option(BREAKPAD
+    "Use breakpad" ON)
+endif()  
+
 #options########################################################################
 
 
@@ -62,7 +72,7 @@ option(BUNDLED_OGGVORBIS
   "Use bundled oggvorbis" OFF)
   
 option(BUNDLED_OPENAL
-  "Use bundled openal")
+  "Use bundled openal" ON)
 
 option(BUNDLED_SDL
   "Use bundled SDL" OFF)
@@ -97,9 +107,14 @@ if(BUNDLED_GLEW)
   add_subdirectory(libs/glew)
 endif()
 
+# oggvorbis
+if(BUNDLED_OGGVORBIS)
+  add_subdirectory(libs/oggvorbis)
+endif()
+
 # openal
 if(BUNDLED_OPENAL)
-#  add_subdirectory(libs/openal)
+  add_subdirectory(libs/openal-soft)
 endif()
 
 # sdl
@@ -118,18 +133,28 @@ if(BUNDLED_CEGUI)
     set(BUNDLED_FREETYPE ON CACHE BOOL "Select BUNDLED_FREETYPE for cegui" FORCE)
   endif()
   
-  # set RPATH for Unix-y systems (except for OS X), so they can find the cegui libs.
-  # must be done here so it's used for both the OpenTech executable and the cegui libs
-  if(UNIX AND NOT APPLE AND NOT WIN32)
-    # use $ORIGIN/lib as RPATH to have a relative rpath (lib/ should always be next to the executable)
-    set(CMAKE_INSTALL_RPATH "\$ORIGIN/lib")
-    # this RPATH should be used immediately, not only after installing
-    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
-  endif()
-
   add_subdirectory(libs/cegui)
+endif()
+
+# breakpad
+if(BREAKPAD)
+  add_subdirectory(libs/breakpad)
 endif()
 
 ####
 
 add_subdirectory(neo)
+
+#### install and packaging
+
+if(UNIX)
+  install(DIRECTORY "base" DESTINATION "bin" COMPONENT Assets)
+elseif(WIN32)
+  install(DIRECTORY "base" DESTINATION "." COMPONENT Assets)
+else()
+  install(DIRECTORY "base" DESTINATION "bin" COMPONENT Assets)
+endif()
+  
+# cpack
+include(${CMAKE_CURRENT_SOURCE_DIR}/CPackConfig.cmake)
+include(CPack)
