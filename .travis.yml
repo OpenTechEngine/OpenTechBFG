@@ -38,7 +38,7 @@ install:
 script: 
  - mkdir -p build && cd build
  - if [ "$CXX" = "mingw" ]; then cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../scripts/mingw32.toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DSDL2=OFF -DBUNDLED_FREETYPE=ON -DBUNDLED_OPENAL=ON ../ ;else cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DSDL2=OFF ../;fi
- - make
+ - make package
  - cd ..
 
 after_success:
@@ -48,3 +48,14 @@ after_success:
 
 after_failure:
  - bash .travis/scripts/after_failure.sh
+
+deploy:
+  provider: releases
+  api_key:
+    secure: CqNzdXDsCrmC8v7XaJEWARDOq2RcuRqsiAv/32TBgC681767jlC7zYFJHxAvrvx3iPTTlW3fsqiNEDhsqnraArO7M4CMOV9lEssZAJoMV25gWkNNqBwjwfLeS5VCmZPwrznXR4qfKMIsIHaKZNDEQiSlvd4PP8M0z5mDjh5oims=
+  file: "build/OpenTechBFG-1.0.0-win64.exe"
+  skip_cleanup: true
+  on:
+    repo: OpenTechEngine/OpenTechBFG
+    tags: true
+    condition: "$CXX" = "mingw"
