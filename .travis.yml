@@ -38,10 +38,11 @@ install:
 script: 
  - mkdir -p build && cd build
  - if [ "$CXX" = "mingw" ]; then cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../scripts/mingw32.toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DSDL2=OFF -DBUNDLED_FREETYPE=ON -DBUNDLED_OPENAL=ON ../ ;else cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DSDL2=OFF ../;fi
- - make package
+ - make
  - cd ..
 
 after_success:
+ - make package || true
  - if [ "$CXX" = "g++" ]; then bash .travis/scripts/after_success.gcc.sh || true; fi
  - if [ "$CXX" = "clang++" ]; then bash .travis/scripts/after_success.clang.sh || true; fi
  - if [ "$CXX" = "mingw" ]; then bash .travis/scripts/after_success.mingw.sh || true; fi
