@@ -9,26 +9,15 @@ add_definitions(-DUSE_XINPUT)
 
 if(OPENAL)
   add_definitions(-DUSE_OPENAL)
-
-  include_directories(../libs/openal/openal-soft/include)
   
-  if(PROCESSOR_ARCHITECTURE STREQUAL "x86")
-    link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/openal/openal-soft/libs/Win32)
-  else()
-    link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../libs/openal/openal-soft/libs/Win64)
+  if(BUNDLED_OPENAL)
+    include_directories(${CMAKE_SOURCE_DIR}/libs/openal-soft/openal-soft.git/include)
+    set(OPENAL-SOFT_LIBRARY OpenAL32)
+    list(APPEND OpenTechBFG_INCLUDES ${OPENAL_INCLUDES})
+    list(APPEND OpenTechBFG_SOURCES ${OPENAL_SOURCES})
+    install(FILES "${CMAKE_BINARY_DIR}/libs/openal-soft/openal-soft.git/OpenAL32.dll" DESTINATION bin COMPONENT OpenTechEngine)
   endif()
   
-  list(APPEND OpenTechBFG_INCLUDES ${OPENAL_INCLUDES})
-  list(APPEND OpenTechBFG_SOURCES ${OPENAL_SOURCES})
-
-  set(OPENAL_LIBRARY OpenAL32)
-  
-  if(CMAKE_CL_64)
-    install(FILES ../libs/openal/openal-soft/lib/win64/OpenAL64.dll DESTINATION .)
-  else()
-    install(FILES ../libs/openal/openal-soft/lib/win32/OpenAL32.dll DESTINATION .)
-    install(FILES ../libs/openal/openal-soft/lib/win32/OpenAL32.pdb DESTINATION .)
-  endif()
 else() # XAUDIO2
   list(APPEND OpenTechBFG_INCLUDES ${XAUDIO2_INCLUDES})
   list(APPEND OpenTechBFG_SOURCES ${XAUDIO2_SOURCES})
@@ -103,7 +92,10 @@ list(APPEND OpenTechBFG_SOURCES
 list(REMOVE_DUPLICATES OpenTechBFG_SOURCES)
 
 list(APPEND OpenTechBFG_SOURCES ${WIN32_RESOURCES})
-  
+
+# icon
+list(APPEND OpenTechBFG_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/OpenTechEngine.rc")
+
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
@@ -126,18 +118,32 @@ list(APPEND DIRECTX_LIBRARIES
 
 if(MSVC)
   list(APPEND DIRECTX_LIBRARIES
-  #XInput
-  xinput9_1_0
-  )
+    #XInput
+    xinput9_1_0
+    )
 elseif(CMAKE_HOST_WIN32) # mingw on windows has only xinput library
   list(APPEND DIRECTX_LIBRARIES
     xinput
-  )
+    )
 else() # mingw on linux
   list(APPEND DIRECTX_LIBRARIES
-  #XInput
-  xinput9_1_0
-  )
+    #XInput
+    xinput9_1_0
+    )
+
+  if(EXISTS "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll")
+    install(FILES "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libgcc_s_seh-1.dll" DESTINATION bin COMPONENT OpenTechEngine)
+    install(FILES "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libwinpthread-1.dll" DESTINATION bin COMPONENT OpenTechEngine)
+    install(FILES "/usr/x86_64-w64-mingw32/sys-root/mingw/bin/libstdc++-6.dll" DESTINATION bin COMPONENT OpenTechEngine)
+  elseif(EXISTS "/usr/lib/gcc/x86_64-w64-mingw32/4.8/libgcc_s_sjlj-1.dll")
+    install(FILES "/usr/lib/gcc/x86_64-w64-mingw32/4.8/libgcc_s_sjlj-1.dll" DESTINATION bin COMPONENT OpenTechEngine)
+    install(FILES "/usr/lib/gcc/x86_64-w64-mingw32/4.8/libstdc++-6.dll" DESTINATION bin COMPONENT OpenTechEngine)
+    install(FILES "/usr/x86_64-w64-mingw32/lib/libwinpthread-1.dll" DESTINATION bin COMPONENT OpenTechEngine)
+  else()
+    install(FILES "${CMAKE_BINARY_DIR}/libgcc_s_seh-1.dll" DESTINATION bin COMPONENT OpenTechEngine)
+    install(FILES "${CMAKE_BINARY_DIR}/libwinpthread-1.dll" DESTINATION bin COMPONENT OpenTechEngine)
+    install(FILES "${CMAKE_BINARY_DIR}/libstdc++-6.dll" DESTINATION bin COMPONENT OpenTechEngine)
+  endif()
 endif()
 
 target_link_libraries(OpenTechEngine
@@ -152,7 +158,7 @@ target_link_libraries(OpenTechEngine
   ${DIRECTX_LIBRARIES}
   opengl32
   glu32
-  ${OPENAL_LIBRARY}
+  ${OPENAL-SOFT_LIBRARY}
   ${FFMPEG_LIBRARIES}
   ${CEGUI_LIBRARY}
   ${CEGUIGLR_LIBRARY}
@@ -160,4 +166,4 @@ target_link_libraries(OpenTechEngine
   
 #CMAKE_BINARY_DIR
 install(TARGETS OpenTechEngine
-  RUNTIME DESTINATION .)
+  RUNTIME DESTINATION bin COMPONENT OpenTechEngine)

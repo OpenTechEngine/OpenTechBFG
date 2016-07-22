@@ -8,6 +8,10 @@ environment:
   encryption_key:
     secure: 9Urg0eGnS5HKgBq7lQQAtuwwobSySAi5rtxr2kadkQpOeCxa5PTLL15AJ/RPDgAJ
 
+install:
+  - cinst -y nsis
+  - SET PATH=%PATH%;C:\Program Files\NSIS\;C:\Program Files (x86)\NSIS\
+
 before_build:
 - cd c:\projects\OpenTechBFG\
 - git submodule init
@@ -17,10 +21,14 @@ before_build:
 - cmake -G "Visual Studio 12 Win64" -DCMAKE_INSTALL_PREFIX=../bin/win8-64 -DOPENAL=OFF -DBUNDLED_FREETYPE=ON ../
 
 build:
-  project: C:\projects\OpenTechBFG\build\ALL_BUILD.vcxproj
+  project: C:\projects\OpenTechBFG\build\PACKAGE.vcxproj
   verbosity: normal
 
 test: off
+
+artifacts:
+  - path: 'build\OpenTechBFG-*-win64.exe'
+    name: OpenTechBFG
 
 on_success:
 - ps: >-
@@ -39,3 +47,17 @@ on_success:
     [System.IO.Compression.ZipFile]::CreateFromDirectory("C:\projects\OpenTechBFG\build\OpenTechBFG-$unixtimestamp", "C:\projects\OpenTechBFG\build\OpenTechBFG-$unixtimestamp.zip")
 
     if ("$(scp -q -B -i /c/projects/OpenTechBFG/.appveyor/id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no /c/projects/OpenTechBFG/build/OpenTechBFG-$unixtimestamp.zip kordex@frs.sourceforge.net:/home/frs/project/opentechengine/snapshot/Windows/VisualStudio/OpenTechEngine-$unixtimestamp.zip)" -or $True) {$True}
+
+deploy:
+  release: OpenTechBFG-v$(appveyor_build_version)
+  description: 'OpenTechBFG'
+  provider: GitHub
+  auth_token:
+    secure: /FqKMwmidZF3nDlOl6I2QcKQBiPTSA5ZKSzM4tpMYmmNFI48cDnJRIPw6DwFdwVq
+  artifact: OpenTechBFG
+  draft: false
+  prerelease: true
+  force_update: true
+  tag: $(appveyor_repo_tag_name)
+  on:
+    appveyor_repo_tag: true
