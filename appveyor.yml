@@ -58,5 +58,6 @@ deploy:
   draft: false
   prerelease: true
   force_update: true
+  tag: $(appveyor_repo_tag_name)
   on:
     appveyor_repo_tag: true
