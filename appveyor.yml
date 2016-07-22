@@ -50,7 +50,7 @@ deploy:
   provider: GitHub
   auth_token:
     secure: /FqKMwmidZF3nDlOl6I2QcKQBiPTSA5ZKSzM4tpMYmmNFI48cDnJRIPw6DwFdwVq
-  artifact: "C:\projects\OpenTechBFG\build\OpenTechBFG-win64.exe"
+  artifact: "C:\\projects\\OpenTechBFG\\build\\OpenTechBFG-win64.exe"
   draft: false
   prerelease: true
   force_update: true
