@@ -27,7 +27,7 @@ build:
 test: off
 
 artifacts:
-  - path: "C:\\projects\\OpenTechBFG\\build\\OpenTechBFG-1.0.0-win64.exe"
+  - path: 'build\OpenTechBFG-*-win64.exe'
     name: OpenTechBFG
 
 on_success:
