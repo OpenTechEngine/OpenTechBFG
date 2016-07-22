@@ -55,5 +55,4 @@ deploy:
   prerelease: true
   force_update: true
   on:
-    branch: cpack
     appveyor_repo_tag: true
