@@ -30,6 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __MAPFILE_H__
 #define __MAPFILE_H__
 
+#include "../idlib/bv/Bounds.h"
 #include "../idlib/geometry/Surface_Patch.h"
 #include "../idlib/math/Plane.h"
 #include "../idlib/Dict.h"
