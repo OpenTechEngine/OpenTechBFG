@@ -27,11 +27,18 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include "precompiled.h"
 #pragma hdrstop
+#include "../renderer/Material.h"
 #include "../renderer/Image.h"
+#include "../idlib/containers/List.h"
+#include "../idlib/geometry/DrawVert.h"
+#include "../idlib/MapFile.h"
+#include "../idlib/Str.h"
+#include "../idlib/StrStatic.h"
 
 
+namespace BFG
+{
 
 class OBJExporter
 {
@@ -170,7 +177,6 @@ void OBJExporter::Write( const char* relativePath, const char* basePath )
 	}
 }
 
-
 void OBJExporter::ConvertBrushToOBJ( OBJGroup& group, const idMapBrush* mapBrush, int entityNum, int primitiveNum, const idMat4& transform )
 {
 	OBJExporter::OBJObject& geometry = group.objects.Alloc();
@@ -194,8 +200,6 @@ void OBJExporter::ConvertBrushToOBJ( OBJGroup& group, const idMapBrush* mapBrush
 	int numIndexes = 0;
 	
 	bool badBrush = false;
-	
-	
 	
 	for( int i = 0; i < mapBrush->GetNumSides(); i++ )
 	{
@@ -315,7 +319,6 @@ void OBJExporter::ConvertBrushToOBJ( OBJGroup& group, const idMapBrush* mapBrush
 	}
 }
 
-
 void OBJExporter::ConvertPatchToOBJ( OBJGroup& group, const idMapPatch* patch, int entityNum, int primitiveNum, const idMat4& transform )
 {
 	OBJExporter::OBJObject& geometry = group.objects.Alloc();
@@ -420,7 +423,6 @@ void OBJExporter::ConvertMeshToOBJ( OBJGroup& group, const MapPolygonMesh* mesh,
 		numVerts += verts.Num();
 	}
 }
-
 
 CONSOLE_COMMAND( exportMapToOBJ, "Convert .map file to .obj/.mtl ", idCmdSystem::ArgCompletion_MapName )
 {
@@ -567,23 +569,6 @@ CONSOLE_COMMAND( exportMapToOBJ, "Convert .map file to .obj/.mtl ", idCmdSystem:
 	common->SetRefreshOnPrint( false );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 CONSOLE_COMMAND( convertMap, "Convert .map file to new map format with polygons instead of brushes ", idCmdSystem::ArgCompletion_MapName )
 {
 	common->SetRefreshOnPrint( true );
@@ -625,3 +610,5 @@ CONSOLE_COMMAND( convertMap, "Convert .map file to new map format with polygons 
 	
 	common->SetRefreshOnPrint( false );
 }
+
+} // namespace BFG
