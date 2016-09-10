@@ -36,6 +36,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../framework/CVarSystem.h"
 #include "../framework/Common.h"
+#include "../framework/DemoFile.h"
 #include "../idlib/Heap.h"
 #include "../idlib/bv/Bounds.h"
 #include "../idlib/geometry/DrawVert.h"

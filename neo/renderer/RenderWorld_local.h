@@ -35,8 +35,6 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "BoundsTrack.h"
 
-#include "../idlib/sys/sys_alloc_tags.h"
-
 namespace BFG
 {
 

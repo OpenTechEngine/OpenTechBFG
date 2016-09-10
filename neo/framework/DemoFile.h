@@ -32,6 +32,7 @@ If you have questions concerning this license or the applicable additional terms
 #define __DEMOFILE_H__
 
 #include "../framework/Compressor.h"    // for idCompressor
+#include "../framework/CVarSystem.h"  // for idCVar, etc
 
 namespace BFG
 {
