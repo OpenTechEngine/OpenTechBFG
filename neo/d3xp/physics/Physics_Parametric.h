@@ -33,6 +33,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/math/Interpolate.h"
 
 #include "../d3xp/physics/Physics_Base.h"
+#include "../d3xp/Entity.h"
 
 namespace BFG
 {
