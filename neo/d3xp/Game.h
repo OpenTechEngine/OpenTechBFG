@@ -3,6 +3,8 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2014-2016 Robert Beckebans
+Copyright (C) 2014-2016 Kot in Action Creative Artel
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -206,8 +208,13 @@ public:
 	virtual void				Shell_UpdateClientCountdown( int countdown ) = 0;
 	virtual void				Shell_UpdateLeaderboard( const idLeaderboardCallback* callback ) = 0;
 	virtual void				Shell_SetGameComplete() = 0;
-	virtual bool                SkipCinematicScene() = 0;
-	virtual bool                CheckInCinematic() = 0;
+	virtual bool				SkipCinematicScene() = 0;
+	virtual bool				CheckInCinematic() = 0;
+	
+	// Demo helper functions
+	virtual void				StartDemoPlayback( idRenderWorld* renderworld ) = 0;
+	
+	virtual bool				ProcessDemoCommand( idDemoFile* readDemo ) = 0;
 };
 
 extern idGame* 					game;
@@ -256,6 +263,7 @@ public:
 	// These are the canonical idDict to parameter parsing routines used by both the game and tools.
 	virtual void				ParseSpawnArgsToRenderLight( const idDict* args, renderLight_t* renderLight );
 	virtual void				ParseSpawnArgsToRenderEntity( const idDict* args, renderEntity_t* renderEntity );
+	virtual void				ParseSpawnArgsToRenderEnvprobe( const idDict* args, renderEnvironmentProbe_t* renderEnvprobe ); // RB
 	virtual void				ParseSpawnArgsToRefSound( const idDict* args, refSound_t* refSound );
 	
 	// Animation system calls for non-game based skeletal rendering.

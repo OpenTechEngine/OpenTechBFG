@@ -3,6 +3,8 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2014-2016 Robert Beckebans
+Copyright (C) 2014-2016 Kot in Action Creative Artel
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -25,20 +27,19 @@ If you have questions concerning this license or the applicable additional terms
 
 ===========================================================================
 */
-/*
-================================================================================================
-Contains the DxtEncoder implementation for SSE2.
-================================================================================================
-*/
 #pragma hdrstop
 #include <emmintrin.h>
 #include <xmmintrin.h>
 
+#include "../framework/Common_local.h"
 #include "../idlib/sys/sys_assert.h"
 #include "../idlib/sys/sys_defines.h"
+#include "../idlib/sys/sys_intrinsics.h"
 #include "../idlib/sys/sys_types.h"
 #include "DXTCodec.h"
-#include "sys/sys_intrinsics.h"
+#include "DXTCodec_local.h"
+
+
 
 #if defined(USE_INTRINSICS)
 
@@ -966,6 +967,8 @@ void idDxtEncoder::CompressImageDXT1Fast_SSE2( const byte* inBuf, byte* outBuf, 
 	
 	for( int j = 0; j < height; j += 4, inBuf += width * 4 * 4 )
 	{
+		commonLocal.LoadPacifierBinarizeProgressIncrement( width * 4 );
+		
 		for( int i = 0; i < width; i += 4 )
 		{
 			ExtractBlock_SSE2( inBuf + i * 4, width, block );
@@ -1027,6 +1030,7 @@ void idDxtEncoder::CompressImageDXT1AlphaFast_SSE2( const byte* inBuf, byte* out
 	
 	for( int j = 0; j < height; j += 4, inBuf += width * 4 * 4 )
 	{
+		commonLocal.LoadPacifierBinarizeProgressIncrement( width * 4 );
 		for( int i = 0; i < width; i += 4 )
 		{
 			ExtractBlock_SSE2( inBuf + i * 4, width, block );
@@ -1373,6 +1377,8 @@ void idDxtEncoder::CompressYCoCgDXT5Fast_SSE2( const byte* inBuf, byte* outBuf, 
 	
 	for( int j = 0; j < height; j += 4, inBuf += width * 4 * 4 )
 	{
+		commonLocal.LoadPacifierBinarizeProgressIncrement( width * 4 );
+		
 		for( int i = 0; i < width; i += 4 )
 		{
 			ExtractBlock_SSE2( inBuf + i * 4, width, block );
@@ -1596,6 +1602,8 @@ void idDxtEncoder::CompressNormalMapDXT5Fast_SSE2( const byte* inBuf, byte* outB
 	
 	for( int j = 0; j < height; j += 4, inBuf += width * 4 * 4 )
 	{
+		commonLocal.LoadPacifierBinarizeProgressIncrement( width * 4 );
+		
 		for( int i = 0; i < width; i += 4 )
 		{
 			ExtractBlock_SSE2( inBuf + i * 4, width, block );

@@ -3,7 +3,8 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2012-2014 Robert Beckebans
+Copyright (C) 2014-2016 Robert Beckebans
+Copyright (C) 2014-2016 Kot in Action Creative Artel
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -99,6 +100,12 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../imgui/ImGui_Hooks.h"
 
+// foresthale 2014-03-01: fixed custom screenshot resolution by doing a more direct render path
+#define BUGFIXEDSCREENSHOTRESOLUTION 1
+#ifdef BUGFIXEDSCREENSHOTRESOLUTION
+#include "../framework/Common_local.h"
+#endif
+
 namespace BFG
 {
 
@@ -115,7 +122,7 @@ idCVar r_debugContext( "r_debugContext", "0", CVAR_RENDERER, "Enable various lev
 idCVar r_glDriver( "r_glDriver", "", CVAR_RENDERER, "\"opengl32\", etc." );
 idCVar r_skipIntelWorkarounds( "r_skipIntelWorkarounds", "0", CVAR_RENDERER | CVAR_BOOL, "skip workarounds for Intel driver bugs" );
 // RB: disabled 16x MSAA
-idCVar r_multiSamples( "r_multiSamples", "0", CVAR_RENDERER | CVAR_ARCHIVE | CVAR_INTEGER, "number of antialiasing samples", 0, 8 );
+idCVar r_antiAliasing( "r_antiAliasing", "0", CVAR_RENDERER | CVAR_ARCHIVE | CVAR_INTEGER, " 0 = None\n 1 = SMAA 1x\n 2 = MSAA 2x\n 3 = MSAA 4x\n 4 = MSAA 8x\n", 0, ANTI_ALIASING_MSAA_8X );
 // RB end
 idCVar r_vidMode( "r_vidMode", "0", CVAR_ARCHIVE | CVAR_RENDERER | CVAR_INTEGER, "fullscreen video mode number" );
 idCVar r_displayRefresh( "r_displayRefresh", "0", CVAR_RENDERER | CVAR_INTEGER | CVAR_NOCHEAT, "optional display refresh rate option for vid mode", 0.0f, 240.0f );
@@ -200,14 +207,20 @@ idCVar r_logFile( "r_logFile", "0", CVAR_RENDERER | CVAR_INTEGER, "number of fra
 idCVar r_clear( "r_clear", "2", CVAR_RENDERER, "force screen clear every frame, 1 = purple, 2 = black, 'r g b' = custom" );
 
 idCVar r_offsetFactor( "r_offsetfactor", "0", CVAR_RENDERER | CVAR_FLOAT, "polygon offset parameter" );
+// RB: offset factor was 0, and units were -600 which caused some very ugly polygon offsets on Android so I reverted the values to the same as in Q3A
+#if defined(__ANDROID__)
+idCVar r_offsetUnits( "r_offsetunits", "-2", CVAR_RENDERER | CVAR_FLOAT, "polygon offset parameter" );
+#else
 idCVar r_offsetUnits( "r_offsetunits", "-600", CVAR_RENDERER | CVAR_FLOAT, "polygon offset parameter" );
+#endif
+// RB end
 
 idCVar r_shadowPolygonOffset( "r_shadowPolygonOffset", "-1", CVAR_RENDERER | CVAR_FLOAT, "bias value added to depth test for stencil shadow drawing" );
 idCVar r_shadowPolygonFactor( "r_shadowPolygonFactor", "0", CVAR_RENDERER | CVAR_FLOAT, "scale value for stencil shadow drawing" );
 idCVar r_subviewOnly( "r_subviewOnly", "0", CVAR_RENDERER | CVAR_BOOL, "1 = don't render main view, allowing subviews to be debugged" );
 idCVar r_testGamma( "r_testGamma", "0", CVAR_RENDERER | CVAR_FLOAT, "if > 0 draw a grid pattern to test gamma levels", 0, 195 );
 idCVar r_testGammaBias( "r_testGammaBias", "0", CVAR_RENDERER | CVAR_FLOAT, "if > 0 draw a grid pattern to test gamma levels" );
-idCVar r_lightScale( "r_lightScale", "3", CVAR_ARCHIVE | CVAR_RENDERER | CVAR_FLOAT, "all light intensities are multiplied by this" );
+idCVar r_lightScale( "r_lightScale", "3", CVAR_ARCHIVE | CVAR_RENDERER | CVAR_FLOAT, "all light intensities are multiplied by this", 0, 100 );
 idCVar r_flareSize( "r_flareSize", "1", CVAR_RENDERER | CVAR_FLOAT, "scale the flare deforms from the material def" );
 
 idCVar r_skipPrelightShadows( "r_skipPrelightShadows", "0", CVAR_RENDERER | CVAR_BOOL, "skip the dmap generated static shadow volumes" );
@@ -299,10 +312,41 @@ idCVar r_shadowMapLodBias( "r_shadowMapLodBias", "0", CVAR_RENDERER | CVAR_INTEG
 idCVar r_shadowMapPolygonFactor( "r_shadowMapPolygonFactor", "2", CVAR_RENDERER | CVAR_FLOAT, "polygonOffset factor for drawing shadow buffer" );
 idCVar r_shadowMapPolygonOffset( "r_shadowMapPolygonOffset", "3000", CVAR_RENDERER | CVAR_FLOAT, "polygonOffset units for drawing shadow buffer" );
 idCVar r_shadowMapOccluderFacing( "r_shadowMapOccluderFacing", "2", CVAR_RENDERER | CVAR_INTEGER, "0 = front faces, 1 = back faces, 2 = twosided" );
+idCVar r_shadowMapRegularDepthBiasScale( "r_shadowMapRegularDepthBiasScale", "0.999", CVAR_RENDERER | CVAR_FLOAT, "shadowmap bias to fight shadow acne for point and spot lights" );
+idCVar r_shadowMapSunDepthBiasScale( "r_shadowMapSunDepthBiasScale", "0.999991", CVAR_RENDERER | CVAR_FLOAT, "shadowmap bias to fight shadow acne for cascaded shadow mapping with parallel lights" );
+
+// RB: HDR parameters
+idCVar r_useHDR( "r_useHDR", "1", CVAR_RENDERER | CVAR_ARCHIVE | CVAR_BOOL, "use high dynamic range rendering" );
+idCVar r_hdrAutoExposure( "r_hdrAutoExposure", "1", CVAR_RENDERER | CVAR_BOOL, "EXPENSIVE: enables adapative HDR tone mapping otherwise the exposure is derived by r_exposure" );
+idCVar r_hdrMinLuminance( "r_hdrMinLuminance", "0.005", CVAR_RENDERER | CVAR_FLOAT, "" );
+idCVar r_hdrMaxLuminance( "r_hdrMaxLuminance", "300", CVAR_RENDERER | CVAR_FLOAT, "" );
+idCVar r_hdrKey( "r_hdrKey", "0.015", CVAR_RENDERER | CVAR_FLOAT, "magic exposure key that works well with Doom 3 maps" );
+idCVar r_hdrContrastDynamicThreshold( "r_hdrContrastDynamicThreshold", "2", CVAR_RENDERER | CVAR_FLOAT, "if auto exposure is on, all pixels brighter than this cause HDR bloom glares" );
+idCVar r_hdrContrastStaticThreshold( "r_hdrContrastStaticThreshold", "3", CVAR_RENDERER | CVAR_FLOAT, "if auto exposure is off, all pixels brighter than this cause HDR bloom glares" );
+idCVar r_hdrContrastOffset( "r_hdrContrastOffset", "100", CVAR_RENDERER | CVAR_FLOAT, "" );
+idCVar r_hdrGlarePasses( "r_hdrGlarePasses", "8", CVAR_RENDERER | CVAR_INTEGER, "how many times the bloom blur is rendered offscreen. number should be even" );
+idCVar r_hdrDebug( "r_hdrDebug", "0", CVAR_RENDERER | CVAR_FLOAT, "show scene luminance as heat map" );
+
+idCVar r_ldrContrastThreshold( "r_ldrContrastThreshold", "1.1", CVAR_RENDERER | CVAR_FLOAT, "" );
+idCVar r_ldrContrastOffset( "r_ldrContrastOffset", "3", CVAR_RENDERER | CVAR_FLOAT, "" );
+
+idCVar r_useFilmicPostProcessEffects( "r_useFilmicPostProcessEffects", "1", CVAR_RENDERER | CVAR_ARCHIVE | CVAR_BOOL, "apply several post process effects to mimic a filmic look" );
+idCVar r_forceAmbient( "r_forceAmbient", "0.2", CVAR_RENDERER | CVAR_ARCHIVE | CVAR_FLOAT, "render additional ambient pass to make the game less dark", 0.0f, 0.4f );
+
+idCVar r_useSSGI( "r_useSSGI", "0", CVAR_RENDERER | CVAR_ARCHIVE | CVAR_BOOL, "use screen space global illumination and reflections" );
+idCVar r_ssgiDebug( "r_ssgiDebug", "0", CVAR_RENDERER | CVAR_INTEGER, "" );
+idCVar r_ssgiFiltering( "r_ssgiFiltering", "1", CVAR_RENDERER | CVAR_BOOL, "" );
+
+idCVar r_useSSAO( "r_useSSAO", "1", CVAR_RENDERER | CVAR_ARCHIVE | CVAR_BOOL, "use screen space ambient occlusion to darken corners" );
+idCVar r_ssaoDebug( "r_ssaoDebug", "0", CVAR_RENDERER | CVAR_INTEGER, "" );
+idCVar r_ssaoFiltering( "r_ssaoFiltering", "1", CVAR_RENDERER | CVAR_BOOL, "" );
+idCVar r_useHierarchicalDepthBuffer( "r_useHierarchicalDepthBuffer", "1", CVAR_RENDERER | CVAR_BOOL, "" );
+
+idCVar r_exposure( "r_exposure", "0.5", CVAR_ARCHIVE | CVAR_RENDERER | CVAR_FLOAT, "HDR exposure or LDR brightness [0.0 .. 1.0]", 0.0f, 1.0f );
 // RB end
 
 const char* fileExten[3] = { "tga", "png", "jpg" };
-const char* envDirection[6] = { "_nx", "_py", "_ny", "_pz", "_nz", "_px" };
+const char* envDirection[6] = { "_px", "_nx", "_py", "_ny", "_pz", "_nz" };
 const char* skyDirection[6] = { "_forward", "_back", "_left", "_right", "_up", "_down" };
 
 
@@ -757,7 +801,23 @@ void R_SetNewMode( const bool fullInit )
 			}
 		}
 		
-		parms.multiSamples = r_multiSamples.GetInteger();
+		switch( r_antiAliasing.GetInteger() )
+		{
+			case ANTI_ALIASING_MSAA_2X:
+				parms.multiSamples = 2;
+				break;
+			case ANTI_ALIASING_MSAA_4X:
+				parms.multiSamples = 4;
+				break;
+			case ANTI_ALIASING_MSAA_8X:
+				parms.multiSamples = 8;
+				break;
+				
+			default:
+				parms.multiSamples = 0;
+				break;
+		}
+		
 		if( i == 0 )
 		{
 			parms.stereo = ( stereoRender_enable.GetInteger() == STEREO3D_QUAD_BUFFER );
@@ -815,7 +875,7 @@ safeMode:
 		r_vidMode.SetInteger( 0 );
 		r_fullscreen.SetInteger( 1 );
 		r_displayRefresh.SetInteger( 0 );
-		r_multiSamples.SetInteger( 0 );
+		r_antiAliasing.SetInteger( 0 );
 	}
 }
 
@@ -1264,6 +1324,26 @@ void R_ReadTiledPixels( int width, int height, byte* buffer, renderView_t* ref =
 	int sysHeight = renderSystem->GetHeight();
 	byte* temp = ( byte* )R_StaticAlloc( ( sysWidth + 3 ) * sysHeight * 3 );
 	
+	// foresthale 2014-03-01: fixed custom screenshot resolution by doing a more direct render path
+#ifdef BUGFIXEDSCREENSHOTRESOLUTION
+	if( sysWidth > width )
+		sysWidth = width;
+		
+	if( sysHeight > height )
+		sysHeight = height;
+		
+	// make sure the game / draw thread has completed
+	//commonLocal.WaitGameThread();
+	
+	// discard anything currently on the list
+	tr.SwapCommandBuffers( NULL, NULL, NULL, NULL );
+	
+	int originalNativeWidth = glConfig.nativeScreenWidth;
+	int originalNativeHeight = glConfig.nativeScreenHeight;
+	glConfig.nativeScreenWidth = sysWidth;
+	glConfig.nativeScreenHeight = sysHeight;
+#endif
+	
 	// disable scissor, so we don't need to adjust all those rects
 	r_useScissor.SetBool( false );
 	
@@ -1271,17 +1351,42 @@ void R_ReadTiledPixels( int width, int height, byte* buffer, renderView_t* ref =
 	{
 		for( int yo = 0 ; yo < height ; yo += sysHeight )
 		{
+			// foresthale 2014-03-01: fixed custom screenshot resolution by doing a more direct render path
+#ifdef BUGFIXEDSCREENSHOTRESOLUTION
+			// discard anything currently on the list
+			tr.SwapCommandBuffers( NULL, NULL, NULL, NULL );
+			if( ref )
+			{
+				// ref is only used by envShot, Event_camShot, etc to grab screenshots of things in the world,
+				// so this omits the hud and other effects
+				tr.primaryWorld->RenderScene( ref );
+			}
+			else
+			{
+				// build all the draw commands without running a new game tic
+				commonLocal.Draw();
+			}
+			// this should exit right after vsync, with the GPU idle and ready to draw
+			const emptyCommand_t* cmd = tr.SwapCommandBuffers( NULL, NULL, NULL, NULL );
+			
+			// get the GPU busy with new commands
+			tr.RenderCommandBuffers( cmd );
+			
+			// discard anything currently on the list (this triggers SwapBuffers)
+			tr.SwapCommandBuffers( NULL, NULL, NULL, NULL );
+#else
+			// foresthale 2014-03-01: note: ref is always NULL in every call path to this function
 			if( ref )
 			{
 				// discard anything currently on the list
 				tr.SwapCommandBuffers( NULL, NULL, NULL, NULL );
-				
+			
 				// build commands to render the scene
 				tr.primaryWorld->RenderScene( ref );
-				
+			
 				// finish off these commands
 				const emptyCommand_t* cmd = tr.SwapCommandBuffers( NULL, NULL, NULL, NULL );
-				
+			
 				// issue the commands to the GPU
 				tr.RenderCommandBuffers( cmd );
 			}
@@ -1290,6 +1395,7 @@ void R_ReadTiledPixels( int width, int height, byte* buffer, renderView_t* ref =
 				const bool captureToImage = false;
 				common->UpdateScreen( captureToImage, false );
 			}
+#endif
 			
 			int w = sysWidth;
 			if( xo + w > width )
@@ -1314,6 +1420,15 @@ void R_ReadTiledPixels( int width, int height, byte* buffer, renderView_t* ref =
 			}
 		}
 	}
+	
+	// foresthale 2014-03-01: fixed custom screenshot resolution by doing a more direct render path
+#ifdef BUGFIXEDSCREENSHOTRESOLUTION
+	// discard anything currently on the list
+	tr.SwapCommandBuffers( NULL, NULL, NULL, NULL );
+	
+	glConfig.nativeScreenWidth = originalNativeWidth;
+	glConfig.nativeScreenHeight = originalNativeHeight;
+#endif
 	
 	r_useScissor.SetBool( true );
 	
@@ -1416,7 +1531,7 @@ void idRenderSystemLocal::TakeScreenshot( int width, int height, const char* fil
 	}
 	if( exten == PNG )
 	{
-		R_WritePNG( finalFileName, buffer, 3, width, height, false );
+		R_WritePNG( finalFileName, buffer, 3, width, height, false, "fs_basepath" );
 	}
 	else
 	{
@@ -1438,7 +1553,7 @@ void idRenderSystemLocal::TakeScreenshot( int width, int height, const char* fil
 			buffer[i + 2] = temp;
 		}
 		
-		fileSystem->WriteFile( finalFileName, buffer, c );
+		fileSystem->WriteFile( finalFileName, buffer, c, "fs_basepath" );
 	}
 	
 	R_StaticFree( buffer );
@@ -1631,7 +1746,7 @@ void R_EnvShot_f( const idCmdArgs& args )
 	idStr		fullname;
 	const char*	baseName;
 	int			i;
-	idMat3		axis[7], oldAxis;
+	idMat3		axis[6], oldAxis;
 	renderView_t	ref;
 	viewDef_t	primary;
 	int			blends;
@@ -1675,33 +1790,36 @@ void R_EnvShot_f( const idCmdArgs& args )
 	primary = *tr.primaryView;
 	
 	memset( &axis, 0, sizeof( axis ) );
-	axis[0][0][0] = 1; // this one gets ignored as it always come out wrong.
-	axis[0][1][2] = 1; // and so we repeat this axis as the last one.
+	
+	// +X
+	axis[0][0][0] = 1;
+	axis[0][1][2] = 1;
 	axis[0][2][1] = 1;
 	
+	// -X
 	axis[1][0][0] = -1;
 	axis[1][1][2] = -1;
 	axis[1][2][1] = 1;
 	
+	// +Y
 	axis[2][0][1] = 1;
 	axis[2][1][0] = -1;
 	axis[2][2][2] = -1;
 	
+	// -Y
 	axis[3][0][1] = -1;
 	axis[3][1][0] = -1;
 	axis[3][2][2] = 1;
 	
+	// +Z
 	axis[4][0][2] = 1;
 	axis[4][1][0] = -1;
 	axis[4][2][1] = 1;
 	
+	// -Z
 	axis[5][0][2] = -1;
 	axis[5][1][0] = 1;
 	axis[5][2][1] = 1;
-	
-	axis[6][0][0] = 1; // this is the repetition of the first axis
-	axis[6][1][2] = 1;
-	axis[6][2][1] = 1;
 	
 	// let's get the game window to a "size" resolution
 	if( ( res_w != size ) || ( res_h != size ) )
@@ -1711,25 +1829,17 @@ void R_EnvShot_f( const idCmdArgs& args )
 		R_SetNewMode( false ); // the same as "vid_restart"
 	} // FIXME that's a hack!!
 	
-	for( i = 0 ; i < 7 ; i++ )
+	// so we return to that axis and fov after the fact.
+	oldAxis = primary.renderView.viewaxis;
+	old_fov_x = primary.renderView.fov_x;
+	old_fov_y = primary.renderView.fov_y;
+	
+	for( i = 0 ; i < 6 ; i++ )
 	{
 	
 		ref = primary.renderView;
 		
-		if( i == 0 )
-		{
-			// so we return to that axis and fov after the fact.
-			oldAxis = ref.viewaxis;
-			old_fov_x = ref.fov_x;
-			old_fov_y = ref.fov_y;
-			//this is part of the hack
-			extension = "_wrong";
-		}
-		else
-		{
-			// this keeps being part of the hack
-			extension = envDirection[ i - 1 ]; //yes, indeed, this is totally part of the hack!
-		}
+		extension = envDirection[ i ];
 		
 		ref.fov_x = ref.fov_y = 90;
 		ref.viewaxis = axis[i];
@@ -1823,6 +1933,126 @@ void R_SampleCubeMap( const idVec3& dir, int size, byte* buffers[6], byte result
 	result[3] = buffers[axis][( y * size + x ) * 4 + 3];
 }
 
+class CommandlineProgressBar
+{
+private:
+	size_t tics = 0;
+	size_t nextTicCount = 0;
+	int	count = 0;
+	int expectedCount = 0;
+	
+public:
+	CommandlineProgressBar( int _expectedCount )
+	{
+		expectedCount = _expectedCount;
+		
+		common->Printf( "0%%  10   20   30   40   50   60   70   80   90   100%%\n" );
+		common->Printf( "|----|----|----|----|----|----|----|----|----|----|\n" );
+		
+		common->UpdateScreen( false );
+	}
+	
+	void Increment()
+	{
+		if( ( count + 1 ) >= nextTicCount )
+		{
+			size_t ticsNeeded = ( size_t )( ( ( double )( count + 1 ) / expectedCount ) * 50.0 );
+			
+			do
+			{
+				common->Printf( "*" );
+			}
+			while( ++tics < ticsNeeded );
+			
+			nextTicCount = ( size_t )( ( tics / 50.0 ) * expectedCount );
+			if( count == ( expectedCount - 1 ) )
+			{
+				if( tics < 51 )
+				{
+					common->Printf( "*" );
+				}
+				common->Printf( "\n" );
+			}
+			
+			common->UpdateScreen( false );
+		}
+		
+		count++;
+	}
+};
+
+
+// http://holger.dammertz.org/stuff/notes_HammersleyOnHemisphere.html
+
+// To implement the Hammersley point set we only need an efficent way to implement the Van der Corput radical inverse phi2(i).
+// Since it is in base 2 we can use some basic bit operations to achieve this.
+// The brilliant book Hacker's Delight [warren01] provides us a a simple way to reverse the bits in a given 32bit integer. Using this, the following code then implements phi2(i)
+
+/*
+GLSL version
+
+float radicalInverse_VdC( uint bits )
+{
+	bits = (bits << 16u) | (bits >> 16u);
+	bits = ((bits & 0x55555555u) << 1u) | ((bits & 0xAAAAAAAAu) >> 1u);
+	bits = ((bits & 0x33333333u) << 2u) | ((bits & 0xCCCCCCCCu) >> 2u);
+	bits = ((bits & 0x0F0F0F0Fu) << 4u) | ((bits & 0xF0F0F0F0u) >> 4u);
+	bits = ((bits & 0x00FF00FFu) << 8u) | ((bits & 0xFF00FF00u) >> 8u);
+	return float(bits) * 2.3283064365386963e-10; // / 0x100000000
+}
+*/
+
+// RB: radical inverse implementation from the Mitsuba PBR system
+
+// Van der Corput radical inverse in base 2 with single precision
+inline float RadicalInverse_VdC( uint32_t n, uint32_t scramble = 0U )
+{
+	/* Efficiently reverse the bits in 'n' using binary operations */
+#if (defined(__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 2))) || defined(__clang__)
+	n = __builtin_bswap32( n );
+#else
+	n = ( n << 16 ) | ( n >> 16 );
+	n = ( ( n & 0x00ff00ff ) << 8 ) | ( ( n & 0xff00ff00 ) >> 8 );
+#endif
+	n = ( ( n & 0x0f0f0f0f ) << 4 ) | ( ( n & 0xf0f0f0f0 ) >> 4 );
+	n = ( ( n & 0x33333333 ) << 2 ) | ( ( n & 0xcccccccc ) >> 2 );
+	n = ( ( n & 0x55555555 ) << 1 ) | ( ( n & 0xaaaaaaaa ) >> 1 );
+	
+	// Account for the available precision and scramble
+	n = ( n >> ( 32 - 24 ) ) ^ ( scramble & ~ -( 1 << 24 ) );
+	
+	return ( float ) n / ( float )( 1U << 24 );
+}
+
+// The ith point xi is then computed by
+inline idVec2 Hammersley2D( uint i, uint N )
+{
+	return idVec2( float( i ) / float( N ), RadicalInverse_VdC( i ) );
+}
+
+idVec3 ImportanceSampleGGX( const idVec2& Xi, float roughness, const idVec3& N )
+{
+	float a = roughness * roughness;
+	
+	// cosinus distributed direction (Z-up or tangent space) from the hammersley point xi
+	float Phi = 2 * idMath::PI * Xi.x;
+	float cosTheta = sqrt( ( 1 - Xi.y ) / ( 1 + ( a * a - 1 ) * Xi.y ) );
+	float sinTheta = sqrt( 1 - cosTheta * cosTheta );
+	
+	idVec3 H;
+	H.x = sinTheta * cos( Phi );
+	H.y = sinTheta * sin( Phi );
+	H.z = cosTheta;
+	
+	// rotate from tangent space to world space along N
+	idVec3 upVector = abs( N.z ) < 0.999f ? idVec3( 0, 0, 1 ) : idVec3( 1, 0, 0 );
+	idVec3 tangentX = upVector.Cross( N );
+	tangentX.Normalize();
+	idVec3 tangentY = N.Cross( tangentX );
+	
+	return tangentX * H.x + tangentY * H.y + N * H.z;
+}
+
 /*
 ==================
 R_MakeAmbientMap_f
@@ -1905,6 +2135,8 @@ void R_MakeAmbientMap_f( const idCmdArgs& args )
 		}
 	}
 	
+	bool pacifier = true;
+	
 	// resample with hemispherical blending
 	int	samples = 1000;
 	
@@ -1912,6 +2144,10 @@ void R_MakeAmbientMap_f( const idCmdArgs& args )
 	
 	for( int map = 0 ; map < 2 ; map++ )
 	{
+		CommandlineProgressBar progressBar( outSize * outSize * 6 );
+		
+		int	start = Sys_Milliseconds();
+		
 		for( i = 0 ; i < 6 ; i++ )
 		{
 			for( int x = 0 ; x < outSize ; x++ )
@@ -1924,30 +2160,14 @@ void R_MakeAmbientMap_f( const idCmdArgs& args )
 					dir = cubeAxis[i][0] + -( -1 + 2.0 * x / ( outSize - 1 ) ) * cubeAxis[i][1] + -( -1 + 2.0 * y / ( outSize - 1 ) ) * cubeAxis[i][2];
 					dir.Normalize();
 					total[0] = total[1] = total[2] = 0;
-					//samples = 1;
-					float	limit = map ? 0.95 : 0.25;		// small for specular, almost hemisphere for ambient
+					
+					float roughness = map ? 0.1 : 0.95;		// small for specular, almost hemisphere for ambient
 					
 					for( int s = 0 ; s < samples ; s++ )
 					{
-						// pick a random direction vector that is inside the unit sphere but not behind dir,
-						// which is a robust way to evenly sample a hemisphere
-						idVec3	test;
-						while( 1 )
-						{
-							for( int j = 0 ; j < 3 ; j++ )
-							{
-								test[j] = -1 + 2 * ( rand() & 0x7fff ) / ( float )0x7fff;
-							}
-							if( test.Length() > 1.0 )
-							{
-								continue;
-							}
-							test.Normalize();
-							if( test * dir > limit )  	// don't do a complete hemisphere
-							{
-								break;
-							}
-						}
+						idVec2 Xi = Hammersley2D( s, samples );
+						idVec3 test = ImportanceSampleGGX( Xi, roughness, dir );
+						
 						byte	result[4];
 						//test = dir;
 						R_SampleCubeMap( test, width, buffers, result );
@@ -1959,21 +2179,37 @@ void R_MakeAmbientMap_f( const idCmdArgs& args )
 					outBuffer[( y * outSize + x ) * 4 + 1] = total[1] / samples;
 					outBuffer[( y * outSize + x ) * 4 + 2] = total[2] / samples;
 					outBuffer[( y * outSize + x ) * 4 + 3] = 255;
+					
+					progressBar.Increment();
 				}
 			}
 			
 			if( map == 0 )
 			{
-				fullname.Format( "env/%s_amb%s.%s", baseName, envDirection[i], fileExten[TGA] );
+				fullname.Format( "env/%s_amb%s.%s", baseName, envDirection[i], fileExten[PNG] );
 			}
 			else
 			{
-				fullname.Format( "env/%s_spec%s.%s", baseName, envDirection[i], fileExten[TGA] );
+				fullname.Format( "env/%s_spec%s.%s", baseName, envDirection[i], fileExten[PNG] );
 			}
-			common->Printf( "writing %s\n", fullname.c_str() );
+			//common->Printf( "writing %s\n", fullname.c_str() );
+			
 			const bool captureToImage = false;
 			common->UpdateScreen( captureToImage );
-			R_WriteTGA( fullname, outBuffer, outSize, outSize );
+			
+			//R_WriteTGA( fullname, outBuffer, outSize, outSize, false, "fs_basepath" );
+			R_WritePNG( fullname, outBuffer, 4, outSize, outSize, true, "fs_basepath" );
+		}
+		
+		int	end = Sys_Milliseconds();
+		
+		if( map == 0 )
+		{
+			common->Printf( "env/%s_amb convolved  in %5.1f seconds\n\n", baseName, ( end - start ) * 0.001f );
+		}
+		else
+		{
+			common->Printf( "env/%s_spec convolved  in %5.1f seconds\n\n", baseName, ( end - start ) * 0.001f );
 		}
 	}
 	
@@ -1991,7 +2227,6 @@ void R_TransformCubemap( const char* orgDirection[6], const char* orgDir, const 
 	idStr fullname;
 	int			i;
 	bool        errorInOriginalImages = false;
-	int			outSize;
 	byte*		buffers[6];
 	int			width = 0, height = 0;
 	
@@ -2038,7 +2273,7 @@ void R_TransformCubemap( const char* orgDirection[6], const char* orgDir, const 
 		fullname.Format( "%s/%s/%s%s.%s", destDir, baseName, baseName, destDirection[i], fileExten [TGA] );
 		common->Printf( "writing %s\n", fullname.c_str() );
 		common->UpdateScreen( false );
-		R_WriteTGA( fullname, buffers[i], width, width );
+		R_WriteTGA( fullname, buffers[i], width, width, false, "fs_basepath" );
 	}
 	
 	for( i = 0 ; i < 6 ; i++ )
@@ -2745,13 +2980,13 @@ void idRenderSystemLocal::Init()
 	guiModel->Clear();
 	tr_guiModel = guiModel;	// for DeviceContext fast path
 	
+	globalImages->Init();
+	
 	// RB begin
 	Framebuffer::Init();
 	// RB end
 	
-	globalImages->Init();
-	
-	idCinematic::InitCinematic( );
+	idCinematic::InitCinematic();
 	
 	// build brightness translation tables
 	R_SetColorMappings();

@@ -3,6 +3,7 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2015 Robert Beckebans
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -243,6 +244,24 @@ typedef struct renderLight_s
 	idSoundEmitter* 		referenceSound;		// for shader sound tables, allowing effects to vary with sounds
 } renderLight_t;
 
+// RB begin
+typedef struct
+{
+	idVec3					origin;
+	float					shaderParms[MAX_ENTITY_SHADER_PARMS];
+	
+	// if non-zero, the environment probe will not show up in the specific view,
+	// which may be used if we want to have slightly different muzzle
+	// flash lights for the player and other views
+	int						suppressEnvprobeInViewID;
+	
+	// if non-zero, the environment probe will only show up in the specific view
+	// which can allow player gun gui lights and such to not effect everyone
+	int						allowEnvprobeInViewID;
+	
+} renderEnvironmentProbe_t;
+// RB end
+
 // exitPortal_t is returned by idRenderWorld::GetPortal()
 typedef struct
 {
@@ -315,6 +334,13 @@ public:
 	virtual	void			UpdateLightDef( qhandle_t lightHandle, const renderLight_t* rlight ) = 0;
 	virtual	void			FreeLightDef( qhandle_t lightHandle ) = 0;
 	virtual const renderLight_t* GetRenderLight( qhandle_t lightHandle ) const = 0;
+	
+	// RB: environment probes for IBL
+	virtual	qhandle_t		AddEnvprobeDef( const renderEnvironmentProbe_t* ep ) = 0;
+	virtual	void			UpdateEnvprobeDef( qhandle_t envprobeHandle, const renderEnvironmentProbe_t* ep ) = 0;
+	virtual	void			FreeEnvprobeDef( qhandle_t envprobeHandle ) = 0;
+	virtual const renderEnvironmentProbe_t* GetRenderEnvprobe( qhandle_t envprobeHandle ) const = 0;
+	// RB end
 	
 	// Force the generation of all light / surface interactions at the start of a level
 	// If this isn't called, they will all be dynamically generated

@@ -76,7 +76,14 @@ typedef enum
 	TD_COVERAGE,			// coverage map for fill depth pass when YCoCG is used
 	TD_DEPTH,				// depth buffer copy for motion blur
 	// RB begin
+	TD_SPECULAR_PBR_RMAO,	// may be compressed, and always zeros the alpha channel, linear RGB R = roughness, G = metal, B = ambient occlusion
+	TD_SPECULAR_PBR_RMAOD,	// may be compressed, alpha channel contains displacement map
+	TD_HIGHQUALITY_CUBE,	// motorsep - Uncompressed cubemap texture (RGB colorspace)
+	TD_LOWQUALITY_CUBE,		// motorsep - Compressed cubemap texture (RGB colorspace DXT5)
 	TD_SHADOW_ARRAY,		// 2D depth buffer array for shadow mapping
+	TD_RGBA16F,
+	TD_RGBA32F,
+	TD_R32F,
 	// RB end
 } textureUsage_t;
 
@@ -120,7 +127,7 @@ public:
 	// These perform an implicit Bind() on the current texture unit
 	// FIXME: should we implement cinematics this way, instead of with explicit calls?
 	void		GenerateImage( const byte* pic, int width, int height,
-							   textureFilter_t filter, textureRepeat_t repeat, textureUsage_t usage );
+							   textureFilter_t filter, textureRepeat_t repeat, textureUsage_t usage, int msaaSamples = 0 );
 	void		GenerateCubeImage( const byte* pic[6], int size,
 								   textureFilter_t filter, textureUsage_t usage );
 								   
@@ -205,6 +212,11 @@ public:
 	bool		IsCompressed() const
 	{
 		return ( opts.format == FMT_DXT1 || opts.format == FMT_DXT5 );
+	}
+	
+	textureUsage_t GetUsage() const
+	{
+		return usage;
 	}
 	
 	void		SetTexParameters();	// update aniso and trilinear
@@ -374,7 +386,28 @@ public:
 	idImage*			jitterImage1;				// shadow jitter
 	idImage*			jitterImage4;
 	idImage*			jitterImage16;
+	idImage*			grainImage1;
 	idImage*			randomImage256;
+	idImage*			currentRenderHDRImage;
+#if defined(USE_HDR_MSAA)
+	idImage*			currentRenderHDRImageNoMSAA;
+#endif
+	idImage*			currentRenderHDRImageQuarter;
+	idImage*			currentRenderHDRImage64;
+	idImage*			bloomRenderImage[2];
+	idImage*			heatmap5Image;
+	idImage*			heatmap7Image;
+	idImage*			smaaInputImage;
+	idImage*			smaaAreaImage;
+	idImage*			smaaSearchImage;
+	idImage*			smaaEdgesImage;
+	idImage*			smaaBlendImage;
+	idImage*			currentNormalsImage;			// cheap G-Buffer replacement, holds normals and surface roughness
+	idImage*			ambientOcclusionImage[2];		// contain AO and bilateral filtering keys
+	idImage*			hierarchicalZbufferImage;		// zbuffer with mip maps to accelerate screen space ray tracing
+	
+	idImage*			defaultUACIrradianceCube;
+	idImage*			defaultUACRadianceCube;
 	// RB end
 	idImage* 			scratchImage;
 	idImage* 			scratchImage2;
@@ -383,7 +416,7 @@ public:
 	idImage* 			currentDepthImage;				// for motion blur
 	idImage* 			originalCurrentRenderImage;		// currentRenderImage before any changes for stereo rendering
 	idImage* 			loadingIconImage;				// loading icon must exist always
-	idImage* 			hellLoadingIconImage;				// loading icon must exist always
+	idImage* 			hellLoadingIconImage;			// loading icon must exist always
 	
 	//--------------------------------------------------------
 	

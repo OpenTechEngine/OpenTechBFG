@@ -3,6 +3,8 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
+Copyright (C) 2014-2016 Robert Beckebans
+Copyright (C) 2014-2016 Kot in Action Creative Artel
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -92,6 +94,8 @@ typedef struct mtrParsingData_s
 	bool			registersAreConstant;
 	bool			forceOverlays;
 } mtrParsingData_t;
+
+extern idCVar r_useHighQualitySky;
 
 idCVar r_forceSoundOpAmplitude( "r_forceSoundOpAmplitude", "0", CVAR_FLOAT, "Don't call into the sound system for amplitudes" );
 
@@ -1066,17 +1070,17 @@ void idMaterial::ParseBlend( idLexer& src, shaderStage_t* stage )
 		stage->drawStateBits = GLS_SRCBLEND_ZERO | GLS_DSTBLEND_ONE;
 		return;
 	}
-	if( !token.Icmp( "bumpmap" ) )
+	if( !token.Icmp( "bumpmap" ) || !token.Icmp( "normalmap" ) )
 	{
 		stage->lighting = SL_BUMP;
 		return;
 	}
-	if( !token.Icmp( "diffusemap" ) )
+	if( !token.Icmp( "diffusemap" ) || !token.Icmp( "basecolormap" ) )
 	{
 		stage->lighting = SL_DIFFUSE;
 		return;
 	}
-	if( !token.Icmp( "specularmap" ) )
+	if( !token.Icmp( "specularmap" ) ||  !token.Icmp( "rmaomap" ) )
 	{
 		stage->lighting = SL_SPECULAR;
 		return;
@@ -1228,6 +1232,11 @@ void idMaterial::ParseFragmentMap( idLexer& src, newShaderStage_t* newStage )
 	{
 		src.ReadTokenOnLine( &token );
 		
+		if( !token.Icmp( "normalMap" ) )
+		{
+			td = TD_BUMP;
+			continue;
+		}
 		if( !token.Icmp( "cubeMap" ) )
 		{
 			cubeMap = CF_NATIVE;
@@ -1571,8 +1580,16 @@ void idMaterial::ParseStage( idLexer& src, const textureRepeat_t trpDefault )
 		{
 			continue;
 		}
-		if( !token.Icmp( "uncompressed" ) )
+		if( !token.Icmp( "uncompressedCubeMap" ) )
 		{
+			if( r_useHighQualitySky.GetBool() )
+			{
+				td = TD_HIGHQUALITY_CUBE;	// motorsep 05-17-2015; token to mark cubemap/skybox to be uncompressed texture
+			}
+			else
+			{
+				td = TD_LOWQUALITY_CUBE;
+			}
 			continue;
 		}
 		if( !token.Icmp( "nopicmip" ) )
@@ -1913,7 +1930,18 @@ void idMaterial::ParseStage( idLexer& src, const textureRepeat_t trpDefault )
 				td = TD_DIFFUSE;
 				break;
 			case SL_SPECULAR:
-				td = TD_SPECULAR;
+				if( idStr::FindText( imageName, "_rmaod", false ) != -1 )
+				{
+					td = TD_SPECULAR_PBR_RMAOD;
+				}
+				else if( idStr::FindText( imageName, "_rmao", false ) != -1 )
+				{
+					td = TD_SPECULAR_PBR_RMAO;
+				}
+				else
+				{
+					td = TD_SPECULAR;
+				}
 				break;
 			default:
 				break;
@@ -1926,10 +1954,13 @@ void idMaterial::ParseStage( idLexer& src, const textureRepeat_t trpDefault )
 		// create new coverage stage
 		shaderStage_t* newCoverageStage = &pd->parseStages[numStages];
 		numStages++;
+		
 		// copy it
 		*newCoverageStage = *ss;
+		
 		// toggle alphatest off for the current stage so it doesn't get called during the depth fill pass
 		ss->hasAlphaTest = false;
+		
 		// toggle alpha test on for the coverage stage
 		newCoverageStage->hasAlphaTest = true;
 		newCoverageStage->lighting = SL_COVERAGE;
@@ -2360,7 +2391,8 @@ void idMaterial::ParseMaterial( idLexer& src )
 			// volume would be coplanar with the surface, giving depth fighting
 			// we could make this no-self-shadows, but it may be more important
 			// to receive shadows from no-self-shadow monsters
-			SetMaterialFlag( MF_NOSHADOWS );
+			if( !r_useShadowMapping.GetBool() ) // motorsep 11-08-2014; when shadow mapping is on, we allow two-sided surfaces to cast shadows
+				SetMaterialFlag( MF_NOSHADOWS );
 		}
 		// backSided
 		else if( !token.Icmp( "backSided" ) )
@@ -2480,7 +2512,7 @@ void idMaterial::ParseMaterial( idLexer& src )
 			continue;
 		}
 		// diffusemap for stage shortcut
-		else if( !token.Icmp( "diffusemap" ) )
+		else if( !token.Icmp( "diffusemap" ) || !token.Icmp( "basecolormap" ) )
 		{
 			str = R_ParsePastImageProgram( src );
 			idStr::snPrintf( buffer, sizeof( buffer ), "blend diffusemap\nmap %s\n}\n", str );
@@ -2502,7 +2534,7 @@ void idMaterial::ParseMaterial( idLexer& src )
 			continue;
 		}
 		// normalmap for stage shortcut
-		else if( !token.Icmp( "bumpmap" ) )
+		else if( !token.Icmp( "bumpmap" ) || !token.Icmp( "normalmap" ) )
 		{
 			str = R_ParsePastImageProgram( src );
 			idStr::snPrintf( buffer, sizeof( buffer ), "blend bumpmap\nmap %s\n}\n", str );
@@ -2528,6 +2560,33 @@ void idMaterial::ParseMaterial( idLexer& src )
 			
 			// noShadows
 			SetMaterialFlag( MF_NOSHADOWS );
+			continue;
+		}
+		
+		// motorsep 11-23-2014; material LOD keys that define what LOD iteration the surface falls into
+		else if( !token.Icmp( "lod1" ) )
+		{
+			SetMaterialFlag( MF_LOD1 );
+			continue;
+		}
+		else if( !token.Icmp( "lod2" ) )
+		{
+			SetMaterialFlag( MF_LOD2 );
+			continue;
+		}
+		else if( !token.Icmp( "lod3" ) )
+		{
+			SetMaterialFlag( MF_LOD3 );
+			continue;
+		}
+		else if( !token.Icmp( "lod4" ) )
+		{
+			SetMaterialFlag( MF_LOD4 );
+			continue;
+		}
+		else if( !token.Icmp( "persistentLOD" ) )
+		{
+			SetMaterialFlag( MF_LOD_PERSISTENT );
 			continue;
 		}
 		else if( token == "{" )

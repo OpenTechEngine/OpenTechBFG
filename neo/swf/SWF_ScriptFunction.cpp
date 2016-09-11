@@ -1656,7 +1656,7 @@ void idSWF::Invoke( const char*   functionName, const idSWFParmList& parms, bool
 	{
 		idLib::Printf( "SWF: Invoke %s with %d parms (%s)\n", functionName, parms.Num(), GetName() );
 	}
-	
+
 	if( scriptVar.IsFunction() )
 	{
 		scriptVar.GetFunction()->Call( NULL, parms );

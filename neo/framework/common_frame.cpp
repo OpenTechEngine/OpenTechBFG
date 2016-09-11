@@ -3,7 +3,8 @@
 
 Doom 3 BFG Edition GPL Source Code
 Copyright (C) 1993-2012 id Software LLC, a ZeniMax Media company.
-Copyright (C) 2012 Robert Beckebans
+Copyright (C) 2012-2016 Robert Beckebans
+Copyright (C) 2014-2016 Kot in Action Creative Artel
 
 This file is part of the Doom 3 BFG Edition GPL Source Code ("Doom 3 BFG Edition Source Code").
 
@@ -221,7 +222,8 @@ gameReturn_t idGameThread::RunGameAndDraw( int numGameFrames_, idUserCmdMgr& use
 	numGameFrames = numGameFrames_;
 	
 	// start the thread going
-	if( com_smp.GetBool() == false )
+	// foresthale 2014-05-12: also check com_editors as many of them are not particularly thread-safe (editLights for example)
+	if( com_smp.GetBool() == false || com_editors != 0 )
 	{
 		// run it in the main thread so PIX profiling catches everything
 		Run();
@@ -276,8 +278,49 @@ void idCommonLocal::Draw()
 		Sys_Sleep( com_sleepDraw.GetInteger() );
 	}
 	
-	if( loadGUI != NULL )
+	if( loadPacifierBinarizeActive )
 	{
+		// foresthale 2014-05-30: when binarizing an asset we show a special
+		// overlay indicating progress
+		renderSystem->SetColor( colorBlack );
+		renderSystem->DrawStretchPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 1, 1, whiteMaterial );
+		
+		// render the loading gui (idSWF actually) if it is loaded
+		// (we want to see progress of the loading gui binarize too)
+		if( loadGUI != NULL )
+			loadGUI->Render( renderSystem, Sys_Milliseconds() );
+			
+		// update our progress estimates
+		int time = Sys_Milliseconds();
+		if( loadPacifierBinarizeProgress > 0.0f )
+			loadPacifierBinarizeTimeLeft = ( 1.0 - loadPacifierBinarizeProgress ) * ( time - loadPacifierBinarizeStartTime ) * 0.001f / loadPacifierBinarizeProgress;
+		else
+			loadPacifierBinarizeTimeLeft = -1.0f;
+			
+		// prepare our strings
+		const char* text;
+		if( loadPacifierBinarizeTimeLeft >= 99.5f )
+			text = va( "Binarizing %3.0f%% ETA %2.0f minutes", loadPacifierBinarizeProgress * 100.0f, loadPacifierBinarizeTimeLeft / 60.0f );
+		else if( loadPacifierBinarizeTimeLeft )
+			text = va( "Binarizing %3.0f%% ETA %2.0f seconds", loadPacifierBinarizeProgress * 100.0f, loadPacifierBinarizeTimeLeft );
+		else
+			text = va( "Binarizing %3.0f%%", loadPacifierBinarizeProgress * 100.0f );
+			
+		// draw our basic overlay
+		renderSystem->SetColor( idVec4( 0.0f, 0.0f, 0.5f, 1.0f ) );
+		renderSystem->DrawStretchPic( 0, SCREEN_HEIGHT - 48, SCREEN_WIDTH, 48, 0, 0, 1, 1, whiteMaterial );
+		renderSystem->SetColor( idVec4( 0.0f, 0.5f, 0.8f, 1.0f ) );
+		renderSystem->DrawStretchPic( 0, SCREEN_HEIGHT - 48, loadPacifierBinarizeProgress * SCREEN_WIDTH, 32, 0, 0, 1, 1, whiteMaterial );
+		renderSystem->DrawSmallStringExt( 0, SCREEN_HEIGHT - 48, loadPacifierBinarizeFilename.c_str(), idVec4( 1.0f, 1.0f, 1.0f, 1.0f ), true );
+		renderSystem->DrawSmallStringExt( 0, SCREEN_HEIGHT - 32, va( "%s %d/%d lvls", loadPacifierBinarizeInfo.c_str(), loadPacifierBinarizeMiplevel, loadPacifierBinarizeMiplevelTotal ), idVec4( 1.0f, 1.0f, 1.0f, 1.0f ), true );
+		renderSystem->DrawSmallStringExt( 0, SCREEN_HEIGHT - 16, text, idVec4( 1.0f, 1.0f, 1.0f, 1.0f ), true );
+	}
+	else if( loadGUI != NULL )
+	{
+		// foresthale 2014-05-30: showing a black background looks better than flickering in widescreen
+		renderSystem->SetColor( colorBlack );
+		renderSystem->DrawStretchPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 1, 1, whiteMaterial );
+		
 		loadGUI->Render( renderSystem, Sys_Milliseconds() );
 	}
 	else if( game && game->Shell_IsActive() )
@@ -292,6 +335,7 @@ void idCommonLocal::Draw()
 	}
 	else if( readDemo )
 	{
+		AdvanceRenderDemo( true );
 		renderWorld->RenderScene( &currentDemoRenderView );
 		renderSystem->DrawDemoPics();
 	}
@@ -320,6 +364,7 @@ void idCommonLocal::Draw()
 		if( writeDemo )
 		{
 			renderSystem->WriteDemoPics();
+			renderSystem->WriteEndFrame();
 		}
 	}
 	else
@@ -368,6 +413,7 @@ void idCommonLocal::UpdateScreen( bool captureToImage, bool releaseMouse )
 	// build all the draw commands without running a new game tic
 	Draw();
 	
+	// foresthale 2014-03-01: note: the only place that has captureToImage=true is idAutoRender::StartBackgroundAutoSwaps
 	if( captureToImage )
 	{
 		renderSystem->CaptureRenderToImage( "_currentRender", false );
@@ -470,6 +516,9 @@ void idCommonLocal::Frame()
 		// DG: prepare new ImGui frame - I guess this is a good place, as all new events should be available?
 		ImGuiHook::NewFrame();
 		
+		// damiel: Used by LordHavoc's progress bar
+		renderSystem->OnFrame();
+		
 		// Activate the shell if it's been requested
 		if( showShellRequested && game )
 		{
@@ -525,7 +574,9 @@ void idCommonLocal::Frame()
 		// This may block if the GPU isn't finished renderng the previous frame.
 		frameTiming.startSyncTime = Sys_Microseconds();
 		const emptyCommand_t* renderCommands = NULL;
-		if( com_smp.GetBool() )
+		
+		// foresthale 2014-05-12: also check com_editors as many of them are not particularly thread-safe (editLights for example)
+		if( com_smp.GetBool() && com_editors == 0 )
 		{
 			renderCommands = renderSystem->SwapCommandBuffers( &time_frontend, &time_backend, &time_shadows, &time_gpu );
 		}
@@ -580,7 +631,8 @@ void idCommonLocal::Frame()
 			gameTimeResidual += clampedDeltaMilliseconds * timescale.GetFloat();
 			
 			// don't run any frames when paused
-			if( pauseGame )
+			// jpcy: the game is paused when playing a demo, but playDemo should wait like the game does
+			if( pauseGame && !( readDemo && !timeDemo ) )
 			{
 				gameFrame++;
 				gameTimeResidual = 0;
@@ -644,6 +696,10 @@ void idCommonLocal::Frame()
 			Sys_Sleep( 0 );
 		}
 		
+		// jpcy: playDemo uses the game frame wait logic, but shouldn't run any game frames
+		if( readDemo && !timeDemo )
+			numGameFrames = 0;
+			
 		//--------------------------------------------
 		// It would be better to push as much of this as possible
 		// either before or after the renderSystem->SwapCommandBuffers(),
@@ -734,7 +790,8 @@ void idCommonLocal::Frame()
 		// start the game / draw command generation thread going in the background
 		gameReturn_t ret = gameThread.RunGameAndDraw( numGameFrames, userCmdMgr, IsClient(), gameFrame - numGameFrames );
 		
-		if( !com_smp.GetBool() )
+		// foresthale 2014-05-12: also check com_editors as many of them are not particularly thread-safe (editLights for example)
+		if( !com_smp.GetBool() || com_editors != 0 )
 		{
 			// in non-smp mode, run the commands we just generated, instead of
 			// frame-delayed ones from a background thread

@@ -149,6 +149,8 @@ float com_engineHz_latched = 60.0f; // Latched version of cvar, updated between 
 int64 com_engineHz_numerator = 100LL * 1000LL;
 int64 com_engineHz_denominator = 100LL * 60LL;
 
+int   com_editors; // currently opened editor(s)
+
 // RB begin
 #if defined(_WIN32)
 HWND com_hwndMsg = NULL;

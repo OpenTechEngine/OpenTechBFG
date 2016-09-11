@@ -92,6 +92,7 @@ struct surfaceInteraction_t
 class idCmdArgs;
 class idRenderEntityLocal;
 class idRenderLightLocal;
+class RenderEnvprobeLocal;
 
 class idInteraction
 {

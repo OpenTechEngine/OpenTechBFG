@@ -30,6 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #define __MODELMANAGER_H__
 
 #include "../renderer/Model.h"          // for idRenderModel
+#include "../framework/Common.h"
 #include "../framework/File_Manifest.h"  // for idPreloadManifest, etc
 
 namespace BFG
