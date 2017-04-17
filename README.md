@@ -205,6 +205,12 @@ _________________________
 	
 	SDL2 has better input support (especially in the console) and better 
 	support for multiple displays (especially in fullscreen mode).
+	
+	Then the references to other repositories have to be enabled:
+
+        > git submodule init
+
+        > git submodule update
 
 
 2. Generate the Makefiles using CMake:
@@ -216,6 +222,12 @@ _________________________
 
 	> cd ../build
 	> make
+	
+4. copy the lib files generated besides the engine
+
+    besides the generated executable there will be also a "lib" folder generated, 
+    copy this folder to the game folder besides the executable of the engine, 
+    as if it where another mod folder.
 
 ___________________________________________________
 
