@@ -1165,7 +1165,7 @@ struct builtinConversion_t
 
 struct inOutVariable_t
 {
-	idStr	type;
+	idStr	type;https://github.com/TTimo/doom3.gpl/blob/master/neo/renderer/draw_r200.cpp#L485
 	idStr	nameCg;
 	idStr	nameGLSL;
 	bool	declareInOut;
@@ -1834,8 +1834,8 @@ GLuint idRenderProgManager::LoadGLSLShader( GLenum target, const char* name, con
 
 		default:
 		{
-			outFileGLSL.Format( "renderprogs/glsl-1_30/%s%s", name, nameOutSuffix );
-			outFileUniforms.Format( "renderprogs/glsl-1_30/%s%s", name, nameOutSuffix );
+			outFileGLSL.Format( "renderprogs/glsl-3_30/%s%s", name, nameOutSuffix );
+			outFileUniforms.Format( "renderprogs/glsl-3_30/%s%s", name, nameOutSuffix );
 		}
 	}
 	
