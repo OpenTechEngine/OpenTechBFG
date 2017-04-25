@@ -1165,7 +1165,7 @@ struct builtinConversion_t
 
 struct inOutVariable_t
 {
-	idStr	type;https://github.com/TTimo/doom3.gpl/blob/master/neo/renderer/draw_r200.cpp#L485
+	idStr	type;
 	idStr	nameCg;
 	idStr	nameGLSL;
 	bool	declareInOut;
