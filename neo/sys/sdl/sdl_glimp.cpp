@@ -58,19 +58,8 @@ idCVar in_nograb( "in_nograb", "0", CVAR_SYSTEM | CVAR_NOCHEAT, "prevents input 
 // RB: FIXME this shit. We need the OpenGL alpha channel for advanced rendering effects
 idCVar r_waylandcompat( "r_waylandcompat", "0", CVAR_SYSTEM | CVAR_NOCHEAT | CVAR_ARCHIVE, "wayland compatible framebuffer" );
 
-// RB: only relevant if using SDL 2.0
-#if defined(__APPLE__)
-// only core profile is supported on OS X
-//idCVar r_useOpenGL32( "r_useOpenGL32", "2", CVAR_INTEGER, "0 = OpenGL 3.x, 1 = OpenGL 3.2 compatibility profile, 2 = OpenGL 3.2 core profile", 0, 2 );
-idCVar r_selectOpenGL( "r_selectOpenGL", "2", CVAR_INTEGER, "0 = OpenGL 3.x, 1 = OpenGL 3.2 compatibility profile, 2 = OpenGL 3.2 core profile, 3 = OpenGL 3.3 core profile", 0, 2 );
-//#elif defined(__linux__)
-// Linux open source drivers suck
-//idCVar r_useOpenGL32( "r_useOpenGL32", "0", CVAR_INTEGER, "0 = OpenGL 3.x, 1 = OpenGL 3.2 compatibility profile, 2 = OpenGL 3.2 core profile", 0, 2 );
-#else
-//idCVar r_useOpenGL32( "r_useOpenGL32", "1", CVAR_INTEGER, "0 = OpenGL 3.x, 1 = OpenGL 3.2 compatibility profile, 2 = OpenGL 3.2 core profile", 0, 2 );
-idCVar r_selectOpenGL( "r_selectOpenGL", "3", CVAR_INTEGER, "0 = OpenGL 3.x, 1 = OpenGL 3.2 compatibility profile, 2 = OpenGL 3.2 core profile, 3 = OpenGL 3.3 core profile", 0, 2 );
-#endif
-// RB end
+idCVar r_selectOpenGL( "r_selectOpenGL", "3", CVAR_INTEGER, "0 = OpenGL 3.x, 1 = OpenGL 3.2 compatibility profile, 2 = OpenGL 3.2 core profile, 3 = OpenGL 3.3 core profile", 0, 3 );
+
 
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 static SDL_Window* window = NULL;
