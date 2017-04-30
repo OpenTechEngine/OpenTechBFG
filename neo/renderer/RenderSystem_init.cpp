@@ -455,7 +455,7 @@ static void R_CheckPortableExtensions()
 	// RB: Mesa support
 	if( idStr::Icmpn( glConfig.renderer_string, "Mesa", 4 ) == 0 || idStr::Icmpn( glConfig.renderer_string, "X.org", 4 ) == 0 || idStr::Icmpn( glConfig.renderer_string, "Gallium", 7 ) == 0 )
 	{
-		if( ( glConfig.driverType != GLDRV_OPENGL32_CORE_PROFILE ) || ( glConfig.driverType != GLDRV_OPENGL33_CORE_PROFILE ) ) {
+		if( ( glConfig.driverType != GLDRV_OPENGL32_CORE_PROFILE ) && ( glConfig.driverType != GLDRV_OPENGL33_CORE_PROFILE ) ) {
 			// Mesa doesn't provide support for OpenGL 3.2 or greater on compatibility mode.
 			if( glConfig.driverType == GLDRV_OPENGL32_COMPATIBILITY_PROFILE ) {
 				idLib::Warning( "Attempted to load OpenGL 3.2 using compatibility profile but Mesa doesn't support it! running on OpenGL 3.X \n" );
