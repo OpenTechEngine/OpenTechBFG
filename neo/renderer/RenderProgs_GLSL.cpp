@@ -908,6 +908,18 @@ const char* vertexInsert_GLSL_1_50 =
 	"\n"
 };
 
+const char* vertexInsert_GLSL_3_30 =
+{
+	"#version 330\n"
+	"#define PC\n"
+	"\n"
+	"float saturate( float v ) { return clamp( v, 0.0, 1.0 ); }\n"
+	"vec2 saturate( vec2 v ) { return clamp( v, 0.0, 1.0 ); }\n"
+	"vec3 saturate( vec3 v ) { return clamp( v, 0.0, 1.0 ); }\n"
+	"vec4 saturate( vec4 v ) { return clamp( v, 0.0, 1.0 ); }\n"
+	"vec4 tex2Dlod( sampler2D sampler, vec4 texcoord ) { return textureLod( sampler, texcoord.xy, texcoord.w ); }\n"
+	"\n"
+};
 
 #if defined(USE_GLES2)
 const char* fragmentInsert_GLSL_ES_1_0 =
@@ -1095,6 +1107,46 @@ const char* fragmentInsert_GLSL_1_50 =
 	"\n"
 };
 // RB end
+
+const char* fragmentInsert_GLSL_3_30 =
+{
+	"#version 330\n"
+	"#define PC\n"
+	"\n"
+	"void clip( float v ) { if ( v < 0.0 ) { discard; } }\n"
+	"void clip( vec2 v ) { if ( any( lessThan( v, vec2( 0.0 ) ) ) ) { discard; } }\n"
+	"void clip( vec3 v ) { if ( any( lessThan( v, vec3( 0.0 ) ) ) ) { discard; } }\n"
+	"void clip( vec4 v ) { if ( any( lessThan( v, vec4( 0.0 ) ) ) ) { discard; } }\n"
+	"\n"
+	"float saturate( float v ) { return clamp( v, 0.0, 1.0 ); }\n"
+	"vec2 saturate( vec2 v ) { return clamp( v, 0.0, 1.0 ); }\n"
+	"vec3 saturate( vec3 v ) { return clamp( v, 0.0, 1.0 ); }\n"
+	"vec4 saturate( vec4 v ) { return clamp( v, 0.0, 1.0 ); }\n"
+	"\n"
+	"vec4 tex2D( sampler2D sampler, vec2 texcoord ) { return texture( sampler, texcoord.xy ); }\n"
+	"vec4 tex2D( sampler2DShadow sampler, vec3 texcoord ) { return vec4( texture( sampler, texcoord.xyz ) ); }\n"
+	"\n"
+	"vec4 tex2D( sampler2D sampler, vec2 texcoord, vec2 dx, vec2 dy ) { return textureGrad( sampler, texcoord.xy, dx, dy ); }\n"
+	"vec4 tex2D( sampler2DShadow sampler, vec3 texcoord, vec2 dx, vec2 dy ) { return vec4( textureGrad( sampler, texcoord.xyz, dx, dy ) ); }\n"
+	"\n"
+	"vec4 texCUBE( samplerCube sampler, vec3 texcoord ) { return texture( sampler, texcoord.xyz ); }\n"
+	"vec4 texCUBE( samplerCubeShadow sampler, vec4 texcoord ) { return vec4( texture( sampler, texcoord.xyzw ) ); }\n"
+	"\n"
+	"vec4 tex1Dproj( sampler1D sampler, vec2 texcoord ) { return textureProj( sampler, texcoord ); }\n"
+	"vec4 tex2Dproj( sampler2D sampler, vec3 texcoord ) { return textureProj( sampler, texcoord ); }\n"
+	"vec4 tex3Dproj( sampler3D sampler, vec4 texcoord ) { return textureProj( sampler, texcoord ); }\n"
+	"\n"
+	"vec4 tex1Dbias( sampler1D sampler, vec4 texcoord ) { return texture( sampler, texcoord.x, texcoord.w ); }\n"
+	"vec4 tex2Dbias( sampler2D sampler, vec4 texcoord ) { return texture( sampler, texcoord.xy, texcoord.w ); }\n"
+	"vec4 tex3Dbias( sampler3D sampler, vec4 texcoord ) { return texture( sampler, texcoord.xyz, texcoord.w ); }\n"
+	"vec4 texCUBEbias( samplerCube sampler, vec4 texcoord ) { return texture( sampler, texcoord.xyz, texcoord.w ); }\n"
+	"\n"
+	"vec4 tex1Dlod( sampler1D sampler, vec4 texcoord ) { return textureLod( sampler, texcoord.x, texcoord.w ); }\n"
+	"vec4 tex2Dlod( sampler2D sampler, vec4 texcoord ) { return textureLod( sampler, texcoord.xy, texcoord.w ); }\n"
+	"vec4 tex3Dlod( sampler3D sampler, vec4 texcoord ) { return textureLod( sampler, texcoord.xyz, texcoord.w ); }\n"
+	"vec4 texCUBElod( samplerCube sampler, vec4 texcoord ) { return textureLod( sampler, texcoord.xyz, texcoord.w ); }\n"
+	"\n"
+};
 
 struct builtinConversion_t
 {
@@ -1629,7 +1681,7 @@ idStr ConvertCG2GLSL( const idStr& in, const char* name, bool isVertexProgram, i
 				break;
 			}
 			
-			case GLDRV_OPENGL_MESA:
+			case GLDRV_OPENGL_MESA_LOW:
 			{
 				out.ReAllocate( idStr::Length( vertexInsert_GLSL_ES_3_00 ) + in.Length() * 2, false );
 				out += filenameHint;
@@ -1637,11 +1689,20 @@ idStr ConvertCG2GLSL( const idStr& in, const char* name, bool isVertexProgram, i
 				break;
 			}
 			
-			default:
+			case GLDRV_OPENGL32_COMPATIBILITY_PROFILE:
+			case GLDRV_OPENGL32_CORE_PROFILE:
 			{
 				out.ReAllocate( idStr::Length( vertexInsert_GLSL_1_50 ) + in.Length() * 2, false );
 				out += filenameHint;
 				out += vertexInsert_GLSL_1_50;
+				break;
+			}
+
+			default:
+			{
+				out.ReAllocate( idStr::Length( vertexInsert_GLSL_3_30 ) + in.Length() * 2, false );
+				out += filenameHint;
+				out += vertexInsert_GLSL_3_30;
 				break;
 			}
 		}
@@ -1661,7 +1722,7 @@ idStr ConvertCG2GLSL( const idStr& in, const char* name, bool isVertexProgram, i
 				break;
 			}
 			
-			case GLDRV_OPENGL_MESA:
+			case GLDRV_OPENGL_MESA_LOW:
 			{
 				out.ReAllocate( idStr::Length( fragmentInsert_GLSL_ES_3_00 ) + in.Length() * 2, false );
 				out += filenameHint;
@@ -1669,11 +1730,20 @@ idStr ConvertCG2GLSL( const idStr& in, const char* name, bool isVertexProgram, i
 				break;
 			}
 			
-			default:
+			case GLDRV_OPENGL32_COMPATIBILITY_PROFILE:
+			case GLDRV_OPENGL32_CORE_PROFILE:
 			{
 				out.ReAllocate( idStr::Length( fragmentInsert_GLSL_1_50 ) + in.Length() * 2, false );
 				out += filenameHint;
 				out += fragmentInsert_GLSL_1_50;
+				break;
+			}
+
+			default:
+			{
+				out.ReAllocate( idStr::Length( fragmentInsert_GLSL_3_30 ) + in.Length() * 2, false );
+				out += filenameHint;
+				out += fragmentInsert_GLSL_3_30;
 				break;
 			}
 		}
@@ -1748,17 +1818,24 @@ GLuint idRenderProgManager::LoadGLSLShader( GLenum target, const char* name, con
 			break;
 		}
 		
-		case GLDRV_OPENGL_MESA:
+		case GLDRV_OPENGL_MESA_LOW:
 		{
 			outFileGLSL.Format( "renderprogs/glsles-3_00/%s%s", name, nameOutSuffix );
 			outFileUniforms.Format( "renderprogs/glsles-3_00/%s%s", name, nameOutSuffix );
 			break;
 		}
 		
-		default:
+		case GLDRV_OPENGL32_COMPATIBILITY_PROFILE:
+		case GLDRV_OPENGL32_CORE_PROFILE:
 		{
 			outFileGLSL.Format( "renderprogs/glsl-1_50/%s%s", name, nameOutSuffix );
 			outFileUniforms.Format( "renderprogs/glsl-1_50/%s%s", name, nameOutSuffix );
+		}
+
+		default:
+		{
+			outFileGLSL.Format( "renderprogs/glsl-3_30/%s%s", name, nameOutSuffix );
+			outFileUniforms.Format( "renderprogs/glsl-3_30/%s%s", name, nameOutSuffix );
 		}
 	}
 	

@@ -58,17 +58,8 @@ idCVar in_nograb( "in_nograb", "0", CVAR_SYSTEM | CVAR_NOCHEAT, "prevents input 
 // RB: FIXME this shit. We need the OpenGL alpha channel for advanced rendering effects
 idCVar r_waylandcompat( "r_waylandcompat", "0", CVAR_SYSTEM | CVAR_NOCHEAT | CVAR_ARCHIVE, "wayland compatible framebuffer" );
 
-// RB: only relevant if using SDL 2.0
-#if defined(__APPLE__)
-// only core profile is supported on OS X
-idCVar r_useOpenGL32( "r_useOpenGL32", "2", CVAR_INTEGER, "0 = OpenGL 3.x, 1 = OpenGL 3.2 compatibility profile, 2 = OpenGL 3.2 core profile", 0, 2 );
-#elif defined(__linux__)
-// Linux open source drivers suck
-idCVar r_useOpenGL32( "r_useOpenGL32", "0", CVAR_INTEGER, "0 = OpenGL 3.x, 1 = OpenGL 3.2 compatibility profile, 2 = OpenGL 3.2 core profile", 0, 2 );
-#else
-idCVar r_useOpenGL32( "r_useOpenGL32", "1", CVAR_INTEGER, "0 = OpenGL 3.x, 1 = OpenGL 3.2 compatibility profile, 2 = OpenGL 3.2 core profile", 0, 2 );
-#endif
-// RB end
+idCVar r_selectOpenGL( "r_selectOpenGL", "3", CVAR_INTEGER, "0 = OpenGL 3.x, 1 = OpenGL 3.2 compatibility profile, 2 = OpenGL 3.2 core profile, 3 = OpenGL 3.3 core profile", 0, 3 );
+
 
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 static SDL_Window* window = NULL;
@@ -203,6 +194,31 @@ bool GLimp_Init( glimpParms_t parms )
 		
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 		
+		if ( r_selectOpenGL.GetInteger() == 0 ) {
+			glConfig.driverType = GLDRV_OPENGL3X;
+			//FIXME in OpenGL3x we don't specify major and minor version?
+		} else {
+			if ( r_selectOpenGL.GetInteger() < 3 ) {
+
+				glConfig.driverType = GLDRV_OPENGL32_COMPATIBILITY_PROFILE;
+				SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
+				SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 2 );
+
+				if ( r_selectOpenGL.GetInteger() > 1 ) {
+					glConfig.driverType = GLDRV_OPENGL32_CORE_PROFILE;
+				}
+
+			} else {
+				glConfig.driverType = GLDRV_OPENGL33_CORE_PROFILE;
+				SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
+				SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 3 );
+			}
+
+			if ( r_selectOpenGL.GetInteger() > 1 ) {
+				SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
+			}
+		}
+		/*
 		// RB begin
 		if( r_useOpenGL32.GetInteger() > 0 )
 		{
@@ -223,6 +239,7 @@ bool GLimp_Init( glimpParms_t parms )
 			SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
 		}
 		// RB end
+		*/
 		
 		// DG: set display num for fullscreen
 		int windowPos = SDL_WINDOWPOS_UNDEFINED;

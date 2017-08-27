@@ -120,7 +120,6 @@ glconfig_t	glConfig;
 idCVar r_requestStereoPixelFormat( "r_requestStereoPixelFormat", "1", CVAR_RENDERER, "Ask for a stereo GL pixel format on startup" );
 idCVar r_debugContext( "r_debugContext", "0", CVAR_RENDERER, "Enable various levels of context debug." );
 idCVar r_glDriver( "r_glDriver", "", CVAR_RENDERER, "\"opengl32\", etc." );
-idCVar r_skipIntelWorkarounds( "r_skipIntelWorkarounds", "0", CVAR_RENDERER | CVAR_BOOL, "skip workarounds for Intel driver bugs" );
 // RB: disabled 16x MSAA
 idCVar r_antiAliasing( "r_antiAliasing", "0", CVAR_RENDERER | CVAR_ARCHIVE | CVAR_INTEGER, " 0 = None\n 1 = SMAA 1x\n 2 = MSAA 2x\n 3 = MSAA 4x\n 4 = MSAA 8x\n", 0, ANTI_ALIASING_MSAA_8X );
 // RB end
@@ -456,6 +455,17 @@ static void R_CheckPortableExtensions()
 	// RB: Mesa support
 	if( idStr::Icmpn( glConfig.renderer_string, "Mesa", 4 ) == 0 || idStr::Icmpn( glConfig.renderer_string, "X.org", 4 ) == 0 || idStr::Icmpn( glConfig.renderer_string, "Gallium", 7 ) == 0 )
 	{
+		if( ( glConfig.driverType != GLDRV_OPENGL32_CORE_PROFILE ) && ( glConfig.driverType != GLDRV_OPENGL33_CORE_PROFILE ) ) {
+			// Mesa doesn't provide support for OpenGL 3.2 or greater on compatibility mode.
+			if( glConfig.driverType == GLDRV_OPENGL32_COMPATIBILITY_PROFILE ) {
+				idLib::Warning( "Attempted to load OpenGL 3.2 using compatibility profile but Mesa doesn't support it! running on OpenGL 3.X \n" );
+			}
+
+			//TODO we should check the drivers per vendor too
+			glConfig.driverType = GLDRV_OPENGL_MESA_LOW;
+		}
+
+		/*
 		if( glConfig.driverType == GLDRV_OPENGL32_CORE_PROFILE )
 		{
 			glConfig.driverType = GLDRV_OPENGL_MESA_CORE_PROFILE;
@@ -464,6 +474,7 @@ static void R_CheckPortableExtensions()
 		{
 			glConfig.driverType = GLDRV_OPENGL_MESA;
 		}
+		*/
 	}
 	// RB end
 	
@@ -480,7 +491,7 @@ static void R_CheckPortableExtensions()
 	// GL_EXT_direct_state_access
 	glConfig.directStateAccess = GLEW_EXT_direct_state_access != 0;
 	
-	
+	/*//TODO do we really need this?
 	// GL_ARB_texture_compression + GL_S3_s3tc
 	// DRI drivers may have GL_ARB_texture_compression but no GL_EXT_texture_compression_s3tc
 	if( glConfig.driverType == GLDRV_OPENGL_MESA_CORE_PROFILE )
@@ -491,7 +502,8 @@ static void R_CheckPortableExtensions()
 	{
 		glConfig.textureCompressionAvailable = GLEW_ARB_texture_compression != 0 && GLEW_EXT_texture_compression_s3tc != 0;
 	}
-	
+	*/
+
 	// GL_EXT_texture_filter_anisotropic
 	glConfig.anisotropicFilterAvailable = GLEW_EXT_texture_filter_anisotropic != 0;
 	if( glConfig.anisotropicFilterAvailable )
@@ -524,7 +536,8 @@ static void R_CheckPortableExtensions()
 	// GL_ARB_framebuffer_sRGB
 	glConfig.sRGBFramebufferAvailable = GLEW_ARB_framebuffer_sRGB != 0;
 	r_useSRGB.SetModified();		// the CheckCvars() next frame will enable / disable it
-	
+
+	/*//TODO do we really need this?
 	// GL_ARB_vertex_buffer_object
 	if( glConfig.driverType == GLDRV_OPENGL_MESA_CORE_PROFILE )
 	{
@@ -534,7 +547,8 @@ static void R_CheckPortableExtensions()
 	{
 		glConfig.vertexBufferObjectAvailable = GLEW_ARB_vertex_buffer_object != 0;
 	}
-	
+	*/
+
 	// GL_ARB_map_buffer_range, map a section of a buffer object's data store
 	glConfig.mapBufferRangeAvailable = GLEW_ARB_map_buffer_range != 0;
 	
@@ -566,7 +580,7 @@ static void R_CheckPortableExtensions()
 		}
 	}
 	// RB: make GPU skinning optional for weak OpenGL drivers
-	glConfig.gpuSkinningAvailable = glConfig.uniformBufferAvailable && ( glConfig.driverType == GLDRV_OPENGL3X || glConfig.driverType == GLDRV_OPENGL32_CORE_PROFILE || glConfig.driverType == GLDRV_OPENGL32_COMPATIBILITY_PROFILE );
+	glConfig.gpuSkinningAvailable = glConfig.uniformBufferAvailable && ( glConfig.driverType == GLDRV_OPENGL3X || glConfig.driverType == GLDRV_OPENGL32_CORE_PROFILE || glConfig.driverType == GLDRV_OPENGL32_COMPATIBILITY_PROFILE || glConfig.driverType == GLDRV_OPENGL33_CORE_PROFILE );
 	
 	// ATI_separate_stencil / OpenGL 2.0 separate stencil
 	glConfig.twoSidedStencilAvailable = ( glConfig.glVersion >= 2.0f ) || GLEW_ATI_separate_stencil != 0;
@@ -575,16 +589,13 @@ static void R_CheckPortableExtensions()
 	glConfig.depthBoundsTestAvailable = GLEW_EXT_depth_bounds_test != 0;
 	
 	// GL_ARB_sync
-	glConfig.syncAvailable = GLEW_ARB_sync &&
-							 // as of 5/24/2012 (driver version 15.26.12.64.2761) sync objects
-							 // do not appear to work for the Intel HD 4000 graphics
-							 ( glConfig.vendor != VENDOR_INTEL || r_skipIntelWorkarounds.GetBool() );
+	glConfig.syncAvailable = GLEW_ARB_sync != 0;
 							 
 	// GL_ARB_occlusion_query
 	glConfig.occlusionQueryAvailable = GLEW_ARB_occlusion_query != 0;
 	
 	// GL_ARB_timer_query
-	glConfig.timerQueryAvailable = ( GLEW_ARB_timer_query != 0 || GLEW_EXT_timer_query != 0 ) && ( glConfig.vendor != VENDOR_INTEL || r_skipIntelWorkarounds.GetBool() ) && glConfig.driverType != GLDRV_OPENGL_MESA;
+	glConfig.timerQueryAvailable = ( GLEW_ARB_timer_query != 0 || GLEW_EXT_timer_query != 0 ) && glConfig.driverType != GLDRV_OPENGL_MESA_LOW;
 	
 	// GREMEDY_string_marker
 	glConfig.gremedyStringMarkerAvailable = GLEW_GREMEDY_string_marker != 0;
@@ -650,6 +661,7 @@ static void R_CheckPortableExtensions()
 	{
 		idLib::Error( "GL_ARB_multitexture not available" );
 	}
+	/*
 	// GL_ARB_texture_compression + GL_EXT_texture_compression_s3tc
 	if( !glConfig.textureCompressionAvailable )
 	{
@@ -660,6 +672,7 @@ static void R_CheckPortableExtensions()
 	{
 		idLib::Error( "GL_ARB_vertex_buffer_object not available" );
 	}
+	*/
 	// GL_ARB_map_buffer_range
 	if( !glConfig.mapBufferRangeAvailable )
 	{

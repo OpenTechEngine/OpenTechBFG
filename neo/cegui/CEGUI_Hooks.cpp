@@ -49,7 +49,7 @@ namespace // anon. namespace for helper functions and global state
 {
 CEGUI::System* ceguiSys = NULL; // the CEGUI System Singleton, available after Init()
 double oldTimePulseSec = -1.0;  // the last "time pulse" in seconds. updated by Update() (or rather UpdateTimePulse())
-bool usingOpenGL32 = false;
+bool usingOpenGL3 = false;
 
 void UpdateTimePulse()
 {
@@ -90,9 +90,9 @@ void RenderGUIContexts()
 void initSystem( void )
 {
 	// create renderer
-	if( BFG::cvarSystem->GetCVarInteger( "r_useOpenGL32" ) > 0 )
+	if( BFG::cvarSystem->GetCVarInteger( "r_selectOpenGL" ) > 0 )
 	{
-		usingOpenGL32 = true;
+		usingOpenGL3 = true;
 		CEGUI::OpenGL3Renderer& myRenderer = CEGUI::OpenGL3Renderer::create();
 		myRenderer.enableExtraStateSettings( true );
 		CEGUI::System::create( myRenderer );
@@ -346,9 +346,9 @@ void idCEGUI::Destroy()
 	if( IsInitialized() )
 	{
 		Shutdown();
-		if( usingOpenGL32 )
+		if( usingOpenGL3 )
 		{
-			usingOpenGL32 = false;
+			usingOpenGL3 = false;
 			CEGUI::OpenGL3Renderer* renderer = static_cast<CEGUI::OpenGL3Renderer*>( CEGUI::System::getSingleton().getRenderer() );
 			CEGUI::System::getSingleton().destroy();
 			CEGUI::OpenGL3Renderer::destroy( *renderer );

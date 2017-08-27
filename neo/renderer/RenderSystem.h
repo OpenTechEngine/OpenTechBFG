@@ -105,10 +105,12 @@ enum graphicsDriverType_t
 	GLDRV_OPENGL3X,							// best for development with legacy OpenGL tools
 	GLDRV_OPENGL32_COMPATIBILITY_PROFILE,
 	GLDRV_OPENGL32_CORE_PROFILE,			// best for shipping to PC
+	GLDRV_OPENGL33_CORE_PROFILE,			// the current best
 	GLDRV_OPENGL_ES2,
 	GLDRV_OPENGL_ES3,
-	GLDRV_OPENGL_MESA,						// fear this, it is probably the best to disable GPU skinning and run shaders in GLSL ES 1.0
-	GLDRV_OPENGL_MESA_CORE_PROFILE
+	GLDRV_OPENGL_MESA_LOW					// for devices for which their Mesa drivers still doesn't support OpenGL 3.3 (not all Mesa drivers are able yet)
+	//GLDRV_OPENGL_MESA,						// fear this, it is probably the best to disable GPU skinning and run shaders in GLSL ES 1.0
+	//GLDRV_OPENGL_MESA_CORE_PROFILE
 };
 
 enum antiAliasingMode_t
