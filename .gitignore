@@ -1,9 +1,10 @@
-build*
+build/*
 eclipse*
+
 neo/ipch
 
 Doom3BFG.exe
-
+base/base
 base/generated/
 
 GPATH
@@ -16,3 +17,5 @@ HTML/
 OpenTechEngine.pdb
 *.db
 OpenTechEngine.exe
+
+.DS_Store

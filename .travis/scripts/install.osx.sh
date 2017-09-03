@@ -1,3 +1,4 @@
 #!/bin/bash
 
-echo "no-op"
+brew upgrade
+brew install sdl2 glew

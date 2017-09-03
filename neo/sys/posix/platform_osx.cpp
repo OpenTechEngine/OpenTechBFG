@@ -46,6 +46,9 @@ If you have questions concerning this license or the applicable additional terms
 // DG: needed for Sys_ReLaunch()
 #include <dirent.h>
 
+#include "../../framework/CmdSystem.h"
+#include "../../framework/Common.h"
+
 namespace BFG
 {
 
@@ -443,6 +446,9 @@ int clock_gettime( clk_id_t clock, struct timespec* tp )
 main
 ===============
 */
+#ifdef __cplusplus
+    extern "C"
+#endif
 int main( int argc, const char** argv )
 {
 	// DG: needed for Sys_ReLaunch()
