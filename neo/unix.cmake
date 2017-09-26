@@ -17,9 +17,16 @@ if(FFMPEG)
 endif()
 
 if(SDL2)
-  find_package(SDL2 REQUIRED)
-  include_directories(${SDL2_INCLUDE_DIR})
-  set(SDLx_LIBRARY ${SDL2_LIBRARY})
+  if(BUNDLED_SDL)
+    include_directories(${CMAKE_SOURCE_DIR}/libs/sdl/SDL.git/include)
+    link_directories(${CMAKE_BINARY_DIR}/libs/sdl/SDL.git)
+    set(SDLx_LIBRARY "SDL2")
+    set(SDLxMAIN_LIBRARY "SDL2main")
+  else()
+    find_package(SDL2 REQUIRED)
+    include_directories(${SDL2_INCLUDE_DIR})
+    set(SDLx_LIBRARY ${SDL2_LIBRARY})
+  endif()
 else()
   find_package(SDL REQUIRED)
   include_directories(${SDL_INCLUDE_DIR})
@@ -48,10 +55,13 @@ list(APPEND OpenTechBFG_SOURCES
   ${SDL_INCLUDES} ${SDL_SOURCES})
 
 if(OPENAL)
-  find_package(OpenAL REQUIRED)
   add_definitions(-DUSE_OPENAL)
+  if(BUNDLED_OPENAL)
+    include_directories(${CMAKE_SOURCE_DIR}/libs/openal-soft/openal-soft.git/include)
+  else()
+    find_package(OpenAL REQUIRED)
+  endif()
   set(OPENAL_LIBRARY openal)
-  
   list(APPEND OpenTechBFG_INCLUDES ${OPENAL_INCLUDES})
   list(APPEND OpenTechBFG_SOURCES ${OPENAL_SOURCES})
 else()
@@ -74,9 +84,13 @@ GET_DIRECTORY_PROPERTY(_directory_flags DEFINITIONS)
 LIST(APPEND _compiler_FLAGS ${_directory_flags})
 SEPARATE_ARGUMENTS(_compiler_FLAGS)
 
-add_executable(OpenTechEngine ${OpenTechBFG_SOURCES})
+# if("${CMAKE_SYSTEM}" MATCHES "Darwin")
+if(0)
+  add_executable(OpenTechEngine MACOSX_BUNDLE ${OpenTechBFG_SOURCES})
+else()
+  add_executable(OpenTechEngine ${OpenTechBFG_SOURCES})
+endif()
 
-#if(NOT WIN32)
 if(NOT "${CMAKE_SYSTEM}" MATCHES "Darwin")
   set(RT_LIBRARY rt)
 endif()
@@ -99,6 +113,7 @@ target_link_libraries(OpenTechEngine
   ${DL_LIBRARY}
   ${RT_LIBRARY}
   ${SDLx_LIBRARY}
+  ${SDLxMAIN_LIBRARY}
   ${OPENAL_LIBRARY}
   ${BREAKPAD_LIBRARY}
   ${FFMPEG_LIBRARIES}

@@ -13,7 +13,7 @@ option(MONOLITH
   "Embed game logic into main executable" ON)
 
 option(SDL2
-  "Use SDL2 instead of SDL1.2" OFF)
+  "Use SDL2 instead of SDL1.2" ON)
 
 option(OPENAL
   "Use OpenAL soft instead of XAudio2" OFF)
@@ -33,7 +33,7 @@ option(IDTOOLS
 option(CEGUI
   "Use cegui" ON)
 
-if(WIN32 AND (CMAKE_COMPILER_IS_GNUCC OR NOT $ENV{VSINSTALLDIR}))
+if((WIN32 AND (CMAKE_COMPILER_IS_GNUCC OR NOT $ENV{VSINSTALLDIR})) OR ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   # breakpad doesn't work on mingw out of the box
   # and it requires DIA SDK which is under VSINSTALLDIR
   option(BREAKPAD
@@ -80,8 +80,14 @@ if(NOT MSVC)
   set(BUNDLED_OPENAL TRUE)
 endif()
 
-option(BUNDLED_SDL
-  "Use bundled SDL" OFF)
+if(WIN32)
+  option(BUNDLED_SDL
+    "Use bundled SDL" OFF)
+else()
+  option(BUNDLED_SDL
+    "Use bundled SDL" ON)
+endif()
+
 
 option(BUNDLED_CEGUI
   "Use bundled CEGUI" ON)
@@ -125,7 +131,7 @@ endif()
 
 # sdl
 if(BUNDLED_SDL)
-#  add_subdirectory(libs/sdl)
+  add_subdirectory(libs/sdl)
 endif()
 
 # cegui
@@ -134,7 +140,7 @@ if(BUNDLED_CEGUI)
   # freetype, if not found, we build ours
   find_package(Freetype)
   
-  if(NOT FREETYPE_FOUND)
+  if(BUNDLED_FREETYPE OR NOT FREETYPE_FOUND)
     add_subdirectory(libs/freetype)
     set(BUNDLED_FREETYPE ON CACHE BOOL "Select BUNDLED_FREETYPE for cegui" FORCE)
   endif()

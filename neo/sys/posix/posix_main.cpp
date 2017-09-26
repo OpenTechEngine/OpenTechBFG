@@ -66,7 +66,7 @@ If you have questions concerning this license or the applicable additional terms
 #endif
 
 #if defined(__APPLE__)
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #endif
 
 #include <sys/statvfs.h>
@@ -117,7 +117,8 @@ static char exit_spawn[ 1024 ];
  */
 const char* Sys_DefaultSavePath()
 {
-#if defined(__APPLE__)
+#if 0 // SDL1
+//#if defined(__APPLE__)
 	char* base_path = SDL_GetPrefPath( "", GAME_NAME );
 	if( base_path )
 	{

@@ -16,3 +16,6 @@
 [submodule "libs/breakpad/include/third_party/lss"]
 	path = libs/breakpad/include/third_party/lss
 	url = https://chromium.googlesource.com/linux-syscall-support
+[submodule "libs/sdl/SDL.git"]
+	path = libs/sdl/SDL.git
+	url = https://github.com/kortemik/SDL.git

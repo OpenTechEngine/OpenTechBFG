@@ -27,7 +27,10 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 //#include "../../idlib/precompiled.h"
+#include "framework/Common.h"
 #include "../posix/posix_public.h"
+#include "sys/sys_public.h"
+#include "framework/CmdSystem.h"
 //#include "../sys_local.h"
 
 #include <pthread.h>
@@ -36,6 +39,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>
+#include <stdlib.h>
 
 #include <sys/sysctl.h>
 #include <mach/clock.h>
@@ -438,6 +442,8 @@ int clock_gettime( clk_id_t clock, struct timespec* tp )
 	return 0;
 }
 
+} // namespace BFG
+
 /*
 ===============
 main
@@ -446,27 +452,25 @@ main
 int main( int argc, const char** argv )
 {
 	// DG: needed for Sys_ReLaunch()
-	cmdargc = argc;
-	cmdargv = argv;
+	BFG::cmdargc = argc;
+	BFG::cmdargv = argv;
 	// DG end
 	
-	Posix_EarlyInit( );
+	BFG::Posix_EarlyInit( );
 	
 	if( argc > 1 )
 	{
-		common->Init( argc - 1, &argv[1], NULL );
+		BFG::common->Init( argc - 1, &argv[1], NULL );
 	}
 	else
 	{
-		common->Init( 0, NULL, NULL );
+		BFG::common->Init( 0, NULL, NULL );
 	}
 	
-	Posix_LateInit( );
+	BFG::Posix_LateInit( );
 	
 	while( 1 )
 	{
-		common->Frame();
+		BFG::common->Frame();
 	}
 }
-
-} // namespace BFG

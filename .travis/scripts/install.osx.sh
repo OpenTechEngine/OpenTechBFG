@@ -1,3 +1,4 @@
 #!/bin/bash
 
-echo "no-op"
+#brew update
+#brew install sdl
