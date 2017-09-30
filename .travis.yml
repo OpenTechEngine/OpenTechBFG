@@ -23,7 +23,7 @@ addons:
       name: "OpenTechEngine/OpenTechBFG"
       description: "Build submitted via Travis CI"
     notification_email: kordex@gmail.com
-    build_command_prepend: 'mkdir build && cd build &&  if [ \"$CXX\" = \"mingw\" ]; then cmake -G \"Eclipse CDT4 - Unix Makefiles\" -DCMAKE_TOOLCHAIN_FILE=../scripts/mingw32.toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DSDL2=OFF -DBUNDLED_FREETYPE=ON -DBUNDLED_OPENAL=ON ../ ;else cmake -G \"Eclipse CDT4 - Unix Makefiles\" -DCMAKE_BUILD_TYPE=Debug -DSDL2=OFF ../;fi'
+    build_command_prepend: 'mkdir build && cd build &&  if [ \"$CXX\" = \"mingw\" ]; then cmake -G \"Eclipse CDT4 - Unix Makefiles\" -DCMAKE_TOOLCHAIN_FILE=../scripts/mingw32.toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DBUNDLED_FREETYPE=ON -DBUNDLED_OPENAL=ON ../ ;else cmake -G \"Eclipse CDT4 - Unix Makefiles\" -DCMAKE_BUILD_TYPE=Debug ../;fi'
     build_command:   "make -j 9"
     branch_pattern: coverity
 
@@ -37,7 +37,7 @@ install:
 
 script: 
  - mkdir -p build && cd build
- - if [ "$CXX" = "mingw" ]; then cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../scripts/mingw32.toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DSDL2=OFF -DBUNDLED_FREETYPE=ON -DBUNDLED_OPENAL=ON ../ ;else cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DSDL2=OFF ../;fi
+ - if [ "$CXX" = "mingw" ]; then cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../scripts/mingw32.toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DBUNDLED_FREETYPE=ON -DBUNDLED_OPENAL=ON ../ ;else cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ../;fi
  - make
 
 after_success:
