@@ -5,7 +5,7 @@ os:
 matrix:
   fast_finish: true
   allow_failures:
-    - os: osx  
+    - os: osx
 compiler:
   - gcc
   - clang
@@ -27,6 +27,12 @@ addons:
     build_command:   "make -j 9"
     branch_pattern: coverity
 
+  apt:
+     packages: [
+        # isnt cmake already included in the c++ build image that we use?
+        libsdl2-dev libopenal-dev cmake
+     ]
+
 before_install:
   # this is allowed to fail so that pull requests can be built too
   - openssl aes-256-cbc -K $encrypted_24fdd259e571_key -iv $encrypted_24fdd259e571_iv -in .travis/id_rsa.enc -out .travis/id_rsa -d || true
@@ -35,7 +41,7 @@ install:
  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then bash .travis/scripts/install.ubuntu.sh ; fi
  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then bash .travis/scripts/install.osx.sh ; fi
 
-script: 
+script:
  - mkdir -p build && cd build
  - if [ "$CXX" = "mingw" ]; then cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../scripts/mingw32.toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DBUNDLED_FREETYPE=ON -DBUNDLED_OPENAL=ON ../ ;else cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ../;fi
  - make
