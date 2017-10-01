@@ -87,6 +87,8 @@ http://store.steampowered.com/app/208200/
 
 Steam:
 ------
+
+[![Join the chat at https://gitter.im/OpenTechEngine/OpenTechBFG](https://badges.gitter.im/OpenTechEngine/OpenTechBFG.svg)](https://gitter.im/OpenTechEngine/OpenTechBFG?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 The Doom 3 BFG Edition GPL Source Code release does not include functionality for integrating with 
 Steam.  This includes roaming profiles, achievements, leaderboards, matchmaking, the overlay, or
 any other Steam features.
