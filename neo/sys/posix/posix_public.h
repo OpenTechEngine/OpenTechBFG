@@ -31,6 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include <csignal>
 
+#include "../sys_public.h"
+
 namespace BFG
 {
 

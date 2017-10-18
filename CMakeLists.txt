@@ -33,7 +33,8 @@ option(IDTOOLS
 option(CEGUI
   "Use cegui" ON)
 
-if(WIN32 AND (CMAKE_COMPILER_IS_GNUCC OR NOT $ENV{VSINSTALLDIR}))
+if((WIN32 AND (CMAKE_COMPILER_IS_GNUCC OR NOT $ENV{VSINSTALLDIR})) OR
+${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   # breakpad doesn't work on mingw out of the box
   # and it requires DIA SDK which is under VSINSTALLDIR
   option(BREAKPAD
@@ -70,7 +71,7 @@ option(BUNDLED_GLEW
 
 option(BUNDLED_OGGVORBIS
   "Use bundled oggvorbis" OFF)
-  
+
 option(BUNDLED_OPENAL
   "Use bundled openal" OFF)
 
@@ -86,7 +87,7 @@ option(BUNDLED_SDL
 option(BUNDLED_CEGUI
   "Use bundled CEGUI" ON)
 
-  
+
 ################################################################################
 
 message(STATUS CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE})
@@ -104,7 +105,7 @@ if(BUNDLED_ZLIB)
 endif()
 
 # libpng
-if(BUNDLED_PNG)	
+if(BUNDLED_PNG)
   add_subdirectory(libs/png)
 endif()
 
@@ -133,12 +134,12 @@ if(BUNDLED_CEGUI)
 
   # freetype, if not found, we build ours
   find_package(Freetype)
-  
+
   if(NOT FREETYPE_FOUND)
     add_subdirectory(libs/freetype)
     set(BUNDLED_FREETYPE ON CACHE BOOL "Select BUNDLED_FREETYPE for cegui" FORCE)
   endif()
-  
+
   add_subdirectory(libs/cegui)
 endif()
 
@@ -169,6 +170,7 @@ if(UNIX)
   add_custom_target(
     "OpenTechEngine_symlinks" ALL
     COMMAND ln -sf "${CMAKE_SOURCE_DIR}/base" "${CMAKE_BINARY_DIR}/base"
+    COMMAND ln -sf "${CMAKE_SOURCE_DIR}/base" "${CMAKE_BINARY_DIR}/neo/base"
     COMMAND ln -sf "${CMAKE_BINARY_DIR}/neo/OpenTechEngine" "${CMAKE_BINARY_DIR}/OpenTechEngine"
     )
   if(BUNDLED_CEGUI)

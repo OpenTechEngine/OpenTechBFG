@@ -11,7 +11,7 @@ include_directories(${OPENGL_INCLUDE_DIRS})
 if(FFMPEG)
   find_package(FFMPEG REQUIRED)
   add_definitions(-DUSE_FFMPEG)
-  
+
   include_directories(${FFMPEG_INCLUDE_DIR})
   link_directories(${FFMPEG_LIBRARIES_DIRS})
 endif()
@@ -48,10 +48,14 @@ list(APPEND OpenTechBFG_SOURCES
   ${SDL_INCLUDES} ${SDL_SOURCES})
 
 if(OPENAL)
-  find_package(OpenAL REQUIRED)
   add_definitions(-DUSE_OPENAL)
+  if(BUNDLED_OPENAL)
+    include_directories(${CMAKE_SOURCE_DIR}/libs/openal-soft/openal-soft.git/include)
+  else()
+    find_package(OpenAL REQUIRED)
+  endif()
   set(OPENAL_LIBRARY openal)
-  
+
   list(APPEND OpenTechBFG_INCLUDES ${OPENAL_INCLUDES})
   list(APPEND OpenTechBFG_SOURCES ${OPENAL_SOURCES})
 else()
@@ -66,7 +70,6 @@ if(BREAKPAD)
   set(BREAKPAD_LIBRARY breakpad)
   link_directories(${CMAKE_BINARY_DIR}/libs/breakpad)
 endif()
-#endif()
 
 list(REMOVE_DUPLICATES OpenTechBFG_SOURCES)
 
@@ -106,6 +109,5 @@ target_link_libraries(OpenTechEngine
   ${CEGUIGLR_LIBRARY}
   imgui
   )
-#endif()
 
 install (TARGETS OpenTechEngine RUNTIME DESTINATION bin COMPONENT OpenTechEngine)
