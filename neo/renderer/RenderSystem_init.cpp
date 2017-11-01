@@ -454,7 +454,7 @@ static void R_CheckPortableExtensions()
 	}
 	
 	// RB: Mesa support
-	if( idStr::Icmpn( glConfig.renderer_string, "Mesa", 4 ) == 0 || idStr::Icmpn( glConfig.renderer_string, "X.org", 4 ) == 0 || idStr::Icmpn( glConfig.renderer_string, "Gallium", 7 ) == 0 )
+	if( idStr::Icmpn( glConfig.renderer_string, "Mesa", 4 ) == 0 || idStr::Icmpn( glConfig.renderer_string, "X.org", 4 ) == 0 || idStr::Icmpn( glConfig.renderer_string, "Gallium", 7 ) == 0 || idStr::Icmpn( glConfig.renderer_string, "nouveau", 7 ) == 0 )
 	{
 		if( glConfig.driverType == GLDRV_OPENGL32_CORE_PROFILE )
 		{
@@ -650,6 +650,8 @@ static void R_CheckPortableExtensions()
 	{
 		idLib::Error( "GL_ARB_multitexture not available" );
 	}
+	
+	/* //FIXME those extensions are not used anywhere and doesn't allow Mesa drivers to load the engine
 	// GL_ARB_texture_compression + GL_EXT_texture_compression_s3tc
 	if( !glConfig.textureCompressionAvailable )
 	{
@@ -660,6 +662,8 @@ static void R_CheckPortableExtensions()
 	{
 		idLib::Error( "GL_ARB_vertex_buffer_object not available" );
 	}
+	*/
+	
 	// GL_ARB_map_buffer_range
 	if( !glConfig.mapBufferRangeAvailable )
 	{
