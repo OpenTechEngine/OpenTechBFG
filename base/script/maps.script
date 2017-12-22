@@ -1,0 +1,10 @@
+//this file should contain all the maps separated from the main file so many maps can be tested without breaking any of the main files,
+//only by replacing this file would suffice to test the new map
+
+// I propose creating a /script/maps/ folder to have all the map scripts within a single folder so the scripts for a level can be more easily found
+// so you would then call that script from here with the following statement:
+// #include "script/maps/my_level_script.script"
+
+
+// the idea would be to keep the 'script/maps/' directorystructure as the same strucutre of the actual 'maps/' directory, 
+// and also keep the same name from the map file in the script file, as well as thesame name for the namespace within that script file.
