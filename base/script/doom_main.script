@@ -9,6 +9,7 @@
 
 #include "script/player.script"
 #include "script/weapon_kick.script"
+#include "script/maps.script"
 
 void doom_main() {
 	sys.print( "Executing doom_main()\n");
