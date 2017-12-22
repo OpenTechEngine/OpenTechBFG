@@ -25,8 +25,8 @@ entityDef trigger_entityname {
 	// TODO: This is just a stub - add proper entity definition and explanation!
 }
 
-entityDef trigger_facing {
-	"spawnclass"	"idTrigger_Multi"
+entityDef trigger_once_entityname {
+	"spawnclass"	"idTrigger_EntityName"
 
 	"editor_usage"	"TODO: Meaningful description, this is a stub!"
 
@@ -45,18 +45,6 @@ entityDef trigger_fade {
 	"editor_color"	"0.0 0.5 0.8"
 	"editor_maxs"	"8 8 8"
 	"editor_mins"	"-8 -8 -8"
-
-	// TODO: This is just a stub - add proper entity definition and explanation!
-}
-
-entityDef trigger_flashlight {
-	"spawnclass"	"idTrigger_Multi"
-
-	"editor_usage"	"TODO: Meaningful description, this is a stub!"
-
-	"editor_color"	"0.0 0.5 0.8"
-	"editor_maxs"	"?"
-	"editor_mins"	"?"
 
 	// TODO: This is just a stub - add proper entity definition and explanation!
 }
@@ -85,66 +73,6 @@ entityDef trigger_hurt {
 	// TODO: This is just a stub - add proper entity definition and explanation!
 }
 
-entityDef trigger_multiple {
-	"spawnclass"	"idTrigger_Multi"
-
-	"editor_usage"	"TODO: Meaningful description, this is a stub!"
-
-	"editor_color"	"0.0 0.5 0.8"
-	"editor_maxs"	"?"
-	"editor_mins"	"?"
-
-	// TODO: This is just a stub - add proper entity definition and explanation!
-}
-
-entityDef trigger_once {
-	"spawnclass"	"idTrigger_Multi"
-
-	"editor_usage"	"TODO: Meaningful description, this is a stub!"
-
-	"editor_color"	"0.0 0.5 0.8"
-	"editor_maxs"	"?"
-	"editor_mins"	"?"
-
-	// TODO: This is just a stub - add proper entity definition and explanation!
-}
-
-entityDef trigger_once_entityname {
-	"spawnclass"	"idTrigger_EntityName"
-
-	"editor_usage"	"TODO: Meaningful description, this is a stub!"
-
-	"editor_color"	"0.0 0.5 0.8"
-	"editor_maxs"	"?"
-	"editor_mins"	"?"
-
-	// TODO: This is just a stub - add proper entity definition and explanation!
-}
-
-entityDef trigger_presize {
-	"spawnclass"	"idTrigger_Multi"
-
-	"editor_usage"	"TODO: Meaningful description, this is a stub!"
-
-	"editor_color"	"0.0 0.5 0.8"
-	"editor_maxs"	"8 8 8"
-	"editor_mins"	"-8 -8 -8"
-
-	// TODO: This is just a stub - add proper entity definition and explanation!
-}
-
-entityDef trigger_relay {
-	"spawnclass"	"idTrigger_Multi"
-
-	"editor_usage"	"TODO: Meaningful description, this is a stub!"
-
-	"editor_color"	"0.0 0.5 0.8"
-	"editor_maxs"	"8 8 8"
-	"editor_mins"	"-8 -8 -8"
-
-	// TODO: This is just a stub - add proper entity definition and explanation!
-}
-
 entityDef trigger_timer {
 	"spawnclass"	"idTrigger_Timer"
 
@@ -167,4 +95,88 @@ entityDef trigger_touch {
 	"editor_mins"	"?"
 
 	// TODO: This is just a stub - add proper entity definition and explanation!
+}
+
+entityDef trigger_multiple {
+	"spawnclass"	"idTrigger_Multi"
+	
+	"editor_color"	"0.5 0.5 0.5"
+	"editor_maxs"	"?"
+	"editor_mins"	"?"
+	"editor_material"		"textures/triggers/trigmulti"
+	"editor_showangle"		"0"
+	
+	"editor_usage"	"trigger that can be repeated. once triggered, it fires it's targets within" \
+			"a time between ( wait - random ) and ( wait + random )."
+	"editor_var wait"		"time in seconds after every trigger before the next firing. if wait is '-1' it will only trigger once"
+	"editor_var random"		"triggering will wait between 'wait + random' and 'wait - random' before the next firing."
+	"editor_var delay"		"time in seconds to wait before firing any targets."
+	"editor_var random_delay"	"triggering will wait between 'delay + random_delay' and 'delay - random_delay' before firing the targets."
+	"editor_var call"		"script function to call when triggered, the usual way to call a function is to call it within it's namespace."
+	"editor_var requires"		"the player needs to have in the invnetray the item named in 'requires' to fire the targets."
+	"editor_var removeItem"		"whether we remove the item named in 'requires' from the player inventory once fired."
+	"editor_var anyTouch"		"players and monsters and other entities trigger it."
+	"editor_var noTouch"		"no triggering when touched, only triggered after being targeted."
+	"editor_var triggerFirst"	"be deactivated until triggered."
+	"editor_var noClient"		"players don't trigger it when touched, only other entities can ( like func_activators )."
+	
+	"wait"		"0.5"
+	"random"	"0"
+	"delay"		"0"
+	"random_delay"	"0"
+	"anyTouch"	"0"
+	"noTouch"	"0"
+	"noClient"	"0"
+	"flashlight_trigger"	"0"
+	"facing"	"0"
+}
+
+entityDef trigger_once {
+	"inherit"		"trigger_multiple"
+	"editor_material"	"textures/triggers/trigonce"
+	"wait"			"-1"
+	"editor_usage"		"only fires it's targets once."
+}
+
+entityDef trigger_presize {
+	"inherit"		"trigger_multiple"
+	"editor_mins"		"-64 -64 -16"
+	"editor_maxs"		"64 64 16"
+}
+
+entityDef trigger_relay {
+	"inherit"		"trigger_multiple"
+
+	"editor_color"		"0.3 0.1 0.6"
+	"editor_mins"		"-8 -8 -8"
+	"editor_maxs"		"8 8 8"
+	"editor_material"	"textures/triggers/trigrelay"
+	
+	"editor_usage"	"trigger that can be repeated but not touched. can be triggered by scripts or" \
+			"other entities and have many targets to fire. It fires it's targets within" \				
+			"a time between ( wait - random ) and ( wait + random )."
+	"wait"			"0"
+	"notouch"		"1"
+}
+
+entityDef trigger_flashlight {
+	"inherit"		"trigger_multiple"
+	"editor_material"	"textures/triggers/trigflashlight"
+	
+	"editor_usage"		"trigger that can be repeated, and triggered by the flashlight cone. once triggered it fires" \
+				"it's targets within a time between ( wait - random ) and ( wait + random )."
+	
+	"flashlight_trigger"	"1"
+}
+
+entityDef trigger_facing {
+	"inherit"		"trigger_multiple"
+	"editor_showangle"	"0"
+	
+	"editor_usage"		"trigger that fires once, but only when the player is facing within 30 degrees( or 'angleLimit' ) of the 'angle'."
+	"editor_var angle"	"the angle the player must be facing in order to trigger it."
+	"editor_var angleLimit"	"the limit expressed in degress in which that player must be within."
+	
+	"wait"			"-1"
+	"facing"		"1"
 }
