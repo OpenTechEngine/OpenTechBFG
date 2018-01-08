@@ -107,6 +107,7 @@ private:
 	//idStaticList<ALCdevice*>	openAlDeviceList;
 	idList<ALCdevice*, TAG_AUDIO>	deviceList;
 
+	void			ShutDownOpenAlDeviceList();
 	void			RebuildOpenAlDeviceList();
 	void			GetBestDevice();
 	int     		GetIndexList( const ALCchar* deviceName );

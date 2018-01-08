@@ -60,7 +60,7 @@ idCVar s_showLevelMeter( "s_showLevelMeter", "0", CVAR_BOOL | CVAR_ARCHIVE, "Sho
 idCVar s_meterTopTime( "s_meterTopTime", "1000", CVAR_INTEGER | CVAR_ARCHIVE, "How long (in milliseconds) peaks are displayed on the VU meter" );
 idCVar s_meterPosition( "s_meterPosition", "100 100 20 200", CVAR_ARCHIVE, "VU meter location (x y w h)" );
 idCVar s_device( "s_device", "-1", CVAR_INTEGER | CVAR_ARCHIVE, "Which audio device to use (listDevices to list, -1 for default)" );
-idCVar s_showPerfData( "s_showPerfData", "0", CVAR_BOOL, "Show XAudio2 Performance data" );
+//idCVar s_showPerfData( "s_showPerfData", "0", CVAR_BOOL, "Show XAudio2 Performance data" );
 extern idCVar s_volume_dB;
 
 
@@ -89,15 +89,47 @@ idSoundHardware_OpenAL::idSoundHardware_OpenAL()
 	lastResetTime = 0;
 }
 
+void idSoundHardware_OpenAL::ShutDownOpenAlDeviceList() {
+	if( deviceList.Num() > 0 ) {
+		//common->Printf( "sound shutdown: deviceList was filled with %i devices\n", deviceList.Num() );
+		for( int i = 0; i < deviceList.Num(); i++ ) {
+			if( deviceList[i] != NULL ) {
+				//common->Printf( "sound shutdown: closing a device.\n" );
+				alcCloseDevice( deviceList[i] );
+				deviceList[i] = NULL;
+			//} else {
+				//common->Printf( "sound shutdown: device was already nullified.\n" );
+			}
+		}
+
+		if( ( deviceList.Num() == 1 ) && ( openalDevice != NULL ) ) {
+			//common->Printf( "sound shutdown: openalDevice active, closing it\n" );
+			alcCloseDevice( openalDevice );
+			openalDevice = NULL;
+			//common->Printf( "sound shutdown: openalDevice closed and nullified\n" );
+		}
+		//common->Printf( "sound shutdown: deviceList will be deleted.\n" );
+		//deviceList.DeleteContents( true );
+		//deviceList.Clear();
+		//common->Printf( "sound shutdown: deviceList deleted.\n" );
+	//} else {
+		//common->Printf( "sound shutdown: deviceList wasn't filled.\n" );
+		//deviceList.Clear();
+		//common->Printf( "sound shutdown: deviceList cleared.\n" );
+	}
+	deviceList.Clear();
+}
+
 void idSoundHardware_OpenAL::RebuildOpenAlDeviceList() {
 	const ALCchar *deviceNameList = NULL;
 
 	idLib::Printf( "idSoundHardware_OpenAL::rebuildOpenAlDeviceList: rebuilding devices list\n" );
 
 	//first clean the list
-
 	if ( deviceList.Num() > 0 ) {
-		deviceList.DeleteContents( true );
+		idSoundHardware_OpenAL::ShutDownOpenAlDeviceList();
+	} else {
+		deviceList.Clear();
 	}
 
 	//let's build it again
@@ -372,10 +404,17 @@ void idSoundHardware_OpenAL::Shutdown()
 	
 	alcDestroyContext( openalContext );
 	openalContext = NULL;
-	
-	alcCloseDevice( openalDevice );
-	openalDevice = NULL;
-	
+
+	/*
+	if( openalDevice != NULL ) {
+		common->Printf( "sound shutdown: openalDevice active, closing it\n" );
+		alcCloseDevice( openalDevice );
+		openalDevice = NULL;
+		common->Printf( "sound shutdown: openalDevice closed and nullified\n" );
+	}
+	*/
+	idSoundHardware_OpenAL::ShutDownOpenAlDeviceList();
+
 	/*
 	if( vuMeterRMS != NULL )
 	{
