@@ -187,6 +187,8 @@ int idSoundHardware_OpenAL::GetIndexList( const ALCchar* deviceName ) {
 
 void idSoundHardware_OpenAL::PrintDeviceList( const char* list )
 {
+	int index = 0;
+
 	if( !list || *list == '\0' )
 	{
 		idLib::Printf( "	!!! none !!!\n" );
@@ -195,8 +197,9 @@ void idSoundHardware_OpenAL::PrintDeviceList( const char* list )
 	{
 		do
 		{
-			idLib::Printf( "	%s\n", list );
+			idLib::Printf( "    %i: %s\n", index, list );
 			list += strlen( list ) + 1;
+			index++;
 		}
 		while( *list != '\0' );
 	}
@@ -248,7 +251,9 @@ void idSoundHardware_OpenAL::PrintALInfo()
 	CheckALErrors();
 }
 
+//void idSoundHardware_OpenAL::listDevices_f( const idCmdArgs& args )
 void listDevices_f( const idCmdArgs& args )
+
 {
 	idLib::Printf( "Available playback devices:\n" );
 	if( alcIsExtensionPresent( NULL, "ALC_ENUMERATE_ALL_EXT" ) != AL_FALSE )
@@ -260,6 +265,8 @@ void listDevices_f( const idCmdArgs& args )
 		idSoundHardware_OpenAL::PrintDeviceList( alcGetString( NULL, ALC_DEVICE_SPECIFIER ) );
 	}
 	
+	idLib::Printf( "\n" );
+
 	//idLib::Printf("Available capture devices:\n");
 	//printDeviceList(alcGetString(NULL, ALC_CAPTURE_DEVICE_SPECIFIER));
 	
@@ -272,6 +279,12 @@ void listDevices_f( const idCmdArgs& args )
 		idLib::Printf( "Default playback device: %s\n",  alcGetString( NULL, ALC_DEFAULT_DEVICE_SPECIFIER ) );
 	}
 	
+	if( s_device.GetInteger() == -1) {
+		idLib::Printf( "Selected playback device is default's.\n" );
+	} else {
+		idLib::Printf( "Selected playback device is device: %i\n", s_device.GetInteger() ); //FIXME this could bring wrong info if s_device points to a fake number
+	}
+
 	//idLib::Printf("Default capture device: %s\n", alcGetString(NULL, ALC_CAPTURE_DEFAULT_DEVICE_SPECIFIER));
 	
 	idSoundHardware_OpenAL::PrintALCInfo( NULL );

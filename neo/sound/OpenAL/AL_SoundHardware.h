@@ -73,7 +73,7 @@ public:
 	{
 		return openalDevice;
 	};
-	
+
 	int				GetNumZombieVoices() const
 	{
 		return zombieVoices.Num();
@@ -87,7 +87,7 @@ public:
 	static void		PrintDeviceList( const char* list );
 	static void		PrintALCInfo( ALCdevice* device );
 	static void		PrintALInfo();
-	
+
 protected:
 	friend class idSoundSample_OpenAL;
 	friend class idSoundVoice_OpenAL;
@@ -104,15 +104,16 @@ private:
 	ALCdevice*			openalDevice;
 	ALCcontext*			openalContext;
 	
-	//idStaticList<ALCdevice*>	openAlDeviceList;
 	idList<ALCdevice*, TAG_AUDIO>	deviceList;
+
+	//void			listDevices_f( const idCmdArgs& args );
 
 	void			ShutDownOpenAlDeviceList();
 	void			RebuildOpenAlDeviceList();
 	void			GetBestDevice();
 	int     		GetIndexList( const ALCchar* deviceName );
 	int					lastResetTime;
-	
+
 	//int				outputChannels;
 	//int				channelMask;
 	
