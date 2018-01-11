@@ -104,14 +104,9 @@ private:
 	ALCdevice*			openalDevice;
 	ALCcontext*			openalContext;
 	
-	idList<ALCdevice*, TAG_AUDIO>	deviceList;
+	idList<const ALCchar *, TAG_AUDIO> OpenALDeviceList;
 
-	//void			listDevices_f( const idCmdArgs& args );
-
-	void			ShutDownOpenAlDeviceList();
-	void			RebuildOpenAlDeviceList();
-	void			GetBestDevice();
-	int     		GetIndexList( const ALCchar* deviceName );
+	void			OpenBestDevice();
 	int					lastResetTime;
 
 	//int				outputChannels;
