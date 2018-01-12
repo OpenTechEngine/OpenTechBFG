@@ -60,7 +60,7 @@ idCVar s_showLevelMeter( "s_showLevelMeter", "0", CVAR_BOOL | CVAR_ARCHIVE, "Sho
 idCVar s_meterTopTime( "s_meterTopTime", "1000", CVAR_INTEGER | CVAR_ARCHIVE, "How long (in milliseconds) peaks are displayed on the VU meter" );
 idCVar s_meterPosition( "s_meterPosition", "100 100 20 200", CVAR_ARCHIVE, "VU meter location (x y w h)" );
 idCVar s_device( "s_device", "-1", CVAR_INTEGER | CVAR_ARCHIVE, "Which audio device to use (listDevices to list, -1 for default)" );
-idCVar s_showPerfData( "s_showPerfData", "0", CVAR_BOOL, "Show XAudio2 Performance data" );
+//idCVar s_showPerfData( "s_showPerfData", "0", CVAR_BOOL, "Show XAudio2 Performance data" );
 extern idCVar s_volume_dB;
 
 
@@ -74,7 +74,7 @@ idSoundHardware_OpenAL::idSoundHardware_OpenAL()
 	openalDevice = NULL;
 	openalContext = NULL;
 	
-	//vuMeterRMS = NULL;
+	//vuMeterRMS = NULL;PrintDeviceList
 	//vuMeterPeak = NULL;
 	
 	//outputChannels = 0;
@@ -84,21 +84,67 @@ idSoundHardware_OpenAL::idSoundHardware_OpenAL()
 	zombieVoices.SetNum( 0 );
 	freeVoices.SetNum( 0 );
 	
+	OpenALDeviceList.Clear();
+
 	lastResetTime = 0;
+}
+
+void idSoundHardware_OpenAL::OpenBestDevice() {
+	const ALCchar *deviceNameList = NULL;
+
+	idLib::Printf( "idSoundHardware_OpenAL::OpenBestDevice: rebuilding devices list\n" );
+
+	//first clean the list
+	OpenALDeviceList.Clear();
+
+	//let's build it again
+	if( alcIsExtensionPresent( NULL, "ALC_ENUMERATE_ALL_EXT" ) != AL_FALSE ) {
+		deviceNameList = alcGetString( NULL, ALC_ALL_DEVICES_SPECIFIER ); //all the devices
+	} else {
+		deviceNameList = alcGetString( NULL, ALC_DEVICE_SPECIFIER ); // just one device
+	}
+
+	if( deviceNameList && *deviceNameList != '\0' ) {
+		do {
+			OpenALDeviceList.Append( deviceNameList );
+			deviceNameList += strlen( deviceNameList ) + 1;
+		} while( *deviceNameList != '\0' );
+	}
+
+	if ( OpenALDeviceList.Num() == 0 ) {
+		idLib::Printf( "idSoundHardware_OpenAL::OpenBestDevice: there are still no devices in the device list!!!\n" );
+		openalDevice = NULL;
+		return;
+	}
+
+	//let's proceed to open the correct device
+
+	int selectedInt = s_device.GetInteger();
+
+	if ( ( s_device.GetInteger() > OpenALDeviceList.Num() - 1 ) || ( selectedInt == -1 ) || ( OpenALDeviceList.Num() == 1 ) ) {
+		idLib::Printf( "idSoundHardware_OpenAL::OpenBestDevice: selected default device\n" );
+		openalDevice = alcOpenDevice( NULL ); //the default one
+	} else {
+		idLib::Printf( "idSoundHardware_OpenAL::OpenBestDevice: selected the %ith device\n", selectedInt );
+		openalDevice = alcOpenDevice( OpenALDeviceList[ selectedInt ] );
+	}
 }
 
 void idSoundHardware_OpenAL::PrintDeviceList( const char* list )
 {
+	int index = 0;
+
 	if( !list || *list == '\0' )
 	{
-		idLib::Printf( "    !!! none !!!\n" );
+		idLib::Printf( "	!!! none !!!\n" );
 	}
 	else
 	{
 		do
 		{
-			idLib::Printf( "    %s\n", list );
+			idLib::Printf( "    %i: %s\n", index, list );
 			list += strlen( list ) + 1;
+			index++;
 		}
 		while( *list != '\0' );
 	}
@@ -124,15 +170,16 @@ void idSoundHardware_OpenAL::PrintALCInfo( ALCdevice* device )
 		
 		idLib::Printf( "** Info for device \"%s\" **\n", devname );
 	}
-	alcGetIntegerv( device, ALC_MAJOR_VERSION, 1, &major );
-	alcGetIntegerv( device, ALC_MINOR_VERSION, 1, &minor );
 	
-	if( CheckALCErrors( device ) == ALC_NO_ERROR )
+	if( CheckALCErrors( device ) == ALC_NO_ERROR ) {
+		alcGetIntegerv( device, ALC_MAJOR_VERSION, 1, &major );
+		alcGetIntegerv( device, ALC_MINOR_VERSION, 1, &minor );
 		idLib::Printf( "ALC version: %d.%d\n", major, minor );
+	}
 		
 	if( device )
 	{
-		idLib::Printf( "OpenAL extensions: %s", alGetString( AL_EXTENSIONS ) );
+		idLib::Printf( "OpenAL extensions:\n%s\n", alGetString( AL_EXTENSIONS ) );
 		
 		//idLib::Printf("ALC extensions:");
 		//printList(alcGetString(device, ALC_EXTENSIONS), ' ');
@@ -150,9 +197,11 @@ void idSoundHardware_OpenAL::PrintALInfo()
 	CheckALErrors();
 }
 
+//void idSoundHardware_OpenAL::listDevices_f( const idCmdArgs& args )
 void listDevices_f( const idCmdArgs& args )
+
 {
-	idLib::Printf( "Available playback devices:\n" );
+	idLib::Printf( "Available playback devices:\n\n" );
 	if( alcIsExtensionPresent( NULL, "ALC_ENUMERATE_ALL_EXT" ) != AL_FALSE )
 	{
 		idSoundHardware_OpenAL::PrintDeviceList( alcGetString( NULL, ALC_ALL_DEVICES_SPECIFIER ) );
@@ -162,6 +211,8 @@ void listDevices_f( const idCmdArgs& args )
 		idSoundHardware_OpenAL::PrintDeviceList( alcGetString( NULL, ALC_DEVICE_SPECIFIER ) );
 	}
 	
+	idLib::Printf( "\n" );
+
 	//idLib::Printf("Available capture devices:\n");
 	//printDeviceList(alcGetString(NULL, ALC_CAPTURE_DEVICE_SPECIFIER));
 	
@@ -174,11 +225,18 @@ void listDevices_f( const idCmdArgs& args )
 		idLib::Printf( "Default playback device: %s\n",  alcGetString( NULL, ALC_DEFAULT_DEVICE_SPECIFIER ) );
 	}
 	
+	if( s_device.GetInteger() == -1) {
+		idLib::Printf( "Selected playback device is default's.\n" );
+	} else {
+		idLib::Printf( "Selected playback device is device: %i\n", s_device.GetInteger() ); //FIXME this could bring wrong info if s_device points to a fake number
+	}
+
 	//idLib::Printf("Default capture device: %s\n", alcGetString(NULL, ALC_CAPTURE_DEFAULT_DEVICE_SPECIFIER));
 	
 	idSoundHardware_OpenAL::PrintALCInfo( NULL );
 	
 	idSoundHardware_OpenAL::PrintALCInfo( ( ALCdevice* )soundSystem->GetOpenALDevice() );
+
 }
 
 /*
@@ -190,9 +248,10 @@ void idSoundHardware_OpenAL::Init()
 {
 	cmdSystem->AddCommand( "listDevices", listDevices_f, 0, "Lists the connected sound devices", NULL );
 	
-	common->Printf( "Setup OpenAL device and context... " );
-	
-	openalDevice = alcOpenDevice( NULL );
+	common->Printf( "Setup OpenAL device and context... \n" );
+
+	idSoundHardware_OpenAL::OpenBestDevice();
+
 	if( openalDevice == NULL )
 	{
 		common->FatalError( "idSoundHardware_OpenAL::Init: alcOpenDevice() failed\n" );
@@ -289,22 +348,24 @@ idSoundHardware_OpenAL::Shutdown
 */
 void idSoundHardware_OpenAL::Shutdown()
 {
+	zombieVoices.Clear();
+	freeVoices.Clear();
 	for( int i = 0; i < voices.Num(); i++ )
 	{
 		voices[ i ].DestroyInternal();
 	}
 	voices.Clear();
-	freeVoices.Clear();
-	zombieVoices.Clear();
 	
 	alcMakeContextCurrent( NULL );
 	
 	alcDestroyContext( openalContext );
 	openalContext = NULL;
-	
+
 	alcCloseDevice( openalDevice );
 	openalDevice = NULL;
-	
+
+	OpenALDeviceList.Clear();
+
 	/*
 	if( vuMeterRMS != NULL )
 	{
