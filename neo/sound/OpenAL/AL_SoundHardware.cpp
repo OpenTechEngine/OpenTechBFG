@@ -252,8 +252,6 @@ void idSoundHardware_OpenAL::Init()
 
 	idSoundHardware_OpenAL::OpenBestDevice();
 
-	CheckALErrors(); //TODO no need for this when it works
-
 	if( openalDevice == NULL )
 	{
 		common->FatalError( "idSoundHardware_OpenAL::Init: alcOpenDevice() failed\n" );
@@ -350,29 +348,24 @@ idSoundHardware_OpenAL::Shutdown
 */
 void idSoundHardware_OpenAL::Shutdown()
 {
+	zombieVoices.Clear();
+	freeVoices.Clear();
 	for( int i = 0; i < voices.Num(); i++ )
 	{
 		voices[ i ].DestroyInternal();
 	}
 	voices.Clear();
-	freeVoices.Clear();
-	zombieVoices.Clear();
 	
 	alcMakeContextCurrent( NULL );
 	
 	alcDestroyContext( openalContext );
 	openalContext = NULL;
 
-	if( openalDevice != NULL ) {
-		common->Printf( "sound shutdown: openalDevice active, closing it\n" );
-		alcCloseDevice( openalDevice );
-		openalDevice = NULL;
-		common->Printf( "sound shutdown: openalDevice closed and nullified\n" );
-	}
+	alcCloseDevice( openalDevice );
+	openalDevice = NULL;
 
 	OpenALDeviceList.Clear();
 
-	CheckALErrors();
 	/*
 	if( vuMeterRMS != NULL )
 	{
