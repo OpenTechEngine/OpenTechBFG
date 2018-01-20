@@ -56,6 +56,18 @@ else()
 # TODO: OS specific code handles currently, should we have it here?
 endif()
 
+# rapidXML
+if(BUNDLED_RAPIDXML)
+  #add_definitions(-DGLEW_STATIC)
+  #include_directories(../libs/rapidxml/rapidxml-1.13)
+  set(RAPIDXML_LIBRARY rapidxml)
+else()
+  #find_package(RAPIDXML REQUIRED)
+  find_package(RapidXML REQUIRED)
+  #include_directories(${RAPIDXML_INCLUDE_DIRS})
+  set(RAPIDXML_LIBRARY RAPIDXML)
+endif()
+
 if(CEGUI)
   add_definitions(-DUSE_CEGUI)
 
