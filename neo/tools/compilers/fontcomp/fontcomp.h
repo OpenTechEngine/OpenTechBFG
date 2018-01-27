@@ -1,5 +1,5 @@
 /*
- * dfont.h
+ * fontcomp.h
  *
  *  Created on: 26 de gen. 2018
  *      Author: biel
