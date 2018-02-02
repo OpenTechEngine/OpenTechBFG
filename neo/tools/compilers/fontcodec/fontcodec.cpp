@@ -1,5 +1,5 @@
 /*
- * fontcomp.cpp
+ * fontcodec.cpp
  *
  *  Created on: 26 de gen. 2018
  *      Author: Biel Bestué de Luna
@@ -7,14 +7,21 @@
  *      this file is GPLv3
  */
 
+#pragma hdrstop
+
 #include "../tools/compilers/compiler_public.h"
 #include "../tools/compilers/fontcodec/fontcodec.h"
+
 #include "../framework/Common.h"
 
 namespace BFG
 {
 
 fontCodecGlobals_t CompilerGlobals;
+
+/*******************************************************************************
+	Compile process
+*******************************************************************************/
 
 /*
 ============
@@ -31,8 +38,7 @@ void SetDefaultGlobals() {
 FontCompHelp
 ============
 */
-void FontCompHelp()
-{
+void FontCompHelp() {
 /*
     Usage:
 		BFGFontTool create-bfg --help
@@ -79,8 +85,7 @@ void FontCompHelp()
 fontComp
 ============
 */
-void FontComp( const idCmdArgs& args )
-{
+void FontComp( const idCmdArgs& args ) {
 	int			i;
 	idStr		passedName;
 
@@ -154,8 +159,7 @@ void FontComp( const idCmdArgs& args )
 fontComp_f
 ============
 */
-void FontComp_f( const idCmdArgs& args )
-{
+void FontComp_f( const idCmdArgs& args ) {
 
 	//common->ClearWarnings( "running dmap" );
 
@@ -163,6 +167,37 @@ void FontComp_f( const idCmdArgs& args )
 	// like it is hung
 	//common->SetRefreshOnPrint( true );
 	FontComp( args );
+	//common->SetRefreshOnPrint( false );
+
+	//common->PrintWarnings();
+}
+
+/*******************************************************************************
+	Decompile process
+*******************************************************************************/
+
+/*
+============
+fontDecomp
+============
+*/
+void FontDecomp( const idCmdArgs& args ) {
+	//stub //TODO
+}
+
+/*
+============
+fontDecomp_f
+============
+*/
+void FontDecomp_f( const idCmdArgs& args ) {
+
+	//common->ClearWarnings( "running dmap" );
+
+	// refresh the screen each time we print so it doesn't look
+	// like it is hung
+	//common->SetRefreshOnPrint( true );
+	FontDecomp( args );
 	//common->SetRefreshOnPrint( false );
 
 	//common->PrintWarnings();
