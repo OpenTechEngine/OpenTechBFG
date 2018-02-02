@@ -1751,7 +1751,8 @@ void idCommonLocal::InitCommands()
 	cmdSystem->AddCommand( "runAAS", RunAAS_f, CMD_FL_TOOL, "compiles an AAS file for a map", idCmdSystem::ArgCompletion_MapName );
 	cmdSystem->AddCommand( "runAASDir", RunAASDir_f, CMD_FL_TOOL, "compiles AAS files for all maps in a folder", idCmdSystem::ArgCompletion_MapName );
 	cmdSystem->AddCommand( "runReach", RunReach_f, CMD_FL_TOOL, "calculates reachability for an AAS file", idCmdSystem::ArgCompletion_MapName );
-	cmdSystem->AddCommand( "fontComp", fontComp_f, CMD_FL_TOOL, "compiles a font", idCmdSystem::ArgCompletion_MapName ); //TODO change the argument completion
+	cmdSystem->AddCommand( "fontComp", FontComp_f, CMD_FL_TOOL, "compiles a font", idCmdSystem::ArgCompletion_MapName ); //TODO change the argument completion
+	cmdSystem->AddCommand( "fontDecomp", FontDecomp_f, CMD_FL_TOOL, "decompiles a font", idCmdSystem::ArgCompletion_MapName ); //TODO change the argument completion
 
 	// cmdSystem->AddCommand( "showEditors", ShowEditors_f, CMD_FL_TOOL, "compiles a map" );
 	

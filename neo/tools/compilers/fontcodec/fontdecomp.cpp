@@ -1,33 +1,35 @@
 /*
- * fontcomp.cpp
+ * fontdecomp.cpp
  *
- *  Created on: 26 de gen. 2018
- *      Author: biel
+ *  Created on: 01 de feb. 2018
+ *      Author: Biel Bestué de Luna
+ *
+ *      this file is GPLv3
  */
 
-#include "../tools/compilers/fontcomp/fontcomp.h"
-
 #include "../tools/compilers/compiler_public.h"
+#include "../tools/compilers/fontcodec/fontcodec.h"
+#include "../framework/Common.h"
 
 namespace BFG
 {
 
 /*
 ============
-fontComp
+fontDecomp
 ============
 */
-void FontComp( const idCmdArgs& args )
+void FontDecomp( const idCmdArgs& args )
 {
-	//stub
+	//stub //TODO
 }
 
 /*
 ============
-fontComp_f
+fontDecomp_f
 ============
 */
-void FontComp_f( const idCmdArgs& args )
+void FontDecomp_f( const idCmdArgs& args )
 {
 
 	//common->ClearWarnings( "running dmap" );
@@ -35,10 +37,10 @@ void FontComp_f( const idCmdArgs& args )
 	// refresh the screen each time we print so it doesn't look
 	// like it is hung
 	//common->SetRefreshOnPrint( true );
-	FontComp( args );
+	FontDecomp( args );
 	//common->SetRefreshOnPrint( false );
 
 	//common->PrintWarnings();
 }
 
-} // namespace BFG
+}
