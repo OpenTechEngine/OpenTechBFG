@@ -11,7 +11,7 @@
 #define NEO_TOOLS_COMPILERS_FONTCODEC_BFGFONT_H_
 
 #include "../idlib/Str.h"
-#include "../tools/compilers/fontcodec/fontcodec.h"
+#include "FontTool.cxx"
 
 namespace BFG {
 

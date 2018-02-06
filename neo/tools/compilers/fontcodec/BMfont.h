@@ -10,10 +10,13 @@
 #ifndef NEO_TOOLS_COMPILERS_FONTCODEC_BMFONT_H_
 #define NEO_TOOLS_COMPILERS_FONTCODEC_BMFONT_H_
 
+//#include <rapidxml>
+#include "../../libs/rapidxml/rapidxml-1.13/rapidxml.hpp"
+
 #include "../idlib/Str.h"
 #include "../idlib/containers/List.h"
 
-#include "../tools/compilers/fontcodec/fontcodec.h"
+#include "../tools/compilers/fontcodec/blFontCodec.h"
 
 namespace BFG {
 /*
@@ -102,7 +105,7 @@ private:
 
 class BMfont {
 public:
-	BMfont();
+	BMfont( idStr file );
 	virtual ~BMfont();
 
 	bool LoadInfo( idStr line );
@@ -127,6 +130,7 @@ public:
 	}
 
 private:
+	idStr 						fntFile;
 	idList<BMglyph> 			glyphs;
 	idList<BMpage> 				pages;
 	BMprocessfontStructure_t	processStrucutre;
