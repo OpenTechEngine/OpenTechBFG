@@ -41,8 +41,9 @@ public:
 	}
 
 private:
-	BMfont 				BMfont;
-	BFGfont 			BFGfont;
+	void				clear();
+	BMfont 				BM_font;
+	BFGfont 			BFG_font;
 	fontCodecGlobals_t	fontCodecGlobals;
 	idStr 		GatherComandArgs( const idCmdArgs& args );
 };

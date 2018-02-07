@@ -10,9 +10,6 @@
 #ifndef NEO_TOOLS_COMPILERS_FONTCODEC_BMFONT_H_
 #define NEO_TOOLS_COMPILERS_FONTCODEC_BMFONT_H_
 
-//#include <rapidxml>
-#include "../../libs/rapidxml/rapidxml-1.13/rapidxml.hpp"
-
 #include "../idlib/Str.h"
 #include "../idlib/containers/List.h"
 
@@ -105,12 +102,12 @@ private:
 
 class BMfont {
 public:
-	BMfont( idStr file );
+	BMfont( blFontCodec* _codec );
 	virtual ~BMfont();
 
 	bool LoadInfo( idStr line );
 	bool LoadCommon( idStr line );
-	void Load( idStr fileName );
+	bool Load();
 
 	const BMgeneratedfontStructure_t& getGeneratedFontStructure() const {
 		return generatedFontStructure;
@@ -130,6 +127,8 @@ public:
 	}
 
 private:
+	void						Clear();
+	blFontCodec*				codec;
 	idStr 						fntFile;
 	idList<BMglyph> 			glyphs;
 	idList<BMpage> 				pages;

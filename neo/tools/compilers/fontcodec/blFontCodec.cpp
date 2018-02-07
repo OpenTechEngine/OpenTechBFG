@@ -8,21 +8,29 @@
  */
 
 #include "blFontCodec.h"
+#include "../tools/compilers/fontcodec/BMfont.h"
+#include "../tools/compilers/fontcodec/BFGfont.h"
 
 namespace BFG {
 
 blFontCodec::blFontCodec() {
-	fontCodecGlobals.verbose = false;
-	fontCodecGlobals.inputFilename = "";
-	fontCodecGlobals.outputFilename = "48.dat";
-	fontCodecGlobals.inputDirectory = "";
-	fontCodecGlobals.decompile = false;
+	clear();
 }
 
 blFontCodec::~blFontCodec() {
 	// TODO Auto-generated destructor stub
 }
 
+void blFontCodec::clear() {
+	BM_font = NULL;
+	BFG_font = NULL;
+
+	fontCodecGlobals.verbose = false;
+	fontCodecGlobals.inputFilename = "";
+	fontCodecGlobals.outputFilename = "48.dat";
+	fontCodecGlobals.inputDirectory = "";
+	fontCodecGlobals.decompile = false;
+}
 /*
 ============
 blFontCodec::FontCompHelp
@@ -181,6 +189,11 @@ void blFontCodec::FontCodec( const idCmdArgs& args ){
 		common->Printf( "---- compiling font ----\n" );
 	}
 	fontCodecGlobals.inputFilename = q_path_to_file;
+
+	BM_font = new BMfont( this );
+	if( BM_font.Load() ) {
+		BFG_font = new BFGfont( this );
+	}
 }
 
 } /* namespace BFG */
