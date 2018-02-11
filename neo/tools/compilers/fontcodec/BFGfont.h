@@ -11,7 +11,7 @@
 #define NEO_TOOLS_COMPILERS_FONTCODEC_BFGFONT_H_
 
 #include "../idlib/Str.h"
-#include "FontTool.cpp"
+#include "../tools/compilers/fontcodec/blFontCodec.h"
 
 namespace BFG {
 
@@ -57,14 +57,19 @@ public:
 	BFGfont();
 	virtual ~BFGfont();
 
+	void GatherCodec( blFontCodec* _codec ) {
+		codec = _codec;
+	}
+
 	void 	Compile( idStr fileName );
 	void 	Decompile( BMfont font );
 
 private:
-	idList<BFGglyph> 	glyphs;
-	short				pointSize = 48; // must be 48!
-	short				ascender;
-	short				descender;
+	blFontCodec*				codec;
+	idList<BFGglyph> 			glyphs;
+	short						pointSize;
+	short						ascender;
+	short						descender;
 
 
 };

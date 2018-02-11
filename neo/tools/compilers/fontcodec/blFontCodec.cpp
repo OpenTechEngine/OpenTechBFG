@@ -191,7 +191,8 @@ void blFontCodec::FontCodec( const idCmdArgs& args ){
 	BM_font = new(TAG_TOOLS) BMfont();
 	BM_font.GatherCodec( this ); 	// <----- this is displayed as an error in Eclipse  why?
 	if( BM_font.Load() ) {			// <----- this is displayed as an error in Eclipse	why?
-		BFG_font = new(TAG_TOOLS) BFGfont( this );
+		BFG_font = new(TAG_TOOLS) BFGfont();
+		BFG_font.GatherCodec( this );// <----- this is displayed as an error in Eclipse	why?
 	}
 }
 

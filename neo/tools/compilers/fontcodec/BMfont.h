@@ -105,7 +105,9 @@ public:
 	BMfont();
 	virtual ~BMfont();
 
-	void GatherCodec( blFontCodec* _codec );
+	void GatherCodec( blFontCodec* _codec ) {
+		codec = _codec;
+	}
 
 	bool LoadInfo( idStr line );
 	bool LoadCommon( idStr line );

@@ -107,10 +107,6 @@ void BMfont::Clear() {
 	generatedFontStructure.blueChnl = 0;
 }
 
-void BMfont::GatherCodec( blFontCodec * _codec ) {
-	codec = _codec;
-}
-
 bool BMfont::LoadInfo(idStr line) {
 	return true;//stub TODO
 }
