@@ -9,6 +9,7 @@
 
 //#include <rapidxml>
 #include "../../libs/rapidxml/rapidxml-1.13/rapidxml.hpp"
+#include "../../libs/rapidxml/rapidxml-1.13/rapidxml_utils.hpp"
 
 #include "../tools/compilers/fontcodec/BMfont.h"
 #include "../framework/Common.h"
@@ -21,6 +22,10 @@ namespace BFG {
  */
 
 BMglyph::BMglyph() {
+	Clear();
+}
+
+void BMglyph::Clear() {
 	glyphStructue.id = 0;
 	glyphStructue.x = 0;
 	glyphStructue.y = 0;
@@ -45,30 +50,33 @@ void BMglyph::Load(idStr glyphLine) {
  */
 
 BMpage::BMpage() {
-	//TODO stub
+	id = 0;
+	file = "";
 }
 
 bool BMpage::Load(idStr line) {
+	//TODO stub
+	return true;
 }
 
 /*
  * fonts
  */
 
-BMfont::BMfont( blFontCodec * _codec ) {
-
-	codec = _codec;
+BMfont::BMfont() {
 	Clear();
 }
 
 BMfont::~BMfont() {
 	// TODO Auto-generated destructor stub
+	Clear();
 }
 
 void BMfont::Clear() {
 	fntFile = "";
 	glyphs.Clear();
 	pages.Clear();
+	codec = NULL;
 
 	processStrucutre.faceName = "";
 	processStrucutre.size = 0;
@@ -99,6 +107,10 @@ void BMfont::Clear() {
 	generatedFontStructure.blueChnl = 0;
 }
 
+void BMfont::GatherCodec( blFontCodec * _codec ) {
+	codec = _codec;
+}
+
 bool BMfont::LoadInfo(idStr line) {
 	return true;//stub TODO
 }
@@ -107,17 +119,17 @@ bool BMfont::LoadCommon(idStr line) {
 	return true;//stub TODO
 }
 
-bool BMfont::Load() {
+bool BMfont::Load(void) {
 	fntFile = codec->getfontCodecGlobals().inputFilename;
 
 	if( fntFile == "\0" ) {
 		common->Error( "BMfont: file is empty!\n" );
 	}
-
+	/*
 	rapidxml::file<> xmlFile(fntFile); // Default template is char
 	rapidxml::xml_document<> doc;
 	doc.parse<0>( xmlFile.data() );
-
+	*/
 	return true;//stub TODO
 }
 

@@ -73,7 +73,6 @@ typedef struct
 class BMglyph {
 public:
 	BMglyph();
-
 	void Load(idStr glyphLine );
 
 	const BMglyphStructure_t& getGlyphStructue() const {
@@ -85,6 +84,7 @@ public:
 	}
 
 private:
+	void		Clear();
 	BMglyphStructure_t glyphStructue;
 };
 
@@ -102,8 +102,10 @@ private:
 
 class BMfont {
 public:
-	BMfont( blFontCodec* _codec );
+	BMfont();
 	virtual ~BMfont();
+
+	void GatherCodec( blFontCodec* _codec );
 
 	bool LoadInfo( idStr line );
 	bool LoadCommon( idStr line );

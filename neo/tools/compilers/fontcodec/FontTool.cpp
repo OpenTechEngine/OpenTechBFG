@@ -25,8 +25,7 @@ FontCodec_f
 void FontCodec_f( const idCmdArgs& args ) {
 	common->ClearWarnings( "running the font compiler / decompiler" );
 
-	blFontCodec FontCodec;
-	FontCodec = new blFontCodec;
+	blFontCodec FontCodec = new(TAG_TOOLS) blFontCodec();
 	// refresh the screen each time we print so it doesn't look
 	// like it is hung
 	common->SetRefreshOnPrint( true );

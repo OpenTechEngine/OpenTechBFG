@@ -8,8 +8,6 @@
  */
 
 #include "blFontCodec.h"
-#include "../tools/compilers/fontcodec/BMfont.h"
-#include "../tools/compilers/fontcodec/BFGfont.h"
 
 namespace BFG {
 
@@ -162,7 +160,7 @@ void blFontCodec::FontCodec( const idCmdArgs& args ){
 
 	if( fontCodecGlobals.decompile ) {
 		fontCodecGlobals.inputDirectory = "newfonts";
-		i = 8; // 'newfonts/' --> 8 characters
+		i = 8; // 'newfonts/' --> 8 characters tarting from 0
 	} else {
 		fontCodecGlobals.inputDirectory = "fonts";
 		i = 5;
@@ -180,19 +178,20 @@ void blFontCodec::FontCodec( const idCmdArgs& args ){
 	filename.StripFileExtension();
 
 	if( fontCodecGlobals.decompile ) {
-		filename += ".fnt"
+		filename += ".fnt";
 		fontCodecGlobals.outputFilename = filename; // we only do this in decompile because the default accounts for the compile.
-		q_path_to_file += ".dat"
+		q_path_to_file += ".dat";
 		common->Printf( "---- decompiling font ----\n" );
 	} else {
-		q_path_to_file += ".fnt"
+		q_path_to_file += ".fnt";
 		common->Printf( "---- compiling font ----\n" );
 	}
 	fontCodecGlobals.inputFilename = q_path_to_file;
 
-	BM_font = new BMfont( this );
-	if( BM_font.Load() ) {
-		BFG_font = new BFGfont( this );
+	BM_font = new(TAG_TOOLS) BMfont();
+	BM_font.GatherCodec( this ); 	// <----- this is displayed as an error in Eclipse  why?
+	if( BM_font.Load() ) {			// <----- this is displayed as an error in Eclipse	why?
+		BFG_font = new(TAG_TOOLS) BFGfont( this );
 	}
 }
 

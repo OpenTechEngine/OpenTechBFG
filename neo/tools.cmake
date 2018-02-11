@@ -9,7 +9,7 @@ file(GLOB COMPILER_DMAP_INCLUDES tools/compilers/dmap/*.h)
 file(GLOB COMPILER_DMAP_SOURCES tools/compilers/dmap/*.cpp)
 
 file(GLOB CODEC_FONT_INCLUDES tools/compilers/fontcodec/*.h)
-file(GLOB CODEC_FONT_SOURCES tools/compilers/fontcodec/*.cpp tools/compilers/fontcodec/FontTool.cxx )
+file(GLOB CODEC_FONT_SOURCES tools/compilers/fontcodec/*.cpp)
 
 set(TOOLS_INCLUDES tools/edit_public.h)
 
