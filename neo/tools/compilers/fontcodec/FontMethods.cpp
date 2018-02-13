@@ -8,14 +8,16 @@
  */
 
 //#include <rapidxml>
+#include "FontMethods.h"
+
 #include "../../libs/rapidxml/rapidxml-1.13/rapidxml.hpp"
 #include "../../libs/rapidxml/rapidxml-1.13/rapidxml_utils.hpp"
 
-#include "../tools/compilers/fontcodec/BMfont.h"
 #include "../framework/Common.h"
 
 namespace BFG {
 
+//BMfont
 
 /*
  * glyphs
@@ -63,8 +65,9 @@ bool BMpage::Load(idStr line) {
  * fonts
  */
 
-BMfont::BMfont() {
+BMfont::BMfont( idStr inputFile ) {
 	Clear();
+	fntFile = inputFile;
 }
 
 BMfont::~BMfont() {
@@ -76,7 +79,6 @@ void BMfont::Clear() {
 	fntFile = "";
 	glyphs.Clear();
 	pages.Clear();
-	codec = NULL;
 
 	processStrucutre.faceName = "";
 	processStrucutre.size = 0;
@@ -116,7 +118,6 @@ bool BMfont::LoadCommon(idStr line) {
 }
 
 bool BMfont::Load(void) {
-	fntFile = codec->getfontCodecGlobals().inputFilename;
 
 	if( fntFile == "\0" ) {
 		common->Error( "BMfont: file is empty!\n" );
@@ -127,6 +128,20 @@ bool BMfont::Load(void) {
 	doc.parse<0>( xmlFile.data() );
 	*/
 	return true;//stub TODO
+}
+
+//BFGfont
+
+BFGfont::BFGfont() {
+	// TODO Auto-generated constructor stub
+	glyphs.Clear();
+	pointSize = 48; // must be 48!
+	ascender = 0;
+	descender = 0;
+}
+
+BFGfont::~BFGfont() {
+	// TODO Auto-generated destructor stub
 }
 
 } /* namespace BFG */

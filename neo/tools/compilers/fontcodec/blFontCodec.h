@@ -14,8 +14,7 @@
 #include "../idlib/containers/List.h"
 #include "../framework/Common.h"
 
-#include "../tools/compilers/fontcodec/BMfont.h"
-#include "../tools/compilers/fontcodec/BFGfont.h"
+#include "../tools/compilers/fontcodec/FontMethods.h"
 
 namespace BFG {
 
@@ -26,6 +25,8 @@ typedef struct
 	idStr	inputFilename;
 	idStr	outputFilename;
 	idStr	inputDirectory;
+	idStr	outputDirectory;
+	idStr	fontName;
 } fontCodecGlobals_t;
 
 class blFontCodec {
@@ -42,8 +43,8 @@ public:
 
 private:
 	void				clear();
-	BMfont 				BM_font;
-	BFGfont 			BFG_font;
+	BMfont * 			BM_font;
+	BFGfont *			BFG_font;
 	fontCodecGlobals_t	fontCodecGlobals;
 	idStr 		GatherComandArgs( const idCmdArgs& args );
 };

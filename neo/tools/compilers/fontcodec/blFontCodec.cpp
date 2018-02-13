@@ -27,6 +27,8 @@ void blFontCodec::clear() {
 	fontCodecGlobals.inputFilename = "";
 	fontCodecGlobals.outputFilename = "48.dat";
 	fontCodecGlobals.inputDirectory = "";
+	fontCodecGlobals.outputDirectory = "";
+	fontCodecGlobals.fontName = "";
 	fontCodecGlobals.decompile = false;
 }
 /*
@@ -98,19 +100,23 @@ idStr blFontCodec::GatherComandArgs( const idCmdArgs& args ) {
 			FontCompHelp();
 			return '\0';
 		}
+		/*
 		else if( !idStr::Icmp( s, "help" ) )
 		{
 			FontCompHelp();
 			return '\0';
 		}
+		*/
 		else if( !idStr::Icmp( s, "d" ) )
 		{
 			fontCodecGlobals.decompile = true;
 		}
+		/*
 		else if( !idStr::Icmp( s, "decompile" ) )
 		{
 			fontCodecGlobals.decompile = true;
 		}
+		*/
 		else if( !idStr::Icmp( s, "v" ) )
 		{
 			common->Printf( "verbose = true\n" );
@@ -144,56 +150,83 @@ blFontCodec::fontCodec
 */
 
 void blFontCodec::FontCodec( const idCmdArgs& args ){
-	int			i;
-	idStr		q_path_to_file;
-	idStr		filename;
+	int			i, o;
+	idStr		q_path_to_inputfile, q_path_to_outputfile, workingFontDirectory;
+	idStr		inputFilename, outputFilename;
+
+	/*
+	 * the system should be: "fonts" | "newfonts"/"workingFontDirectory"/"inputFilename" | "outputFilename"
+	 */
 
 	if( args.Argc() < 2 ) {
 		FontCompHelp();
 		return;
 	}
 
-	q_path_to_file = blFontCodec::GatherComandArgs( args );		// may have an extension
-	if( q_path_to_file.c_str() == '\0' ) {
+	q_path_to_inputfile = GatherComandArgs( args );		// may have an extension
+	if( q_path_to_inputfile.c_str() == '\0' ) {
 					return;
 	}
 
+	q_path_to_outputfile = q_path_to_inputfile; //FIXME in compilation it should be 48.dat and in decompilation should be the name of the directory the font is in!
+
 	if( fontCodecGlobals.decompile ) {
 		fontCodecGlobals.inputDirectory = "newfonts";
-		i = 8; // 'newfonts/' --> 8 characters tarting from 0
+		fontCodecGlobals.outputDirectory = "fonts";
+		i = 8; // 'newfonts/' --> 8 characters starting from 0
+		o = 5;
 	} else {
 		fontCodecGlobals.inputDirectory = "fonts";
+		fontCodecGlobals.outputDirectory = "newfonts";
 		i = 5;
+		o = 8;
 	}
 
-	q_path_to_file.BackSlashesToSlashes();
+	q_path_to_inputfile.BackSlashesToSlashes();
+	q_path_to_outputfile.BackSlashesToSlashes();
 
-	if( q_path_to_file.Icmpn( fontCodecGlobals.inputDirectory + "/", i ) != 0 )
+	if( q_path_to_inputfile.Icmpn( fontCodecGlobals.inputDirectory + "/", i ) != 0 )
 	{
-		filename = q_path_to_file;
-		q_path_to_file = fontCodecGlobals.inputDirectory + "/" + q_path_to_file;
+		inputFilename = q_path_to_inputfile;
+		q_path_to_inputfile = fontCodecGlobals.inputDirectory + "/" + q_path_to_inputfile;
 	}
 
-	q_path_to_file.StripFileExtension();
-	filename.StripFileExtension();
+	if( q_path_to_outputfile.Icmpn( fontCodecGlobals.outputDirectory + "/", o ) != 0 )
+	{
+		outputFilename = q_path_to_outputfile;
+		q_path_to_outputfile = fontCodecGlobals.outputDirectory + "/" + q_path_to_outputfile;
+	}
+
+	q_path_to_inputfile.StripFileExtension();
+	q_path_to_outputfile.StripFileExtension();
+	inputFilename.StripFileExtension();
+	outputFilename.StripFileExtension();
 
 	if( fontCodecGlobals.decompile ) {
-		filename += ".fnt";
-		fontCodecGlobals.outputFilename = filename; // we only do this in decompile because the default accounts for the compile.
-		q_path_to_file += ".dat";
+		inputFilename += ".dat";
+		q_path_to_inputfile += ".fnt";
 		common->Printf( "---- decompiling font ----\n" );
 	} else {
-		q_path_to_file += ".fnt";
+		inputFilename += ".fnt";
+		q_path_to_inputfile += ".dat";
 		common->Printf( "---- compiling font ----\n" );
 	}
-	fontCodecGlobals.inputFilename = q_path_to_file;
+	fontCodecGlobals.inputFilename = q_path_to_inputfile;
+	fontCodecGlobals.outputFilename = inputFilename;
 
-	BM_font = new(TAG_TOOLS) BMfont();
-	BM_font.GatherCodec( this ); 	// <----- this is displayed as an error in Eclipse  why?
-	if( BM_font.Load() ) {			// <----- this is displayed as an error in Eclipse	why?
+	if( fontCodecGlobals.decompile ) {
 		BFG_font = new(TAG_TOOLS) BFGfont();
-		BFG_font.GatherCodec( this );// <----- this is displayed as an error in Eclipse	why?
+		//TODO check if BFG fonts can be read!
+	} else {
+		BM_font = new(TAG_TOOLS) BMfont( fontCodecGlobals.inputFilename );
+		if( BM_font->Load() ) {
+			BFG_font = new(TAG_TOOLS) BFGfont();
+		} else {
+			common->Error( "Can't open font at: %s", q_path_to_inputfile.c_str() );
+		}
 	}
+
+
 }
 
 } /* namespace BFG */
