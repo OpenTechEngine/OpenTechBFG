@@ -71,14 +71,10 @@ typedef struct
 class BMglyph {
 public:
 	BMglyph();
-	void Load(idStr glyphLine );
+	void Read(int _id, int _x, int _y, int _width, int _height, int _xoffset, int _yoffset, int _xadvance, int _page, int _chnl);
 
 	const BMglyphStructure_t& getGlyphStructue() const {
 		return glyphStructue;
-	}
-
-	void setGlyphStructue(const BMglyphStructure_t& glyphStructue) {
-		this->glyphStructue = glyphStructue;
 	}
 
 private:
@@ -90,11 +86,19 @@ class BMpage {
 public:
 	BMpage();
 
-	bool Load( idStr line );
+	void Read(int id_num, idStr image_file, idStr fnt_file);
+
+	int getId() const {
+		return id;
+	}
+
+	const idStr& getImageFile() const {
+		return qPath_ImageFile;
+	}
 
 private:
 	int id;
-    idStr file;
+    idStr qPath_ImageFile;
 
 };
 
@@ -103,9 +107,7 @@ public:
 	BMfont( idStr inputFile );
 	virtual ~BMfont();
 
-	bool LoadInfo( idStr line );
-	bool LoadCommon( idStr line );
-	bool Load();
+	bool Read();
 
 	const BMgeneratedfontStructure_t& getGeneratedFontStructure() const {
 		return generatedFontStructure;
@@ -137,8 +139,8 @@ private:
 	void						Clear();
 	idStr 						fntFile;
 	idStr						fontName;
-	idList<BMglyph> 			glyphs;
-	idList<BMpage> 				pages;
+	idList<BMglyph> 			glyphList;
+	idList<BMpage> 				pageList;
 	BMprocessfontStructure_t	processStrucutre;
 	BMgeneratedfontStructure_t 	generatedFontStructure;
 };
@@ -188,8 +190,8 @@ public:
 	BFGfont();
 	virtual ~BFGfont();
 
-	void 	Compile( idStr fileName );
-	void 	Decompile( BMfont font );
+	void 	Read( idStr fileName );
+	void 	Write( BMfont font );
 
 	const idStr& getFontName() const {
 		return fontName;
