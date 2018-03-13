@@ -246,13 +246,86 @@ bool BMfont::Read(void) {
 BFGfont::BFGfont() {
 	// TODO Auto-generated constructor stub
 	glyphs.Clear();
-	pointSize = 48; // must be 48!
+	pointSize = 0;
 	ascender = 0;
 	descender = 0;
+	internalFontFile = NULL;
 }
 
 BFGfont::~BFGfont() {
 	// TODO Auto-generated destructor stub
+}
+
+void BFGfont::Write(BMfont font) {
+
+	// if we don't have a single page or have more than one fail
+	assert( font.getGeneratedFontStructure().numPages == 1 );
+
+	//get page info
+	pointSize = 48; // must be 48!
+	ascender = (short)font.getGeneratedFontStructure().fontBase;
+	descender = (short)( font.getGeneratedFontStructure().fontBase - font.getGeneratedFontStructure().lineHeight );
+
+	//fonts all have the same filename: "48.dat" a reference to the "size" of the font.
+	//but all different fonts are separated in folders bearing their name inside the "newfonts" folder
+	//so the font "futura" sould be in: //{game_Folder}/newfonts/futura/48.dat
+
+	//order of the buffer
+
+	//create file
+	if ( internalFontFile == NULL ) {
+		internalFontFile = new( TAG_FONT ) idFile_Memory( "48.dat" );
+	} else {
+		/* TODO erase file contents an overwrite with the new data */
+		internalFontFile->Rewind();
+		internalFontFile->Flush();
+	}
+/*
+        public void Save(string fileName)
+        {
+            FileStream fs = File.Create(fileName);
+            BinaryWriter bw = new BinaryWriter(fs);
+
+            const int FONT_INFO_VERSION = 42;
+            //const int FONT_INFO_MAGIC = (FONT_INFO_VERSION | ('i' << 24) | ('d' << 16) | ('f' << 8));
+
+            ASCIIEncoding asen = new ASCIIEncoding();
+            byte[] ascii = asen.GetBytes("idf1");
+            ascii[3] = FONT_INFO_VERSION;
+            bw.Write(ascii);
+
+            bw.WriteBig(pointSize);
+            bw.WriteBig(ascender);
+            bw.WriteBig(descender);
+
+            short numGlyphs = (short)glyphs.Count();
+            bw.WriteBig(numGlyphs);
+
+            foreach (var glyph in glyphs)
+            {
+                bw.Write(glyph.width);
+                bw.Write(glyph.height);
+                bw.Write(glyph.top);
+                bw.Write(glyph.left);
+                bw.Write(glyph.xSkip);
+                byte padding = 0;
+                bw.Write(padding);
+                bw.Write(glyph.s);
+                bw.Write(glyph.t);
+            }
+
+            foreach (var glyph in glyphs)
+            {
+                bw.Write(glyph.id);
+            }
+
+            bw.Close();
+            fs.Close();
+        }
+    }
+*/
+
+
 }
 
 } /* namespace BFG */

@@ -215,15 +215,17 @@ void blFontCodec::FontCodec( const idCmdArgs& args ){
 	fontCodecGlobals.outputFilename = inputFilename;
 
 	if( fontCodecGlobals.decompile ) {
-		BFG_font = new(TAG_TOOLS) BFGfont();
+		//BFG_font = new(TAG_TOOLS) BFGfont();
 		//TODO check if BFG fonts can be read!
 	} else {
+		/*
 		BM_font = new(TAG_TOOLS) BMfont( fontCodecGlobals.inputFilename );
 		if( BM_font->Load() ) {
 			BFG_font = new(TAG_TOOLS) BFGfont();
 		} else {
 			common->Error( "Can't open font at: %s", q_path_to_inputfile.c_str() );
 		}
+		*/
 	}
 
 

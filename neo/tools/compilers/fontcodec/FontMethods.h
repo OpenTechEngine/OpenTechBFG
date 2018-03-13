@@ -12,6 +12,7 @@
 
 #include "../idlib/Str.h"
 #include "../idlib/containers/List.h"
+#include "../framework/File.h"
 
 namespace BFG {
 /*
@@ -202,6 +203,7 @@ public:
 	}
 	*/
 private:
+	idFile_Memory *				internalFontFile;
 	idList<BFGglyph> 			glyphs;
 	idStr						fontName;
 	short						pointSize;
