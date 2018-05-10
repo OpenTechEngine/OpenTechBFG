@@ -133,34 +133,34 @@ bool BMfont::Read(void) {
 
 	//capture info
 	processStrucutre.faceName = info->first_attribute( "face" )->value();
-	processStrucutre.size = int( info->first_attribute( "size" )->value() );
-	processStrucutre.bold = info->first_attribute( "bold" )->value() == true;
-	processStrucutre.italic = info->first_attribute( "italic" )->value() == true;
-	processStrucutre.charset =
-	processStrucutre.unicode = info->first_attribute( "unicode" )->value() == true;
-	processStrucutre.heightStretchPercent = int( info->first_attribute( "stretchH" )->value() );
-	processStrucutre.fontSmoothing = info->first_attribute( "smooth" )->value() == true;
-	processStrucutre.antiAliasLevel = int( info->first_attribute( "aa" )->value() );
+	processStrucutre.size =  static_cast<int>( * info->first_attribute( "size" )->value() );
+	processStrucutre.bold = *info->first_attribute( "bold" )->value() == true;
+	processStrucutre.italic = *info->first_attribute( "italic" )->value() == true;
+	//processStrucutre.charset =
+	processStrucutre.unicode = *info->first_attribute( "unicode" )->value() == true;
+	processStrucutre.heightStretchPercent = static_cast<int>( * info->first_attribute( "stretchH" )->value() );
+	processStrucutre.fontSmoothing = *info->first_attribute( "smooth" )->value() == true;
+	processStrucutre.antiAliasLevel = static_cast<int>( * info->first_attribute( "aa" )->value() );
 
 	idStr value = "";
 	idStr paddingNumbers = info->first_attribute( "padding" )->value();
 	for( int i, j = 0; i <= paddingNumbers.Length(); i++ ) {
-		if ( paddingNumbers[i] == "," ) {
+		if ( &paddingNumbers[i] == "," ) {
 			if ( j == 0 ) {
-				processStrucutre.paddingT = int( value );
+				processStrucutre.paddingT =  value.c_int();
 				value = "";
 				j++;
 			} else if ( j == 1 ) {
-				processStrucutre.paddingR = int( value );
+				processStrucutre.paddingR = value.c_int();
 				value = "";
 				j++;
 			} else {
-				processStrucutre.paddingB = int( value );
+				processStrucutre.paddingB = value.c_int();
 				value = "";
 				j = 0;
 			}
 		} else if ( i == paddingNumbers.Length() ) {
-			processStrucutre.paddingL = int( value );
+			processStrucutre.paddingL = value - '0';
 			value = "";
 		} else {
 			value = value + paddingNumbers[i];
@@ -169,32 +169,32 @@ bool BMfont::Read(void) {
 
 	idStr SpacingNumbers = info->first_attribute( "spacing" )->value();
 	for( int i = 0; i <= SpacingNumbers.Length(); i++ ) {
-		if ( SpacingNumbers[i] == "," ) {
-			processStrucutre.spacingVert = int( value );
+		if ( &SpacingNumbers[i] == "," ) {
+			processStrucutre.spacingVert = value - '0';
 			value = "";
 		} else if ( i == SpacingNumbers.Length() - 1 ) {
-				value = value +
-				processStrucutre.spacingHoriz = int( value );
+				/*value = value +*/
+				processStrucutre.spacingHoriz = value - '0';
 				value = "";
 		} else {
 			value = value + SpacingNumbers[i];
 		}
 	}
-	processStrucutre.outlineThickness = int( info->first_attribute( "outline" )->value() );
+	processStrucutre.outlineThickness = static_cast<int>( info->first_attribute( "outline" )->value() );
 
 	fontName = processStrucutre.faceName;
 
 	//capture common
-	generatedFontStructure.lineHeight = int( common->first_attribute( "lineHeight" )->value() );
-	generatedFontStructure.fontBase = int( common->first_attribute( "base" )->value() );
-	generatedFontStructure.scaleW = int( common->first_attribute( "scaleW" )->value() );
-	generatedFontStructure.scaleH = int( common->first_attribute( "scaleH" )->value() );
-	generatedFontStructure.numPages = int( common->first_attribute( "pages" )->value() );
+	generatedFontStructure.lineHeight = static_cast<int>( common->first_attribute( "lineHeight" )->value() );
+	generatedFontStructure.fontBase = static_cast<int>( common->first_attribute( "base" )->value() );
+	generatedFontStructure.scaleW = static_cast<int>( common->first_attribute( "scaleW" )->value() );
+	generatedFontStructure.scaleH = static_cast<int>( common->first_attribute( "scaleH" )->value() );
+	generatedFontStructure.numPages = static_cast<int>( common->first_attribute( "pages" )->value() );
 	generatedFontStructure.packed = common->first_attribute( "packed" )->value() != 0;
-	generatedFontStructure.alphaChnl = int( common->first_attribute( "alphaChnl" )->value() );
-	generatedFontStructure.redChnl = int( common->first_attribute( "redChnl" )->value() );
-	generatedFontStructure.greenChnl = int( common->first_attribute( "greenChnl" )->value() );
-	generatedFontStructure.blueChnl = int( common->first_attribute( "blueChnl" )->value() );
+	generatedFontStructure.alphaChnl = static_cast<int>( common->first_attribute( "alphaChnl" )->value() );
+	generatedFontStructure.redChnl = static_cast<int>( common->first_attribute( "redChnl" )->value() );
+	generatedFontStructure.greenChnl = static_cast<int>( common->first_attribute( "greenChnl" )->value() );
+	generatedFontStructure.blueChnl = static_cast<int>( common->first_attribute( "blueChnl" )->value() );
 
 	//pages
 	if( pageList.Num() != 0 ) {
@@ -224,16 +224,16 @@ bool BMfont::Read(void) {
 	for( int i = 0; i > num_o_glyphs; i++ ) { 								//hence why: i < num_o_glyphs
 		rapidxml::xml_node<> *glyph = chars->next_sibling();
 		BMglyph BM_glyph;
-		BM_glyph.Read(	int( glyph->first_attribute( "id" )->value() ),
-						int( glyph->first_attribute( "x" )->value() ),
-						int( glyph->first_attribute( "y" )->value() ),
-						int( glyph->first_attribute( "width" )->value() ),
-						int( glyph->first_attribute( "height" )->value() ),
-						int( glyph->first_attribute( "xoffset" )->value() ),
-						int( glyph->first_attribute( "yoffset" )->value() ),
-						int( glyph->first_attribute( "xadvance" )->value() ),
-						int( glyph->first_attribute( "page" )->value() ),
-						int( glyph->first_attribute( "chnl" )->value() )
+		BM_glyph.Read(	static_cast<int>( glyph->first_attribute( "id" )->value() ),
+						static_cast<int>( glyph->first_attribute( "x" )->value() ),
+						static_cast<int>( glyph->first_attribute( "y" )->value() ),
+						static_cast<int>( glyph->first_attribute( "width" )->value() ),
+						static_cast<int>( glyph->first_attribute( "height" )->value() ),
+						static_cast<int>( glyph->first_attribute( "xoffset" )->value() ),
+						static_cast<int>( glyph->first_attribute( "yoffset" )->value() ),
+						static_cast<int>( glyph->first_attribute( "xadvance" )->value() ),
+						static_cast<int>( glyph->first_attribute( "page" )->value() ),
+						static_cast<int>( glyph->first_attribute( "chnl" )->value() )
 					 );
 		glyphList.Append( BM_glyph );
 	}
