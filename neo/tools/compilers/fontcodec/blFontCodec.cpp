@@ -62,13 +62,15 @@ void blFontCodec::FontCompHelp() {
 */
 
 	common->Printf(
-		"Usage: fontCodec [options] filename\n"
+	  //"123456789012345678901234567890123456789012345678" <--48 chars
+		"\nUsage: fontCodec [options] filename\n\n"
 		"Options:\n"
-		"-h, --help						Show this help message and exit.\n"
-		"-d, --decompile				Decompile instead of compiling\n"
-		"-v								Verbose\n"
-		"\n in case of compilations the input folder will be 'fonts', in decompilations 'newfonts'\n"
-		//"	 --output=VALUE			File name of the output name different than the default '48.dat' name."
+		"-h, --help           Show this help and exit.\n"
+		"-d, --decompile      Decompile instead of compiling\n"
+	    //"    --output=VALUE   File name of the output name different than the default '48.dat' name."
+		"-v                   Verbose\n"
+		"\nin case of compilations into BFG the input folder will be 'fonts',\n in decompilations from BFG 'newfonts'\n"
+
 	);
 }
 
@@ -164,9 +166,11 @@ void blFontCodec::FontCodec( const idCmdArgs& args ){
 	}
 
 	q_path_to_inputfile = GatherComandArgs( args );		// may have an extension
-	if( q_path_to_inputfile.c_str() == '\0' ) {
-					return;
+	/*
+	if( q_path_to_inputfile.Icmp( '\0') == 0 ){   		<-- FIXME this conditional makes the program fail
+		return;
 	}
+	*/
 
 	q_path_to_outputfile = q_path_to_inputfile; //FIXME in compilation it should be 48.dat and in decompilation should be the name of the directory the font is in!
 
@@ -203,25 +207,39 @@ void blFontCodec::FontCodec( const idCmdArgs& args ){
 	outputFilename.StripFileExtension();
 
 	if( fontCodecGlobals.decompile ) {
-		inputFilename += ".dat";
-		q_path_to_inputfile += ".fnt";
-		common->Printf( "---- decompiling font ----\n" );
-	} else {
 		inputFilename += ".fnt";
 		q_path_to_inputfile += ".dat";
+		common->Printf( "---- decompiling font ----\n" );
+	} else {
+		inputFilename += ".dat";
+		q_path_to_inputfile += ".fnt";
 		common->Printf( "---- compiling font ----\n" );
 	}
 	fontCodecGlobals.inputFilename = q_path_to_inputfile;
 	fontCodecGlobals.outputFilename = inputFilename;
 
+	bool filExists = common->FileExists( fontCodecGlobals.inputFilename.c_str() );
+
+	common->Printf( "checking whether '%s' exists in the file system\n", fontCodecGlobals.inputFilename.c_str() );
+
+	if ( filExists ) {
+		common->Printf( "the file '%s' exists!", fontCodecGlobals.inputFilename.c_str() );
+	} else {
+		common->Error( "the file '%s' doesn't exist!", fontCodecGlobals.inputFilename.c_str() );
+	}
+
 	if( fontCodecGlobals.decompile ) {
 		//BFG_font = new(TAG_TOOLS) BFGfont();
 		//TODO check if BFG fonts can be read!
+		common->Error( "at the moment, there isn't any method specified for this process!" );
 	} else {
+		common->Printf( "creating a BM font at %s\n", fontCodecGlobals.inputFilename.c_str() );
 		/*
 		BM_font = new(TAG_TOOLS) BMfont( fontCodecGlobals.inputFilename );
-		if( BM_font->Load() ) {
-			BFG_font = new(TAG_TOOLS) BFGfont();
+		common->Printf( "reading the BM font\n" );
+		if( BM_font->Read() ) {
+			common->Printf( "creating a BFG font\n" );
+			//BFG_font = new(TAG_TOOLS) BFGfont();
 		} else {
 			common->Error( "Can't open font at: %s", q_path_to_inputfile.c_str() );
 		}

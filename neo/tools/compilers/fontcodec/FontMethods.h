@@ -110,6 +110,8 @@ public:
 
 	bool Read();
 
+	void DeclareContents();
+
 	const BMgeneratedfontStructure_t& getGeneratedFontStructure() const {
 		return generatedFontStructure;
 	}
@@ -159,7 +161,7 @@ typedef struct
 	byte 	height;     // height of glyph in pixels
 	byte 	top;        // distance in pixels from the base line to the top of the glyph
 	byte 	left;       // distance in pixels from the pen to the left edge of the glyph
-	byte 	xSkip;      // x adjustment after rendering this glyph
+	byte 	xSkip;      // x adjustment after rendering this glyphBMpage
 	//ushort 	s;        	// x offset in image where glyph starts (in pixels)
 	//ushort 	t;        	// y offset in image where glyph starts (in pixels)
 	short 	s;        	// x offset in image where glyph starts (in pixels)

@@ -160,7 +160,7 @@ bool BMfont::Read(void) {
 				j = 0;
 			}
 		} else if ( i == paddingNumbers.Length() ) {
-			processStrucutre.paddingL = value - '0';
+			processStrucutre.paddingL = value.c_int();
 			value = "";
 		} else {
 			value = value + paddingNumbers[i];
@@ -170,31 +170,41 @@ bool BMfont::Read(void) {
 	idStr SpacingNumbers = info->first_attribute( "spacing" )->value();
 	for( int i = 0; i <= SpacingNumbers.Length(); i++ ) {
 		if ( &SpacingNumbers[i] == "," ) {
-			processStrucutre.spacingVert = value - '0';
+			processStrucutre.spacingVert = value.c_int();
 			value = "";
 		} else if ( i == SpacingNumbers.Length() - 1 ) {
 				/*value = value +*/
-				processStrucutre.spacingHoriz = value - '0';
+				processStrucutre.spacingHoriz = value.c_int();
 				value = "";
 		} else {
 			value = value + SpacingNumbers[i];
 		}
 	}
-	processStrucutre.outlineThickness = static_cast<int>( info->first_attribute( "outline" )->value() );
+	value = info->first_attribute( "outline" )->value();
+	processStrucutre.outlineThickness = value.c_int();
 
 	fontName = processStrucutre.faceName;
 
 	//capture common
-	generatedFontStructure.lineHeight = static_cast<int>( common->first_attribute( "lineHeight" )->value() );
-	generatedFontStructure.fontBase = static_cast<int>( common->first_attribute( "base" )->value() );
-	generatedFontStructure.scaleW = static_cast<int>( common->first_attribute( "scaleW" )->value() );
-	generatedFontStructure.scaleH = static_cast<int>( common->first_attribute( "scaleH" )->value() );
-	generatedFontStructure.numPages = static_cast<int>( common->first_attribute( "pages" )->value() );
+	value = info->first_attribute( "lineHeight" )->value();
+	generatedFontStructure.lineHeight = value.c_int();
+	value = info->first_attribute( "base" )->value();
+	generatedFontStructure.fontBase = value.c_int();
+	value = info->first_attribute( "scaleW" )->value();
+	generatedFontStructure.scaleW = value.c_int();
+	value = info->first_attribute( "scaleH" )->value();
+	generatedFontStructure.scaleH = value.c_int();
+	value = info->first_attribute( "pages" )->value();
+	generatedFontStructure.numPages = value.c_int();
 	generatedFontStructure.packed = common->first_attribute( "packed" )->value() != 0;
-	generatedFontStructure.alphaChnl = static_cast<int>( common->first_attribute( "alphaChnl" )->value() );
-	generatedFontStructure.redChnl = static_cast<int>( common->first_attribute( "redChnl" )->value() );
-	generatedFontStructure.greenChnl = static_cast<int>( common->first_attribute( "greenChnl" )->value() );
-	generatedFontStructure.blueChnl = static_cast<int>( common->first_attribute( "blueChnl" )->value() );
+	value = info->first_attribute( "alphaChnl" )->value();
+	generatedFontStructure.alphaChnl = value.c_int();
+	value = info->first_attribute( "redChnl" )->value();
+	generatedFontStructure.redChnl = value.c_int();
+	value = info->first_attribute( "greenChnl" )->value();
+	generatedFontStructure.greenChnl = value.c_int();
+	value = info->first_attribute( "blueChnl" )->value();
+	generatedFontStructure.blueChnl = value.c_int();
 
 	//pages
 	if( pageList.Num() != 0 ) {
@@ -209,7 +219,9 @@ bool BMfont::Read(void) {
 			page = pages->next_sibling();
 		}
 		BMpage BM_page;
-		BM_page.Read( int( page->first_attribute( "id" )->value() ), page->first_attribute( "file" )->value(), fntFile );
+		idStr page_id = page->first_attribute( "id" )->value();
+		idStr page_file = page->first_attribute( "file" )->value();
+		BM_page.Read( page_id.c_int(), page_file, fntFile );
 
 		pageList.Append( BM_page );
 	}
@@ -219,26 +231,46 @@ bool BMfont::Read(void) {
 		glyphList.Clear();
 	}
 
-	int num_o_glyphs = int( chars->first_attribute( "count" )->value() ); 	//ATTENTION: I don't know why it gets an extra integer to the real amount!
+	value = chars->first_attribute( "count" )->value();
+	int num_o_glyphs = value.c_int(); 	//ATTENTION: I don't know why it gets an extra integer to the real amount!
 
 	for( int i = 0; i > num_o_glyphs; i++ ) { 								//hence why: i < num_o_glyphs
 		rapidxml::xml_node<> *glyph = chars->next_sibling();
 		BMglyph BM_glyph;
-		BM_glyph.Read(	static_cast<int>( glyph->first_attribute( "id" )->value() ),
-						static_cast<int>( glyph->first_attribute( "x" )->value() ),
-						static_cast<int>( glyph->first_attribute( "y" )->value() ),
-						static_cast<int>( glyph->first_attribute( "width" )->value() ),
-						static_cast<int>( glyph->first_attribute( "height" )->value() ),
-						static_cast<int>( glyph->first_attribute( "xoffset" )->value() ),
-						static_cast<int>( glyph->first_attribute( "yoffset" )->value() ),
-						static_cast<int>( glyph->first_attribute( "xadvance" )->value() ),
-						static_cast<int>( glyph->first_attribute( "page" )->value() ),
-						static_cast<int>( glyph->first_attribute( "chnl" )->value() )
+		idStr glyph_id = glyph->first_attribute( "id" )->value();
+		idStr glyph_x = glyph->first_attribute( "x" )->value();
+		idStr glyph_y = glyph->first_attribute( "y" )->value();
+		idStr glyph_width = glyph->first_attribute( "width" )->value();
+		idStr glyph_height = glyph->first_attribute( "height" )->value();
+		idStr glyph_xoffset = glyph->first_attribute( "xoffset" )->value();
+		idStr glyph_yoffset = glyph->first_attribute( "yoffset" )->value();
+		idStr glyph_xadvance = glyph->first_attribute( "xadvance" )->value();
+		idStr glyph_page = glyph->first_attribute( "page" )->value();
+		idStr glyph_chnl = glyph->first_attribute( "chnl" )->value();
+
+		BM_glyph.Read(	glyph_id.c_int(),
+						glyph_x.c_int(),
+						glyph_y.c_int(),
+						glyph_width.c_int(),
+						glyph_height.c_int(),
+						glyph_xoffset.c_int(),
+						glyph_yoffset.c_int(),
+						glyph_xadvance.c_int(),
+						glyph_page.c_int(),
+						glyph_chnl.c_int()
 					 );
 		glyphList.Append( BM_glyph );
 	}
 
+	DeclareContents();
+
 	return true;
+}
+
+void BMfont::DeclareContents(void) {
+	common->Printf( "\n ------ declaring the stored info ------ \n\n");
+	common->Printf( "font name: %s a %i sized font\n", processStrucutre.faceName, processStrucutre.size );
+	common->Printf( "is a %s and a %s font\n", processStrucutre.bold ? "BOLD" : "non-bold", processStrucutre.italic ? "italic" : "non-italic" );
 }
 
 //BFGfont

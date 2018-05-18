@@ -94,7 +94,6 @@ ID_INLINE void BeginProfileNamedEventColor( uint32 color, VERIFY_FORMAT_STRING c
 ID_INLINE void EndProfileNamedEvent()
 {
 }
-
 ID_INLINE void BeginProfileNamedEvent( VERIFY_FORMAT_STRING const char* szName )
 {
 	BeginProfileNamedEventColor( ( uint32 ) 0xFF00FF00, szName );
@@ -199,7 +198,7 @@ public:
 	// if the OS allows, pass argc/argv directly (without executable name)
 	// otherwise pass the command line in a single string (without executable name)
 	virtual void				Init( int argc, const char* const* argv, const char* cmdline ) = 0;
-	
+
 	// Shuts down everything.
 	virtual void				Shutdown() = 0;
 	virtual bool				IsShuttingDown() const = 0;
@@ -215,7 +214,7 @@ public:
 	// Called repeatedly as the foreground thread for rendering and game logic.
 	virtual void				Frame() = 0;
 	
-	// DG: added possibility to *not* release mouse in UpdateScreen(), it fucks up the view angle for screenshots
+	// DG: added possibilitvirtual bool FileExists( const char* qPath );y to *not* release mouse in UpdateScreen(), it fucks up the view angle for screenshots
 	// Redraws the screen, handling games, guis, console, etc
 	// in a modal manner outside the normal frame loop
 	virtual void				UpdateScreen( bool captureToImage, bool releaseMouse = true ) = 0;
@@ -293,7 +292,7 @@ public:
 	virtual bool				IsServer() = 0;
 	virtual bool				IsClient() = 0;
 	
-	// Returns true if the player has ever enabled the console
+	// Returns true if the player has ever enabled the consoleidCommonLocal
 	virtual bool				GetConsoleUsed() = 0;
 	
 	// Returns the rate (in ms between snaps) that we want to generate snapshots
@@ -340,7 +339,9 @@ public:
 	virtual bool				JapaneseCensorship() const = 0;
 	
 	virtual void				QueueShowShell() = 0;		// Will activate the shell on the next frame.
-	
+
+	virtual bool 				FileExists( const char* qPath ) = 0;
+
 };
 
 extern idCommon* 		common;

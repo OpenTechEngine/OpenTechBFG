@@ -345,6 +345,8 @@ public:	// These are public because they are called directly by static functions
 		return userCmdMgr;
 	}
 	
+	bool 	FileExists( const char* qPath );
+
 private:
 	bool						com_fullyInitialized;
 	bool						com_refreshOnPrint;		// update the screen every print for dmap

@@ -1751,7 +1751,7 @@ void idCommonLocal::InitCommands()
 	cmdSystem->AddCommand( "runAAS", RunAAS_f, CMD_FL_TOOL, "compiles an AAS file for a map", idCmdSystem::ArgCompletion_MapName );
 	cmdSystem->AddCommand( "runAASDir", RunAASDir_f, CMD_FL_TOOL, "compiles AAS files for all maps in a folder", idCmdSystem::ArgCompletion_MapName );
 	cmdSystem->AddCommand( "runReach", RunReach_f, CMD_FL_TOOL, "calculates reachability for an AAS file", idCmdSystem::ArgCompletion_MapName );
-	cmdSystem->AddCommand( "fontCodec", FontCodec_f, CMD_FL_TOOL, "compiles or decompiles a font", idCmdSystem::ArgCompletion_MapName ); //TODO change the argument completion
+	cmdSystem->AddCommand( "fontCodec", FontCodec_f, CMD_FL_TOOL, "compiles or decompiles a font", idCmdSystem::ArgCompletion_FontName );
 
 	// cmdSystem->AddCommand( "showEditors", ShowEditors_f, CMD_FL_TOOL, "compiles a map" );
 	
@@ -1917,6 +1917,30 @@ idCommonLocal::ResetPlayerInput
 void idCommonLocal::ResetPlayerInput( int playerIndex )
 {
 	userCmdMgr.ResetPlayer( playerIndex );
+}
+
+/*
+========================
+idCommonLocal::FileExists
+========================
+*/
+bool idCommonLocal::FileExists( const char* qPath ) {
+
+	if( fileSystem->IsInitialized() == false ) {
+		printf( "file system isn't set!\n" );
+		return false;
+	}
+
+	//ID_TIME_T timestamp = fileSystem->GetTimestamp( qPath );
+	/*
+	if ( fileSystem->GetTimestamp( qPath ) == FILE_NOT_FOUND_TIMESTAMP ) {
+		return false;
+	} else {
+		return true;
+	}
+	*/
+
+	return ( fileSystem->GetTimestamp( qPath ) == FILE_NOT_FOUND_TIMESTAMP ) == false;
 }
 
 /*
