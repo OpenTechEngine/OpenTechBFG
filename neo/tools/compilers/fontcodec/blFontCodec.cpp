@@ -209,23 +209,21 @@ void blFontCodec::FontCodec( const idCmdArgs& args ){
 	if( fontCodecGlobals.decompile ) {
 		inputFilename += ".fnt";
 		q_path_to_inputfile += ".dat";
-		common->Printf( "---- decompiling font ----\n" );
+		common->Printf( "\n\n---- decompiling font ----\n" );
 	} else {
 		inputFilename += ".dat";
 		q_path_to_inputfile += ".fnt";
-		common->Printf( "---- compiling font ----\n" );
+		common->Printf( "\n\n---- compiling font ----\n" );
 	}
 	fontCodecGlobals.inputFilename = q_path_to_inputfile;
 	fontCodecGlobals.outputFilename = inputFilename;
 
-	bool filExists = common->FileExists( fontCodecGlobals.inputFilename.c_str() );
-
 	common->Printf( "checking whether '%s' exists in the file system\n", fontCodecGlobals.inputFilename.c_str() );
 
-	if ( filExists ) {
-		common->Printf( "the file '%s' exists!", fontCodecGlobals.inputFilename.c_str() );
+	if ( common->FileExists( fontCodecGlobals.inputFilename.c_str() ) ) {
+		common->Printf( "the file '%s' exists!\n", fontCodecGlobals.inputFilename.c_str() );
 	} else {
-		common->Error( "the file '%s' doesn't exist!", fontCodecGlobals.inputFilename.c_str() );
+		common->Error( "the file '%s' doesn't exist!\n", fontCodecGlobals.inputFilename.c_str() );
 	}
 
 	if( fontCodecGlobals.decompile ) {
@@ -234,8 +232,9 @@ void blFontCodec::FontCodec( const idCmdArgs& args ){
 		common->Error( "at the moment, there isn't any method specified for this process!" );
 	} else {
 		common->Printf( "creating a BM font at %s\n", fontCodecGlobals.inputFilename.c_str() );
-		/*
+
 		BM_font = new(TAG_TOOLS) BMfont( fontCodecGlobals.inputFilename );
+		//BM_font->DeclareContents();
 		common->Printf( "reading the BM font\n" );
 		if( BM_font->Read() ) {
 			common->Printf( "creating a BFG font\n" );
@@ -243,7 +242,6 @@ void blFontCodec::FontCodec( const idCmdArgs& args ){
 		} else {
 			common->Error( "Can't open font at: %s", q_path_to_inputfile.c_str() );
 		}
-		*/
 	}
 
 

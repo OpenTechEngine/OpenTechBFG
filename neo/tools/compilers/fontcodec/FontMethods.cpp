@@ -118,33 +118,46 @@ void BMfont::Clear() {
 
 bool BMfont::Read(void) {
 
+
 	if( fntFile == "\0" ) {
-		common->Error( "BMfont: file is empty!\n" );
+		common->Error( "BMfont: file path is empty!\n" );
 	}
 
-	rapidxml::file<> xmlFile(fntFile);
+	idStr value, textToParse;
+
+	//rapidxml::file<> xmlFile(fntFile);
 	rapidxml::xml_document<> doc;
-	doc.parse<0>( xmlFile.data() );
-	rapidxml::xml_node<> *font = doc.first_node("font");
-	rapidxml::xml_node<> *info = font->next_sibling("info");
-	rapidxml::xml_node<> *common = font->next_sibling("common");
-	rapidxml::xml_node<> *pages = font->next_sibling("pages");
-	rapidxml::xml_node<> *chars = font->next_sibling("chars");
+
+	if ( common->GetTextBuffer( fntFile, textToParse ) < 0 ) {
+		common->Error( "Error getting the file '%s': couldn't read the file", fntFile.c_str() );
+	}
+
+	doc.parse<0>( ( char* )textToParse.c_str() );
+	//doc.parse<0>( xmlFile.data() );
+
+	rapidxml::xml_node<> *nodeFont = doc.first_node("font");
+	rapidxml::xml_node<> *nodeInfo = nodeFont->first_node("info");
+	rapidxml::xml_node<> *nodeCommon = nodeFont->first_node("common");
+	rapidxml::xml_node<> *nodePages = nodeFont->first_node("pages");
+	rapidxml::xml_node<> *nodeChars = nodeFont->first_node("chars");
 
 	//capture info
-	processStrucutre.faceName = info->first_attribute( "face" )->value();
-	processStrucutre.size =  static_cast<int>( * info->first_attribute( "size" )->value() );
-	processStrucutre.bold = *info->first_attribute( "bold" )->value() == true;
-	processStrucutre.italic = *info->first_attribute( "italic" )->value() == true;
-	//processStrucutre.charset =
-	processStrucutre.unicode = *info->first_attribute( "unicode" )->value() == true;
-	processStrucutre.heightStretchPercent = static_cast<int>( * info->first_attribute( "stretchH" )->value() );
-	processStrucutre.fontSmoothing = *info->first_attribute( "smooth" )->value() == true;
-	processStrucutre.antiAliasLevel = static_cast<int>( * info->first_attribute( "aa" )->value() );
+	//common->Printf( "capture info\n" );
+	processStrucutre.faceName = nodeInfo->first_attribute( "face" )->value();
+	value = nodeInfo->first_attribute( "size" )->value();
+	processStrucutre.size =  value.c_int();
+	processStrucutre.bold = *nodeInfo->first_attribute( "bold" )->value() == true;
+	processStrucutre.italic = *nodeInfo->first_attribute( "italic" )->value() == true;
+	processStrucutre.unicode = *nodeInfo->first_attribute( "unicode" )->value() == true;
+	value = nodeInfo->first_attribute( "stretchH" )->value();
+	processStrucutre.heightStretchPercent = value.c_int();
+	processStrucutre.fontSmoothing = *nodeInfo->first_attribute( "smooth" )->value() == true;
+	value = nodeInfo->first_attribute( "aa" )->value();
+	processStrucutre.antiAliasLevel = value.c_int();
 
-	idStr value = "";
-	idStr paddingNumbers = info->first_attribute( "padding" )->value();
-	for( int i, j = 0; i <= paddingNumbers.Length(); i++ ) {
+	idStr paddingNumbers = nodeInfo->first_attribute( "padding" )->value();
+	int j = 0;
+	for( int i; i <= paddingNumbers.Length(); i++ ) {
 		if ( &paddingNumbers[i] == "," ) {
 			if ( j == 0 ) {
 				processStrucutre.paddingT =  value.c_int();
@@ -167,7 +180,7 @@ bool BMfont::Read(void) {
 		}
 	}
 
-	idStr SpacingNumbers = info->first_attribute( "spacing" )->value();
+	idStr SpacingNumbers = nodeInfo->first_attribute( "spacing" )->value();
 	for( int i = 0; i <= SpacingNumbers.Length(); i++ ) {
 		if ( &SpacingNumbers[i] == "," ) {
 			processStrucutre.spacingVert = value.c_int();
@@ -180,73 +193,81 @@ bool BMfont::Read(void) {
 			value = value + SpacingNumbers[i];
 		}
 	}
-	value = info->first_attribute( "outline" )->value();
+	value = nodeInfo->first_attribute( "outline" )->value();
 	processStrucutre.outlineThickness = value.c_int();
 
 	fontName = processStrucutre.faceName;
 
 	//capture common
-	value = info->first_attribute( "lineHeight" )->value();
+	//common->Printf( "capture common\n" );
+
+	value = nodeCommon->first_attribute( "lineHeight" )->value();
 	generatedFontStructure.lineHeight = value.c_int();
-	value = info->first_attribute( "base" )->value();
+	value = nodeCommon->first_attribute( "base" )->value();
 	generatedFontStructure.fontBase = value.c_int();
-	value = info->first_attribute( "scaleW" )->value();
+	value = nodeCommon->first_attribute( "scaleW" )->value();
 	generatedFontStructure.scaleW = value.c_int();
-	value = info->first_attribute( "scaleH" )->value();
+	value = nodeCommon->first_attribute( "scaleH" )->value();
 	generatedFontStructure.scaleH = value.c_int();
-	value = info->first_attribute( "pages" )->value();
+	value = nodeCommon->first_attribute( "pages" )->value();
 	generatedFontStructure.numPages = value.c_int();
-	generatedFontStructure.packed = common->first_attribute( "packed" )->value() != 0;
-	value = info->first_attribute( "alphaChnl" )->value();
+	generatedFontStructure.packed = nodeCommon->first_attribute( "packed" )->value() != 0;
+	value = nodeCommon->first_attribute( "alphaChnl" )->value();
 	generatedFontStructure.alphaChnl = value.c_int();
-	value = info->first_attribute( "redChnl" )->value();
+	value = nodeCommon->first_attribute( "redChnl" )->value();
 	generatedFontStructure.redChnl = value.c_int();
-	value = info->first_attribute( "greenChnl" )->value();
+	value = nodeCommon->first_attribute( "greenChnl" )->value();
 	generatedFontStructure.greenChnl = value.c_int();
-	value = info->first_attribute( "blueChnl" )->value();
+	value = nodeCommon->first_attribute( "blueChnl" )->value();
 	generatedFontStructure.blueChnl = value.c_int();
 
 	//pages
+	//common->Printf( "pages\n" );
+
 	if( pageList.Num() != 0 ) {
 		pageList.Clear();
 	}
 
-	rapidxml::xml_node<> *page;
+	rapidxml::xml_node<> *nodePage;
 	for( int i = 0; i < generatedFontStructure.numPages; i++ ) {
 		if( i == 0 ) {
-			page = pages->next_sibling("page");
+			nodePage = nodePages->first_node("page");
 		} else {
-			page = pages->next_sibling();
+			nodePage = nodePages->next_sibling(); //FIXME this might fail with a 'Segmentation fault (core dumped)'
+												  //because the "next_sibiling" method never seems to work accordingly
 		}
 		BMpage BM_page;
-		idStr page_id = page->first_attribute( "id" )->value();
-		idStr page_file = page->first_attribute( "file" )->value();
+		idStr page_id = nodePage->first_attribute( "id" )->value();
+		idStr page_file = nodePage->first_attribute( "file" )->value();
 		BM_page.Read( page_id.c_int(), page_file, fntFile );
 
 		pageList.Append( BM_page );
 	}
 
-	//glyphs
+	//glyphs or "chars"
+	//common->Printf( "glyphs\n" );
+
 	if( glyphList.Num() != 0 ) {
 		glyphList.Clear();
 	}
 
-	value = chars->first_attribute( "count" )->value();
-	int num_o_glyphs = value.c_int(); 	//ATTENTION: I don't know why it gets an extra integer to the real amount!
+	value = nodeChars->first_attribute( "count" )->value();
+	int num_o_glyphs = value.c_int(); 			//ATTENTION: I don't know why it gets an extra integer to the real amount!
 
-	for( int i = 0; i > num_o_glyphs; i++ ) { 								//hence why: i < num_o_glyphs
-		rapidxml::xml_node<> *glyph = chars->next_sibling();
+	rapidxml::xml_node<> *nodeGlyph = nodeChars->first_node( "char" );
+
+	for( int i = 0; i < num_o_glyphs; i++ ) {	//hence why: i < num_o_glyphs
 		BMglyph BM_glyph;
-		idStr glyph_id = glyph->first_attribute( "id" )->value();
-		idStr glyph_x = glyph->first_attribute( "x" )->value();
-		idStr glyph_y = glyph->first_attribute( "y" )->value();
-		idStr glyph_width = glyph->first_attribute( "width" )->value();
-		idStr glyph_height = glyph->first_attribute( "height" )->value();
-		idStr glyph_xoffset = glyph->first_attribute( "xoffset" )->value();
-		idStr glyph_yoffset = glyph->first_attribute( "yoffset" )->value();
-		idStr glyph_xadvance = glyph->first_attribute( "xadvance" )->value();
-		idStr glyph_page = glyph->first_attribute( "page" )->value();
-		idStr glyph_chnl = glyph->first_attribute( "chnl" )->value();
+		idStr glyph_id = nodeGlyph->first_attribute( "id" )->value();
+		idStr glyph_x = nodeGlyph->first_attribute( "x" )->value();
+		idStr glyph_y = nodeGlyph->first_attribute( "y" )->value();
+		idStr glyph_width = nodeGlyph->first_attribute( "width" )->value();
+		idStr glyph_height = nodeGlyph->first_attribute( "height" )->value();
+		idStr glyph_xoffset = nodeGlyph->first_attribute( "xoffset" )->value();
+		idStr glyph_yoffset = nodeGlyph->first_attribute( "yoffset" )->value();
+		idStr glyph_xadvance = nodeGlyph->first_attribute( "xadvance" )->value();
+		idStr glyph_page = nodeGlyph->first_attribute( "page" )->value();
+		idStr glyph_chnl = nodeGlyph->first_attribute( "chnl" )->value();
 
 		BM_glyph.Read(	glyph_id.c_int(),
 						glyph_x.c_int(),
@@ -260,8 +281,10 @@ bool BMfont::Read(void) {
 						glyph_chnl.c_int()
 					 );
 		glyphList.Append( BM_glyph );
+		nodeChars->next_sibling(); //FIXME does it work or does it error out with a 'Segmentation fault (core dumped)'?
 	}
 
+	common->Printf( "all info gathered\n" );
 	DeclareContents();
 
 	return true;
@@ -269,8 +292,8 @@ bool BMfont::Read(void) {
 
 void BMfont::DeclareContents(void) {
 	common->Printf( "\n ------ declaring the stored info ------ \n\n");
-	common->Printf( "font name: %s a %i sized font\n", processStrucutre.faceName, processStrucutre.size );
-	common->Printf( "is a %s and a %s font\n", processStrucutre.bold ? "BOLD" : "non-bold", processStrucutre.italic ? "italic" : "non-italic" );
+	common->Printf( "font named '%s', is a %i sized font\n", processStrucutre.faceName.c_str(), processStrucutre.size );
+	common->Printf( "and is a %s, as well as a %s font\n", processStrucutre.bold ? "BOLD" : "non-bold", processStrucutre.italic ? "italic" : "non-italic" );
 }
 
 //BFGfont

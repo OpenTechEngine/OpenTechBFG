@@ -34,6 +34,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "../idlib/containers/StrList.h"
 
 #include "../framework/CVarSystem.h"
+#include "../framework/FileSystem.h"
 
 namespace BFG
 {
@@ -252,7 +253,7 @@ public:
 	// and NEVER forces a screen update, which could cause reentrancy problems.
 	virtual void				DPrintf( VERIFY_FORMAT_STRING const char* fmt, ... ) = 0;
 	
-	// Prints WARNING %s message and adds the warning message to a queue for printing later on.
+	// Prints WARNING %s message and adds the warning message to a queue for printing i superguailater on.
 	virtual void				Warning( VERIFY_FORMAT_STRING const char* fmt, ... ) = 0;
 	
 	// Prints WARNING %s message in yellow that only shows up if the "developer" cvar is set.
@@ -271,7 +272,7 @@ public:
 	
 	// Fatal errors quit all the way to a system dialog box, which is appropriate for
 	// static internal errors or cases where the system may be corrupted.
-	// coverity[+kill]
+	// coverity[+kill]i superguai
 	NO_RETURN virtual void		FatalError( VERIFY_FORMAT_STRING const char* fmt, ... ) ID_INSTANCE_ATTRIBUTE_PRINTF( 1, 2 ) = 0;
 	
 	// Returns key bound to the command
@@ -341,6 +342,8 @@ public:
 	virtual void				QueueShowShell() = 0;		// Will activate the shell on the next frame.
 
 	virtual bool 				FileExists( const char* qPath ) = 0;
+	virtual idFileSystem*		GetCurrentFileSystem() = 0;
+	virtual int					GetTextBuffer( const char* qPath, idStr& result ) = 0;
 
 };
 

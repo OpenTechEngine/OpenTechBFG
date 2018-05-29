@@ -1931,16 +1931,27 @@ bool idCommonLocal::FileExists( const char* qPath ) {
 		return false;
 	}
 
-	//ID_TIME_T timestamp = fileSystem->GetTimestamp( qPath );
-	/*
-	if ( fileSystem->GetTimestamp( qPath ) == FILE_NOT_FOUND_TIMESTAMP ) {
-		return false;
-	} else {
-		return true;
-	}
-	*/
-
 	return ( fileSystem->GetTimestamp( qPath ) == FILE_NOT_FOUND_TIMESTAMP ) == false;
+}
+
+
+/*
+========================
+idCommonLocal::GetTextBuffer
+========================
+*/
+int idCommonLocal::GetTextBuffer( const char* localPath, idStr& result ) {
+	char* src;
+
+	if ( fileSystem->ReadFile( localPath, ( void** )&src ) < 0 ) {
+		Printf( "couldn't read '%s' file", localPath );
+		return -1;
+	}
+
+	result.Append( src );
+	fileSystem->FreeFile( src );
+
+	return 1;
 }
 
 /*
