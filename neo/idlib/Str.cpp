@@ -1484,38 +1484,41 @@ bool idStr::IsNumeric( const char* s )
 
 /*
 ============
-idStr::Atoi
+idStr::atoi
 
 the simple atoi() function. If the given string contains any invalid character, then this function returns 0
 based on an article compiled by Abhay Rathi at: https://www.geeksforgeeks.org/write-your-own-atoi/
 
+this returns signed int as by default
+
 ============
 */
-int idStr::Atoi( char *text ) const
+
+int idStr::atoi( char *text ) const
 {
     if (*text == NULL)
-       return 0;
+    	common->Error( "idStr: shoudn't be using atoi with null variables!\n" );
 
     int res = 0;  // Initialize result
     int sign = 1;  // Initialize sign as positive
     int i = 0;  // Initialize index of first digit
 
     // If number is negative, then update sign
-    if (text[0] == '-')
-    {
+    if (text[0] == '-') {
         sign = -1;
         i++;
     }
 
     // Iterate through all digits of input string and update result
-    for (; text[i] != '\0'; ++i)
-    {
-    	if ( (text[i] >= '0' && text[i] <= '9') == false )
-    	{
-    		//TODO You may add some lines to write error message to error stream
-            return 0;
+    for (; text[i] != '\0'; ++i) {
+    	if ( (text[i] >= '0' && text[i] <= '9') == false ) {
+    		common->Error( "idStr: shoudn't be using atoi with non-numeric variables!\n" );
     	}
         res = res*10 + text[i] - '0';
+
+        if ( ( res < -4294967295  ) || ( res > 4294967295 ) ) {
+				common->Error( "idStr: shoudn't be using atoi for decoding '%s' as it escapes the limit of signed long integer!\n", text );
+		}
     }
 
     // Return result with sign

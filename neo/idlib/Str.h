@@ -239,7 +239,7 @@ public:
 	idStr& 				RemoveColors();
 	void				CapLength( int );
 	void				Fill( const char ch, int newlen );
-	int					Atoi( char* text ) const;
+	int					atoi( char* text ) const;
 	
 	ID_INLINE int			UTF8Length();
 	ID_INLINE uint32		UTF8Char( int& idx );
@@ -674,7 +674,7 @@ ID_INLINE const char* idStr::c_str() const
 
 ID_INLINE int idStr::c_int() const
 {
-	return Atoi( data );
+	return atoi( data );
 }
 
 ID_INLINE idStr::operator const char* ()

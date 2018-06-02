@@ -296,6 +296,29 @@ void BMfont::DeclareContents(void) {
 	common->Printf( "and is a %s, as well as a %s font\n", processStrucutre.bold ? "BOLD" : "non-bold", processStrucutre.italic ? "italic" : "non-italic" );
 }
 
+//BFGglyph
+BFGglyph::BFGglyph() {
+	glyphStructue.id = 0;
+	glyphStructue.width = 0;
+	glyphStructue.height = 0;
+	glyphStructue.top = 0;
+	glyphStructue.left = 0;
+	glyphStructue.xSkip = 0;
+	glyphStructue.s = 0;
+	glyphStructue.t = 0;
+}
+
+void BFGglyph::Load( BMfont font, BMglyph glyph ) {
+	glyphStructue.id = glyph.getGlyphStructue().id;
+	glyphStructue.width = ( byte )glyph.getGlyphStructue().width;
+	glyphStructue.height = ( byte )glyph.getGlyphStructue().height;
+	glyphStructue.top = ( byte )( font.getGeneratedFontStructure().fontBase - glyph.getGlyphStructue().yoffset );
+	glyphStructue.left = ( byte )glyph.getGlyphStructue().xoffset;
+	glyphStructue.xSkip = ( byte )glyph.getGlyphStructue().xadvance;
+	glyphStructue.s = ( ushort )glyph.getGlyphStructue().x;
+	glyphStructue.t = ( ushort )glyph.getGlyphStructue().y;
+}
+
 //BFGfont
 
 BFGfont::BFGfont() {
@@ -308,18 +331,62 @@ BFGfont::BFGfont() {
 }
 
 BFGfont::~BFGfont() {
-	// TODO Auto-generated destructor stub
+	// TODO Auto-generated destructor stubselectedGlyphs
 }
 
-void BFGfont::Write(BMfont font) {
+void BFGfont::Load( BMfont font ) {
+	int i;
 
-	// if we don't have a single page or have more than one fail
+	// if we don't have a single page or have more than one fail, for reasons, FIXME, should work for all pages
 	assert( font.getGeneratedFontStructure().numPages == 1 );
+
+	//use only the glyphs in the first page, for reasons, FIXME, should work for all pages
+	idList<BMglyph> selectedGlyphs;
+	for ( i = 0; i < font.glyphList.num(); i++ ) {
+		if ( font.glyphList[i].getGlyphStructue().page == 0 ) {
+			selectedGlyphs.Append( font.glyphList[i] );
+		}
+	}
 
 	//get page info
 	pointSize = 48; // must be 48!
 	ascender = (short)font.getGeneratedFontStructure().fontBase;
 	descender = (short)( font.getGeneratedFontStructure().fontBase - font.getGeneratedFontStructure().lineHeight );
+
+	int lowestPoint = 0;
+
+	for( i = 0; i < selectedGlyphs.Num(); i++ ) {
+		BFGglyph glyph = new BFGglyph();
+		glyph.Load( font, selectedGlyphs[i] );
+		glyphs.Append( glyph );
+
+		int lowestGlyph = selectedGlyphs[i].getGlyphStructue().yoffset + glyph.getGlyphStructue().height;
+		if ( lowestGlyph > lowestPoint ) {
+			lowestPoint = lowestGlyph;
+		}
+		if ( lowestGlyph > font.getGeneratedFontStructure().lineHeight ) {
+			common->Warning( "WARNING: Glyph number '%i' is too high at '%i' for line height at '%i'.\n",
+							 selectedGlyphs[i].getGlyphStructue().id,
+							 lowestGlyph, font.getGeneratedFontStructure().lineHeight
+						   );
+		}
+	}
+
+	if ( lowestPoint != font.getGeneratedFontStructure().lineHeight ) {
+		common->Warning( "WARNING: Line height '%i' is not what I thought it would be '%i'.\n"
+						 "         BMFont's settings used to generate source font might be wrong.\n"
+						 "         Also descender might be wrong: '%i' instead of '%i'.\n",
+						 font.getGeneratedFontStructure().lineHeight,
+						 lowestPoint,
+						 descender,
+						 font.getGeneratedFontStructure().fontBase - lowestPoint
+					   );
+	}
+
+}
+
+void BFGfont::Save( idStr fileName ) {
+
 
 	//fonts all have the same filename: "48.dat" a reference to the "size" of the font.
 	//but all different fonts are separated in folders bearing their name inside the "newfonts" folder

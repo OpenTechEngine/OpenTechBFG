@@ -162,26 +162,24 @@ typedef struct
 	byte 	top;        // distance in pixels from the base line to the top of the glyph
 	byte 	left;       // distance in pixels from the pen to the left edge of the glyph
 	byte 	xSkip;      // x adjustment after rendering this glyphBMpage
-	//ushort 	s;        	// x offset in image where glyph starts (in pixels)
-	//ushort 	t;        	// y offset in image where glyph starts (in pixels)
-	short 	s;        	// x offset in image where glyph starts (in pixels)
-	short 	t;        	// y offset in image where glyph starts (in pixels)
+	ushort 	s;        	// x offset in image where glyph starts (in pixels)
+	ushort 	t;        	// y offset in image where glyph starts (in pixels)
 } BFGglyphStructure_t;
 
 class BFGglyph {
 public:
 	BFGglyph();
 
-	void 	Compile( idStr fileName );
-	void 	Decompile( BMglyph glyph, BMfont font );
+	void  	Load( BMfont font, BMglyph glyph );
 
 	const BFGglyphStructure_t& getGlyphStructue() const {
 		return glyphStructue;
 	}
-
+	/*
 	void 	setGlyphStructue(const BFGglyphStructure_t& glyphStructue) {
 		this->glyphStructue = glyphStructue;
 	}
+	*/
 
 private:
 	BFGglyphStructure_t glyphStructue;
@@ -193,8 +191,8 @@ public:
 	BFGfont();
 	virtual ~BFGfont();
 
-	void 	Read( idStr fileName );
-	void 	Write( BMfont font );
+	void 	Save( idStr fileName );
+	void 	Load( BMfont font );
 
 	const idStr& getFontName() const {
 		return fontName;
