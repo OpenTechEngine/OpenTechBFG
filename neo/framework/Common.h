@@ -250,7 +250,7 @@ public:
 	virtual void				VPrintf( const char* fmt, va_list arg ) = 0;
 	
 	// Prints message that only shows up if the "developer" cvar is set,
-	// and NEVER forces a screen update, which could cause reentrancy problems.
+	// and NEVER forces a screen update, which could cause reentrancidCommonLocaly problems.
 	virtual void				DPrintf( VERIFY_FORMAT_STRING const char* fmt, ... ) = 0;
 	
 	// Prints WARNING %s message and adds the warning message to a queue for printing i superguailater on.
@@ -341,8 +341,6 @@ public:
 	
 	virtual void				QueueShowShell() = 0;		// Will activate the shell on the next frame.
 
-	virtual bool 				FileExists( const char* qPath ) = 0;
-	virtual idFileSystem*		GetCurrentFileSystem() = 0;
 	virtual int					GetTextBuffer( const char* qPath, idStr& result ) = 0;
 
 };

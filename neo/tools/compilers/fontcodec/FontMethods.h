@@ -129,14 +129,13 @@ public:
 		this->processStrucutre = processStrucutre;
 	}
 
-	const idStr& getFontName() const {
-		return fontName;
+	const idStr& getFontFileName() const {
+		return fntFile;
 	}
-	/*
-	void setFontName(const idStr& fontName) {
-		this->fontName = fontName;
+
+	const idList<BMglyph>& getGlyphList() const {
+		return glyphList;
 	}
-	*/
 
 private:
 	void						Clear();
@@ -170,7 +169,7 @@ class BFGglyph {
 public:
 	BFGglyph();
 
-	void  	Load( BMfont font, BMglyph glyph );
+	void  	Load( BMfont* font, BMglyph glyph );
 
 	const BFGglyphStructure_t& getGlyphStructue() const {
 		return glyphStructue;
@@ -191,21 +190,13 @@ public:
 	BFGfont();
 	virtual ~BFGfont();
 
-	void 	Save( idStr fileName );
-	void 	Load( BMfont font );
+	void 	Save( void );
+	void 	Load( BMfont* font );
 
-	const idStr& getFontName() const {
-		return fontName;
-	}
-	/*
-	void setFontName(const idStr& fontName) {
-		this->fontName = fontName;
-	}
-	*/
 private:
 	idFile_Memory *				internalFontFile;
-	idList<BFGglyph> 			glyphs;
-	idStr						fontName;
+	idList<BFGglyph*> 			glyphs;
+	idStr						fontFileName;
 	short						pointSize;
 	short						ascender;
 	short						descender;

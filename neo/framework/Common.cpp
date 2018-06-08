@@ -1921,22 +1921,6 @@ void idCommonLocal::ResetPlayerInput( int playerIndex )
 
 /*
 ========================
-idCommonLocal::FileExists
-========================
-*/
-bool idCommonLocal::FileExists( const char* qPath ) {
-
-	if( fileSystem->IsInitialized() == false ) {
-		printf( "file system isn't set!\n" );
-		return false;
-	}
-
-	return ( fileSystem->GetTimestamp( qPath ) == FILE_NOT_FOUND_TIMESTAMP ) == false;
-}
-
-
-/*
-========================
 idCommonLocal::GetTextBuffer
 ========================
 */

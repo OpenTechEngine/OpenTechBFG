@@ -143,6 +143,7 @@ bool BMfont::Read(void) {
 
 	//capture info
 	//common->Printf( "capture info\n" );
+
 	processStrucutre.faceName = nodeInfo->first_attribute( "face" )->value();
 	value = nodeInfo->first_attribute( "size" )->value();
 	processStrucutre.size =  value.c_int();
@@ -155,10 +156,15 @@ bool BMfont::Read(void) {
 	value = nodeInfo->first_attribute( "aa" )->value();
 	processStrucutre.antiAliasLevel = value.c_int();
 
-	idStr paddingNumbers = nodeInfo->first_attribute( "padding" )->value();
+	//common->Printf( "capture padding\n" );
+
+	idStr paddingNumbers = "";
+	paddingNumbers.Append( nodeInfo->first_attribute( "padding" )->value() );
 	int j = 0;
-	for( int i; i <= paddingNumbers.Length(); i++ ) {
-		if ( &paddingNumbers[i] == "," ) {
+	int i = 0;
+	value = "";
+	for( ; i <= paddingNumbers.Length(); i++ ) {
+		if ( paddingNumbers[i] == ',' ) {
 			if ( j == 0 ) {
 				processStrucutre.paddingT =  value.c_int();
 				value = "";
@@ -176,23 +182,27 @@ bool BMfont::Read(void) {
 			processStrucutre.paddingL = value.c_int();
 			value = "";
 		} else {
-			value = value + paddingNumbers[i];
+			value += paddingNumbers[i];
 		}
 	}
 
-	idStr SpacingNumbers = nodeInfo->first_attribute( "spacing" )->value();
-	for( int i = 0; i <= SpacingNumbers.Length(); i++ ) {
-		if ( &SpacingNumbers[i] == "," ) {
+	//common->Printf( "capture spacing\n" );
+
+	idStr spacingNumbers = "";
+	spacingNumbers.Append( nodeInfo->first_attribute( "spacing" )->value() );
+	value = "";
+	for( i = 0; i <= spacingNumbers.Length(); i++ ) {
+		if ( spacingNumbers[i] == ',' ) {
 			processStrucutre.spacingVert = value.c_int();
 			value = "";
-		} else if ( i == SpacingNumbers.Length() - 1 ) {
-				/*value = value +*/
+		} else if ( i == spacingNumbers.Length() - 1 ) {
 				processStrucutre.spacingHoriz = value.c_int();
 				value = "";
 		} else {
-			value = value + SpacingNumbers[i];
+			value += paddingNumbers[i];
 		}
 	}
+
 	value = nodeInfo->first_attribute( "outline" )->value();
 	processStrucutre.outlineThickness = value.c_int();
 
@@ -284,16 +294,14 @@ bool BMfont::Read(void) {
 		nodeChars->next_sibling(); //FIXME does it work or does it error out with a 'Segmentation fault (core dumped)'?
 	}
 
-	common->Printf( "all info gathered\n" );
-	DeclareContents();
-
 	return true;
 }
 
 void BMfont::DeclareContents(void) {
-	common->Printf( "\n ------ declaring the stored info ------ \n\n");
+	common->Printf( "\n ------ declaring the stored BM font info ------ \n\n");
 	common->Printf( "font named '%s', is a %i sized font\n", processStrucutre.faceName.c_str(), processStrucutre.size );
 	common->Printf( "and is a %s, as well as a %s font\n", processStrucutre.bold ? "BOLD" : "non-bold", processStrucutre.italic ? "italic" : "non-italic" );
+	common->Printf( "\n");
 }
 
 //BFGglyph
@@ -308,11 +316,11 @@ BFGglyph::BFGglyph() {
 	glyphStructue.t = 0;
 }
 
-void BFGglyph::Load( BMfont font, BMglyph glyph ) {
+void BFGglyph::Load( BMfont* font, BMglyph glyph ) {
 	glyphStructue.id = glyph.getGlyphStructue().id;
 	glyphStructue.width = ( byte )glyph.getGlyphStructue().width;
 	glyphStructue.height = ( byte )glyph.getGlyphStructue().height;
-	glyphStructue.top = ( byte )( font.getGeneratedFontStructure().fontBase - glyph.getGlyphStructue().yoffset );
+	glyphStructue.top = ( byte )( font->getGeneratedFontStructure().fontBase - glyph.getGlyphStructue().yoffset );
 	glyphStructue.left = ( byte )glyph.getGlyphStructue().xoffset;
 	glyphStructue.xSkip = ( byte )glyph.getGlyphStructue().xadvance;
 	glyphStructue.s = ( ushort )glyph.getGlyphStructue().x;
@@ -334,74 +342,123 @@ BFGfont::~BFGfont() {
 	// TODO Auto-generated destructor stubselectedGlyphs
 }
 
-void BFGfont::Load( BMfont font ) {
+void BFGfont::Load( BMfont* font ) {
 	int i;
 
+	fontFileName = font->getFontFileName();
+
 	// if we don't have a single page or have more than one fail, for reasons, FIXME, should work for all pages
-	assert( font.getGeneratedFontStructure().numPages == 1 );
+	assert( font->getGeneratedFontStructure().numPages == 1 );
 
 	//use only the glyphs in the first page, for reasons, FIXME, should work for all pages
 	idList<BMglyph> selectedGlyphs;
-	for ( i = 0; i < font.glyphList.num(); i++ ) {
-		if ( font.glyphList[i].getGlyphStructue().page == 0 ) {
-			selectedGlyphs.Append( font.glyphList[i] );
+	for ( i = 0; i < font->getGlyphList().Num(); i++ ) {
+		BMglyph workingGlyph = font->getGlyphList()[i];
+		if ( workingGlyph.getGlyphStructue().page == 0 ) {
+			selectedGlyphs.Append( workingGlyph );
 		}
 	}
 
 	//get page info
 	pointSize = 48; // must be 48!
-	ascender = (short)font.getGeneratedFontStructure().fontBase;
-	descender = (short)( font.getGeneratedFontStructure().fontBase - font.getGeneratedFontStructure().lineHeight );
+	ascender = (short)font->getGeneratedFontStructure().fontBase;
+	descender = (short)( font->getGeneratedFontStructure().fontBase - font->getGeneratedFontStructure().lineHeight );
 
 	int lowestPoint = 0;
 
 	for( i = 0; i < selectedGlyphs.Num(); i++ ) {
-		BFGglyph glyph = new BFGglyph();
-		glyph.Load( font, selectedGlyphs[i] );
+		BFGglyph* glyph = new( TAG_FONT ) BFGglyph();
+		glyph->Load( font, selectedGlyphs[i] );
 		glyphs.Append( glyph );
 
-		int lowestGlyph = selectedGlyphs[i].getGlyphStructue().yoffset + glyph.getGlyphStructue().height;
+		int lowestGlyph = selectedGlyphs[i].getGlyphStructue().yoffset + glyph->getGlyphStructue().height;
 		if ( lowestGlyph > lowestPoint ) {
 			lowestPoint = lowestGlyph;
 		}
-		if ( lowestGlyph > font.getGeneratedFontStructure().lineHeight ) {
+		if ( lowestGlyph > font->getGeneratedFontStructure().lineHeight ) {
 			common->Warning( "WARNING: Glyph number '%i' is too high at '%i' for line height at '%i'.\n",
 							 selectedGlyphs[i].getGlyphStructue().id,
-							 lowestGlyph, font.getGeneratedFontStructure().lineHeight
+							 lowestGlyph,
+							 font->getGeneratedFontStructure().lineHeight
 						   );
 		}
 	}
 
-	if ( lowestPoint != font.getGeneratedFontStructure().lineHeight ) {
+	if ( lowestPoint != font->getGeneratedFontStructure().lineHeight ) {
 		common->Warning( "WARNING: Line height '%i' is not what I thought it would be '%i'.\n"
 						 "         BMFont's settings used to generate source font might be wrong.\n"
 						 "         Also descender might be wrong: '%i' instead of '%i'.\n",
-						 font.getGeneratedFontStructure().lineHeight,
+						 font->getGeneratedFontStructure().lineHeight,
 						 lowestPoint,
 						 descender,
-						 font.getGeneratedFontStructure().fontBase - lowestPoint
+						 font->getGeneratedFontStructure().fontBase - lowestPoint
 					   );
 	}
 
 }
 
-void BFGfont::Save( idStr fileName ) {
+void BFGfont::Save() {
 
+	idStr foldername = "/newfonts/";
+	foldername.Append( fontFileName.StripPath().StripFileExtension() );
+	foldername += "/";
+	idStr filename = foldername + pointSize + ".dat";
+
+	//debug
+	common->Printf( "folder name is '%s' and filename is '%s'.\n", foldername.c_str(), filename.c_str() );
+
+
+	if ( fileSystem->IsFolder( foldername.c_str() ) == FOLDER_ERROR ) {
+		common->Printf( "folder error\n" );
+	}
+
+	if( fileSystem->IsFolder( foldername.c_str() ) == FOLDER_NO ) {
+		common->Printf( "no folder\n" );
+	}
+
+	if ( fileSystem->IsFolder( foldername.c_str() ) == FOLDER_ERROR ) {
+		//fileSystem->CreateOSPath( fileSystem->RelativePathToOSPath( foldername.c_str() ) );
+		common->Printf( "a new folder '%s' has been created in '//newfonts/'.\n", fontFileName.StripPath().StripFileExtension().c_str() );
+	}
+
+	//for every page
+		//if the image file is there erase it
+		/*if ( fileSystem->FindFile( filename ) == FIND_YES ) {
+			fileSystem->RemoveFile( filename );
+		}*/
+		// copy the image file from fonts to newfonts
+		//fileSystem->CopyFile( const char* fromOSPath, const char* toOSPath );
+
+	/*
+	if ( fileSystem->FindFile( filename ) == FIND_YES ) {
+		fileSystem->RemoveFile( filename );
+	}
+	*/
+
+/*	}
+	//create new file
+	//create buffer
+	int length = 0;
+	length += sizeof()
+	char* buffer = new char[length];
+	fileSystem->WriteFile( const char* relativePath, const void* buffer, int size, const char* basePath = "fs_savepath" );
+	//close file
+*/
 
 	//fonts all have the same filename: "48.dat" a reference to the "size" of the font.
 	//but all different fonts are separated in folders bearing their name inside the "newfonts" folder
 	//so the font "futura" sould be in: //{game_Folder}/newfonts/futura/48.dat
 
 	//order of the buffer
-
+/*
 	//create file
 	if ( internalFontFile == NULL ) {
 		internalFontFile = new( TAG_FONT ) idFile_Memory( "48.dat" );
-	} else {
+	} else {*/
 		/* TODO erase file contents an overwrite with the new data */
-		internalFontFile->Rewind();
+/*		internalFontFile->Rewind();
 		internalFontFile->Flush();
-	}
+	}*/
 /*
         public void Save(string fileName)
         {
@@ -437,7 +494,7 @@ void BFGfont::Save( idStr fileName ) {
             }
 
             foreach (var glyph in glyphs)
-            {
+            {pointSize
                 bw.Write(glyph.id);
             }
 

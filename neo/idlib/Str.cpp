@@ -1489,17 +1489,13 @@ idStr::atoi
 the simple atoi() function. If the given string contains any invalid character, then this function returns 0
 based on an article compiled by Abhay Rathi at: https://www.geeksforgeeks.org/write-your-own-atoi/
 
-this returns signed int as by default
-
+returns signed int as by default
 ============
 */
-
-int idStr::atoi( char *text ) const
+int idStr::atoi( char* text ) const
 {
-    if (*text == NULL)
-    	common->Error( "idStr: shoudn't be using atoi with null variables!\n" );
 
-    int res = 0;  // Initialize result
+    int res = 0;
     int sign = 1;  // Initialize sign as positive
     int i = 0;  // Initialize index of first digit
 
@@ -1510,19 +1506,32 @@ int idStr::atoi( char *text ) const
     }
 
     // Iterate through all digits of input string and update result
-    for (; text[i] != '\0'; ++i) {
-    	if ( (text[i] >= '0' && text[i] <= '9') == false ) {
-    		common->Error( "idStr: shoudn't be using atoi with non-numeric variables!\n" );
-    	}
+    for ( ; text[i] != '\0'; ++i ) {
         res = res*10 + text[i] - '0';
 
         if ( ( res < -4294967295  ) || ( res > 4294967295 ) ) {
-				common->Error( "idStr: shoudn't be using atoi for decoding '%s' as it escapes the limit of signed long integer!\n", text );
+				common->Warning( "idStr: shoudn't be using atoi for decoding '%s' as it escapes the limit of signed long integer!\n", text );
 		}
     }
 
     // Return result with sign
     return sign*res;
+}
+
+/*
+============
+idStr::c_int
+
+returns a signed int if the isStr is a numeric or errors out.
+============
+*/
+int idStr::c_int() const
+{
+	if( !IsNumeric() ) {
+		common->Error( "idStr: shoudn't be using atoi with non-numeric variables like: '%s'!\n", data );
+	}
+
+	return atoi( data );
 }
 
 

@@ -672,11 +672,6 @@ ID_INLINE const char* idStr::c_str() const
 	return data;
 }
 
-ID_INLINE int idStr::c_int() const
-{
-	return atoi( data );
-}
-
 ID_INLINE idStr::operator const char* ()
 {
 	return c_str();

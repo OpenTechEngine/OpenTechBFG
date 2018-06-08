@@ -177,28 +177,28 @@ void blFontCodec::FontCodec( const idCmdArgs& args ){
 	if( fontCodecGlobals.decompile ) {
 		fontCodecGlobals.inputDirectory = "newfonts";
 		fontCodecGlobals.outputDirectory = "fonts";
-		i = 8; // 'newfonts/' --> 8 characters starting from 0
-		o = 5;
+		i = 9; // '/newfonts/' --> 8 characters starting from 0
+		o = 6;
 	} else {
 		fontCodecGlobals.inputDirectory = "fonts";
 		fontCodecGlobals.outputDirectory = "newfonts";
-		i = 5;
-		o = 8;
+		i = 6;
+		o = 9;
 	}
 
 	q_path_to_inputfile.BackSlashesToSlashes();
 	q_path_to_outputfile.BackSlashesToSlashes();
 
-	if( q_path_to_inputfile.Icmpn( fontCodecGlobals.inputDirectory + "/", i ) != 0 )
+	if( q_path_to_inputfile.Icmpn( "/" + fontCodecGlobals.inputDirectory + "/", i ) != 0 )
 	{
 		inputFilename = q_path_to_inputfile;
-		q_path_to_inputfile = fontCodecGlobals.inputDirectory + "/" + q_path_to_inputfile;
+		q_path_to_inputfile = "/" + fontCodecGlobals.inputDirectory + "/" + q_path_to_inputfile;
 	}
 
-	if( q_path_to_outputfile.Icmpn( fontCodecGlobals.outputDirectory + "/", o ) != 0 )
+	if( q_path_to_outputfile.Icmpn( "/" + fontCodecGlobals.outputDirectory + "/", o ) != 0 )
 	{
 		outputFilename = q_path_to_outputfile;
-		q_path_to_outputfile = fontCodecGlobals.outputDirectory + "/" + q_path_to_outputfile;
+		q_path_to_outputfile = "/" + fontCodecGlobals.outputDirectory + "/" + q_path_to_outputfile;
 	}
 
 	q_path_to_inputfile.StripFileExtension();
@@ -209,21 +209,19 @@ void blFontCodec::FontCodec( const idCmdArgs& args ){
 	if( fontCodecGlobals.decompile ) {
 		inputFilename += ".fnt";
 		q_path_to_inputfile += ".dat";
-		common->Printf( "\n\n---- decompiling font ----\n" );
+		common->Printf( "\n---- decompiling font ----\n\n" );
 	} else {
 		inputFilename += ".dat";
 		q_path_to_inputfile += ".fnt";
-		common->Printf( "\n\n---- compiling font ----\n" );
+		common->Printf( "\n---- compiling font ----\n\n" );
 	}
 	fontCodecGlobals.inputFilename = q_path_to_inputfile;
 	fontCodecGlobals.outputFilename = inputFilename;
 
-	common->Printf( "checking whether '%s' exists in the file system\n", fontCodecGlobals.inputFilename.c_str() );
-
-	if ( common->FileExists( fontCodecGlobals.inputFilename.c_str() ) ) {
-		common->Printf( "the file '%s' exists!\n", fontCodecGlobals.inputFilename.c_str() );
+	if ( fileSystem->FindFile( fontCodecGlobals.inputFilename.c_str() ) == FIND_NO ) {
+		common->Error( "BM font file '%s' doesn't exist!\n", fontCodecGlobals.inputFilename.c_str() );
 	} else {
-		common->Error( "the file '%s' doesn't exist!\n", fontCodecGlobals.inputFilename.c_str() );
+		common->Printf( "BM font file '%s' exists in the file system\n", fontCodecGlobals.inputFilename.c_str() );
 	}
 
 	if( fontCodecGlobals.decompile ) {
@@ -231,16 +229,23 @@ void blFontCodec::FontCodec( const idCmdArgs& args ){
 		//TODO check if BFG fonts can be read!
 		common->Error( "at the moment, there isn't any method specified for this process!" );
 	} else {
-		common->Printf( "creating a BM font at %s\n", fontCodecGlobals.inputFilename.c_str() );
+		//common->Printf( "creating a BM font at %s\n", fontCodecGlobals.inputFilename.c_str() );
 
 		BM_font = new(TAG_TOOLS) BMfont( fontCodecGlobals.inputFilename );
-		//BM_font->DeclareContents();
-		common->Printf( "reading the BM font\n" );
+		common->Printf( "Reading the info in the BM font file\n" );
 		if( BM_font->Read() ) {
-			common->Printf( "creating a BFG font\n" );
-			//BFG_font = new(TAG_TOOLS) BFGfont();
+			common->Printf( "All the info in the BM font has been gathered\n" );
+			BM_font->DeclareContents();
+			//if( fontCodecGlobals.verbose ) { BM_font->DeclareContents(); };
+			BFG_font = new(TAG_TOOLS) BFGfont();
+			common->Printf( "Creating and feeding the BFG font\n" );
+			BFG_font->Load( BM_font );
+			//BFG_font->DeclareContents();
+			//if( fontCodecGlobals.verbose )  { BFG_font->DeclareContents(); }
+			common->Printf( "Saving and copying the final BFG font files in their correct folder\n" );
+			BFG_font->Save();
 		} else {
-			common->Error( "Can't open font at: %s", q_path_to_inputfile.c_str() );
+			common->Error( "Can't open or read the BM font file at: '%s'", q_path_to_inputfile.c_str() );
 		}
 	}
 

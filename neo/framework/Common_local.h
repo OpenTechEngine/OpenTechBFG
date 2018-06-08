@@ -346,13 +346,6 @@ public:	// These are public because they are called directly by static functions
 	{
 		return userCmdMgr;
 	}
-	
-	bool 				FileExists( const char* qPath );
-
-	idFileSystem*		GetCurrentFileSystem()
-	{
-		return fileSystem;
-	}
 
 	int					GetTextBuffer( const char* qPath, idStr& result );
 
