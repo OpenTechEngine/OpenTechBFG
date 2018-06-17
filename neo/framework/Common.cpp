@@ -1751,7 +1751,7 @@ void idCommonLocal::InitCommands()
 	cmdSystem->AddCommand( "runAAS", RunAAS_f, CMD_FL_TOOL, "compiles an AAS file for a map", idCmdSystem::ArgCompletion_MapName );
 	cmdSystem->AddCommand( "runAASDir", RunAASDir_f, CMD_FL_TOOL, "compiles AAS files for all maps in a folder", idCmdSystem::ArgCompletion_MapName );
 	cmdSystem->AddCommand( "runReach", RunReach_f, CMD_FL_TOOL, "calculates reachability for an AAS file", idCmdSystem::ArgCompletion_MapName );
-	cmdSystem->AddCommand( "fontCodec", FontCodec_f, CMD_FL_TOOL, "compiles or decompiles a font", idCmdSystem::ArgCompletion_FontName );
+	cmdSystem->AddCommand( "importFont", ImportFont_f, CMD_FL_TOOL, "imports a font", idCmdSystem::ArgCompletion_FontName );
 
 	// cmdSystem->AddCommand( "showEditors", ShowEditors_f, CMD_FL_TOOL, "compiles a map" );
 	
@@ -1928,7 +1928,7 @@ int idCommonLocal::GetTextBuffer( const char* localPath, idStr& result ) {
 	char* src;
 
 	if ( fileSystem->ReadFile( localPath, ( void** )&src ) < 0 ) {
-		Printf( "couldn't read '%s' file", localPath );
+		Warning( "couldn't read '%s' file\n", localPath );
 		return -1;
 	}
 

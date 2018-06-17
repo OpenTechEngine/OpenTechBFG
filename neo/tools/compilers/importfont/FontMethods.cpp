@@ -1,5 +1,5 @@
 /*
- * BMfont.cpp
+ * FontMethods.cpp
  *
  *  Created on: 3 de febr. 2018
  *      Author: Biel Bestué de Luna
@@ -8,11 +8,11 @@
  */
 
 //#include <rapidxml>
-#include "FontMethods.h"
+#include "../importfont/FontMethods.h"
 
 #include "../../libs/rapidxml/rapidxml-1.13/rapidxml.hpp"
 #include "../../libs/rapidxml/rapidxml-1.13/rapidxml_utils.hpp"
-
+#include "../framework/File.h"
 #include "../framework/Common.h"
 
 namespace BFG {
@@ -62,30 +62,31 @@ BMpage::BMpage() {
 	qPath_ImageFile = "";
 }
 
-void BMpage::Read(int id_num, idStr image_file, idStr fnt_file) {
+void BMpage::Read( int id_num, idStr image_file ) {
 	id = id_num;
-	fnt_file.ExtractFilePath( qPath_ImageFile );
-	qPath_ImageFile += image_file;
+	qPath_ImageFile = image_file;
 }
 
 /*
  * fonts
  */
 
-BMfont::BMfont( idStr inputFile ) {
+BMfont::BMfont( sharedStruct_t _sharedStruct ) {
 	Clear();
-	fntFile = inputFile;
+	sharedStruct = _sharedStruct;
 }
 
 BMfont::~BMfont() {
-	// TODO Auto-generated destructor stub
 	Clear();
 }
 
 void BMfont::Clear() {
-	fntFile = "";
 	glyphList.Clear();
 	pageList.Clear();
+
+	sharedStruct.relativeFilePath = "";
+	sharedStruct.relativeInputDir = "";
+	sharedStruct.relativeOutputDir = "";
 
 	processStrucutre.faceName = "";
 	processStrucutre.size = 0;
@@ -118,18 +119,20 @@ void BMfont::Clear() {
 
 bool BMfont::Read(void) {
 
-
-	if( fntFile == "\0" ) {
+	if( sharedStruct.relativeFilePath == "\0" ) {
 		common->Error( "BMfont: file path is empty!\n" );
+	}
+	if ( fileSystem->FindFile( sharedStruct.relativeFilePath ) == FIND_NO ) {
+		common->Error( "BMfont: file path '%s' leads to nothing!\n", sharedStruct.relativeFilePath.c_str() );
 	}
 
 	idStr value, textToParse;
 
-	//rapidxml::file<> xmlFile(fntFile);
+	//rapidxml::file<> xmlFile(fntFile); //it seems it doesn't work? maybe the path should be given in full instead of relative?
 	rapidxml::xml_document<> doc;
 
-	if ( common->GetTextBuffer( fntFile, textToParse ) < 0 ) {
-		common->Error( "Error getting the file '%s': couldn't read the file", fntFile.c_str() );
+	if ( common->GetTextBuffer( sharedStruct.relativeFilePath, textToParse ) < 0 ) {
+		common->Error( "BMfont: Error getting the file '%s': couldn't read the file\n", sharedStruct.relativeFilePath.c_str() );
 	}
 
 	doc.parse<0>( ( char* )textToParse.c_str() );
@@ -206,7 +209,6 @@ bool BMfont::Read(void) {
 	value = nodeInfo->first_attribute( "outline" )->value();
 	processStrucutre.outlineThickness = value.c_int();
 
-	fontName = processStrucutre.faceName;
 
 	//capture common
 	//common->Printf( "capture common\n" );
@@ -249,7 +251,7 @@ bool BMfont::Read(void) {
 		BMpage BM_page;
 		idStr page_id = nodePage->first_attribute( "id" )->value();
 		idStr page_file = nodePage->first_attribute( "file" )->value();
-		BM_page.Read( page_id.c_int(), page_file, fntFile );
+		BM_page.Read( page_id.c_int(), sharedStruct.relativeInputDir + page_file );
 
 		pageList.Append( BM_page );
 	}
@@ -304,9 +306,23 @@ void BMfont::DeclareContents(void) {
 	common->Printf( "\n");
 }
 
+IntermediateGlyph::IntermediateGlyph( BMfont* font, BMglyph glyph ) {
+	InterGlyphStructue.id = glyph.getGlyphStructue().id;
+
+	InterGlyphStructue.width = glyph.getGlyphStructue().width;
+	InterGlyphStructue.height = glyph.getGlyphStructue().height;
+	InterGlyphStructue.top = font->getGeneratedFontStructure().fontBase - glyph.getGlyphStructue().yoffset;
+	InterGlyphStructue.left = glyph.getGlyphStructue().xoffset;
+	InterGlyphStructue.xSkip = glyph.getGlyphStructue().xadvance;
+
+	int number_zero = 0;
+	InterGlyphStructue.padding = ( byte )number_zero;
+	InterGlyphStructue.s = ( ushort )glyph.getGlyphStructue().x;
+	InterGlyphStructue.t = ( ushort )glyph.getGlyphStructue().y;
+}
+
 //BFGglyph
 BFGglyph::BFGglyph() {
-	glyphStructue.id = 0;
 	glyphStructue.width = 0;
 	glyphStructue.height = 0;
 	glyphStructue.top = 0;
@@ -316,73 +332,108 @@ BFGglyph::BFGglyph() {
 	glyphStructue.t = 0;
 }
 
-void BFGglyph::Load( BMfont* font, BMglyph glyph ) {
-	glyphStructue.id = glyph.getGlyphStructue().id;
-	glyphStructue.width = ( byte )glyph.getGlyphStructue().width;
-	glyphStructue.height = ( byte )glyph.getGlyphStructue().height;
-	glyphStructue.top = ( byte )( font->getGeneratedFontStructure().fontBase - glyph.getGlyphStructue().yoffset );
-	glyphStructue.left = ( byte )glyph.getGlyphStructue().xoffset;
-	glyphStructue.xSkip = ( byte )glyph.getGlyphStructue().xadvance;
-	glyphStructue.s = ( ushort )glyph.getGlyphStructue().x;
-	glyphStructue.t = ( ushort )glyph.getGlyphStructue().y;
-}
 
+void BFGpage::Load( BMfont* font, int _id ) {
+	id = _id;
+	for( int i = 0; i < font->getPageList().Num(); i++ ) {
+		if ( font->getPageList()[i].getId() == _id ) {
+			imageFile = font->getPageList()[i].getImageFile();
+		}
+	}
+
+}
 //BFGfont
 
-BFGfont::BFGfont() {
-	// TODO Auto-generated constructor stub
-	glyphs.Clear();
-	pointSize = 0;
-	ascender = 0;
-	descender = 0;
-	internalFontFile = NULL;
+BFGfont::BFGfont( sharedStruct_t _sharedStruct ) {
+	Clear();
+	sharedStruct = _sharedStruct;
+
+	basePath = cvarSystem->GetCVarString( "fs_basepath" );
+	basePath += "/";
+	basePath.Append( cvarSystem->GetCVarString( "fs_game" ) );
+	basePath += "/";
 }
 
 BFGfont::~BFGfont() {
-	// TODO Auto-generated destructor stubselectedGlyphs
+	Clear();
+}
+void BFGfont::Clear() {
+	pages.Clear();
+
+	sharedStruct.relativeFilePath = "";
+	sharedStruct.relativeInputDir = "";
+	sharedStruct.relativeOutputDir = "";
+
+	BFGfileStructure.pointSize = 0;
+	BFGfileStructure.ascender = 0;
+	BFGfileStructure.descender = 0;
+	BFGfileStructure.numGlyphs = 0;
+	BFGfileStructure.glyphs.Clear();
+
+	basePath = "";
+	dest_global_folder = "";
+	dest_relative_file = "";
+	dest_global_file = "";
 }
 
 void BFGfont::Load( BMfont* font ) {
-	int i;
+	int i, j;
 
-	fontFileName = font->getFontFileName();
-
-	// if we don't have a single page or have more than one fail, for reasons, FIXME, should work for all pages
-	assert( font->getGeneratedFontStructure().numPages == 1 );
-
-	//use only the glyphs in the first page, for reasons, FIXME, should work for all pages
-	idList<BMglyph> selectedGlyphs;
-	for ( i = 0; i < font->getGlyphList().Num(); i++ ) {
-		BMglyph workingGlyph = font->getGlyphList()[i];
-		if ( workingGlyph.getGlyphStructue().page == 0 ) {
-			selectedGlyphs.Append( workingGlyph );
-		}
+	//list the pages and include them in the BFG font
+	for ( i = 0; i < font->getPageList().Num(); i++ ) {
+		BFGpage* workingPage = new( TAG_FONT ) BFGpage();
+		workingPage->Load( font, i );
+		pages.Append( workingPage );
 	}
 
+	// if we don't have a single page or have more than one fail, for reasons, FIXME, should work for all pages
+	assert( ( font->getGeneratedFontStructure().numPages == 1 ) && ( pages.Num() == 1 ) );
+
 	//get page info
-	pointSize = 48; // must be 48!
-	ascender = (short)font->getGeneratedFontStructure().fontBase;
-	descender = (short)( font->getGeneratedFontStructure().fontBase - font->getGeneratedFontStructure().lineHeight );
+	BFGfileStructure.pointSize = 48; // must be 48!
+	BFGfileStructure.ascender = (short)font->getGeneratedFontStructure().fontBase;
+	BFGfileStructure.descender = (short)( font->getGeneratedFontStructure().fontBase - font->getGeneratedFontStructure().lineHeight );
 
 	int lowestPoint = 0;
 
-	for( i = 0; i < selectedGlyphs.Num(); i++ ) {
-		BFGglyph* glyph = new( TAG_FONT ) BFGglyph();
-		glyph->Load( font, selectedGlyphs[i] );
-		glyphs.Append( glyph );
+	//the BFG code use only the glyphs in the first page, I guess this is because it means using just a single texture per font.
+	//so we will have to select just the glyphs that are registered as belonging to the first page,
+	//FIXME in the future we might want to use an unrestricted amount of pages?
+	for( i = 0; i < font->getGlyphList().Num(); i++ ) {
+		BMglyph workingGlyph = font->getGlyphList()[i];
+		if ( workingGlyph.getGlyphStructue().page == 0 ) {
+			//TODO since there is some information unused by the BFG code we will be using an intermediate in case we use it in the future
+			// this can be mae simpler by using here the finalGlyph instead of the intermediate Glyph
+			IntermediateGlyph* intermedGlyph = new( TAG_FONT ) IntermediateGlyph( font, workingGlyph );
 
-		int lowestGlyph = selectedGlyphs[i].getGlyphStructue().yoffset + glyph->getGlyphStructue().height;
-		if ( lowestGlyph > lowestPoint ) {
-			lowestPoint = lowestGlyph;
-		}
-		if ( lowestGlyph > font->getGeneratedFontStructure().lineHeight ) {
-			common->Warning( "WARNING: Glyph number '%i' is too high at '%i' for line height at '%i'.\n",
-							 selectedGlyphs[i].getGlyphStructue().id,
-							 lowestGlyph,
-							 font->getGeneratedFontStructure().lineHeight
-						   );
+			int lowestGlyph = workingGlyph.getGlyphStructue().yoffset + intermedGlyph->getInterGlyphStructue().height;
+			if ( lowestGlyph > lowestPoint ) {
+				lowestPoint = lowestGlyph;
+			}
+			if ( lowestGlyph > font->getGeneratedFontStructure().lineHeight ) {
+				common->Warning( "WARNING: Glyph number '%i' is too high at '%i' for line height at '%i'.\n",
+								 workingGlyph.getGlyphStructue().id,
+								 lowestGlyph,
+								 font->getGeneratedFontStructure().lineHeight
+							   );
+			}
+			//TODO see last comment
+			BFGglyph* finalGlyph = new( TAG_FONT ) BFGglyph();
+			BFGglyphStructure_t glyphStructue;
+			glyphStructue.width = intermedGlyph->getInterGlyphStructue().width;
+			glyphStructue.height = intermedGlyph->getInterGlyphStructue().height;
+			glyphStructue.top = intermedGlyph->getInterGlyphStructue().top;
+			glyphStructue.left = intermedGlyph->getInterGlyphStructue().left;
+			glyphStructue.xSkip = intermedGlyph->getInterGlyphStructue().xSkip;
+			glyphStructue.s = intermedGlyph->getInterGlyphStructue().s;
+			glyphStructue.t = intermedGlyph->getInterGlyphStructue().t;
+			finalGlyph->setGlyphStructue( glyphStructue );
+			BFGfileStructure.glyphs.Append( finalGlyph );
+			BFGfileStructure.glyphsIds.Append( intermedGlyph->getInterGlyphStructue().id );
 		}
 	}
+
+	BFGfileStructure.numGlyphs = ( short )BFGfileStructure.glyphs.Num();
 
 	if ( lowestPoint != font->getGeneratedFontStructure().lineHeight ) {
 		common->Warning( "WARNING: Line height '%i' is not what I thought it would be '%i'.\n"
@@ -390,125 +441,98 @@ void BFGfont::Load( BMfont* font ) {
 						 "         Also descender might be wrong: '%i' instead of '%i'.\n",
 						 font->getGeneratedFontStructure().lineHeight,
 						 lowestPoint,
-						 descender,
+						 BFGfileStructure.descender,
 						 font->getGeneratedFontStructure().fontBase - lowestPoint
 					   );
 	}
+}
 
+void BFGfont::CreateFolders() {
+	dest_global_folder = basePath + sharedStruct.relativeOutputDir;
+	dest_relative_file = sharedStruct.relativeOutputDir + BFGfileStructure.pointSize + ".dat";
+	dest_global_file = basePath + dest_relative_file;
+
+	//debug
+	//common->Printf( "folder name is '%s', which means '%s', and filename is '%s'.\n", sharedStruct.relativeOutputDir.c_str(), dest_global_folder.c_str(), dest_relative_file.c_str() );
+
+
+	if( fileSystem->IsFolder( sharedStruct.relativeOutputDir.c_str() ) == FOLDER_NO ) {
+		common->Error( "there is already a file with the same name as the requested folder name in '//newfonts/'!\n" );
+	}
+
+	if ( fileSystem->IsFolder( sharedStruct.relativeOutputDir.c_str() ) == FOLDER_ERROR ) {
+		idStr working_dir = sharedStruct.relativeOutputDir;
+		working_dir.StripLeading( "newfonts/");
+		working_dir.StripTrailing( "/" );
+		common->Printf( "a new folder '%s' has been created in '/newfonts/'.\n", working_dir.c_str() );
+	} else if ( fileSystem->IsFolder( sharedStruct.relativeOutputDir.c_str() ) == FOLDER_YES ) {
+		common->Printf( "deleting folder '%s' first in order to recreate it later.\n", sharedStruct.relativeOutputDir.c_str() );
+		fileSystem->RemoveDir( sharedStruct.relativeOutputDir.c_str() ); //FIXME: does this erase the included files within the folder?
+	}
+	fileSystem->CreateOSPath( dest_global_folder.c_str() );
 }
 
 void BFGfont::Save() {
 
-	idStr foldername = "/newfonts/";
-	foldername.Append( fontFileName.StripPath().StripFileExtension() );
-	foldername += "/";
-	idStr filename = foldername + pointSize + ".dat";
-
-	//debug
-	common->Printf( "folder name is '%s' and filename is '%s'.\n", foldername.c_str(), filename.c_str() );
-
-
-	if ( fileSystem->IsFolder( foldername.c_str() ) == FOLDER_ERROR ) {
-		common->Printf( "folder error\n" );
-	}
-
-	if( fileSystem->IsFolder( foldername.c_str() ) == FOLDER_NO ) {
-		common->Printf( "no folder\n" );
-	}
-
-	if ( fileSystem->IsFolder( foldername.c_str() ) == FOLDER_ERROR ) {
-		//fileSystem->CreateOSPath( fileSystem->RelativePathToOSPath( foldername.c_str() ) );
-		common->Printf( "a new folder '%s' has been created in '//newfonts/'.\n", fontFileName.StripPath().StripFileExtension().c_str() );
-	}
-
-	//for every page
-		//if the image file is there erase it
-		/*if ( fileSystem->FindFile( filename ) == FIND_YES ) {
-			fileSystem->RemoveFile( filename );
-		}*/
-		// copy the image file from fonts to newfonts
-		//fileSystem->CopyFile( const char* fromOSPath, const char* toOSPath );
-
-	/*
-	if ( fileSystem->FindFile( filename ) == FIND_YES ) {
-		fileSystem->RemoveFile( filename );
-	}
-	*/
-
-/*	}
-	//create new file
-	//create buffer
-	int length = 0;
-	length += sizeof()
-	char* buffer = new char[length];
-	fileSystem->WriteFile( const char* relativePath, const void* buffer, int size, const char* basePath = "fs_savepath" );
-	//close file
-*/
-
 	//fonts all have the same filename: "48.dat" a reference to the "size" of the font.
 	//but all different fonts are separated in folders bearing their name inside the "newfonts" folder
-	//so the font "futura" sould be in: //{game_Folder}/newfonts/futura/48.dat
+	//so the font "futura" sould be in: /{'base' folder}/{'game' Folder}/newfonts/futura/48.dat
 
-	//order of the buffer
-/*
-	//create file
-	if ( internalFontFile == NULL ) {
-		internalFontFile = new( TAG_FONT ) idFile_Memory( "48.dat" );
-	} else {*/
-		/* TODO erase file contents an overwrite with the new data */
-/*		internalFontFile->Rewind();
-		internalFontFile->Flush();
+	int i;
+
+	// the 48.dat file
+	if ( fileSystem->FindFile( dest_global_file ) == FIND_YES ) {
+		fileSystem->RemoveFile( dest_global_file );
+	}
+
+	idFile* outputFile = fileSystem->OpenFileWrite( dest_global_file, "fs_basepath" );
+	/*if( outputFile == NULL ) {
+		common->Printf( "BFGfont: the file named '%s' is empty!\n", dest_relative_file.c_str() );
 	}*/
-/*
-        public void Save(string fileName)
-        {
-            FileStream fs = File.Create(fileName);
-            BinaryWriter bw = new BinaryWriter(fs);
 
-            const int FONT_INFO_VERSION = 42;
-            //const int FONT_INFO_MAGIC = (FONT_INFO_VERSION | ('i' << 24) | ('d' << 16) | ('f' << 8));
+	static const int FONT_INFO_VERSION = 42;
+	const int FONT_INFO_MAGIC = ( FONT_INFO_VERSION | ( 'i' << 24 ) | ( 'd' << 16 ) | ( 'f' << 8 ) );
 
-            ASCIIEncoding asen = new ASCIIEncoding();
-            byte[] ascii = asen.GetBytes("idf1");
-            ascii[3] = FONT_INFO_VERSION;
-            bw.Write(ascii);
+	outputFile->WriteBig( FONT_INFO_MAGIC );
+	outputFile->WriteBig( BFGfileStructure.pointSize );
+	outputFile->WriteBig( BFGfileStructure.ascender );
+	outputFile->WriteBig( BFGfileStructure.descender );
+	outputFile->WriteBig( BFGfileStructure.numGlyphs );
 
-            bw.WriteBig(pointSize);
-            bw.WriteBig(ascender);
-            bw.WriteBig(descender);
+	for( i = 0; i < BFGfileStructure.glyphs.Num(); i++ ) {
+		outputFile->WriteUnsignedChar( BFGfileStructure.glyphs[i]->getGlyphStructue().width );
+		outputFile->WriteUnsignedChar( BFGfileStructure.glyphs[i]->getGlyphStructue().height );
+		outputFile->WriteUnsignedChar( BFGfileStructure.glyphs[i]->getGlyphStructue().top );
+		outputFile->WriteUnsignedChar( BFGfileStructure.glyphs[i]->getGlyphStructue().left );
+		outputFile->WriteUnsignedChar( BFGfileStructure.glyphs[i]->getGlyphStructue().xSkip );
+		outputFile->WriteUnsignedShort( BFGfileStructure.glyphs[i]->getGlyphStructue().s );
+		outputFile->WriteUnsignedShort( BFGfileStructure.glyphs[i]->getGlyphStructue().t );
+	}
 
-            short numGlyphs = (short)glyphs.Count();
-            bw.WriteBig(numGlyphs);
+	for( i = 0; i < BFGfileStructure.glyphsIds.Num(); i++ ) {
+		outputFile->WriteInt( BFGfileStructure.glyphsIds[i] );
+	}
+	common->Printf( "BMfont: done writing the %i.dat file!\n", BFGfileStructure.pointSize );
+	delete outputFile;
+}
 
-            foreach (var glyph in glyphs)
-            {
-                bw.Write(glyph.width);
-                bw.Write(glyph.height);
-                bw.Write(glyph.top);
-                bw.Write(glyph.left);
-                bw.Write(glyph.xSkip);
-                byte padding = 0;
-                bw.Write(padding);
-                bw.Write(glyph.s);
-                bw.Write(glyph.t);
-            }
+void BFGfont::CopyPageFiles( void ) {
+	for( int i = 0; i < pages.Num(); i++) {
+		idStr pageImage = pages[i]->getImageFile();
 
-            foreach (var glyph in glyphs)
-            {pointSize
-                bw.Write(glyph.id);
-            }
+		idStr orig_global_pageImage = basePath + sharedStruct.relativeInputDir + pageImage.StripPath();
+		idStr dest_global_pageImage = basePath + sharedStruct.relativeOutputDir + pageImage.StripPath();
 
-            bw.Close();
-            fs.Close();
-        }
-    }
-*/
+		if ( fileSystem->FindFile( dest_global_pageImage ) == FIND_YES ) {
+			fileSystem->RemoveFile( dest_global_pageImage );
+		}
+		//debug
+		//common->Printf( "search path in origin: '%s', and in destine: '%s'.\n", orig_global_pageImage.c_str(), dest_global_pageImage.c_str() );
 
+		fileSystem->CopyFile( orig_global_pageImage.c_str(), dest_global_pageImage.c_str() );
+	}
 
 }
 
+
 } /* namespace BFG */
-
-
-
-

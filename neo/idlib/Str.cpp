@@ -1534,7 +1534,6 @@ int idStr::c_int() const
 	return atoi( data );
 }
 
-
 /*
 ============
 idStr::HasLower

@@ -249,7 +249,7 @@ ID_INLINE void idCmdSystem::ArgCompletion_MapName( const idCmdArgs& args, void( 
 
 ID_INLINE void idCmdSystem::ArgCompletion_FontName( const idCmdArgs& args, void( *callback )( const char* s ) )
 {
-	cmdSystem->ArgCompletion_FolderExtension( args, callback, "fonts/", true, ".fnt", ".dat", NULL );
+	cmdSystem->ArgCompletion_FolderExtension( args, callback, "fonts/", true, ".fnt", NULL );
 }
 
 ID_INLINE void idCmdSystem::ArgCompletion_ModelName( const idCmdArgs& args, void( *callback )( const char* s ) )
