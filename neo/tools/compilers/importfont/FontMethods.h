@@ -168,26 +168,26 @@ private:
 typedef struct
 {
 	int 	id;			// UTF32 - stored separately
-	int 	width;      // width of glyph in pixels
-	int 	height;     // height of glyph in pixels
-	int 	top;        // distance in pixels from the base line to the top of the glyph
-	int 	left;       // distance in pixels from the pen to the left edge of the glyph
-	int 	xSkip;      // x adjustment after rendering this glyphBMpage
+	byte 	width;      // width of glyph in pixels
+	byte 	height;     // height of glyph in pixels
+	char 	top;        // distance in pixels from the base line to the top of the glyph
+	char 	left;       // distance in pixels from the pen to the left edge of the glyph
+	byte 	xSkip;      // x adjustment after rendering this glyphBMpage
 	byte 	padding;
-	word 	s;        	// x offset in image where glyph starts (in pixels)
-	word 	t;        	// y offset in image where glyph starts (in pixels)
+	uint16 	s;        	// x offset in image where glyph starts (in pixels)
+	uint16 	t;        	// y offset in image where glyph starts (in pixels)
 } IntermediateGlyphStructure_t;
 
 //this corresponds with the structure defined in fonts.h
 typedef struct
 {
-	int 	width;      // width of glyph in pixels
-	int 	height;     // height of glyph in pixels
-	int 	top;        // distance in pixels from the base line to the top of the glyph
-	int 	left;       // distance in pixels from the pen to the left edge of the glyph
-	int 	xSkip;      // x adjustment after rendering this glyphBMpage
-	word 	s;        	// x offset in image where glyph starts (in pixels)
-	word 	t;        	// y offset in image where glyph starts (in pixels)
+	byte 	width;      // width of glyph in pixels
+	byte 	height;     // height of glyph in pixels
+	char 	top;        // distance in pixels from the base line to the top of the glyph
+	char 	left;       // distance in pixels from the pen to the left edge of the glyph
+	byte 	xSkip;      // x adjustment after rendering this glyphBMpage
+	uint16 	s;        	// x offset in image where glyph starts (in pixels)
+	uint16 	t;        	// y offset in image where glyph starts (in pixels)
 } BFGglyphStructure_t;
 
 class IntermediateGlyph {

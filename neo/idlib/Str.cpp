@@ -1508,10 +1508,6 @@ int idStr::atoi( char* text ) const
     // Iterate through all digits of input string and update result
     for ( ; text[i] != '\0'; ++i ) {
         res = res*10 + text[i] - '0';
-
-        if ( ( res < -4294967295  ) || ( res > 4294967295 ) ) {
-				common->Warning( "idStr: shoudn't be using atoi for decoding '%s' as it escapes the limit of signed long integer!\n", text );
-		}
     }
 
     // Return result with sign

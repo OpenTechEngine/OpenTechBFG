@@ -309,16 +309,16 @@ void BMfont::DeclareContents(void) {
 IntermediateGlyph::IntermediateGlyph( BMfont* font, BMglyph glyph ) {
 	InterGlyphStructue.id = glyph.getGlyphStructue().id;
 
-	InterGlyphStructue.width = glyph.getGlyphStructue().width;
-	InterGlyphStructue.height = glyph.getGlyphStructue().height;
-	InterGlyphStructue.top = font->getGeneratedFontStructure().fontBase - glyph.getGlyphStructue().yoffset;
-	InterGlyphStructue.left = glyph.getGlyphStructue().xoffset;
-	InterGlyphStructue.xSkip = glyph.getGlyphStructue().xadvance;
+	InterGlyphStructue.width = ( byte )glyph.getGlyphStructue().width;
+	InterGlyphStructue.height = ( byte )glyph.getGlyphStructue().height;
+	InterGlyphStructue.top = ( char )font->getGeneratedFontStructure().fontBase - glyph.getGlyphStructue().yoffset;
+	InterGlyphStructue.left = ( char )glyph.getGlyphStructue().xoffset;
+	InterGlyphStructue.xSkip = ( byte )glyph.getGlyphStructue().xadvance;
 
 	int number_zero = 0;
 	InterGlyphStructue.padding = ( byte )number_zero;
-	InterGlyphStructue.s = ( word )glyph.getGlyphStructue().x;
-	InterGlyphStructue.t = ( word )glyph.getGlyphStructue().y;
+	InterGlyphStructue.s = ( uint16 )glyph.getGlyphStructue().x;
+	InterGlyphStructue.t = ( uint16 )glyph.getGlyphStructue().y;
 }
 
 //BFGglyph
@@ -502,8 +502,8 @@ void BFGfont::Save() {
 	for( i = 0; i < BFGfileStructure.glyphs.Num(); i++ ) {
 		outputFile->WriteUnsignedChar( BFGfileStructure.glyphs[i]->getGlyphStructue().width );
 		outputFile->WriteUnsignedChar( BFGfileStructure.glyphs[i]->getGlyphStructue().height );
-		outputFile->WriteUnsignedChar( BFGfileStructure.glyphs[i]->getGlyphStructue().top );
-		outputFile->WriteUnsignedChar( BFGfileStructure.glyphs[i]->getGlyphStructue().left );
+		outputFile->WriteChar( BFGfileStructure.glyphs[i]->getGlyphStructue().top );
+		outputFile->WriteChar( BFGfileStructure.glyphs[i]->getGlyphStructue().left );
 		outputFile->WriteUnsignedChar( BFGfileStructure.glyphs[i]->getGlyphStructue().xSkip );
 		outputFile->WriteUnsignedShort( BFGfileStructure.glyphs[i]->getGlyphStructue().s );
 		outputFile->WriteUnsignedShort( BFGfileStructure.glyphs[i]->getGlyphStructue().t );
