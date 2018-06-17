@@ -317,8 +317,8 @@ IntermediateGlyph::IntermediateGlyph( BMfont* font, BMglyph glyph ) {
 
 	int number_zero = 0;
 	InterGlyphStructue.padding = ( byte )number_zero;
-	InterGlyphStructue.s = ( ushort )glyph.getGlyphStructue().x;
-	InterGlyphStructue.t = ( ushort )glyph.getGlyphStructue().y;
+	InterGlyphStructue.s = ( word )glyph.getGlyphStructue().x;
+	InterGlyphStructue.t = ( word )glyph.getGlyphStructue().y;
 }
 
 //BFGglyph

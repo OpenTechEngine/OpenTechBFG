@@ -174,8 +174,8 @@ typedef struct
 	int 	left;       // distance in pixels from the pen to the left edge of the glyph
 	int 	xSkip;      // x adjustment after rendering this glyphBMpage
 	byte 	padding;
-	ushort 	s;        	// x offset in image where glyph starts (in pixels)
-	ushort 	t;        	// y offset in image where glyph starts (in pixels)
+	word 	s;        	// x offset in image where glyph starts (in pixels)
+	word 	t;        	// y offset in image where glyph starts (in pixels)
 } IntermediateGlyphStructure_t;
 
 //this corresponds with the structure defined in fonts.h
@@ -186,8 +186,8 @@ typedef struct
 	int 	top;        // distance in pixels from the base line to the top of the glyph
 	int 	left;       // distance in pixels from the pen to the left edge of the glyph
 	int 	xSkip;      // x adjustment after rendering this glyphBMpage
-	ushort 	s;        	// x offset in image where glyph starts (in pixels)
-	ushort 	t;        	// y offset in image where glyph starts (in pixels)
+	word 	s;        	// x offset in image where glyph starts (in pixels)
+	word 	t;        	// y offset in image where glyph starts (in pixels)
 } BFGglyphStructure_t;
 
 class IntermediateGlyph {
