@@ -309,16 +309,14 @@ void BMfont::DeclareContents(void) {
 IntermediateGlyph::IntermediateGlyph( BMfont* font, BMglyph glyph ) {
 	InterGlyphStructue.id = glyph.getGlyphStructue().id;
 
-	InterGlyphStructue.width = ( byte )glyph.getGlyphStructue().width;
-	InterGlyphStructue.height = ( byte )glyph.getGlyphStructue().height;
-	InterGlyphStructue.top = ( char )font->getGeneratedFontStructure().fontBase - glyph.getGlyphStructue().yoffset;
-	InterGlyphStructue.left = ( char )glyph.getGlyphStructue().xoffset;
-	InterGlyphStructue.xSkip = ( byte )glyph.getGlyphStructue().xadvance;
-
-	int number_zero = 0;
-	InterGlyphStructue.padding = ( byte )number_zero;
-	InterGlyphStructue.s = ( uint16 )glyph.getGlyphStructue().x;
-	InterGlyphStructue.t = ( uint16 )glyph.getGlyphStructue().y;
+	InterGlyphStructue.width = static_cast<byte>( glyph.getGlyphStructue().width );
+	InterGlyphStructue.height = static_cast<byte>( glyph.getGlyphStructue().height );
+	InterGlyphStructue.top = static_cast<char>( font->getGeneratedFontStructure().fontBase - glyph.getGlyphStructue().yoffset );
+	InterGlyphStructue.left = static_cast<char>( glyph.getGlyphStructue().xoffset );
+	InterGlyphStructue.xSkip = static_cast<byte>( glyph.getGlyphStructue().xadvance );
+	InterGlyphStructue.padding = static_cast<byte>( 0 );
+	InterGlyphStructue.s = static_cast<uint16>( glyph.getGlyphStructue().x );
+	InterGlyphStructue.t = static_cast<uint16>( glyph.getGlyphStructue().y );
 }
 
 //BFGglyph
