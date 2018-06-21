@@ -48,6 +48,9 @@ void RunAAS_f( const idCmdArgs& args );
 void RunAASDir_f( const idCmdArgs& args );
 void RunReach_f( const idCmdArgs& args );
 
+// font compiler / decompiler
+void ImportFont_f( const idCmdArgs& args );
+
 } // namespace BFG
 
 #endif	/* !__COMPILER_PUBLIC_H__ */

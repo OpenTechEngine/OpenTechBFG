@@ -1484,6 +1484,54 @@ bool idStr::IsNumeric( const char* s )
 
 /*
 ============
+idStr::atoi
+
+the simple atoi() function. If the given string contains any invalid character, then this function returns 0
+based on an article compiled by Abhay Rathi at: https://www.geeksforgeeks.org/write-your-own-atoi/
+
+returns signed int as by default
+============
+*/
+int idStr::atoi( char* text ) const
+{
+
+    int res = 0;
+    int sign = 1;  // Initialize sign as positive
+    int i = 0;  // Initialize index of first digit
+
+    // If number is negative, then update sign
+    if (text[0] == '-') {
+        sign = -1;
+        i++;
+    }
+
+    // Iterate through all digits of input string and update result
+    for ( ; text[i] != '\0'; ++i ) {
+        res = res*10 + text[i] - '0';
+    }
+
+    // Return result with sign
+    return sign*res;
+}
+
+/*
+============
+idStr::c_int
+
+returns a signed int if the isStr is a numeric or errors out.
+============
+*/
+int idStr::c_int() const
+{
+	if( !IsNumeric() ) {
+		common->Error( "idStr: shoudn't be using atoi with non-numeric variables like: '%s'!\n", data );
+	}
+
+	return atoi( data );
+}
+
+/*
+============
 idStr::HasLower
 
 Checks if a string has any lowercase chars

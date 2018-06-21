@@ -216,7 +216,7 @@ bool idFont::LoadFont()
 	fd->ReadBig( version );
 	if( version != FONT_INFO_MAGIC )
 	{
-		idLib::Warning( "Wrong version in %s", GetName() );
+		idLib::Warning( "Wrong version in %s, expected %i, got %i", GetName(), FONT_INFO_MAGIC, version );
 		delete fd;
 		return false;
 	}

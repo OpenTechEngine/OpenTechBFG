@@ -14,6 +14,9 @@ option(MONOLITH
 
 option(SDL2
   "Use SDL2 instead of SDL1.2" ON)
+  
+option(RAPIDXML
+  "use RapidXML" ON)
 
 option(OPENAL
   "Use OpenAL soft instead of XAudio2" OFF)
@@ -83,6 +86,9 @@ endif()
 
 option(BUNDLED_SDL
   "Use bundled SDL" OFF)
+  
+option(BUNDLED_RAPIDXML
+  "Use bundled RapidXML" ON)
 
 option(BUNDLED_CEGUI
   "Use bundled CEGUI" ON)
@@ -127,6 +133,11 @@ endif()
 # sdl
 if(BUNDLED_SDL)
 #  add_subdirectory(libs/sdl)
+endif()
+
+# RapidXML
+if(BUNDLED_RAPIDXML)
+  add_subdirectory(libs/rapidxml)
 endif()
 
 # cegui

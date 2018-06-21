@@ -184,7 +184,7 @@ public:
 	// look for a file in the loaded paks or the addon paks
 	// if the file is found in addons, FS's internal structures are ready for a reloadEngine
 	virtual findFile_t		FindFile( const char* path ) = 0;
-	
+
 	// ignore case and seperator char distinctions
 	virtual bool			FilenameCompare( const char* s1, const char* s2 ) const = 0;
 	

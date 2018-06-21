@@ -98,6 +98,26 @@ template<class T> T	Min( T x, T y )
 	return ( x < y ) ? x : y;
 }
 
+//Macros for different Type Casts, from https://stackoverflow.com/a/45954281
+#define MACRO_ToCharPtr(p)        reinterpret_cast<char*>(p)                   // Cast to char*
+#define MACRO_ToWCharPtr(p)       reinterpret_cast<wchar_t*>(p)                // Cast to wchar_t*
+#define MACRO_ToConstCharPtr(p)   reinterpret_cast<const char*>(p)             // Cast to const char*
+#define MACRO_ToConstWCharPtr(p)  reinterpret_cast<const wchar_t*>(p)          // Cast to const wchar_t*
+#define MACRO_ToUCharPtr(p)       reinterpret_cast<unsigned char*>(p)          // Cast to unsigned char*
+#define MACRO_ToConstUCharPtr(p)  reinterpret_cast<const unsigned char*>(p)    // Cast to const unsigned char*
+//#define MACRO_ToUCharPtr(n)       reinterpret_cast<unsigned char*>(n)          // Cast to unsigned char*
+#define MACRO_ToVoidPtr(p)        reinterpret_cast<void*>(p)                   // Cast to void*
+#define MACRO_ToConstVoidPtr(p)   reinterpret_cast<const void*>(p)             // Cast to const void*
+#define MACRO_ToIntPtr(n)         reinterpret_cast<int*>(n)                    // Cast to int*
+#define MACRO_ToConstIntPtr(p)    reinterpret_cast<const int*>(p)              // Cast to const int*
+#define MACRO_ToDoublePtr(n)      reinterpret_cast<double*>(n)                 // Cast to double*
+#define MACRO_ToConstDoublePtr(n) reinterpret_cast<const double*>(n)           // Cast to const double*
+#define MACRO_ToBoolPtr(n)        reinterpret_cast<bool*>(n)                   // Cast to bool*
+#define MACRO_ToConstBoolPtr(n)   reinterpret_cast<const bool*>(n)             // Cast to const bool*
+#define MACRO_ToBytePtr(p)		  reinterpret_cast<byte*>(p)				   // Cast to Byte*
+
+// General Cast
+#define MACRO_To(T, p)            reinterpret_cast<T>(p)                       // Cast to T
 
 class idFile;
 

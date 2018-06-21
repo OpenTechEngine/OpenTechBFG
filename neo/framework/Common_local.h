@@ -32,6 +32,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/File_SaveGame.h"  // for idFile_SaveGame, etc
 #include "../d3xp/Game.h"               // for gameReturn_t (ptr only), etc
 #include "../framework/UsercmdGen.h"    // for idUserCmdMgr, idUsercmdGen, etc
+#include "../framework/FileSystem.h"
+
 
 namespace BFG
 {
@@ -344,7 +346,9 @@ public:	// These are public because they are called directly by static functions
 	{
 		return userCmdMgr;
 	}
-	
+
+	int					GetTextBuffer( const char* qPath, idStr& result );
+
 private:
 	bool						com_fullyInitialized;
 	bool						com_refreshOnPrint;		// update the screen every print for dmap

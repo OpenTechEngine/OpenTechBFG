@@ -1751,7 +1751,8 @@ void idCommonLocal::InitCommands()
 	cmdSystem->AddCommand( "runAAS", RunAAS_f, CMD_FL_TOOL, "compiles an AAS file for a map", idCmdSystem::ArgCompletion_MapName );
 	cmdSystem->AddCommand( "runAASDir", RunAASDir_f, CMD_FL_TOOL, "compiles AAS files for all maps in a folder", idCmdSystem::ArgCompletion_MapName );
 	cmdSystem->AddCommand( "runReach", RunReach_f, CMD_FL_TOOL, "calculates reachability for an AAS file", idCmdSystem::ArgCompletion_MapName );
-	
+	cmdSystem->AddCommand( "importFont", ImportFont_f, CMD_FL_TOOL, "imports a font", idCmdSystem::ArgCompletion_FontName );
+
 	// cmdSystem->AddCommand( "showEditors", ShowEditors_f, CMD_FL_TOOL, "compiles a map" );
 	
 #endif
@@ -1916,6 +1917,25 @@ idCommonLocal::ResetPlayerInput
 void idCommonLocal::ResetPlayerInput( int playerIndex )
 {
 	userCmdMgr.ResetPlayer( playerIndex );
+}
+
+/*
+========================
+idCommonLocal::GetTextBuffer
+========================
+*/
+int idCommonLocal::GetTextBuffer( const char* localPath, idStr& result ) {
+	char* src;
+
+	if ( fileSystem->ReadFile( localPath, ( void** )&src ) < 0 ) {
+		Warning( "couldn't read '%s' file\n", localPath );
+		return -1;
+	}
+
+	result.Append( src );
+	fileSystem->FreeFile( src );
+
+	return 1;
 }
 
 /*

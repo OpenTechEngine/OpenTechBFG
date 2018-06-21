@@ -162,6 +162,7 @@ public:
 	
 	size_t				Size() const;
 	const char* 		c_str() const;
+	int					c_int() const;
 	operator			const char* () const;
 	operator			const char* ();
 	
@@ -238,6 +239,7 @@ public:
 	idStr& 				RemoveColors();
 	void				CapLength( int );
 	void				Fill( const char ch, int newlen );
+	int					atoi( char* text ) const;
 	
 	ID_INLINE int			UTF8Length();
 	ID_INLINE uint32		UTF8Char( int& idx );

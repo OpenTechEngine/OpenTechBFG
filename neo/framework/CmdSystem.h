@@ -197,6 +197,7 @@ public:
 	static void			ArgCompletion_Decl( const idCmdArgs& args, void( *callback )( const char* s ) );
 	static void			ArgCompletion_FileName( const idCmdArgs& args, void( *callback )( const char* s ) );
 	static void			ArgCompletion_MapName( const idCmdArgs& args, void( *callback )( const char* s ) );
+	static void			ArgCompletion_FontName( const idCmdArgs& args, void( *callback )( const char* s ) );
 	static void			ArgCompletion_ModelName( const idCmdArgs& args, void( *callback )( const char* s ) );
 	static void			ArgCompletion_SoundName( const idCmdArgs& args, void( *callback )( const char* s ) );
 	static void			ArgCompletion_ImageName( const idCmdArgs& args, void( *callback )( const char* s ) );
@@ -244,6 +245,11 @@ ID_INLINE void idCmdSystem::ArgCompletion_FileName( const idCmdArgs& args, void(
 ID_INLINE void idCmdSystem::ArgCompletion_MapName( const idCmdArgs& args, void( *callback )( const char* s ) )
 {
 	cmdSystem->ArgCompletion_FolderExtension( args, callback, "maps/", true, ".map", NULL );
+}
+
+ID_INLINE void idCmdSystem::ArgCompletion_FontName( const idCmdArgs& args, void( *callback )( const char* s ) )
+{
+	cmdSystem->ArgCompletion_FolderExtension( args, callback, "fonts/", true, ".fnt", NULL );
 }
 
 ID_INLINE void idCmdSystem::ArgCompletion_ModelName( const idCmdArgs& args, void( *callback )( const char* s ) )

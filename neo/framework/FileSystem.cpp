@@ -174,7 +174,7 @@ public:
 	virtual bool			RenameFile( const char* relativePath, const char* newName, const char* basePath = "fs_savepath" );
 	virtual idFile* 		OpenFileReadFlags( const char* relativePath, int searchFlags, bool allowCopyFiles = true, const char* gamedir = NULL );
 	virtual idFile* 		OpenFileRead( const char* relativePath, bool allowCopyFiles = true, const char* gamedir = NULL );
-	virtual idFile* 		OpenFileReadMemory( const char* relativePath, bool allowCopyFiles = true, const char* gamedir = NULL );
+	virtual idFile* 		OpenFileReadMemory( const char* relativePidFileSystemLocalath, bool allowCopyFiles = true, const char* gamedir = NULL );
 	virtual idFile* 		OpenFileWrite( const char* relativePath, const char* basePath = "fs_savepath" );
 	virtual idFile* 		OpenFileAppend( const char* relativePath, bool sync = false, const char* basePath = "fs_basepath" );
 	virtual idFile* 		OpenFileByMode( const char* relativePath, fsMode_t mode );
