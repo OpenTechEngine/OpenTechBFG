@@ -251,7 +251,7 @@ typedef struct
 	short				descender;
 	short 				numGlyphs;
 	idList<BFGglyph*>	glyphs;
-	idList<int>			glyphsIds;
+	idList<uint32>		glyphsIds;
 } BFGfileStructure_t;
 
 class BFGfont {

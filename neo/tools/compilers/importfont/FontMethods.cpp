@@ -388,9 +388,9 @@ void BFGfont::Load( BMfont* font ) {
 	assert( ( font->getGeneratedFontStructure().numPages == 1 ) && ( pages.Num() == 1 ) );
 
 	//get page info
-	BFGfileStructure.pointSize = 48; // must be 48!
-	BFGfileStructure.ascender = (short)font->getGeneratedFontStructure().fontBase;
-	BFGfileStructure.descender = (short)( font->getGeneratedFontStructure().fontBase - font->getGeneratedFontStructure().lineHeight );
+	BFGfileStructure.pointSize = static_cast<short>( 48 ); // must be 48!
+	BFGfileStructure.ascender = static_cast<short>( font->getGeneratedFontStructure().fontBase );
+	BFGfileStructure.descender = static_cast<short>( font->getGeneratedFontStructure().fontBase - font->getGeneratedFontStructure().lineHeight );
 
 	int lowestPoint = 0;
 
@@ -427,11 +427,11 @@ void BFGfont::Load( BMfont* font ) {
 			glyphStructue.t = intermedGlyph->getInterGlyphStructue().t;
 			finalGlyph->setGlyphStructue( glyphStructue );
 			BFGfileStructure.glyphs.Append( finalGlyph );
-			BFGfileStructure.glyphsIds.Append( intermedGlyph->getInterGlyphStructue().id );
+			BFGfileStructure.glyphsIds.Append( static_cast<uint32>( intermedGlyph->getInterGlyphStructue().id ) );
 		}
 	}
 
-	BFGfileStructure.numGlyphs = ( short )BFGfileStructure.glyphs.Num();
+	BFGfileStructure.numGlyphs = static_cast<short>( BFGfileStructure.glyphs.Num() );
 
 	if ( lowestPoint != font->getGeneratedFontStructure().lineHeight ) {
 		common->Warning( "WARNING: Line height '%i' is not what I thought it would be '%i'.\n"
@@ -508,7 +508,7 @@ void BFGfont::Save() {
 	}
 
 	for( i = 0; i < BFGfileStructure.glyphsIds.Num(); i++ ) {
-		outputFile->WriteInt( BFGfileStructure.glyphsIds[i] );
+		outputFile->WriteUnsignedInt( BFGfileStructure.glyphsIds[i] );
 	}
 	common->Printf( "BMfont: done writing the %i.dat file!\n", BFGfileStructure.pointSize );
 	delete outputFile;
@@ -516,10 +516,16 @@ void BFGfont::Save() {
 
 void BFGfont::CopyPageFiles( void ) {
 	for( int i = 0; i < pages.Num(); i++) {
-		idStr pageImage = pages[i]->getImageFile();
+		idStr pageImage = pages[i]->getImageFile(); //just the name
+		idStr PageImageExt = "";
+		pageImage.ExtractFileExtension( PageImageExt ); // get the extension
+		idStr pageImage_destine = "";
+		//pageImage_destine.Append( reinterpret_cast<const char*>( BFGfileStructure.pointSize ) ); //set the name of the file as '48' as stated in BFGfileStructure.pointSize
+		pageImage_destine = "48"; //FIXME f**k it! I can't get a damn short to a idStr! it shouldn't be a fixed number but a number dependent on the pointSize!
+		pageImage_destine.SetFileExtension( PageImageExt ); //and add the correct extension
 
 		idStr orig_global_pageImage = basePath + sharedStruct.relativeInputDir + pageImage.StripPath();
-		idStr dest_global_pageImage = basePath + sharedStruct.relativeOutputDir + pageImage.StripPath();
+		idStr dest_global_pageImage = basePath + sharedStruct.relativeOutputDir + pageImage_destine;
 
 		if ( fileSystem->FindFile( dest_global_pageImage ) == FIND_YES ) {
 			fileSystem->RemoveFile( dest_global_pageImage );
