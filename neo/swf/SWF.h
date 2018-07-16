@@ -437,7 +437,7 @@ private:
 	//----------------------------------
 	// SWF_Image.cpp
 	//----------------------------------
-	
+#ifdef USE_JPEG
 	class idDecompressJPEG
 	{
 	public:
@@ -452,15 +452,15 @@ private:
 	
 	idDecompressJPEG	jpeg;
 	
-	void			LoadImage( int characterID, const byte* imageData, int width, int height );
-	
 	void			JPEGTables( idSWFBitStream& bitstream );
-	void			DefineBits( idSWFBitStream& bitstream );
 	void			DefineBitsJPEG2( idSWFBitStream& bitstream );
 	void			DefineBitsJPEG3( idSWFBitStream& bitstream );
+	void			DefineBits( idSWFBitStream& bitstream );
+#endif //USE_JPEG
 	void			DefineBitsLossless( idSWFBitStream& bitstream );
 	void			DefineBitsLossless2( idSWFBitStream& bitstream );
-	
+	void			LoadImage( int characterID, const byte* imageData, int width, int height );
+
 	
 	// per-swf image atlas
 	struct imageToPack_t

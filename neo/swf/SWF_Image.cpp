@@ -42,14 +42,16 @@ If you have questions concerning this license or the applicable additional terms
 #include "../swf/SWF_Bitstream.h"
 #include "../swf/SWF_Enums.h"
 
+#ifdef USE_JPEG
 extern "C" {
 #include <jpeglib.h>
 #include <jmorecfg.h>
 }
-
+#endif //USE_JPEG
 namespace BFG
 {
 
+#ifdef USE_JPEG
 /*
 ========================
 idSWF::idDecompressJPEG
@@ -189,7 +191,7 @@ byte* idSWF::idDecompressJPEG::Load( const byte* input, int inputSize, int& widt
 		return NULL;
 	}
 }
-
+#endif //USE_JPEG
 
 /*
 ========================
@@ -393,6 +395,7 @@ void idSWF::LoadImage( int characterID, const byte* imageData, int width, int he
 	entry->material = NULL;
 }
 
+#ifdef USE_JPEG
 /*
 ========================
 idSWF::JPEGTables
@@ -501,6 +504,7 @@ void idSWF::DefineBitsJPEG3( idSWFBitStream& bitstream )
 	
 	Mem_Free( imageData );
 }
+#endif //USE_JPEG
 
 /*
 ========================

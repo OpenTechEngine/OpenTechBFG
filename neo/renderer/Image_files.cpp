@@ -41,10 +41,11 @@ extern "C"
 #include <cstdio>
 #include <cstring>
 
+#ifdef USE_JPEG
 extern "C" {
 #include <jpeglib.h>
 }
-
+#endif //USE_JPEG
 
 #include "../framework/Common.h"
 #include "../framework/File.h"
@@ -76,6 +77,7 @@ void R_LoadImage( const char *name, byte **pic, int *width, int *height, bool ma
 namespace BFG
 {
 
+#ifdef USE_JPEG
 // hooks from jpeg lib to our system
 
 void jpg_Error( const char* fmt, ... )
@@ -101,7 +103,7 @@ void jpg_Printf( const char* fmt, ... )
 	
 	common->Printf( "%s", msg );
 }
-
+#endif //USE_JPEG
 
 
 /*
@@ -439,6 +441,7 @@ breakOut:
 	fileSystem->FreeFile( buffer );
 }
 
+#ifdef USE_JPEG
 /*
 =========================================================
 
@@ -631,6 +634,7 @@ static void LoadJPG( const char* filename, unsigned char** pic, int* width, int*
 	
 	/* And we're done! */
 }
+#endif //USE_JPEG
 
 // RB begin
 /*
@@ -894,7 +898,9 @@ static imageExtToLoader_t imageLoaders[] =
 {
 	{"png", LoadPNG},
 	{"tga", LoadTGA},
+#ifdef USE_JPEG
 	{"jpg", LoadJPG},
+#endif // USE_JPEG
 };
 
 static const int numImageLoaders = sizeof( imageLoaders ) / sizeof( imageLoaders[0] );
