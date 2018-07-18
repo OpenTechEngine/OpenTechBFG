@@ -33,6 +33,9 @@ option(IDTOOLS
 option(CEGUI
   "Use cegui" ON)
 
+option(libJPEG
+  "Use jpeg" ON)
+
 if((WIN32 AND (CMAKE_COMPILER_IS_GNUCC OR NOT $ENV{VSINSTALLDIR})) OR
 ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   # breakpad doesn't work on mingw out of the box
@@ -95,7 +98,7 @@ message(STATUS CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE})
 ###############
 
 # libjpeg
-if(BUNDLED_JPEG)
+if(BUNDLED_JPEG AND libJPEG) 
   add_subdirectory(libs/jpeg)
 endif()
 

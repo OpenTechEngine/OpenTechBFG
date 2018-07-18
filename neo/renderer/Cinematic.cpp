@@ -51,11 +51,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys/sys_public.h"
 
 
-
+#ifdef USE_JPEG
 //#define JPEG_INTERNALS
 //extern "C" {
 #include <jpeglib.h>
 //}
+#endif //USE_JPEG
 
 #include "tr_local.h"
 
@@ -201,7 +202,7 @@ const int ROQ_QUAD				= 0x1000;
 const int ROQ_QUAD_INFO			= 0x1001;
 const int ROQ_CODEBOOK			= 0x1002;
 const int ROQ_QUAD_VQ			= 0x1011;
-const int ROQ_QUAD_JPEG			= 0x1012;
+const int ROQ_QUAD_JPEG			= 0x1012; //TODO this is internal to the roq file so we might have to skip it's rendering in that case and announce a fail?
 const int ROQ_QUAD_HANG			= 0x1013;
 const int ROQ_PACKET			= 0x1030;
 const int ZA_SOUND_MONO			= 0x1020;
@@ -2018,23 +2019,47 @@ void idCinematicLocal::RoQReset()
 	status = FMV_LOOPED;
 }
 
-
+#ifdef USE_JPEG
 typedef struct
 {
 	struct jpeg_source_mgr pub;	/* public fields */
-	
 	byte*   infile;		/* source stream */
 	JOCTET* buffer;		/* start of buffer */
 	boolean start_of_file;	/* have we gotten any data yet? */
 	int	memsize;
 } my_source_mgr;
+#else
+struct blank_source_mgr {
+  const byte * next_input_byte; /* => next byte to read from buffer */
+  size_t bytes_in_buffer;	/* # of bytes remjpeg_source_mgraining in buffer */
+
+  void init_source();
+  void skip_input_data();
+  void term_source();
+
+  bool resync_to_restart();
+  bool fill_input_buffer();
+};
+
+typedef struct
+{
+	struct blank_source_mgr pub;	/* public fields */
+	byte*   infile;		/* source stream */
+	byte* buffer;		/* start of buffer */
+	bool start_of_file;	/* have we gotten any data yet? */
+	int	memsize;
+} my_source_mgr;
+#endif //USE_JPEG
 
 typedef my_source_mgr* my_src_ptr;
 
 #define INPUT_BUF_SIZE  32768	/* choose an efficiently fread'able size */
 
+#ifdef USE_JPEG
 /* jpeg error handling */
 struct jpeg_error_mgr jerr;
+
+
 
 /*
  * Fill the input buffer --- called whenever buffer is emptied.
@@ -2322,7 +2347,7 @@ int JPEGBlit( byte* wStatus, byte* data, int datasize )
 	/* And we're done! */
 	return 1;
 }
-
+#endif //USE_JPEG
 /*
 ==============
 idCinematicLocal::RoQInterrupt
@@ -2398,14 +2423,20 @@ redump:
 			RoQFrameSize = 0;
 			break;
 		case	ROQ_QUAD_JPEG:
+#ifdef USE_JPEG
 			if( !numQuads )
 			{
 				normalBuffer0 = t[0];
+
 				JPEGBlit( image, framedata, RoQFrameSize );
 				memcpy( image + screenDelta, image, samplesPerLine * ysize );
 				numQuads++;
 			}
 			break;
+#else
+			//TODO think of something else?
+			common->Warning( "idCinematic: can't render JPEG structure in ROQ files if you haven't compiled JPEG support." );
+#endif //USE_JPEG
 		default:
 			status = FMV_EOF;
 			break;

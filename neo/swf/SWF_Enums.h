@@ -51,7 +51,9 @@ enum swfTag_t
 	Tag_RemoveObject = 5,
 	Tag_DefineBits = 6,
 	Tag_DefineButton = 7,
+#ifdef USE_JPEG
 	Tag_JPEGTables = 8,
+#endif //USE_JPEG
 	Tag_SetBackgroundColor = 9,
 	Tag_DefineFont = 10,
 	Tag_DefineText = 11,
@@ -63,7 +65,9 @@ enum swfTag_t
 	Tag_SoundStreamHead = 18,
 	Tag_SoundStreamBlock = 19,
 	Tag_DefineBitsLossless = 20,
+#ifdef USE_JPEG
 	Tag_DefineBitsJPEG2 = 21,
+#endif //USE_JPEG
 	Tag_DefineShape2 = 22,
 	Tag_DefineButtonCxform = 23,
 	Tag_Protect = 24,
@@ -72,7 +76,9 @@ enum swfTag_t
 	Tag_DefineShape3 = 32,
 	Tag_DefineText2 = 33,
 	Tag_DefineButton2 = 34,
+#ifdef USE_JPEG
 	Tag_DefineBitsJPEG3 = 35,
+#endif //USE_JPEG
 	Tag_DefineBitsLossless2 = 36,
 	Tag_DefineEditText = 37,
 	Tag_DefineSprite = 39,

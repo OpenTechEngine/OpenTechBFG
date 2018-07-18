@@ -123,10 +123,12 @@ void idSWFSprite::Load( idSWFBitStream& bitstream, bool parseDictionary )
 					HANDLE_SWF_TAG( FileAttributes );
 					HANDLE_SWF_TAG( Metadata );
 					HANDLE_SWF_TAG( SetBackgroundColor );
+#ifdef USE_JPEG
 					HANDLE_SWF_TAG( JPEGTables );
 					HANDLE_SWF_TAG( DefineBits );
 					HANDLE_SWF_TAG( DefineBitsJPEG2 );
 					HANDLE_SWF_TAG( DefineBitsJPEG3 );
+#endif //USE_JPEG
 					HANDLE_SWF_TAG( DefineBitsLossless );
 					HANDLE_SWF_TAG( DefineBitsLossless2 );
 					HANDLE_SWF_TAG( DefineShape );

@@ -50,7 +50,9 @@ const char* idSWF::GetTagName( swfTag_t tag )
 			SWF_TAG_NAME( RemoveObject );
 			SWF_TAG_NAME( DefineBits );
 			SWF_TAG_NAME( DefineButton );
+#ifdef USE_JPEG
 			SWF_TAG_NAME( JPEGTables );
+#endif //USE_JPEG
 			SWF_TAG_NAME( SetBackgroundColor );
 			SWF_TAG_NAME( DefineFont );
 			SWF_TAG_NAME( DefineText );
@@ -62,7 +64,9 @@ const char* idSWF::GetTagName( swfTag_t tag )
 			SWF_TAG_NAME( SoundStreamHead );
 			SWF_TAG_NAME( SoundStreamBlock );
 			SWF_TAG_NAME( DefineBitsLossless );
+#ifdef USE_JPEG
 			SWF_TAG_NAME( DefineBitsJPEG2 );
+#endif //USE_JPEG
 			SWF_TAG_NAME( DefineShape2 );
 			SWF_TAG_NAME( DefineButtonCxform );
 			SWF_TAG_NAME( Protect );
@@ -71,7 +75,9 @@ const char* idSWF::GetTagName( swfTag_t tag )
 			SWF_TAG_NAME( DefineShape3 );
 			SWF_TAG_NAME( DefineText2 );
 			SWF_TAG_NAME( DefineButton2 );
+#ifdef USE_JPEG
 			SWF_TAG_NAME( DefineBitsJPEG3 );
+#endif //USE_JPEG
 			SWF_TAG_NAME( DefineBitsLossless2 );
 			SWF_TAG_NAME( DefineEditText );
 			SWF_TAG_NAME( DefineSprite );

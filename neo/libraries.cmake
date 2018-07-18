@@ -1,11 +1,15 @@
 # libjpeg
-if(BUNDLED_JPEG)
-  include_directories(../libs/jpeg/libjpeg-turbo-1.3.1)
-else()
-  find_package(JPEG REQUIRED)
-  include_directories(${JPEG_INCLUDE_DIRS})
+if( libJPEG )
+	add_definitions(-DUSE_JPEG)
+
+    if(BUNDLED_JPEG)
+      include_directories(../libs/jpeg/libjpeg-turbo-1.3.1)
+    else()
+      find_package(JPEG REQUIRED)
+      include_directories(${JPEG_INCLUDE_DIRS})
+    endif()
+    set(JPEG_LIBRARY jpeg)
 endif()
-set(JPEG_LIBRARY jpeg)
 
 # zlib and minizip
 if(BUNDLED_ZLIB)
