@@ -343,6 +343,12 @@ idCVar r_ssaoFiltering( "r_ssaoFiltering", "1", CVAR_RENDERER | CVAR_BOOL, "" );
 idCVar r_useHierarchicalDepthBuffer( "r_useHierarchicalDepthBuffer", "1", CVAR_RENDERER | CVAR_BOOL, "" );
 
 idCVar r_exposure( "r_exposure", "0.5", CVAR_ARCHIVE | CVAR_RENDERER | CVAR_FLOAT, "HDR exposure or LDR brightness [0.0 .. 1.0]", 0.0f, 1.0f );
+
+idCVar r_useLens( "r_useLens", "1", CVAR_RENDERER | CVAR_ARCHIVE | CVAR_BOOL, "render the lens effects." );
+idCVar r_lens_k( "r_lens_k", "-0.12", CVAR_RENDERER | CVAR_ARCHIVE | CVAR_FLOAT, "the lens distortion coefficient,\nIt is generally a small positive or negative number under 1%." );
+idCVar r_lens_kcube( "r_lens_kcube", "0.1", CVAR_RENDERER | CVAR_ARCHIVE | CVAR_FLOAT, "the cubic distortion value." );
+idCVar r_lens_chromatic( "r_lens_chromatic", "1.12", CVAR_RENDERER | CVAR_ARCHIVE | CVAR_FLOAT, "the chromatic aberration." );
+
 // RB end
 
 const char* fileExten[3] = { "tga", "png", "jpg" };

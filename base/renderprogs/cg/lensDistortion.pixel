@@ -1,0 +1,98 @@
+/*
+this file is GPLv3
+the original GLSL from GZDoom:
+
+	    Original Lens Distortion Algorithm from SSontech
+	    http://www.ssontech.com/content/lensalg.htm
+
+	    If (u,v) are the coordinates of a feature in the undistorted perfect
+	    image plane, then (u', v') are the coordinates of the feature on the
+	    distorted image plate, ie the scanned or captured image from the
+	    camera. The distortion occurs radially away from the image center,
+	    with correction for the image aspect ratio (image_aspect = physical
+	    image width/height), as follows:
+
+	    r2 = image_aspect*image_aspect*u*u + v*v
+	    f = 1 + r2*(k + kcube*sqrt(r2))
+	    u' = f*u
+	    v' = f*v
+
+	    The constant k is the distortion coefficient that appears on the lens
+	    panel and through Sizzle. It is generally a small positive or negative
+	    number under 1%. The constant kcube is the cubic distortion value found
+	    on the image preprocessor's lens panel: it can be used to undistort or
+	    redistort images, but it does not affect or get computed by the solver.
+	    When no cubic distortion is needed, neither is the square root, saving
+	    time.
+
+	    Chromatic Aberration example,
+	    using red distord channel with green and blue undistord channel:
+
+	    k = vec3(-0.15, 0.0, 0.0);
+	    kcube = vec3(0.15, 0.0, 0.0);
+
+    in vec2 TexCoord;
+    layout(location=0) out vec4 FragColor;
+
+    layout(binding=0) uniform sampler2D InputTexture;
+
+    void main()
+    {
+	    vec2 position = (TexCoord - vec2(0.5));
+
+	    vec2 p = vec2(position.x * Aspect, position.y);
+	    float r2 = dot(p, p);
+	    vec3 f = vec3(1.0) + r2 * (k.rgb + kcube.rgb * sqrt(r2));
+
+	    vec3 x = f * position.x * Scale + 0.5;
+	    vec3 y = f * position.y * Scale + 0.5;
+
+	    vec3 c;
+	    c.r = texture(InputTexture, vec2(x.r, y.r)).r;
+	    c.g = texture(InputTexture, vec2(x.g, y.g)).g;
+	    c.b = texture(InputTexture, vec2(x.b, y.b)).b;
+
+	    FragColor = vec4(c, 1.0);
+    }
+
+*/
+
+#include "renderprogs/global.inc"
+
+uniform sampler2D samp0 : register(s0);   // view color
+
+struct PS_IN {
+	float2 texcoord0 : TEXCOORD0_centroid;
+};
+
+struct PS_OUT {
+	float4 color : COLOR;
+};
+
+void main( PS_IN fragment, out PS_OUT result ) {
+#if 1
+    if ( fragment.texcoord0.x < 0.5f ) {
+        // only draw on half the screen for comparison
+        discard;
+    }
+#endif
+    float3 k = rpLensDistortion1.rgb;
+    float aspect = rpLensDistortion1.w;
+    float3 kcube = rpLensDistortion2.rgb;
+    float scale = rpLensDistortion2.w;  
+
+    float2 position = fragment.texcoord0 - float2( 0.5f );
+    float2 p = float2( position.x * aspect, position.y );
+    float r2 = dot( p, p );
+    float3 f = float3( 1.0f ) + r2 * ( k + kcube * sqrt( r2 ) );
+    
+    float3 distorted_pos_x = f * position.x * scale + 0.5f;
+    float3 distorted_pos_y = f * position.y * scale + 0.5f;
+
+    float3 final_color;
+    final_color.r = tex2D( samp0, float2( distorted_pos_x.r, distorted_pos_y.r ) ).r;
+    final_color.g = tex2D( samp0, float2( distorted_pos_x.g, distorted_pos_y.g ) ).g;
+    final_color.b = tex2D( samp0, float2( distorted_pos_x.b, distorted_pos_y.b ) ).b;
+
+    result.color = float4( final_color, 1.0 );
+}

@@ -4645,7 +4645,6 @@ static void RB_Bloom( const viewDef_t* viewDef )
 	GL_Cull( CT_FRONT_SIDED );
 }
 
-
 static void RB_SSAO( const viewDef_t* viewDef )
 {
 	if( !viewDef->viewEntitys || viewDef->is2Dgui )
@@ -5262,7 +5261,7 @@ void RB_DrawViewInternal( const viewDef_t* viewDef, const int stereoEye )
 	// to actually render the visible surfaces for this view
 	//
 	// clear the z buffer, set the projection matrix, etc
-	//-------------------------------------------------
+	//---4----------------------------------------------
 	RB_ResetViewportAndScissorToDefaultCamera( viewDef );
 	
 	backEnd.glState.faceCulling = -1;		// force face culling to set next time
@@ -5512,6 +5511,84 @@ void RB_DrawViewInternal( const viewDef_t* viewDef, const int stereoEye )
 	renderLog.CloseBlock();
 }
 
+void RB_LensDeform() {
+
+	if( backEnd.viewDef->is2Dgui || !r_useLens.GetBool() || backEnd.viewDef->isSubview || !backEnd.viewDef->viewEntitys ) {
+		// 3D views only and not in subviews
+		return;
+	}
+	RENDERLOG_PRINTF( "---------- RB_Lens() ----------\n" );
+
+	// resolve the scaled rendering to a temporary texture
+
+	const idScreenRect& viewport = backEnd.viewDef->viewport;
+
+	GL_State( GLS_SRCBLEND_ONE | GLS_DSTBLEND_ZERO | GLS_DEPTHMASK | GLS_DEPTHFUNC_ALWAYS );
+	GL_Cull( CT_TWO_SIDED );
+
+	int screenWidth = renderSystem->GetWidth();
+	int screenHeight = renderSystem->GetHeight();
+
+	// set the window clipping
+	GL_Viewport( 0, 0, screenWidth, screenHeight );
+	GL_Scissor( 0, 0, screenWidth, screenHeight );
+
+	float aspect = screenWidth / screenHeight;
+
+
+	float k[4];
+	k[0] = r_lens_k.GetFloat();
+	k[1] = r_lens_k.GetFloat() * r_lens_chromatic.GetFloat();
+	k[2] = r_lens_k.GetFloat() * r_lens_chromatic.GetFloat() * r_lens_chromatic.GetFloat();
+	k[3] = 0.0f;
+
+	float kcube[4];
+	kcube[0] = r_lens_kcube.GetFloat();
+	kcube[1] = r_lens_kcube.GetFloat() * r_lens_chromatic.GetFloat();
+	kcube[2] = r_lens_kcube.GetFloat() * r_lens_chromatic.GetFloat() * r_lens_chromatic.GetFloat();
+	kcube[3] = 0.0f;
+
+	// Scale factor to keep sampling within the input texture
+	/*
+	 * the original formula:
+	 *
+	 *	r2 = image_aspect*image_aspect*u*u + v*v
+	 *	f = 1 + r2*(k + kcube*sqrt(r2))
+	 *	u' = f*u
+	 *	v' = f*v
+	 *
+	 */
+	float r2 = aspect * aspect * 0.25f + 0.25f;
+	float sqrt_r2 = idMath::Sqrt(r2);
+	float f0 = 1.0f + Max2(r2 * (k[0] + kcube[0] * sqrt_r2), 0.0f);
+	float f2 = 1.0f + Max2(r2 * (k[2] + kcube[2] * sqrt_r2), 0.0f);
+	float f = Max2(f0, f2);
+	float scale = 1.0f / f;
+
+	globalImages->currentRenderImage->CopyFramebuffer( viewport.x1, viewport.y1, viewport.GetWidth(), viewport.GetHeight() );
+
+	GL_SelectTexture( 0 );
+	globalImages->currentRenderImage->Bind();
+
+	renderProgManager.BindShader_MotionBlur();
+
+	float uniforms[4];
+	uniforms[0] = k[0];
+	uniforms[1] = k[1];
+	uniforms[1] = k[1];
+	uniforms[0] = aspect;
+	SetFragmentParm( RENDERPARM_LENS_UNIFORMS1, uniforms ); // rpLensDistortion1
+
+	uniforms[0] = kcube[0];
+	uniforms[1] = kcube[1];
+	uniforms[1] = kcube[1];
+	uniforms[0] = scale;
+	SetFragmentParm( RENDERPARM_LENS_UNIFORMS2, uniforms ); // rpLensDistortion2
+
+	// Draw
+	RB_DrawElementsWithCounters( &backEnd.unitSquareSurface );
+}
+
 /*
 ==================
 RB_MotionBlur
@@ -5676,6 +5753,8 @@ void RB_DrawView( const void* data, const int stereoEye )
 	
 	RB_MotionBlur();
 	
+	RB_LensDeform();
+
 	// restore the context for 2D drawing if we were stubbing it out
 	// RB: not really needed
 	//if( r_skipRenderContext.GetBool() && backEnd.viewDef->viewEntitys )
@@ -5779,7 +5858,7 @@ void RB_PostProcess( const void* data )
 		/*
 		 * The shader has three passes, chained together as follows:
 		 *
-		 *                           |input|------------------·
+		 *                           |input|------------------ï¿½
 		 *                              v                     |
 		 *                    [ SMAA*EdgeDetection ]          |
 		 *                              v                     |
@@ -5789,7 +5868,7 @@ void RB_PostProcess( const void* data )
 		 *                              v                     |
 		 *                          |blendTex|                |
 		 *                              v                     |
-		 *                [ SMAANeighborhoodBlending ] <------·
+		 *                [ SMAANeighborhoodBlending ] <------ï¿½
 		 *                              v
 		 *                           |output|
 		*/
