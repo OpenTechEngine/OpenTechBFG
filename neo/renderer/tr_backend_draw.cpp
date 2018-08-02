@@ -5523,7 +5523,10 @@ void RB_LensDeform() {
 
 	const idScreenRect& viewport = backEnd.viewDef->viewport;
 
-	GL_State( GLS_SRCBLEND_ONE | GLS_DSTBLEND_ZERO | GLS_DEPTHMASK | GLS_DEPTHFUNC_ALWAYS );
+	glClearColor( 0, 0, 0, 1 );
+
+	//GL_State( GLS_SRCBLEND_ONE | GLS_DSTBLEND_ZERO | GLS_DEPTHMASK | GLS_DEPTHFUNC_ALWAYS );
+	GL_State( GLS_DEPTHMASK | GLS_DEPTHFUNC_ALWAYS );
 	GL_Cull( CT_TWO_SIDED );
 
 	int screenWidth = renderSystem->GetWidth();
@@ -5575,14 +5578,14 @@ void RB_LensDeform() {
 	float uniforms[4];
 	uniforms[0] = k[0];
 	uniforms[1] = k[1];
-	uniforms[1] = k[1];
-	uniforms[0] = aspect;
+	uniforms[2] = k[2];
+	uniforms[3] = aspect;
 	SetFragmentParm( RENDERPARM_LENS_UNIFORMS1, uniforms ); // rpLensDistortion1
 
 	uniforms[0] = kcube[0];
 	uniforms[1] = kcube[1];
-	uniforms[1] = kcube[1];
-	uniforms[0] = scale;
+	uniforms[2] = kcube[2];
+	uniforms[3] = scale;
 	SetFragmentParm( RENDERPARM_LENS_UNIFORMS2, uniforms ); // rpLensDistortion2
 
 	// Draw
@@ -5753,7 +5756,7 @@ void RB_DrawView( const void* data, const int stereoEye )
 	
 	RB_MotionBlur();
 	
-	RB_LensDeform();
+	//RB_LensDeform();
 
 	// restore the context for 2D drawing if we were stubbing it out
 	// RB: not really needed
@@ -5825,7 +5828,8 @@ void RB_PostProcess( const void* data )
 
 	// only do the post process step if resolution scaling is enabled. Prevents the unnecessary copying of the framebuffer and
 	// corresponding full screen quad pass.
-	if( rs_enable.GetInteger() == 0 && !r_useFilmicPostProcessEffects.GetBool() && r_antiAliasing.GetInteger() == 0 )
+	//if( rs_enable.GetInteger() == 0 && !r_useFilmicPostProcessEffects.GetBool() && r_antiAliasing.GetInteger() == 0 ) //FIXME RS works incorreclty with the HDR FBO
+	if( !r_useFilmicPostProcessEffects.GetBool() && r_antiAliasing.GetInteger() == 0 )
 	{
 		return;
 	}
@@ -5976,7 +5980,46 @@ void RB_PostProcess( const void* data )
 		RB_DrawElementsWithCounters( &backEnd.unitSquareSurface );
 	}
 #endif
-	
+
+	// Lens distortion in post process //TODO make it independent!
+	if( !backEnd.viewDef->is2Dgui || r_useLens.GetBool() || !backEnd.viewDef->isSubview || backEnd.viewDef->viewEntitys ) {
+
+		float aspect = screenWidth / screenHeight;
+
+
+		float k[4];
+		k[0] = r_lens_k.GetFloat();
+		k[1] = r_lens_k.GetFloat() * r_lens_chromatic.GetFloat();
+		k[2] = r_lens_k.GetFloat() * r_lens_chromatic.GetFloat() * r_lens_chromatic.GetFloat();
+		k[3] = 0.0f;
+
+		float kcube[4];
+		kcube[0] = r_lens_kcube.GetFloat();
+		kcube[1] = r_lens_kcube.GetFloat() * r_lens_chromatic.GetFloat();
+		kcube[2] = r_lens_kcube.GetFloat() * r_lens_chromatic.GetFloat() * r_lens_chromatic.GetFloat();
+		kcube[3] = 0.0f;
+
+		float r2 = aspect * aspect * 0.25f + 0.25f;
+		float sqrt_r2 = idMath::Sqrt(r2);
+		float f0 = 1.0f + Max2(r2 * (k[0] + kcube[0] * sqrt_r2), 0.0f);
+		float f2 = 1.0f + Max2(r2 * (k[2] + kcube[2] * sqrt_r2), 0.0f);
+		float f = Max2(f0, f2);
+		float scale = 1.0f / f;
+
+		float uniforms[4];
+		uniforms[0] = k[0];
+		uniforms[1] = k[1];
+		uniforms[2] = k[2];
+		uniforms[3] = aspect;
+		SetFragmentParm( RENDERPARM_LENS_UNIFORMS1, uniforms ); // rpLensDistortion1
+
+		uniforms[0] = kcube[0];
+		uniforms[1] = kcube[1];
+		uniforms[2] = kcube[2];
+		uniforms[3] = scale;
+		SetFragmentParm( RENDERPARM_LENS_UNIFORMS2, uniforms ); // rpLensDistortion2
+	}
+
 	GL_SelectTexture( 2 );
 	globalImages->BindNull();
 	

@@ -271,7 +271,6 @@ LightInfo::LightInfo()
 	Defaults();
 }
 
-
 // ########### LightEditor #############
 
 // static

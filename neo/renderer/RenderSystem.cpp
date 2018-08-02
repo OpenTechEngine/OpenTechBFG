@@ -774,18 +774,16 @@ void idRenderSystemLocal::SwapCommandBuffers_FinishRendering(
 	{
 		return;
 	}
-	
-	
+
 	// After coming back from an autoswap, we won't have anything to render
 	if( frameData->cmdHead->next != NULL )
 	{
-	
 #ifdef USE_CEGUI
 		// DG: we want cegui to update/render at the end of the frame
 		idCEGUI::Update();
 #endif // USE_CEGUI
 		ImGuiHook::Render();
-		
+
 		// wait for our fence to hit, which means the swap has actually happened
 		// We must do this before clearing any resources the GPU may be using
 		GL_BlockingSwapBuffers();

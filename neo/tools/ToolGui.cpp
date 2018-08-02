@@ -1,3 +1,4 @@
+#include "editors/cameraExplorer/cameraExplorer.h"
 #include "../imgui/BFGimgui.h"
 #include "../idlib/CmdArgs.h"
 
@@ -16,6 +17,10 @@ void ShowEditors_f( const idCmdArgs& args )
 }
 #endif // 0
 
+void CameraExplorer_f( const idCmdArgs& args ) {
+	Tools::CameraExplorerInit();
+}
+
 namespace Tools
 {
 
@@ -33,7 +38,9 @@ void SetReleaseToolMouse( bool doRelease )
 bool AreEditorsActive()
 {
 	// FIXME: this is not exactly clean and must be changed if we ever support game dlls
-	return g_editEntityMode.GetInteger() > 0;
+	//return g_editEntityMode.GetInteger() > 0;
+	return true;
+
 }
 
 bool ReleaseMouseForTools()
@@ -46,18 +53,26 @@ void DrawToolWindows()
 #if 0
 	ImGui::Begin( "Show Ingame Editors", &showToolWindows, 0 );
 	
-	ImGui::Checkbox( "Light", &LightEditor::showIt );
+	ImGui::Checkbox( "Light", &LightEdicameraExp.tor::showIt );
 	ImGui::SameLine();
 	ImGui::Checkbox( "Particle", &showParticlesEditor );
 #endif // 0
-	
+
 	if( LightEditor::showIt )
 	{
 		LightEditor::Draw();
 	}
+	if( blCameraExplorer::ShowWindow )
+	{
+		blCameraExplorer::Update();
+	}
 	
 	// TODO: other editor windows..
 	//ImGui::End();
+}
+void CameraExplorerInit() {
+	impl::SetReleaseToolMouse( true );
+	blCameraExplorer::OpenWindow();
 }
 
 void LightEditorInit( const idDict* dict, idEntity* ent )
@@ -75,6 +90,5 @@ void LightEditorInit( const idDict* dict, idEntity* ent )
 	
 	LightEditor::ReInit( dict, ent );
 }
-
 } //namespace Tools
 } //namespace BFG

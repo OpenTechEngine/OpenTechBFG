@@ -370,6 +370,7 @@ bool ShowWindows()
 bool UseInput()
 {
 	return Tools::ReleaseMouseForTools();
+
 }
 
 } //anon namespace

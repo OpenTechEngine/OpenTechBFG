@@ -1884,9 +1884,9 @@ void R_SampleCubeMap( const idVec3& dir, int size, byte* buffers[6], byte result
 	float	adir[3];
 	int		axis, x, y;
 	
-	adir[0] = fabs( dir[0] );
-	adir[1] = fabs( dir[1] );
-	adir[2] = fabs( dir[2] );
+	adir[0] = idMath::Fabs( dir[0] );
+	adir[1] = idMath::Fabs( dir[1] );
+	adir[2] = idMath::Fabs( dir[2] );
 	
 	if( dir[0] >= adir[1] && dir[0] >= adir[2] )
 	{
@@ -2230,7 +2230,7 @@ void R_SetColorMappings()
 	float j = 0.0f;
 	for( int i = 0; i < 256; i++, j += b )
 	{
-		int inf = idMath::Ftoi( 0xffff * pow( j / 255.0f, invg ) + 0.5f );
+		int inf = idMath::Ftoi( 0xffff * idMath::Pow( j / 255.0f, invg ) + 0.5f );
 		tr.gammaTable[i] = idMath::ClampInt( 0, 0xFFFF, inf );
 	}
 	
@@ -2344,13 +2344,13 @@ void GfxInfo_f( const idCmdArgs& args )
 	
 	common->Printf( "%5.1f cm screen width (%4.1f\" diagonal)\n",
 					glConfig.physicalScreenWidthInCentimeters, glConfig.physicalScreenWidthInCentimeters / 2.54f
-					* sqrt( ( float )( 16 * 16 + 9 * 9 ) ) / 16.0f );
+					* idMath::Sqrt( ( float )( 16 * 16 + 9 * 9 ) ) / 16.0f );
 	extern idCVar r_forceScreenWidthCentimeters;
 	if( r_forceScreenWidthCentimeters.GetFloat() )
 	{
 		common->Printf( "screen size manually forced to %5.1f cm width (%4.1f\" diagonal)\n",
 						renderSystem->GetPhysicalScreenWidthInCentimeters(), renderSystem->GetPhysicalScreenWidthInCentimeters() / 2.54f
-						* sqrt( ( float )( 16 * 16 + 9 * 9 ) ) / 16.0f );
+						* idMath::Sqrt( ( float )( 16 * 16 + 9 * 9 ) ) / 16.0f );
 	}
 	
 	if( glConfig.gpuSkinningAvailable )

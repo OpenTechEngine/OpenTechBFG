@@ -1694,7 +1694,7 @@ void idCommonLocal::CreateMainMenu()
 }
 
 /*
-===============
+===============God
 idCommonLocal::Stop
 
 called on errors and game exits
@@ -1753,6 +1753,8 @@ void idCommonLocal::InitCommands()
 	cmdSystem->AddCommand( "runReach", RunReach_f, CMD_FL_TOOL, "calculates reachability for an AAS file", idCmdSystem::ArgCompletion_MapName );
 	
 	// cmdSystem->AddCommand( "showEditors", ShowEditors_f, CMD_FL_TOOL, "compiles a map" );
+	// tools
+	cmdSystem->AddCommand( "camExplo", CameraExplorer_f, CMD_FL_TOOL, "Opens the Camera Explorer Window" );
 	
 #endif
 }
