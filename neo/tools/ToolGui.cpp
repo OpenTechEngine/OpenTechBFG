@@ -1,3 +1,7 @@
+/*
+ * this file is GPLv3
+ */
+
 #include "editors/cameraExplorer/cameraExplorer.h"
 #include "../imgui/BFGimgui.h"
 #include "../idlib/CmdArgs.h"

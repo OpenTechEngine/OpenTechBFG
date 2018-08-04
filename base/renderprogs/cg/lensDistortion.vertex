@@ -1,6 +1,7 @@
 /*
-this file is GPLv3
-*/
+ * this file is GPLv3
+ */
+
 #include "renderprogs/global.inc"
 
 struct VS_IN {

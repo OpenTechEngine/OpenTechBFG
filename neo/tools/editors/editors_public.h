@@ -1,8 +1,9 @@
 /*
  * editors_public.h
+ * this file is GPLv3
  *
  *  Created on: 31 de jul. 2018
- *      Author: biel
+ *      Author: Biel Bestué de Luna
  */
 
 #ifndef NEO_TOOLS_EDITORS_EDITORS_PUBLIC_H_

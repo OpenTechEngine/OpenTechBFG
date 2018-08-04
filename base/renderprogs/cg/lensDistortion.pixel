@@ -1,6 +1,7 @@
 /*
 this file is GPLv3
-the original GLSL from GZDoom:
+adapted from the original GLSL code from GZDoom by Biel Bestué de Luna.
+the file contained the follwing credit and explanation besides the code:
 
 	    Original Lens Distortion Algorithm from SSontech
 	    http://www.ssontech.com/content/lensalg.htm

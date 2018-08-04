@@ -1,3 +1,6 @@
+/*
+ * this file is GPLv3
+ */
 
 #ifndef NEO_TOOLS_TOOLS_H_
 #define NEO_TOOLS_TOOLS_H_
