@@ -1754,7 +1754,7 @@ void idCommonLocal::InitCommands()
 	
 	// cmdSystem->AddCommand( "showEditors", ShowEditors_f, CMD_FL_TOOL, "compiles a map" );
 	// tools
-	cmdSystem->AddCommand( "camExplo", CameraExplorer_f, CMD_FL_TOOL, "Opens the Camera Explorer Window" );
+	cmdSystem->AddCommand( "cameraExplorer", CameraExplorer_f, CMD_FL_TOOL, "Opens the Camera Explorer Window" );
 	
 #endif
 }

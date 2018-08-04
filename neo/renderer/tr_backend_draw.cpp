@@ -5573,7 +5573,7 @@ void RB_LensDeform() {
 	GL_SelectTexture( 0 );
 	globalImages->currentRenderImage->Bind();
 
-	renderProgManager.BindShader_MotionBlur();
+	renderProgManager.BindShader_LensDeform();
 
 	float uniforms[4];
 	uniforms[0] = k[0];
@@ -5756,7 +5756,7 @@ void RB_DrawView( const void* data, const int stereoEye )
 	
 	RB_MotionBlur();
 	
-	//RB_LensDeform();
+	RB_LensDeform();
 
 	// restore the context for 2D drawing if we were stubbing it out
 	// RB: not really needed

@@ -30,31 +30,6 @@ the original GLSL from GZDoom:
 
 	    k = vec3(-0.15, 0.0, 0.0);
 	    kcube = vec3(0.15, 0.0, 0.0);
-
-    in vec2 TexCoord;
-    layout(location=0) out vec4 FragColor;
-
-    layout(binding=0) uniform sampler2D InputTexture;
-
-    void main()
-    {
-	    vec2 position = (TexCoord - vec2(0.5));
-
-	    vec2 p = vec2(position.x * Aspect, position.y);
-	    float r2 = dot(p, p);
-	    vec3 f = vec3(1.0) + r2 * (k.rgb + kcube.rgb * sqrt(r2));
-
-	    vec3 x = f * position.x * Scale + 0.5;
-	    vec3 y = f * position.y * Scale + 0.5;
-
-	    vec3 c;
-	    c.r = texture(InputTexture, vec2(x.r, y.r)).r;
-	    c.g = texture(InputTexture, vec2(x.g, y.g)).g;
-	    c.b = texture(InputTexture, vec2(x.b, y.b)).b;
-
-	    FragColor = vec4(c, 1.0);
-    }
-
 */
 
 #include "renderprogs/global.inc"
@@ -70,16 +45,25 @@ struct PS_OUT {
 };
 
 void main( PS_IN fragment, out PS_OUT result ) {
-#if 1
+#if 0
     if ( fragment.texcoord0.x < 0.5f ) {
         // only draw on half the screen for comparison
         discard;
     }
 #endif
+
+    //float r_lens_k = -0.12f;
+    //float r_lens_kcube = 0.1f;
+    //float r_lens_chromatic = 1.12f;
+
     float3 k = rpLensDistortion1.rgb;
+    //float3 k = float3( r_lens_k, r_lens_k * r_lens_chromatic, r_lens_k * r_lens_chromatic * r_lens_chromatic );
     float aspect = rpLensDistortion1.w;
+    //aspect = 1.78f;
     float3 kcube = rpLensDistortion2.rgb;
-    float scale = rpLensDistortion2.w;  
+    //float3 kcube = float3( r_lens_kcube, r_lens_kcube * r_lens_chromatic, r_lens_kcube * r_lens_chromatic * r_lens_chromatic );
+    float scale = rpLensDistortion2.w;
+    //scale = 0.5f; 
 
     float2 position = fragment.texcoord0 - float2( 0.5f );
     float2 p = float2( position.x * aspect, position.y );
@@ -89,10 +73,11 @@ void main( PS_IN fragment, out PS_OUT result ) {
     float3 distorted_pos_x = f * position.x * scale + 0.5f;
     float3 distorted_pos_y = f * position.y * scale + 0.5f;
 
-    float3 final_color;
+    float4 final_color;
     final_color.r = tex2D( samp0, float2( distorted_pos_x.r, distorted_pos_y.r ) ).r;
     final_color.g = tex2D( samp0, float2( distorted_pos_x.g, distorted_pos_y.g ) ).g;
     final_color.b = tex2D( samp0, float2( distorted_pos_x.b, distorted_pos_y.b ) ).b;
+    final_color.w = 1.0f;
 
-    result.color = float4( final_color, 1.0 );
+    result.color = final_color;
 }
