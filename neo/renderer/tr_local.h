@@ -1118,6 +1118,12 @@ extern idCVar r_ssaoFiltering;
 extern idCVar r_useHierarchicalDepthBuffer;
 
 extern idCVar r_exposure;
+
+extern idCVar r_useLens;
+extern idCVar r_lens_k;
+extern idCVar r_lens_kcube;
+extern idCVar r_lens_chromatic;
+
 // RB end
 
 /*

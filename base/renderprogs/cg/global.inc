@@ -111,6 +111,10 @@ uniform float4 rpShadowMatrices[6*4]	:	register(c59);
 #endif
 // RB end
 
+uniform float4 rpLensDistortion1        :   register(c82);
+uniform float4 rpLensDistortion2        :   register(c83);
+
+
 static float dot2( float2 a, float2 b ) { return dot( a, b ); }
 static float dot3( float3 a, float3 b ) { return dot( a, b ); }
 static float dot3( float3 a, float4 b ) { return dot( a, b.xyz ); }

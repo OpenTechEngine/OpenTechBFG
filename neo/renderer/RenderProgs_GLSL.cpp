@@ -382,6 +382,8 @@ static const char* GLSLParmNames[RENDERPARM_TOTAL] =
 	"rpShadowMatrix5Z",
 	"rpShadowMatrix5W",
 	// RB end
+	"rpLensDistortion1", //82
+	"rpLensDistortion2",
 };
 
 // RB begin

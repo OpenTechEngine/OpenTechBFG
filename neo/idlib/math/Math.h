@@ -328,7 +328,14 @@ template<class T> ID_INLINE int	MinIndex( T x, T y )
 {
 	return ( x < y ) ? 0 : 1;
 }
-
+template<class T> ID_INLINE T	Max2( T x, T y)
+{
+	return ( x > y ) ? x : y;
+}
+template<class T> ID_INLINE T	Min2( T x, T y)
+{
+	return ( x < y ) ? x : y;
+}
 template<class T> ID_INLINE T	Max3( T x, T y, T z )
 {
 	return ( x > y ) ? ( ( x > z ) ? x : z ) : ( ( y > z ) ? y : z );

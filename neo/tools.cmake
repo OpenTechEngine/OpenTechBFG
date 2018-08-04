@@ -19,6 +19,9 @@ set(TOOLS_COMMON_SOURCES
 file(GLOB EDITOR_INCLUDES tools/editors/*.h)
 file(GLOB EDITOR_SOURCES tools/editors/*.cpp)
 
+file(GLOB EDITOR_CAMERAEXPLORER_INCLUDES tools/editors/cameraExplorer/*.h)
+file(GLOB EDITOR_CAMERAEXPLORER_SOURCES tools/editors/cameraExplorer/*.cpp)
+
 source_group("tools\\compilers" FILES ${COMPILER_INCLUDES})
 
 source_group("tools\\compilers\\aas" FILES ${COMPILER_AAS_INCLUDES})
@@ -30,6 +33,9 @@ source_group("tools\\compilers\\dmap" FILES ${COMPILER_DMAP_SOURCES})
 source_group("tools\\editors" FILES ${EDITOR_INCLUDES})
 source_group("tools\\editors" FILES ${EDITOR_SOURCES})
 
+source_group("tools\\editors\\cameraExplorer" FILES ${EDITOR_CAMERAEXPLORER_INCLUDES})
+source_group("tools\\editors\\cameraExplorer" FILES ${EDITOR_CAMERAEXPLORER_SOURCES})
+
 
 set(IDTOOLS_INCLUDES
   ${TOOLS_COMMON_INCLUDES}
@@ -37,6 +43,7 @@ set(IDTOOLS_INCLUDES
   ${COMPILER_AAS_INCLUDES} # ${COMPILER_AAS_SOURCES}
   ${COMPILER_DMAP_INCLUDES} # ${COMPILER_DMAP_SOURCES}
   ${EDITOR_INCLUDES}
+  ${EDITOR_CAMERAEXPLORER_INCLUDES} # ${EDITOR_CAMERAEXPLORER_SOURCES}
   )
 
 set(IDTOOLS_SOURCES
@@ -44,4 +51,5 @@ set(IDTOOLS_SOURCES
   ${COMPILER_AAS_SOURCES}
   ${COMPILER_DMAP_SOURCES}
   ${EDITOR_SOURCES}
+  ${EDITOR_CAMERAEXPLORER_SOURCES}
   )

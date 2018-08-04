@@ -180,6 +180,7 @@ void idRenderProgManager::Init()
 		{ BUILTIN_BINK_GUI, "bink_gui.vfp", "", 0, false },
 		{ BUILTIN_STEREO_INTERLACE, "stereoInterlace.vfp", "", 0, false },
 		{ BUILTIN_MOTION_BLUR, "motionBlur.vfp", "", 0, false },
+		{ BUILTIN_LENS_DEFORM, "lensDistortion.vfp", "", 0, false },
 		
 		// RB begin
 		{ BUILTIN_DEBUG_SHADOWMAP, "debug_shadowmap.vfp", "", 0, false },

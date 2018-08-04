@@ -127,6 +127,8 @@ static const cgShaderDef_t cg_renderprogs[] =
 		"uniform float4 rpShadowMatrices[6*4]	:	register(c59);\n"
 		"#endif\n"
 		"// RB end\n"
+		"uniform float4 rpLensDistortion1        :   register(c82);\n"
+		"uniform float4 rpLensDistortion2        :   register(c83);\n"
 		"\n"
 		"static float dot2( float2 a, float2 b ) { return dot( a, b ); }\n"
 		"static float dot3( float3 a, float3 b ) { return dot( a, b ); }\n"
@@ -399,7 +401,7 @@ static const cgShaderDef_t cg_renderprogs[] =
 		" *\n"
 		" * The shader has three passes, chained together as follows:\n"
 		" *\n"
-		" *                           |input|------------------·\n"
+		" *                           |input|------------------ï¿½\n"
 		" *                              v                     |\n"
 		" *                    [ SMAA*EdgeDetection ]          |\n"
 		" *                              v                     |\n"
@@ -409,7 +411,7 @@ static const cgShaderDef_t cg_renderprogs[] =
 		" *                              v                     |\n"
 		" *                          |blendTex|                |\n"
 		" *                              v                     |\n"
-		" *                [ SMAANeighborhoodBlending ] <------·\n"
+		" *                [ SMAANeighborhoodBlending ] <------ï¿½\n"
 		" *                              v\n"
 		" *                           |output|\n"
 		" *\n"
@@ -1797,7 +1799,7 @@ static const cgShaderDef_t cg_renderprogs[] =
 		"}\n"
 		"\n"
 		"// Fresnel term F( v, h )\n"
-		"// Fnone( v, h ) = F(0°) = specularColor\n"
+		"// Fnone( v, h ) = F(0ï¿½) = specularColor\n"
 		"half3 Fresnel_Schlick( half3 specularColor, half vdotH )\n"
 		"{\n"
 		"	return specularColor + ( 1.0 - specularColor ) * pow( 1.0 - vdotH, 5.0 );\n"
@@ -8279,7 +8281,7 @@ static const cgShaderDef_t cg_renderprogs[] =
 		"	const half roughness = specMapSRGB.r;\n"
 		"	const half glossiness = 1.0 - roughness;\n"
 		"\n"
-		"	// the vast majority of real-world materials (anything not metal or gems) have F(0°)\n"
+		"	// the vast majority of real-world materials (anything not metal or gems) have F(0ï¿½)\n"
 		"	// values in a very narrow range (~0.02 - 0.08)\n"
 		"	\n"
 		"	// approximate non-metals with linear RGB 0.04 which is 0.08 * 0.5 (default in UE4)\n"
@@ -9364,7 +9366,7 @@ static const cgShaderDef_t cg_renderprogs[] =
 		"	const half roughness = specMapSRGB.r;\n"
 		"	const half glossiness = 1.0 - roughness;\n"
 		"\n"
-		"	// the vast majority of real-world materials (anything not metal or gems) have F(0°)\n"
+		"	// the vast majority of real-world materials (anything not metal or gems) have F(0ï¿½)\n"
 		"	// values in a very narrow range (~0.02 - 0.08)\n"
 		"	\n"
 		"	// approximate non-metals with linear RGB 0.04 which is 0.08 * 0.5 (default in UE4)\n"
@@ -12758,7 +12760,7 @@ static const cgShaderDef_t cg_renderprogs[] =
 		"(at your option) any later version.\n"
 		"\n"
 		"Doom 3 BFG Edition Source Code is distributed in the hope that it will be useful,\n"
-		"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+		"but WITHOUT ANY WARRANTY; without even the implied warzcullReconstructranty of\n"
 		"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
 		"GNU General Public License for more details.\n"
 		"\n"
@@ -12788,7 +12790,7 @@ static const cgShaderDef_t cg_renderprogs[] =
 		"}\n"
 		
 	},
-	
+
 	{0, 0},
 	
 };

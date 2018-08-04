@@ -41,8 +41,216 @@ If you have questions concerning this license or the applicable additional terms
 namespace BFG
 {
 
+
+
+
+
+extern idCVar r_requestStereoPixelFormat;
+extern idCVar r_debugContext;
+extern idCVar r_glDriver;
+extern idCVar r_skipIntelWorkarounds;
+extern idCVar r_antiAliasing;
+extern idCVar r_vidMode;
+extern idCVar r_displayRefresh;
+
+extern idCVar r_fullscreen;
+
+extern idCVar r_customWidth;
+extern idCVar r_customHeight;
+extern idCVar r_windowX;
+extern idCVar r_windowY;
+extern idCVar r_windowWidth;
+extern idCVar r_windowHeight;
+
+extern idCVar r_useViewBypass;
+extern idCVar r_useLightPortalFlow;
+extern idCVar r_singleTriangle;
+extern idCVar r_checkBounds;
+extern idCVar r_useConstantMaterials;
+extern idCVar r_useSilRemap;
+extern idCVar r_useNodeCommonChildren;
+extern idCVar r_useShadowSurfaceScissor;
+extern idCVar r_useCachedDynamicModels;
+extern idCVar r_useSeamlessCubeMap;
+extern idCVar r_useSRGB;
+extern idCVar r_maxAnisotropicFiltering;
+extern idCVar r_useTrilinearFiltering;
+
+extern idCVar r_lodBias;
+extern idCVar r_useStateCaching;
+extern idCVar r_znear;
+extern idCVar r_ignoreGLErrors;
+extern idCVar r_swapInterval;
+extern idCVar r_gamma;
+extern idCVar r_brightness;
+extern idCVar r_jitter;
+
+extern idCVar r_skipStaticInteractions;
+extern idCVar r_skipDynamicInteractions;
+extern idCVar r_skipSuppress;
+extern idCVar r_skipPostProcess;
+extern idCVar r_skipInteractions;
+extern idCVar r_skipDynamicTextures;
+extern idCVar r_skipCopyTexture;
+extern idCVar r_skipBackEnd;
+extern idCVar r_skipRender;
+
+extern idCVar r_skipRenderContext;
+extern idCVar r_skipTranslucent;
+extern idCVar r_skipAmbient;
+extern idCVar r_skipNewAmbient;
+extern idCVar r_skipBlendLights;
+extern idCVar r_skipFogLights;
+extern idCVar r_skipDeforms;
+extern idCVar r_skipFrontEnd;
+extern idCVar r_skipUpdates;
+extern idCVar r_skipDecals;
+extern idCVar r_skipOverlays;
+extern idCVar r_skipSpecular;
+extern idCVar r_skipBump;
+extern idCVar r_skipDiffuse;
+extern idCVar r_skipSubviews;
+extern idCVar r_skipGuiShaders;
+extern idCVar r_skipParticles;
+extern idCVar r_skipShadows;
+
+extern idCVar r_useLightPortalCulling;
+extern idCVar r_useLightAreaCulling;
+extern idCVar r_useLightScissors;
+extern idCVar r_useEntityPortalCulling;
+extern idCVar r_logFile;
+extern idCVar r_clear;
+
+extern idCVar r_offsetFactor;
+extern idCVar r_offsetUnits;
+
+
+extern idCVar r_shadowPolygonOffset;
+extern idCVar r_shadowPolygonFactor;
+extern idCVar r_subviewOnly;
+extern idCVar r_testGamma;
+extern idCVar r_testGammaBias;
+extern idCVar r_lightScale;
+extern idCVar r_flareSize;
+
+extern idCVar r_skipPrelightShadows;
+extern idCVar r_useScissor;
+extern idCVar r_useLightDepthBounds;
+extern idCVar r_useShadowDepthBounds;
+extern idCVar r_useHalfLambertLighting;
+
+extern idCVar r_screenFraction;
+extern idCVar r_usePortals;
+extern idCVar r_singleLight;
+extern idCVar r_singleEntity;
+extern idCVar r_singleSurface;
+extern idCVar r_singleArea;
+extern idCVar r_orderIndexes;
+extern idCVar r_lightAllBackFaces;
+
+extern idCVar r_showPortals;
+extern idCVar r_showUnsmoothedTangents;
+extern idCVar r_showSilhouette;
+extern idCVar r_showVertexColor;
+extern idCVar r_showUpdates;
+extern idCVar r_showDemo;
+extern idCVar r_showDynamic;
+extern idCVar r_showTrace;
+extern idCVar r_showIntensity;
+extern idCVar r_showLights;
+extern idCVar r_showShadows;
+extern idCVar r_showLightScissors;
+extern idCVar r_showLightCount;
+extern idCVar r_showViewEntitys;
+extern idCVar r_showTris;
+extern idCVar r_showSurfaceInfo;
+extern idCVar r_showNormals;
+extern idCVar r_showMemory;
+extern idCVar r_showCull;
+extern idCVar r_showAddModel;
+extern idCVar r_showDepth;
+extern idCVar r_showSurfaces;
+extern idCVar r_showPrimitives;
+extern idCVar r_showEdges;
+extern idCVar r_showTexturePolarity;
+extern idCVar r_showTangentSpace;
+extern idCVar r_showDominantTri;
+extern idCVar r_showTextureVectors;
+extern idCVar r_showOverDraw;
+
+extern idCVar r_showShadowMaps;
+extern idCVar r_showShadowMapLODs;
+
+extern idCVar r_useEntityCallbacks;
+
+extern idCVar r_showSkel;
+extern idCVar r_jointNameScale;
+extern idCVar r_jointNameOffset;
+
+extern idCVar r_debugLineDepthTest;
+extern idCVar r_debugLineWidth;
+extern idCVar r_debugArrowStep;
+extern idCVar r_debugPolygonFilled;
+
+extern idCVar r_materialOverride;
+
+extern idCVar r_debugRenderToTexture;
+
+extern idCVar stereoRender_enable;
 extern idCVar stereoRender_warp;
 extern idCVar stereoRender_swapEyes;
+extern idCVar stereoRender_deGhost;
+
+extern idCVar r_useVirtualScreenResolution;
+
+extern idCVar r_useShadowMapping;
+extern idCVar r_shadowMapFrustumFOV;
+extern idCVar r_shadowMapSingleSide;
+extern idCVar r_shadowMapImageSize;
+extern idCVar r_shadowMapJitterScale;
+extern idCVar r_shadowMapBiasScale;
+extern idCVar r_shadowMapRandomizeJitter;
+extern idCVar r_shadowMapSamples;
+extern idCVar r_shadowMapSplits;
+extern idCVar r_shadowMapSplitWeight;
+extern idCVar r_shadowMapLodScale;
+extern idCVar r_shadowMapLodBias;
+extern idCVar r_shadowMapPolygonFactor;
+extern idCVar r_shadowMapPolygonOffset;
+extern idCVar r_shadowMapOccluderFacing;
+extern idCVar r_shadowMapRegularDepthBiasScale;
+extern idCVar r_shadowMapSunDepthBiasScale;
+
+extern idCVar r_useHDR;
+extern idCVar r_hdrAutoExposure;
+extern idCVar r_hdrMinLuminance;
+extern idCVar r_hdrMaxLuminance;
+extern idCVar r_hdrKey;
+extern idCVar r_hdrContrastDynamicThreshold;
+extern idCVar r_hdrContrastStaticThreshold;
+extern idCVar r_hdrContrastOffset;
+extern idCVar r_hdrGlarePasses;
+extern idCVar r_hdrDebug;
+extern idCVar r_ldrContrastThreshold;
+extern idCVar r_ldrContrastOffset;
+
+extern idCVar r_useFilmicPostProcessEffects;
+extern idCVar r_forceAmbient;
+extern idCVar r_useSSGI;
+extern idCVar r_ssgiDebug;
+extern idCVar r_ssgiFiltering;
+extern idCVar r_useSSAO;
+extern idCVar r_ssaoDebug;
+extern idCVar r_ssaoFiltering;
+extern idCVar r_useHierarchicalDepthBuffer;
+
+extern idCVar r_exposure;
+
+
+extern idCVar r_useLens;
+extern idCVar r_lens_k;
+extern idCVar r_lens_kcube;
+extern idCVar r_lens_chromatic;
 
 /*
 ===============================================================================
@@ -224,8 +432,6 @@ const int BIGCHAR_HEIGHT		= 16;
 // and will be automatically scaled to the real resolution
 const int SCREEN_WIDTH			= 640;
 const int SCREEN_HEIGHT			= 480;
-
-extern idCVar r_useVirtualScreenResolution;
 
 class idRenderWorld;
 

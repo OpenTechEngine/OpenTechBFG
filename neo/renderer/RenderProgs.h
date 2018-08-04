@@ -164,6 +164,10 @@ enum renderParm_t
 	RENDERPARM_SHADOW_MATRIX_5_W,
 	// RB end
 	
+	//lens renderparms
+	RENDERPARM_LENS_UNIFORMS1,
+	RENDERPARM_LENS_UNIFORMS2,
+
 	RENDERPARM_TOTAL,
 	RENDERPARM_USER = 128,
 };
@@ -530,6 +534,10 @@ public:
 	{
 		BindShader_Builtin( BUILTIN_MOTION_BLUR );
 	}
+	void	BindShader_LensDeform()
+	{
+		BindShader_Builtin( BUILTIN_LENS_DEFORM );
+	}
 	
 	void	BindShader_DebugShadowMap()
 	{
@@ -651,6 +659,7 @@ protected:
 		BUILTIN_BINK_GUI,
 		BUILTIN_STEREO_INTERLACE,
 		BUILTIN_MOTION_BLUR,
+		BUILTIN_LENS_DEFORM,
 		
 		BUILTIN_DEBUG_SHADOWMAP,
 		
