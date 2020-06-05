@@ -267,7 +267,7 @@ namespace BFG
 idTempArray is an array that is automatically free'd when it goes out of scope.
 There is no "cast" operator because these are very unsafe.
 
-The template parameter MUST BE POD!
+The template parameter MUST BE POD! <- plain old data
 
 Compile time asserting POD-ness of the template parameter is complicated due
 to our vector classes that need a default constructor but are otherwise
