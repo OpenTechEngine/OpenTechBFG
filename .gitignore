@@ -19,3 +19,5 @@ OpenTechEngine.pdb
 OpenTechEngine.exe
 
 .DS_Store
+
+.buildconfig
